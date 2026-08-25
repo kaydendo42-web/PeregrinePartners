@@ -68,7 +68,6 @@ body {
   color: var(--ink);
   font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   font-feature-settings: "cv11", "ss01";
-  font-optical-sizing: auto;
   overflow-x: hidden;
 }
 
@@ -80,24 +79,22 @@ body {
 /* Type roles ---------------------------------------------------- */
 .t-hero {
   font-size: clamp(38px, 4.86vw, 70px);
+  font-size: min(max(38px, 4.86vw), 70px);
   line-height: 1.1;
   letter-spacing: -0.04em;
   font-weight: 500;
-  font-variation-settings: "opsz" 32;
 }
 .t-display {
   font-size: clamp(34px, 3.75vw, 54px);
   line-height: 1.1;
   letter-spacing: -0.04em;
   font-weight: 500;
-  font-variation-settings: "opsz" 32;
 }
 .t-statement {
   font-size: clamp(30px, 3.9vw, 56px);
   line-height: 1.07;
   letter-spacing: -0.036em;
   font-weight: 500;
-  font-variation-settings: "opsz" 32;
 }
 
 .t-marquee {
@@ -105,7 +102,6 @@ body {
   line-height: 1.1;
   letter-spacing: -0.04em;
   font-weight: 700;
-  font-variation-settings: "opsz" 32;
 }
 .t-body {
   font-size: 16px;
@@ -161,3 +157,11 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+
+/* Pin the display ramp to the measured pixel values on desktop. */
+@media (min-width: 1440px) {
+  .t-hero { font-size: 70px; line-height: 77px; letter-spacing: -2.8px; }
+  .t-statement { font-size: 56px; line-height: 60px; letter-spacing: -2px; }
+  .t-display { font-size: 54px; line-height: 59.4px; letter-spacing: -2.16px; }
+  .t-marquee { font-size: 200px; line-height: 220px; letter-spacing: -8px; }
+}

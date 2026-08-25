@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { Button } from "./ui/button";
 import { LogoPill } from "./ui/mark";
-import { footer } from "@/lib/content";
+import { brand, footer } from "@/lib/content";
 
 const SOCIALS = ["x", "in", "yt", "ig"] as const;
 
@@ -25,10 +25,13 @@ export function Footer() {
       id="footer"
       className="sticky bottom-0 z-0 flex min-h-[1050px] w-full flex-col justify-end overflow-hidden bg-[#0d1410]"
     >
-      <GardenArt />
+      <div className="pointer-events-none absolute inset-0">
+        <img src={footer.bg} alt="" aria-hidden className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "rgba(8,18,10,0.28)" }} />
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-[24px] pb-[40px] md:px-[40px]">
-        <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-between">
+        <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[280px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
             <div className="flex items-center gap-[12px]">
@@ -37,7 +40,7 @@ export function Footer() {
                 className="text-white"
                 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.04em" }}
               >
-                peregrine
+                {brand.name}
               </span>
             </div>
 
@@ -57,7 +60,7 @@ export function Footer() {
                 className="min-w-0 flex-1 bg-transparent px-[12px] text-white outline-none placeholder:text-white/60"
                 style={{ fontSize: 15, height: 42 }}
               />
-              <Button variant="small" type="submit" className="shrink-0">
+              <Button variant="small" type="submit" gap={20} className="shrink-0">
                 {sent ? "Sent" : "Subscribe"}
               </Button>
             </form>
@@ -100,7 +103,7 @@ export function Footer() {
                       <Link
                         href={l.href}
                         className="inline-block text-white transition-opacity duration-300 hover:opacity-60"
-                        style={{ fontSize: 14, lineHeight: "21px", fontWeight: 300 }}
+                        style={{ fontSize: 14, lineHeight: "21px", fontWeight: 300, letterSpacing: "0.28px" }}
                       >
                         {l.label}
                       </Link>
@@ -128,7 +131,7 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            {footer.wordmark}
+            {brand.name}
           </motion.p>
         </div>
       </div>

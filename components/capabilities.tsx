@@ -32,7 +32,7 @@ export function Capabilities() {
             </Reveal>
             <Reveal delay={0.12}>
               <div className="mt-[40px]">
-                <Button href={capabilities.cta.href} variant="secondary">
+                <Button href={capabilities.cta.href} variant="secondary" gap={32}>
                   {capabilities.cta.label}
                 </Button>
               </div>
@@ -41,8 +41,8 @@ export function Capabilities() {
         </div>
 
         {/* accordion */}
-        <Reveal delay={0.1} className="w-full lg:w-[680px]">
-          <div className="hidden h-[630px] w-full gap-[10px] lg:flex">
+        <Reveal delay={0.1} className="w-full lg:w-[680px] lg:shrink-0">
+          <div className="hidden h-[630px] w-[680px] shrink-0 gap-[10px] lg:flex">
             {capabilities.panels.map((p, i) => {
               const open = i === active;
               return (
@@ -53,12 +53,12 @@ export function Capabilities() {
                   className="relative flex cursor-pointer flex-col items-center overflow-hidden"
                   style={{ borderRadius: 20 }}
                   animate={{
-                    flexGrow: open ? 480 : 90,
+                    width: open ? 480 : 90,
                     backgroundColor: open ? "rgba(255,255,255,0)" : "rgba(255,255,255,0.04)",
                   }}
                   transition={{ duration: 0.7, ease: EASE }}
                 >
-                  <PanelArt open={open} seed={i} />
+                  <PanelArt open={open} object={p.object} />
 
                   {/* index */}
                   <span
@@ -68,7 +68,7 @@ export function Capabilities() {
                       lineHeight: "20.4px",
                       fontWeight: 200,
                       color: open ? "#fff" : "var(--paper-80)",
-                      right: open ? 56 : "auto",
+                      right: open ? 34 : "auto",
                     }}
                   >
                     {p.n}
@@ -111,6 +111,8 @@ export function Capabilities() {
                           className="font-mono uppercase"
                           style={{
                             fontSize: 13,
+                            lineHeight: "normal",
+                            padding: 10,
                             color: "var(--paper-70)",
                             writingMode: "vertical-rl",
                             transform: "rotate(180deg)",
@@ -173,7 +175,7 @@ export function Capabilities() {
                           {p.body}
                         </p>
                         <div className="relative mt-[16px] h-[220px]">
-                          <PanelArt open seed={i} />
+                          <PanelArt open object={p.object} />
                         </div>
                       </motion.div>
                     )}
@@ -188,59 +190,28 @@ export function Capabilities() {
   );
 }
 
-/** Isometric wire scaffold that sits behind each accordion panel. */
-function PanelArt({ open, seed }: { open: boolean; seed: number }) {
-  return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[500px]">
-      <motion.svg
-        viewBox="0 0 480 500"
-        className="h-full w-full"
-        preserveAspectRatio="xMidYMax slice"
-        animate={{ opacity: open ? 1 : 0.5 }}
-        transition={{ duration: 0.6 }}
-        aria-hidden
-      >
-        <defs>
-          <linearGradient id={`pg${seed}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.10)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </linearGradient>
-        </defs>
-        {/* faint isometric lattice */}
-        <g stroke="rgba(255,255,255,0.07)" strokeWidth="1" fill="none">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <path key={`a${i}`} d={`M${-120 + i * 70} 500 L${200 + i * 70} 150`} />
-          ))}
-          {Array.from({ length: 10 }).map((_, i) => (
-            <path key={`b${i}`} d={`M${600 - i * 70} 500 L${280 - i * 70} 150`} />
-          ))}
-        </g>
-        <rect width="480" height="500" fill={`url(#pg${seed})`} />
 
-        {/* the object */}
-        <motion.g
-          animate={{ y: open ? 0 : 20, opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-        >
-          <g
-            transform="translate(240 300)"
-            stroke="rgba(255,255,255,0.85)"
-            strokeWidth="1.1"
-            fill="none"
-            strokeLinejoin="round"
-          >
-            <path d="M-90 0 L0 -52 L90 0 L0 52 Z" />
-            <path d="M-90 0 L-90 40 L0 92 L0 52" />
-            <path d="M90 0 L90 40 L0 92" />
-            <path d="M-46 -26 L-46 14 M0 -52 L0 -12 M46 -26 L46 14" opacity="0.5" />
-            <circle cx="0" cy="-92" r="26" />
-            <path d="M0 -66 L0 -52" />
-            <path d="M-26 -92 L-92 -60 M26 -92 L92 -60" opacity="0.6" />
-            <circle cx="-92" cy="-60" r="5" fill="rgba(255,255,255,0.9)" />
-            <circle cx="92" cy="-60" r="5" fill="rgba(255,255,255,0.9)" />
-          </g>
-        </motion.g>
-      </motion.svg>
+/** Panel backdrop: the source artwork, with the object riding on top when open. */
+function PanelArt({ open, object }: { open: boolean; object: string }) {
+  return (
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[500px] overflow-hidden">
+      <motion.img
+        src={open ? capabilities.panelBgOpen : capabilities.panelBgClosed}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover"
+        animate={{ opacity: open ? 1 : 0.75 }}
+        transition={{ duration: 0.6, ease: EASE }}
+      />
+      <motion.img
+        src={object}
+        alt=""
+        aria-hidden
+        className="absolute left-1/2 h-[270px] w-[270px] -translate-x-1/2 object-contain"
+        style={{ top: 144 }}
+        animate={{ opacity: open ? 1 : 0, y: open ? 0 : 14 }}
+        transition={{ duration: 0.7, ease: EASE }}
+      />
     </div>
   );
 }

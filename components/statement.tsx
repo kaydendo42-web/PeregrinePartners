@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { CountUp, Reveal, ScrollHighlightText } from "./ui/motion-primitives";
-import { ClientMark } from "./ui/client-mark";
 import { statement } from "@/lib/content";
 
 export function Statement() {
@@ -59,11 +58,11 @@ function RevenueCard() {
           className="mt-auto text-white"
           style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", fontWeight: 400 }}
         >
-          <CountUp to={45} prefix="$" suffix="M" duration={2} />
+          <CountUp to={statement.revenue.value} prefix="$" suffix="M" duration={2} />
         </p>
 
         <p className="t-label mt-[16px] max-w-[291px] text-white">
-          Revenue generated for our clients through AI-led optimisation.
+          {statement.revenue.caption}
         </p>
       </div>
     </Reveal>
@@ -71,7 +70,7 @@ function RevenueCard() {
 }
 
 function AgentsCard() {
-  const faces = ["#8ec5a1", "#c9b6f2", "#f3c667", "#f0a3a3"];
+  const faces = statement.agents.avatars;
   return (
     <Reveal delay={0.06}>
       <div
@@ -82,25 +81,23 @@ function AgentsCard() {
         }}
       >
         <div className="flex items-center">
-          {faces.map((c, i) => (
-            <motion.span
-              key={c}
-              className="relative flex h-[52px] w-[52px] items-center justify-center rounded-full ring-[3px] ring-[color:var(--surface)]"
-              style={{ background: c, marginLeft: i === 0 ? 0 : -13, zIndex: faces.length - i }}
+          {faces.map((src, i) => (
+            <motion.img
+              key={src}
+              src={src}
+              alt=""
+              aria-hidden
+              className="relative h-[52px] w-[52px] rounded-full object-cover ring-[3px] ring-[color:var(--surface)]"
+              style={{ marginLeft: i === 0 ? 0 : -13, zIndex: faces.length - i }}
               initial={{ scale: 0.7, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 + i * 0.07, type: "spring", stiffness: 320, damping: 22 }}
-            >
-              <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden>
-                <circle cx="16" cy="12" r="5.4" fill="rgba(0,0,0,0.35)" />
-                <path d="M5 30c1.6-6.2 6-9.4 11-9.4S25.4 23.8 27 30z" fill="rgba(0,0,0,0.35)" />
-              </svg>
-            </motion.span>
+            />
           ))}
         </div>
         <p className="t-label" style={{ color: "var(--ink-80)" }}>
-          <strong style={{ fontWeight: 700 }}>15,400</strong> active agents
+          <strong style={{ fontWeight: 700 }}>{statement.agents.count}</strong> {statement.agents.label}
         </p>
       </div>
     </Reveal>
@@ -115,10 +112,10 @@ function SpeedCard() {
         style={{ background: "var(--ink-06)", borderRadius: R }}
       >
         <p style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", color: "var(--dark-3)" }}>
-          <CountUp to={5} suffix="x" duration={1.6} />
+          <CountUp to={statement.speed.value} suffix="x" duration={1.6} />
         </p>
         <p className="t-label" style={{ color: "var(--ink-60)" }}>
-          Faster speed to market.
+          {statement.speed.caption}
         </p>
       </div>
     </Reveal>
@@ -181,10 +178,10 @@ function InferenceCard() {
 
         <div>
           <h4 style={{ fontSize: 20, lineHeight: "28px", letterSpacing: "-0.4px", color: "var(--ink-80)" }}>
-            Inference speed
+            {statement.inference.title}
           </h4>
           <p className="t-label mt-[10px] max-w-[291px]" style={{ color: "var(--ink-60)" }}>
-            Real-time processing for enterprise-grade deployments.
+            {statement.inference.caption}
           </p>
         </div>
       </div>
@@ -206,21 +203,21 @@ function QuoteCard() {
               fill="var(--ink)"
             />
           </svg>
-          <div className="opacity-70">
-            <ClientMark name="Northlake" scale={0.72} />
-          </div>
+          {statement.quote.logo ? (
+            <img src={statement.quote.logo} alt="" aria-hidden className="h-[38px] w-[63px] object-contain" />
+          ) : null}
         </div>
 
         <p
           className="mt-auto"
           style={{ fontSize: 18, lineHeight: "25.2px", color: "var(--ink-80)" }}
         >
-          Twelve weeks in, our support queue is 80% shorter and satisfaction is up — and the model never leaves our own hardware.
+          {statement.quote.text}
         </p>
 
         <p className="t-label mt-[18px] flex items-center gap-[8px]" style={{ color: "var(--ink-60)" }}>
           <span className="inline-block h-[4px] w-[4px] rounded-full" style={{ background: "var(--ink-40)" }} />
-          CTO, Northlake Care
+          {statement.quote.attribution}
         </p>
       </div>
     </Reveal>

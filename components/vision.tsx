@@ -7,14 +7,18 @@ export function Vision() {
   return (
     <section
       id="vision"
-      className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[60px]"
+      className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[40px]"
     >
-      <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-[60px] lg:flex-row lg:gap-[320px]">
+      <div className="flex w-full flex-col gap-[60px] lg:flex-row lg:gap-[360px]">
         {/* portrait */}
         <Reveal className="shrink-0">
           <figure className="w-[320px]">
             <div className="relative h-[320px] w-[320px] overflow-hidden" style={{ borderRadius: 12 }}>
-              <PortraitArt />
+              <img
+                src={vision.person.photo}
+                alt={vision.person.name}
+                className="h-full w-full object-cover"
+              />
               {[
                 { top: 23, left: 23, rot: 0 },
                 { top: 23, right: 23, rot: 90 },
@@ -38,7 +42,7 @@ export function Vision() {
               <p className="t-mono text-white">{vision.person.name}</p>
               <p
                 className="mt-[6px]"
-                style={{ fontSize: 12, lineHeight: "16.8px", fontWeight: 300, color: "var(--paper-70)" }}
+                style={{ fontSize: 12, lineHeight: "16.8px", fontWeight: 300, letterSpacing: "0.12px", color: "var(--paper-70)" }}
               >
                 {vision.person.role}
               </p>
@@ -73,30 +77,3 @@ export function Vision() {
   );
 }
 
-/** Warm abstract portrait plate — a stand-in, not a photograph. */
-function PortraitArt() {
-  return (
-    <svg viewBox="0 0 320 320" className="h-full w-full" aria-hidden>
-      <defs>
-        <linearGradient id="pt" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#c98a4b" />
-          <stop offset="45%" stopColor="#7a5a34" />
-          <stop offset="100%" stopColor="#20241a" />
-        </linearGradient>
-        <radialGradient id="ptGlow" cx="35%" cy="30%" r="60%">
-          <stop offset="0%" stopColor="#ffd9a8" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#ffd9a8" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="320" height="320" fill="url(#pt)" />
-      <rect width="320" height="320" fill="url(#ptGlow)" />
-      <g fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1">
-        <circle cx="160" cy="132" r="52" />
-        <path d="M64 300c14-58 48-88 96-88s82 30 96 88" />
-        {Array.from({ length: 8 }).map((_, i) => (
-          <path key={i} d={`M0 ${200 + i * 18} H320`} opacity={0.25} />
-        ))}
-      </g>
-    </svg>
-  );
-}

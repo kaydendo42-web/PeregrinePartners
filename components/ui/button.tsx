@@ -13,28 +13,28 @@ const styles: Record<
 > = {
   /* dark pill, white icon slot — used on light sections */
   primary: {
-    shell: { background: "var(--ink)", borderRadius: "var(--r-btn)", padding: "3px 24px 3px 3px", gap: 16 },
+    shell: { background: "var(--ink)", borderRadius: "var(--r-btn)", padding: "3px 34px 3px 3px", gap: 26 },
     slot: { width: 65, height: 59, background: "#fff", borderRadius: "var(--r-btn-inner)" },
     text: { color: "#fff", fontSize: 16, lineHeight: "24px", fontWeight: 400 },
     mark: "text-[color:var(--ink)]",
   },
   /* raised dark pill on dark sections */
   secondary: {
-    shell: { background: "var(--dark-2)", borderRadius: "var(--r-btn)", padding: "3px 24px 3px 3px", gap: 16 },
+    shell: { background: "var(--dark-2)", borderRadius: "var(--r-btn)", padding: "3px 34px 3px 3px", gap: 26 },
     slot: { width: 65, height: 59, background: "var(--dark)", borderRadius: "var(--r-btn-inner)" },
     text: { color: "#fff", fontSize: 16, lineHeight: "24px", fontWeight: 400 },
     mark: "text-white",
   },
   /* white pill with dark icon slot */
   light: {
-    shell: { background: "#fff", borderRadius: "var(--r-btn)", padding: "3px 24px 3px 3px", gap: 16 },
+    shell: { background: "#fff", borderRadius: "var(--r-btn)", padding: "3px 34px 3px 3px", gap: 26 },
     slot: { width: 65, height: 59, background: "var(--ink)", borderRadius: "var(--r-btn-inner)" },
     text: { color: "var(--ink)", fontSize: 16, lineHeight: "24px", fontWeight: 400 },
     mark: "text-white",
   },
   /* compact nav-scale pill */
   small: {
-    shell: { background: "#fff", borderRadius: "var(--r-chip)", padding: "3px 10px 3px 3px", gap: 6 },
+    shell: { background: "#fff", borderRadius: "var(--r-chip)", padding: "3px 19px 3px 3px", gap: 14 },
     slot: { width: 40, height: 36, background: "var(--ink)", borderRadius: "var(--r-chip-inner)" },
     text: { color: "var(--ink)", fontSize: 14, lineHeight: "19.6px", letterSpacing: "0.02em", fontWeight: 400 },
     mark: "text-white",
@@ -48,6 +48,7 @@ export function Button({
   className = "",
   icon,
   type,
+  gap,
 }: {
   children: ReactNode;
   href?: string;
@@ -56,8 +57,11 @@ export function Button({
   icon?: ReactNode;
   /** Pass a type to render a real <button> instead of a link. */
   type?: "button" | "submit";
+  /** Override the slot-to-label gap for one-off placements. */
+  gap?: number;
 }) {
-  const s = styles[variant];
+  const base = styles[variant];
+  const s = gap == null ? base : { ...base, shell: { ...base.shell, gap } };
   const inner = (
     <>
       <span

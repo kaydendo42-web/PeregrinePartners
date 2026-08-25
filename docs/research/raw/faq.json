@@ -1,0 +1,8 @@
+{
+  "What is the typical deployment timeline?": "Initial neural audits take 1 week, followed by a 4-week rapid prototyping phase before full-scale production deployment.",
+  "Can we integrate with our existing CRM?": "Yes, our cognitive pipelines are built with native API connectors for Salesforce, HubSpot, and custom enterprise ERP systems.",
+  "Do you provide model fine-tuning?": "Absolutely. We offer bespoke fine-tuning services to align open-source models (like Llama 3) with your specific industry terminology and logic.",
+  "How do you calculate ROI for automation?": "We track \"Inference-to-Impact\" metrics, measuring hours saved and accuracy gains against your previous baseline manual workflows.",
+  "Do we own the custom code you build?": "Yes. All custom neural architectures and integration code developed for your firm are 100% owned by you upon project completion.",
+  "What models do you specialize in?": "We are model-agnostic, specializing in OpenAI, Anthropic, and Mistral, as well as local deployments of high-performance open-source LLMs."
+}

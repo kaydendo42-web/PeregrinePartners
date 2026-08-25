@@ -30,7 +30,7 @@ export function Faq() {
               </Reveal>
               <Reveal delay={0.12}>
                 <div className="mt-[40px]">
-                  <Button href={faq.cta.href}>{faq.cta.label}</Button>
+                  <Button href={faq.cta.href} gap={30}>{faq.cta.label}</Button>
                 </div>
               </Reveal>
             </div>

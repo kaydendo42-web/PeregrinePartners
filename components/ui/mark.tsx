@@ -29,7 +29,7 @@ export function LogoPill({ dark = true }: { dark?: boolean }) {
     <div
       className="flex items-center justify-center rounded-full"
       style={{
-        width: 60,
+        width: 76,
         height: 34,
         background: dark ? "var(--ink)" : "transparent",
         border: dark ? "none" : "2px solid #fff",
@@ -39,8 +39,8 @@ export function LogoPill({ dark = true }: { dark?: boolean }) {
       <span
         className="block rounded-full"
         style={{
-          width: 26,
-          height: 12,
+          width: 34,
+          height: 14,
           background: dark ? "#fff" : "transparent",
           border: dark ? "none" : "2px solid #fff",
         }}

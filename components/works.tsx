@@ -17,10 +17,7 @@ export function Works() {
         <div className="pt-[180px]">
           <Marquee duration={30}>
             <div className="flex shrink-0 items-center gap-[60px] pr-[60px]">
-              <h2
-                className="t-marquee whitespace-nowrap"
-                style={{ letterSpacing: "-0.04em" }}
-              >
+              <h2 className="t-marquee whitespace-nowrap" style={{ letterSpacing: "-0.04em" }}>
                 {works.title}
               </h2>
               <Starburst />
@@ -31,7 +28,7 @@ export function Works() {
         {/* case grid */}
         <div className="mx-auto mt-[46px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[42px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-3">
           {works.cases.map((c, i) => (
-            <Reveal key={c.brand} delay={(i % 3) * 0.06}>
+            <Reveal key={c.tag + i} delay={(i % 3) * 0.06}>
               <CaseCard {...c} />
             </Reveal>
           ))}
@@ -43,14 +40,16 @@ export function Works() {
 
 function CaseCard({
   tag,
-  brand,
+  cover,
+  logo,
   funds,
   growth,
   roi,
   partners,
 }: {
   tag: string;
-  brand: string;
+  cover: string;
+  logo: string | null;
   funds: string;
   growth: string;
   roi: string;
@@ -74,28 +73,30 @@ function CaseCard({
         className="relative flex h-[302px] w-full items-start overflow-hidden p-[10px]"
         style={{ background: "#fff", borderRadius: "19px 19px 10px 10px" }}
       >
-        <motion.div
-          className="absolute inset-0"
+        <motion.img
+          src={cover}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
           variants={{ hover: { scale: 1.06 } }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <CaseArt seed={brand.length} />
-        </motion.div>
+        />
 
         <span
           className="relative z-10 flex items-center bg-white"
           style={{ borderRadius: 100, padding: "8px 16px 7px" }}
         >
-          <span
-            className="font-mono uppercase"
-            style={{ fontSize: 10, lineHeight: "16px", letterSpacing: 0 }}
-          >
+          <span className="font-mono uppercase" style={{ fontSize: 10, lineHeight: "16px" }}>
             {tag}
           </span>
         </span>
 
         <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <ClientMark name={brand} />
+          {logo ? (
+            <img src={logo} alt="" aria-hidden className="h-[57px] w-[189px] object-contain" />
+          ) : (
+            <span className="h-[57px] w-[189px]" />
+          )}
         </div>
       </div>
 
@@ -120,27 +121,5 @@ function CaseCard({
         ))}
       </div>
     </motion.article>
-  );
-}
-
-/** Abstract cover art so every case card carries its own visual. */
-function CaseArt({ seed }: { seed: number }) {
-  const hue = 40 + ((seed * 13) % 30);
-  return (
-    <svg viewBox="0 0 440 330" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
-      <defs>
-        <linearGradient id={`g${seed}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={`hsl(${hue} 6% 93%)`} />
-          <stop offset="100%" stopColor={`hsl(${hue} 5% 78%)`} />
-        </linearGradient>
-      </defs>
-      <rect width="440" height="330" fill={`url(#g${seed})`} />
-      <g stroke={`hsl(${hue} 8% 58%)`} strokeWidth="0.6" opacity="0.4" fill="none">
-        {Array.from({ length: 14 }).map((_, i) => (
-          <ellipse key={i} cx="220" cy="165" rx={40 + i * 22} ry={26 + i * 13} />
-        ))}
-      </g>
-      <circle cx="220" cy="165" r="70" fill="#fff" opacity="0.75" />
-    </svg>
   );
 }

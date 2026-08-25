@@ -13,7 +13,7 @@ export function NeuralGrid() {
       id="neural"
       className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[60px]"
     >
-      <div className="mx-auto w-full max-w-[1320px]">
+      <div className="w-full">
         {/* top row */}
         <div className="flex flex-col items-start gap-[40px] lg:flex-row lg:items-center lg:justify-between">
           <Reveal>
@@ -64,12 +64,11 @@ export function NeuralGrid() {
 
 /** Four overlapping model badges with a soft left-cast shadow. */
 function ModelCluster() {
-  const glyphs = ["spiral", "spark", "knot", "lattice"] as const;
   return (
     <div className="flex items-center">
-      {glyphs.map((g, i) => (
+      {neural.models.map((src, i) => (
         <motion.span
-          key={g}
+          key={src}
           className="flex h-[44px] w-[44px] items-center justify-center rounded-full bg-white"
           style={{
             marginLeft: i === 0 ? 0 : -14,
@@ -82,52 +81,13 @@ function ModelCluster() {
           transition={{ delay: i * 0.08, type: "spring", stiffness: 340, damping: 22 }}
           whileHover={{ y: -4 }}
         >
-          <ModelGlyph kind={g} />
+          <img src={src} alt="" aria-hidden className="h-[21px] w-[21px] object-contain" />
         </motion.span>
       ))}
     </div>
   );
 }
 
-function ModelGlyph({ kind }: { kind: "spiral" | "spark" | "knot" | "lattice" }) {
-  const c = "var(--ink)";
-  if (kind === "spiral")
-    return (
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <circle cx="12" cy="12" r="9.2" stroke={c} strokeWidth="1.4" />
-        <path d="M7 16.5C9 12 12.5 9 17.5 7.6" stroke={c} strokeWidth="1.4" strokeLinecap="round" />
-      </svg>
-    );
-  if (kind === "spark")
-    return (
-      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 1.5l2.6 6.9L21.5 11l-6.9 2.6L12 20.5l-2.6-6.9L2.5 11l6.9-2.6z" fill={c} />
-      </svg>
-    );
-  if (kind === "knot")
-    return (
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <ellipse
-            key={i}
-            cx="12"
-            cy="12"
-            rx="10"
-            ry="4.4"
-            stroke={c}
-            strokeWidth="1.1"
-            transform={`rotate(${i * 30} 12 12)`}
-          />
-        ))}
-      </svg>
-    );
-  return (
-    <svg width="20" height="21" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" stroke={c} strokeWidth="1.2" strokeLinecap="round" />
-      <circle cx="12" cy="12" r="3.6" fill={c} />
-    </svg>
-  );
-}
 
 /** The four capability marks, each carrying its own small loop. */
 function FeatureIcon({ kind }: { kind: string }) {
@@ -213,15 +173,15 @@ function LanguageIcon() {
         <span className="absolute left-0 top-0 h-full w-[1px] bg-white/70" />
         <span className="absolute right-0 top-0 h-full w-[1px] bg-white/70" />
         <motion.div
-          className="flex items-center gap-[6px] whitespace-nowrap"
+          className="flex items-center whitespace-nowrap"
           animate={{ x: ["0px", "-260px"] }}
           transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
         >
           {[...codes, ...codes].map((c, i) => (
             <span
               key={`${c}-${i}`}
-              className="font-glyph text-white"
-              style={{ fontSize: 16, lineHeight: "19.2px" }}
+              className="font-glyph shrink-0 text-center text-white"
+              style={{ fontSize: 16, lineHeight: "19.2px", width: 20 }}
             >
               {c}
             </span>
