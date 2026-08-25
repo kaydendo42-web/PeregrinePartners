@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Geist_Mono, Jaini } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Mono, Jaini } from "next/font/google";
 import "./globals.css";
 
 /* Inter Display — the reference's display face, from the official OFL release. */
@@ -23,6 +23,13 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
+const plex = IBM_Plex_Mono({
+  variable: "--font-plex",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
 const jaini = Jaini({
   variable: "--font-jaini",
   subsets: ["latin"],
@@ -40,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interDisplay.variable} ${mono.variable} ${jaini.variable} antialiased`}
+      className={`${interDisplay.variable} ${mono.variable} ${plex.variable} ${jaini.variable} antialiased`}
     >
       <body>{children}</body>
     </html>

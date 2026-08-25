@@ -51,6 +51,7 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono-ui);
   --font-glyph: var(--font-jaini);
+  --font-plex: var(--font-plex);
 }
 
 * {
@@ -164,4 +165,5 @@ body {
   .t-statement { font-size: 56px; line-height: 60px; letter-spacing: -2px; }
   .t-display { font-size: 54px; line-height: 59.4px; letter-spacing: -2.16px; }
   .t-marquee { font-size: 200px; line-height: 220px; letter-spacing: -8px; }
+  .t-team { font-size: 100px; line-height: 100px; letter-spacing: -4px; }
 }

@@ -16,7 +16,7 @@ export function Works() {
         {/* display marquee */}
         <div className="pt-[180px]">
           <Marquee duration={30}>
-            <div className="flex shrink-0 items-center gap-[60px] pr-[60px]">
+            <div className="flex shrink-0 items-center gap-[35px] pr-[35px]">
               <h2 className="t-marquee whitespace-nowrap" style={{ letterSpacing: "-0.04em" }}>
                 {works.title}
               </h2>
@@ -26,7 +26,7 @@ export function Works() {
         </div>
 
         {/* case grid */}
-        <div className="mx-auto mt-[46px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[42px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-3">
+        <div className="mx-auto mt-[22px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-3">
           {works.cases.map((c, i) => (
             <Reveal key={c.tag + i} delay={(i % 3) * 0.06}>
               <CaseCard {...c} />
@@ -77,7 +77,7 @@ function CaseCard({
           src={cover}
           alt=""
           aria-hidden
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute left-1/2 top-1/2 h-[330px] w-[440px] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover"
           variants={{ hover: { scale: 1.06 } }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         />

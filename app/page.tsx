@@ -6,6 +6,7 @@ import { Works } from "@/components/works";
 import { Capabilities } from "@/components/capabilities";
 import { Vision } from "@/components/vision";
 import { NeuralGrid } from "@/components/neural-grid";
+import { Team } from "@/components/team";
 import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 
@@ -35,6 +36,7 @@ export default function Home() {
           <Capabilities />
           <Vision />
           <NeuralGrid />
+          <Team />
         </div>
 
         <div className="bg-[color:var(--page)] py-[18px]">

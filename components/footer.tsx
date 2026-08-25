@@ -34,21 +34,27 @@ export function Footer() {
         <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[280px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
-            <div className="flex items-center gap-[12px]">
-              <LogoPill dark={false} />
-              <span
-                className="text-white"
-                style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.04em" }}
-              >
-                {brand.name}
-              </span>
+            <div className="flex h-[42px] items-center gap-[10px]">
+              {brand.wordmarkSrc ? (
+                <img src={brand.wordmarkSrc} alt={brand.name} className="h-[42px] w-[155px] object-contain" />
+              ) : (
+                <>
+                  <LogoPill dark={false} />
+                  <span
+                    className="text-white"
+                    style={{ fontSize: 28, lineHeight: "42px", fontWeight: 600, letterSpacing: "-0.04em" }}
+                  >
+                    {brand.name}
+                  </span>
+                </>
+              )}
             </div>
 
-            <p className="t-body-sm mt-[22px] text-white">{footer.blurb}</p>
+            <p className="t-body-sm mt-[15px] text-white">{footer.blurb}</p>
 
             <form
               onSubmit={submit}
-              className="mt-[26px] flex w-full max-w-[400px] items-center gap-[8px] backdrop-blur-[6px]"
+              className="mt-[20px] flex w-full max-w-[400px] items-center gap-[8px] backdrop-blur-[6px]"
               style={{ background: "rgba(255,255,255,0.2)", borderRadius: 17, padding: 6 }}
             >
               <input
@@ -65,8 +71,8 @@ export function Footer() {
               </Button>
             </form>
 
-            <p className="t-mono mt-[34px] text-white">Follow Us:</p>
-            <div className="mt-[16px] flex items-center gap-[10px]">
+            <p className="t-mono mt-[30px] text-white">Follow Us:</p>
+            <div className="mt-[10px] flex items-center gap-[10px]">
               {SOCIALS.map((s) => (
                 <motion.a
                   key={s}
@@ -84,7 +90,7 @@ export function Footer() {
           </div>
 
           {/* link columns */}
-          <div className="flex flex-wrap gap-y-[40px]">
+          <div className="flex flex-wrap gap-y-[40px] lg:-mt-[50px]">
             {footer.columns.map((col) => (
               <div
                 key={col.title}
@@ -116,12 +122,12 @@ export function Footer() {
         </div>
 
         {/* oversized wordmark, cropped by the page edge */}
-        <div className="relative mt-[70px] h-[150px] overflow-hidden md:h-[200px]">
+        <div className="relative mt-[19px] h-[190px] overflow-hidden md:h-[290px]">
           <motion.p
             className="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap text-white"
             style={{
-              fontSize: "clamp(140px, 24vw, 360px)",
-              lineHeight: 0.78,
+              fontSize: "clamp(140px, 25.6vw, 380px)",
+              lineHeight: 0.92,
               fontWeight: 600,
               letterSpacing: "-0.05em",
               mixBlendMode: "screen",

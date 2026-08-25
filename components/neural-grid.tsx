@@ -41,18 +41,18 @@ export function NeuralGrid() {
           {neural.features.map((f, i) => (
             <Reveal key={f.icon} delay={i * 0.08}>
               <div className="flex w-full max-w-[293px] flex-col">
-                <div className="flex h-[90px] items-end">
+                <div className="flex h-[74px] items-end">
                   <FeatureIcon kind={f.icon} />
                 </div>
                 <motion.span
-                  className="mt-[24px] block h-[1px] w-full"
+                  className="mt-[30px] block h-[1px] w-full"
                   style={{ background: "var(--paper-10)" }}
                   initial={{ scaleX: 0, originX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.9, ease: EASE, delay: 0.1 + i * 0.08 }}
                 />
-                <p className="t-body-sm mt-[30px] max-w-[210px] text-white">{f.body}</p>
+                <p className="t-body-sm mt-[31px] max-w-[210px] text-white">{f.body}</p>
               </div>
             </Reveal>
           ))}
@@ -99,7 +99,7 @@ function FeatureIcon({ kind }: { kind: string }) {
 
 function SearchIcon() {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden>
+    <svg width="44" height="44" viewBox="0 0 52 52" fill="none" aria-hidden>
       <circle cx="20" cy="18" r="12" stroke="#fff" strokeWidth="1.4" />
       <path d="M11.6 27.2L4 44" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" />
       <motion.g
@@ -116,7 +116,7 @@ function SearchIcon() {
 
 function OrbitIcon() {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden>
+    <svg width="44" height="44" viewBox="0 0 52 52" fill="none" aria-hidden>
       <circle cx="26" cy="28" r="17" stroke="#fff" strokeWidth="1.3" />
       <circle cx="26" cy="28" r="7" fill="#fff" />
       <motion.circle
@@ -144,7 +144,7 @@ function OrbitIcon() {
 function FaderIcon() {
   const rails = [0, 1, 2, 3];
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden>
+    <svg width="44" height="44" viewBox="0 0 52 52" fill="none" aria-hidden>
       {rails.map((i) => (
         <g key={i}>
           <rect x={12 + i * 8} y="6" width="1" height="44" fill="#fff" />
@@ -165,7 +165,7 @@ function FaderIcon() {
 function LanguageIcon() {
   const codes = ["ZH", "HI", "ES", "FR", "AR", "BN", "PT", "RU", "EN", "DE"];
   return (
-    <div className="relative flex h-[52px] w-[40px] flex-col items-center justify-center">
+    <div className="relative flex h-[44px] w-[40px] flex-col items-center justify-center">
       <svg width="10" height="6" viewBox="0 0 10 6" className="mb-[3px]" aria-hidden>
         <path d="M0 0h10L5 6z" fill="#fff" />
       </svg>

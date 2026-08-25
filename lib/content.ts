@@ -217,6 +217,44 @@ export const faq = {
   ],
 };
 
+export const team = {
+  heading:
+    "We are a collective of engineers, designers, and researchers dedicated to the frontier of AI.",
+  body: "Bridging the gap between academic research and commercial deployment with precision engineering.",
+  cta: { label: "Our Story", href: "#footer" },
+  panelTexture: `${A}/ssKw1Uch7OIVz4Suw9U15iwfys.jpg`,
+  members: [
+    {
+      name: "Sarah Jenkins",
+      role: "Head of Machine Learning",
+      photo: `${A}/OrsgMbvM0AZiEvhgHFZUJM2g.png`,
+      quote:
+        "Our focus remains on the ethical deployment of large-scale models. We don't just optimize for performance; we ensure every neural architecture we build is interpretable, secure, and ready for enterprise-grade scrutiny.",
+    },
+    {
+      name: "Marcus Cheng",
+      role: "Principal Design Director",
+      photo: `${A}/BbqpJjnldDFDulJFBarqs7wJpFk.png`,
+      quote:
+        "AI shouldn't feel like a black box. My goal is to design intuitive interfaces that make complex data actionable, ensuring that the human-machine collaboration is seamless, visually stunning, and highly efficient for users.",
+    },
+    {
+      name: "Elena Vance",
+      role: "Lead Cognitive Scientist",
+      photo: `${A}/8k7FcfFSjgocOslFu94p0ih1UY.png`,
+      quote:
+        "We study the cognitive friction between AI output and human decision-making. By applying behavioral science to our agentic workflows, we create tools that naturally align with how your best employees actually think and work.",
+    },
+    {
+      name: "David Rossi",
+      role: "Infrastructure Architect",
+      photo: `${A}/FnCj7jgTvcpKSt0CUVIqbyiS9o.png`,
+      quote:
+        "Latency is the enemy of adoption. I architect the backbone of our solutions to ensure that even the most complex RAG systems deliver sub-second responses, maintaining 99.9% uptime across distributed global compute clusters.",
+    },
+  ],
+};
+
 export const footer = {
   blurb:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac ultrices massa. Vivamus faucibus egestas nulla",
