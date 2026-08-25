@@ -1,0 +1,8 @@
+y14146 x  76   65x  20 <p> 'Written by' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y14171 x  76   54x  17 <p> 'Frank Joel' Inter Display 12px/16.8px w300 ls0.12px rgb(26, 26, 26) ta=left
+y14143 x 411   49x  49 <div> bg=rgb(26, 26, 26) br=100% disp=flex gap=10px jc=center ai=center fd=row
+y14154 x 423   25x  25 <svg> disp=inline-block
+y14146 x 980   65x  20 <p> 'Written by' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y14171 x 980   89x  17 <p> 'Deborah Reachie' Inter Display 12px/16.8px w300 ls0.12px rgb(26, 26, 26) ta=left
+y14143 x1315   49x  49 <div> bg=rgb(26, 26, 26) br=100% disp=flex gap=10px jc=center ai=center fd=row
+y14154 x1327   25x  25 <svg> disp=inline-block

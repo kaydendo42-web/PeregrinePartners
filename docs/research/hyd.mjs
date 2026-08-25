@@ -1,0 +1,10 @@
+import puppeteer from 'puppeteer-core';
+const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new', defaultViewport: { width: 1440, height: 900 } });
+const p = await b.newPage();
+const out = [];
+p.on('console', m => { if (m.type() === 'error') out.push(m.text()); });
+p.on('pageerror', e => out.push('PAGEERROR ' + e.message + '\n' + (e.stack||'')));
+await p.goto('http://localhost:3001', { waitUntil: 'networkidle2' });
+await new Promise(r => setTimeout(r, 2500));
+console.log(out.join('\n=====\n').slice(0, 4000));
+await b.close();

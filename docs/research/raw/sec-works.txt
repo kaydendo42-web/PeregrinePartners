@@ -1,0 +1,96 @@
+y 2156 x 934  202x 202 <svg>
+y 2182 x2135  151x 151 <svg>
+y 2413 x  56  408x 450 <div> bg=rgba(26, 26, 26, 0.03) br=20px pad=1px disp=flex gap=1px jc=flex-start ai=center fd=column
+y 2414 x  57  406x 302 <div> bg=rgb(255, 255, 255) br=19px 19px 10px 10px pad=10px disp=flex gap=10px jc=flex-start ai=flex-start fd=column
+y 2424 x  67  110x  32 <div> [In progress] bg=rgb(255, 255, 255) br=100px pad=8px 16px 7px disp=flex gap=10px jc=center ai=center fd=row
+y 2433 x  83   78x  16 <p> 'Healthcare AI' Geist Mono 10px/16px w400 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y 2536 x 166  189x  57 <img> src=https://framerusercontent.com/images/yV2zGDqTwUzGafOnvA53MLQkM.png?scale-down-to=512&width=567&height=171 fit=cover
+y 2414 x  40  440x 330 <img> src=https://framerusercontent.com/images/sZxYLpvH56E3RznKPcnAPYlPvo.jpg?scale-down-to=512&width=5472&height=3648 fit=cover
+y 2717 x  57  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x  72   48x  22 <p> '$45M+' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x  72   66x  17 <p> 'Funds raised' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2717 x 261  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x 276   38x  22 <p> '700%' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x 276   70x  17 <p> 'Social growth' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x  57  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x  72   29x  22 <p> '41x' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x  72   44x  17 <p> 'ATH ROI' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x 261  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x 276   19x  22 <p> '84' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x 276   65x  17 <p> 'Partnerships' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2413 x 516  408x 450 <div> bg=rgba(26, 26, 26, 0.03) br=20px pad=1px disp=flex gap=1px jc=flex-start ai=center fd=column
+y 2414 x 517  406x 302 <div> bg=rgb(255, 255, 255) br=19px 19px 10px 10px pad=10px disp=flex gap=10px jc=flex-start ai=flex-start fd=column
+y 2424 x 527   92x  32 <div> [In progress] bg=rgb(255, 255, 255) br=100px pad=8px 16px 7px disp=flex gap=10px jc=center ai=center fd=row
+y 2433 x 543   60x  16 <p> 'Healthcare' Geist Mono 10px/16px w400 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y 2536 x 626  189x  57 <img> src=https://framerusercontent.com/images/CLpXi6HupcG6YYxVylXG8rj7eo4.png?scale-down-to=512&width=567&height=171 fit=cover
+y 2414 x 500  440x 330 <img> src=https://framerusercontent.com/images/4GMiBYbu9SI4dXo9ENcqlNA.jpg?scale-down-to=512&width=6023&height=3256 fit=cover
+y 2717 x 517  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x 532   48x  22 <p> '$62M+' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x 532   66x  17 <p> 'Funds raised' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2717 x 721  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x 736   38x  22 <p> '450%' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x 736   70x  17 <p> 'Social growth' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x 517  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x 532   29x  22 <p> '32x' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x 532   44x  17 <p> 'ATH ROI' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x 721  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x 736   19x  22 <p> '91' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x 736   65x  17 <p> 'Partnerships' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2413 x 976  408x 450 <div> bg=rgba(26, 26, 26, 0.03) br=20px pad=1px disp=flex gap=1px jc=flex-start ai=center fd=column
+y 2414 x 977  406x 302 <div> bg=rgb(255, 255, 255) br=19px 19px 10px 10px pad=10px disp=flex gap=10px jc=flex-start ai=flex-start fd=column
+y 2424 x 987   92x  32 <div> [In progress] bg=rgb(255, 255, 255) br=100px pad=8px 16px 7px disp=flex gap=10px jc=center ai=center fd=row
+y 2433 x1003   60x  16 <p> 'Healthcare' Geist Mono 10px/16px w400 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y 2536 x1086  189x  57 <img> src=https://framerusercontent.com/images/RlGLod5QkyznR4SBy9PQw3raa80.png?scale-down-to=512&width=567&height=171 fit=cover
+y 2414 x 960  440x 330 <img> src=https://framerusercontent.com/images/0g3E5eja3ueYAXkITtsy9quyYo.jpg?scale-down-to=512&width=5120&height=2700 fit=cover
+y 2717 x 977  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x 992   48x  22 <p> '$82M+' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x 992   66x  17 <p> 'Funds raised' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2717 x1181  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2731 x1196   38x  22 <p> '340%' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2757 x1196   70x  17 <p> 'Social growth' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x 977  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x 992   29x  22 <p> '19x' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x 992   44x  17 <p> 'ATH ROI' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2790 x1181  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 2804 x1196   19x  22 <p> '56' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 2830 x1196   65x  17 <p> 'Partnerships' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2895 x  56  408x 450 <div> bg=rgba(26, 26, 26, 0.03) br=20px pad=1px disp=flex gap=1px jc=flex-start ai=center fd=column
+y 2896 x  57  406x 302 <div> bg=rgb(255, 255, 255) br=19px 19px 10px 10px pad=10px disp=flex gap=10px jc=flex-start ai=flex-start fd=column
+y 2906 x  67  140x  32 <div> [In progress] bg=rgb(255, 255, 255) br=100px pad=8px 16px 7px disp=flex gap=10px jc=center ai=center fd=row
+y 2915 x  83  108x  16 <p> 'Retail & Logistics' Geist Mono 10px/16px w400 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y 3018 x 166  189x  57 <img> src=https://framerusercontent.com/images/3ICxPpL7nA6WiDyreZSZlU70E8.png?scale-down-to=512&width=567&height=171 fit=cover
+y 2896 x  40  440x 330 <img> src=https://framerusercontent.com/images/ZK0k9kMGgE21P7r3puSMYZ8548.jpg?scale-down-to=512&width=5803&height=3264 fit=cover
+y 3199 x  57  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3213 x  72   48x  22 <p> '$59M+' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3239 x  72   66x  17 <p> 'Funds raised' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3199 x 261  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3213 x 276   38x  22 <p> '215%' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3239 x 276   70x  17 <p> 'Social growth' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3272 x  57  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3286 x  72   29x  22 <p> '73x' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3312 x  72   44x  17 <p> 'ATH ROI' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3272 x 261  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3286 x 276   19x  22 <p> '28' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3312 x 276   65x  17 <p> 'Partnerships' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 2895 x 516  408x 450 <div> bg=rgba(26, 26, 26, 0.03) br=20px pad=1px disp=flex gap=1px jc=flex-start ai=center fd=column
+y 2896 x 517  406x 302 <div> bg=rgb(255, 255, 255) br=19px 19px 10px 10px pad=10px disp=flex gap=10px jc=flex-start ai=flex-start fd=column
+y 2906 x 527  110x  32 <div> [In progress] bg=rgb(255, 255, 255) br=100px pad=8px 16px 7px disp=flex gap=10px jc=center ai=center fd=row
+y 2915 x 543   78x  16 <p> 'Cybersecurity' Geist Mono 10px/16px w400 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y 3018 x 626  189x  57 <img> src=https://framerusercontent.com/images/qA80rXn5OyEhaPlYKJ8gIEE6Ds.png?scale-down-to=512&width=567&height=171 fit=cover
+y 2896 x 500  440x 330 <img> src=https://framerusercontent.com/images/LYQLqywSoqlHG7KLRJM70MIk.png?scale-down-to=512&width=1200&height=673 fit=cover
+y 3199 x 517  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3213 x 532   48x  22 <p> '$94M+' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3239 x 532   66x  17 <p> 'Funds raised' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3199 x 721  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3213 x 736   38x  22 <p> '120%' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3239 x 736   70x  17 <p> 'Social growth' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3272 x 517  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3286 x 532   29x  22 <p> '66x' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3312 x 532   44x  17 <p> 'ATH ROI' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3272 x 721  203x  72 <div> bg=rgb(255, 255, 255) br=10px pad=14px 11px 15px 15px disp=flex gap=4px jc=center ai=flex-start fd=column
+y 3286 x 736   19x  22 <p> '12' Geist Mono 16px/22.4px w500 lsnormal rgba(26, 26, 26, 0.7) ta=left
+y 3312 x 736   65x  17 <p> 'Partnerships' Inter Display 12px/16.8px w300 ls0.12px rgba(26, 26, 26, 0.7) ta=left
+y 3792 x 454   86x  19 <p> 'CAPABILITIES' Geist Mono 12px/19.2px w300 lsnormal rgb(255, 255, 255) ta=left tt=uppercase
+y 3791 x 720  480x 630 <div> [Desktop Open] bg=rgba(255, 255, 255, 0) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column
+y 3791 x1210   90x 630 <div> [Desktop Close] bg=rgba(255, 255, 255, 0.04) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column
+y 3791 x1310   90x 630 <div> [Desktop Close] bg=rgba(255, 255, 255, 0.04) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column

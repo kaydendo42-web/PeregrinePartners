@@ -1,26 +1,163 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------
+   Design tokens — measured from the reference at 1440px.
+   Light surfaces sit on white; dark sections invert the same ramp.
+---------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page: #ffffff;
+  --surface: #f0f0f0;      /* light card fill */
+  --surface-2: #e0e0e0;
+  --ink: #1a1a1a;
+  --ink-80: rgba(26, 26, 26, 0.8);
+  --ink-70: rgba(26, 26, 26, 0.7);
+  --ink-60: rgba(26, 26, 26, 0.6);
+  --ink-40: rgba(26, 26, 26, 0.4);
+  --ink-20: rgba(26, 26, 26, 0.2);
+  --ink-10: rgba(26, 26, 26, 0.1);
+  --ink-06: rgba(26, 26, 26, 0.06);
+  --ink-03: rgba(26, 26, 26, 0.03);
+
+  --dark: #1a1a1a;         /* dark section fill */
+  --dark-2: #242424;       /* raised dark surface */
+  --dark-3: #292828;
+  --paper-80: rgba(255, 255, 255, 0.8);
+  --paper-70: rgba(255, 255, 255, 0.7);
+  --paper-50: rgba(255, 255, 255, 0.5);
+  --paper-40: rgba(255, 255, 255, 0.4);
+  --paper-10: rgba(255, 255, 255, 0.1);
+  --paper-06: rgba(255, 255, 255, 0.06);
+  --paper-04: rgba(255, 255, 255, 0.04);
+
+  --r-card: 20px;
+  --r-btn: 16px;
+  --r-btn-inner: 14px;
+  --r-chip: 12px;
+  --r-chip-inner: 10px;
+
+  --inset: 12px;           /* page gutter around every section card */
+  --pad-x: 40px;           /* horizontal padding inside a section card */
+  --block-gap: 180px;      /* vertical rhythm between blocks in a section */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-dark-3: var(--dark-3);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono-ui);
+  --font-glyph: var(--font-jaini);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background: var(--page);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  font-optical-sizing: auto;
+  overflow-x: hidden;
 }
+
+::selection {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* Type roles ---------------------------------------------------- */
+.t-hero {
+  font-size: clamp(38px, 4.86vw, 70px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  font-variation-settings: "opsz" 32;
+}
+.t-display {
+  font-size: clamp(34px, 3.75vw, 54px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  font-variation-settings: "opsz" 32;
+}
+.t-statement {
+  font-size: clamp(30px, 3.9vw, 56px);
+  line-height: 1.07;
+  letter-spacing: -0.036em;
+  font-weight: 500;
+  font-variation-settings: "opsz" 32;
+}
+
+.t-marquee {
+  font-size: clamp(84px, 13.9vw, 200px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  font-variation-settings: "opsz" 32;
+}
+.t-body {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+}
+.t-body-sm {
+  font-size: 15px;
+  line-height: 22.5px;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+}
+.t-label {
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.t-mono {
+  font-family: var(--font-mono-ui), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 19.2px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* Marquee ------------------------------------------------------- */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+.marquee-track[data-reverse="true"] { animation-direction: reverse; }
+.marquee:hover .marquee-track[data-pause="true"] { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Utility ------------------------------------------------------- */
+.section-card {
+  border-radius: var(--r-card);
+  background: var(--surface);
+  position: relative;
+  overflow: clip;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

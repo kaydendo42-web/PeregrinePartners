@@ -1,0 +1,144 @@
+y 1108 x  52   36x  68 <span> 'A' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x  88   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 117   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 133   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 162   46x  68 <span> 'm' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 208   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 236   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 252   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 292   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 308   29x  68 <span> 'h' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 338   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgb(26, 26, 26)
+y 1108 x 377   46x  68 <span> 'm' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 423   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 451   29x  68 <span> 'n' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 480   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 510   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 537   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 547   11x  68 <span> ',' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 570   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 597   28x  68 <span> 'c' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 625   28x  68 <span> 'c' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 653   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 682   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 692   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 720   16x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 737   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 764   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 780   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 820   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 837   29x  68 <span> 'h' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 866   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 906   16x  68 <span> 'f' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 922   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 951   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 968   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x 997   17x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x1014   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1108 x1042   11x  68 <span> '.' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x  52   40x  68 <span> 'O' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x  92   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 121   17x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 150   28x  68 <span> 'c' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 178   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 207   26x  68 <span> 's' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 233   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 249   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 278   46x  68 <span> 'm' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 335   36x  68 <span> 'A' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 371   12x  68 <span> 'I' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 394   25x  68 <span> 's' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 419   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 449   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 459   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 488   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 505   10x  68 <span> 'i' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 515   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 544   29x  68 <span> 'n' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 574   25x  68 <span> 's' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 611   30x  68 <span> 'd' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 641   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 669   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 680   10x  68 <span> 'i' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 690   26x  68 <span> 'v' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 716   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 745   17x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 773   46x  68 <span> 'm' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 819   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 848   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 875   25x  68 <span> 's' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 901   29x  68 <span> 'u' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 930   16x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 947   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x 974   30x  68 <span> 'b' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x1004   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1168 x1015   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x  52   30x  68 <span> 'g' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x  82   17x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x  99   28x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 127   41x  68 <span> 'w' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 169   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 185   29x  68 <span> 'h' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 226   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 253   29x  68 <span> 'n' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 283   30x  68 <span> 'd' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 324   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 354   30x  68 <span> 'p' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 384   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 412   16x  68 <span> 'r' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 429   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 456   16x  68 <span> 't' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 473   10x  68 <span> 'i' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 483   29x  68 <span> 'o' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 513   29x  68 <span> 'n' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 542   28x  68 <span> 'a' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 570   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 591   27x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 618   26x  68 <span> 'x' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 644   28x  68 <span> 'c' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 672   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 701   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 711   10x  68 <span> 'l' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 721   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 750   29x  68 <span> 'n' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 779   28x  68 <span> 'c' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 807   29x  68 <span> 'e' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1228 x 835   11x  68 <span> '.' Inter Display 56px/60px w500 ls-2px rgba(26, 26, 26, 0.1)
+y 1322 x  52  600x  48 <p> 'Empowering teams with intelligent tools that turn complex da' Inter Display 16px/24px w300 ls0.32px rgb(26, 26, 26) ta=left
+y 1410 x  52  339x 315 <div> bg=rgb(26, 26, 26) br=30px pad=24px disp=flex gap=normal jc=space-between ai=flex-start fd=column
+y 1434 x  76   60x  60 <div> bg=rgb(255, 255, 255) br=16px
+y 1449 x  91   30x  30 <svg> disp=inline-block
+y 1508 x  76  114x  43 <p> '$ 45 M' Inter 43px/43px w400 ls-2px rgb(0, 0, 0) op=0 ta=center
+y 1508 x  76  114x  43 <p> '$ 45 M' Inter 43px/43px w400 ls-2px rgb(255, 255, 255) ta=center
+y 1662 x  76  291x  39 <p> 'Revenue generated for our clients through AI-led optimizatio' Inter Display 14px/19.6px w400 ls0.28px rgb(255, 255, 255) ta=left
+y 1468 x 461   52x  52 <img> br=1000px src=https://framerusercontent.com/images/D3gag0wTRQzvb6CCfJkTShmXTPI.jpg?scale-down-to=512&width=2500&height=2500 fit=cover
+y 1468 x 500   52x  52 <img> br=1000px src=https://framerusercontent.com/images/9AvPLCB2PkQCEoFgNdwvDaIaGGI.jpg?scale-down-to=512&width=4167&height=4167 fit=cover
+y 1468 x 539   52x  52 <img> br=1000px src=https://framerusercontent.com/images/pktP7O1JHzk75RWizEsb0jRSjk.jpg?scale-down-to=512&width=4000&height=4000 fit=cover
+y 1468 x 578   52x  52 <img> br=1000px src=https://framerusercontent.com/images/2418vQBGZ7CPVHaaIlQ5wuUyr4.jpg?scale-down-to=512&width=2500&height=2500 fit=cover
+y 1546 x 479  134x  20 <p> 'active agents' Inter Display 14px/19.6px w400 ls0.28px rgba(26, 26, 26, 0.8) ta=left
+y 1547 x 479   46x  17 <strong> '15,400' Inter Display 14px/19.6px w700 ls0.28px rgba(26, 26, 26, 0.8) ta=left
+y 1630 x 401  291x  95 <div> bg=rgba(26, 26, 26, 0.06) br=30px pad=20px 27px disp=flex gap=26px jc=center ai=center fd=row
+y 1656 x 428   47x  43 <p> '5 x' Inter 43px/43px w400 ls-2px rgb(0, 0, 0) op=0 ta=center
+y 1656 x 428   47x  43 <p> '5 x' Inter 43px/43px w400 ls-2px rgb(41, 40, 40) ta=center
+y 1668 x 501  163x  20 <p> 'Faster speed to market.' Inter Display 14px/19.6px w400 ls0.28px rgba(26, 26, 26, 0.6) ta=left
+y 1410 x 701  339x 315 <div> bg=rgba(26, 26, 26, 0.06) br=30px pad=24px disp=flex gap=0px jc=center ai=center fd=column
+y 1441 x 796  149x 153 <svg>
+y 1498 x 843   54x  39 <div> '90' Inter Display 33px/33px w400 ls-0.33px rgba(18, 18, 18, 0)
+y 1510 x 884   14x  20 <span> '%' Inter Display 16.5px/33px w400 ls-0.33px rgba(18, 18, 18, 0) op=0.7
+y 1488 x 841   60x  60 <div> bg=rgb(26, 26, 26) br=100%
+y 1506 x 859   24x  24 <svg> disp=inline-block
+y 1626 x 725  134x  28 <h4> 'Inference speed' Inter Display 20px/28px w400 ls-0.4px rgba(26, 26, 26, 0.8) ta=left
+y 1662 x 725  291x  39 <p> 'Real-time processing for enterprise-grade deployments.' Inter Display 14px/19.6px w400 ls0.28px rgba(26, 26, 26, 0.6) ta=left
+y 1410 x1050  339x 315 <div> bg=rgb(255, 255, 255) br=30px pad=24px disp=flex gap=normal jc=space-between ai=flex-start fd=column
+y 1434 x1074   40x  40 <svg> disp=inline-block
+y 1435 x1301   63x  38 <img> src=https://framerusercontent.com/images/C7otSLQhZagCjkAC4M6MX1Ns.png?width=338&height=102 fit=cover
+y 1586 x1074  291x  76 <p> 'The custom LLM they built for us reduced our support tickets' Inter Display 18px/25.2px w400 lsnormal rgba(26, 26, 26, 0.8) ta=left
+y 1681 x1091  273x  20 <p> 'CTO, Cigna' Inter Display 14px/19.6px w400 ls0.28px rgba(26, 26, 26, 0.6) ta=left
+y 1925 x1612   72x  20 <p> '//SPARTAN' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y 1925 x1784 1204x  20 <p> 'We are officially expanding our neural compute clusters to t' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y 1925 x  90   72x  20 <p> '//SPARTAN' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y 1925 x 262 1204x  20 <p> 'We are officially expanding our neural compute clusters to t' Inter Display 14px/19.6px w400 ls0.28px rgb(26, 26, 26) ta=left
+y 1967 x   0 1440x4072 <section> bg=rgb(26, 26, 26) disp=flex gap=0px jc=center ai=center fd=column
+y 1967 x   0 1440x1574 <div> bg=rgb(255, 255, 255) br=0px 0px 20px 20px pad=0px 0px 180px disp=flex gap=0px jc=center ai=center fd=column
+y 2147 x  -6  905x 220 <h2> 'Our Works' Inter Display 200px/220px w700 ls-8px rgb(26, 26, 26) ta=left
+y 2147 x1170  905x 220 <h2> 'Our Works' Inter Display 200px/220px w700 ls-8px rgb(26, 26, 26) ta=left

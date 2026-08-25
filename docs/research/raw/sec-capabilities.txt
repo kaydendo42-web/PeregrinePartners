@@ -1,0 +1,25 @@
+y 3801 x  96  338x   1 <div> bg=rgba(255, 255, 255, 0.1)
+y 3792 x 454   86x  19 <p> 'CAPABILITIES' Geist Mono 12px/19.2px w300 lsnormal rgb(255, 255, 255) ta=left tt=uppercase
+y 3861 x  40  500x  48 <p> 'We bridge the gap between abstract machine learning and prac' Inter Display 16px/24px w300 ls0.32px rgb(255, 255, 255) ta=left
+y 4197 x  40  600x 119 <h2> 'Tailored Intelligence for Modern Enterprises.' Inter Display 54px/59.4px w500 ls-2.16px rgb(255, 255, 255) ta=left
+y 4356 x  40  212x  65 <a> [Secondary] bg=rgb(36, 36, 36) br=16px pad=3px 24px 3px 3px disp=flex gap=16px jc=center ai=center fd=row
+y 4359 x  43   65x  59 <div> bg=rgb(26, 26, 26) br=14px disp=flex gap=10px jc=center ai=center fd=row
+y 4381 x  61   30x  15 <svg>
+y 4377 x 140   72x  24 <p> 'Start Build' Inter Display 16px/24px w400 lsnormal rgb(255, 255, 255)
+y 3791 x 720  480x 630 <div> [Desktop Open] bg=rgba(255, 255, 255, 0) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column
+y 3821 x 750  350x  78 <h3> 'Autonomous Agent Architecture Labs' Inter Display 28px/39.2px w500 ls-0.28px rgb(255, 255, 255) ta=left
+y 3919 x 750  380x  42 <p> 'Architecting robust server environments and local LLM integr' Inter Display 14px/21px w300 ls0.28px rgb(255, 255, 255) ta=left
+y 4065 x 825  270x 270 <img> src=https://framerusercontent.com/images/WTuFQeqWgOcQVCks16yKxgDaefI.png?scale-down-to=512&width=1886&height=1886 fit=cover
+y 3921 x 720  480x 500 <img> src=https://framerusercontent.com/images/qWpzthqQ4FGQWP39IeKgah1OP8.png?scale-down-to=512&width=3246&height=2332 fit=cover
+y 3815 x1144   22x  20 <p> '001' Geist Mono 12px/20.4px w200 lsnormal rgb(255, 255, 255) ta=left tt=uppercase
+y 4106 x 942   37x 285 <div> 'Autonomous Agent Architecture Labs' Geist Mono 13px/normal w400 lsnormal rgba(255, 255, 255, 0.7) pad=10px tf=matrix(-1, 0, 0, -1, 0, 0) ta=center tt=uppercase
+y 3791 x1210   90x 630 <div> [Desktop Close] bg=rgba(255, 255, 255, 0.04) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column
+y 3921 x1210   90x 500 <img> src=https://framerusercontent.com/images/pEct5trUmjDYAblzuKYq2MpHaA.png?scale-down-to=512&width=3246&height=2332 fit=cover
+y 3815 x1244   22x  20 <p> '002' Geist Mono 12px/20.4px w200 lsnormal rgba(255, 255, 255, 0.8) ta=left tt=uppercase
+y 4153 x1237   37x 238 <div> 'Autonomous Agentic Workflows' Geist Mono 13px/normal w400 lsnormal rgba(255, 255, 255, 0.7) pad=10px tf=matrix(-1, 0, 0, -1, 0, 0) ta=center tt=uppercase
+y 3791 x1310   90x 630 <div> [Desktop Close] bg=rgba(255, 255, 255, 0.04) br=20px disp=flex gap=0px jc=flex-start ai=center fd=column
+y 3921 x1310   90x 500 <img> src=https://framerusercontent.com/images/qWpzthqQ4FGQWP39IeKgah1OP8.png?scale-down-to=512&width=3246&height=2332 fit=cover
+y 3815 x1344   22x  20 <p> '003' Geist Mono 12px/20.4px w200 lsnormal rgba(255, 255, 255, 0.8) ta=left tt=uppercase
+y 4153 x1337   37x 238 <div> 'Data Pipelines & RAG Systems' Geist Mono 13px/normal w400 lsnormal rgba(255, 255, 255, 0.7) pad=10px tf=matrix(-1, 0, 0, -1, 0, 0) ta=center tt=uppercase
+y 4421 x   0 1440x1618 <div> bg=rgb(26, 26, 26) disp=flex gap=0px jc=center ai=center fd=column
+y 4421 x   0 1440x 952 <div> bg=rgb(26, 26, 26) br=0px 0px 20px 20px pad=250px 40px 160px disp=flex gap=160px jc=flex-start ai=flex-start fd=column

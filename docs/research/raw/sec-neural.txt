@@ -1,0 +1,44 @@
+y 5553 x  60  380x  61 <p> 'ENGINEERING SYSTEMS THAT SCALE WITH YOUR AMBITION. WE LEVERA' Geist Mono 12px/20.4px w200 lsnormal rgb(255, 255, 255) ta=left tt=uppercase
+y 5553 x 723   44x  44 <div> bg=rgb(255, 255, 255) br=100% disp=flex gap=10px jc=center ai=center fd=row shadow=rgba(0, 0, 0, 0.08) -7px 0px 5px 1px
+y 5565 x 734   22x  21 <img> src=https://framerusercontent.com/images/SMyO8DDP1JPIhoq2Ak1dNFDpGIo.png?scale-down-to=512&width=581&height=544 fit=cover
+y 5553 x 753   44x  44 <div> bg=rgb(255, 255, 255) br=100% disp=flex gap=10px jc=center ai=center fd=row shadow=rgba(0, 0, 0, 0.12) -7px 0px 5px 1px
+y 5565 x 765   21x  21 <img> src=https://framerusercontent.com/images/ss2Osfd5P1AGF1NpgQhGgyGabA.png?scale-down-to=512&width=564&height=564 fit=cover
+y 5553 x 783   44x  44 <div> bg=rgb(255, 255, 255) br=100% disp=flex gap=10px jc=center ai=center fd=row shadow=rgba(0, 0, 0, 0.12) -7px 0px 5px 1px
+y 5566 x 796   19x  19 <img> src=https://framerusercontent.com/images/fQ71Xa5nLv0lmW62RjPI68rMDcU.png?width=512&height=512 fit=cover
+y 5553 x 813   44x  44 <div> bg=rgb(255, 255, 255) br=100% disp=flex gap=10px jc=center ai=center fd=row shadow=rgba(0, 0, 0, 0.12) -7px 0px 5px 1px
+y 5566 x 827   17x  20 <img> src=https://framerusercontent.com/images/Yhx5rRmY8EDv8iMIG0L554Xx3k.png?width=446&height=519 fit=cover
+y 5553 x1122  258x  65 <a> [Secondary] bg=rgb(36, 36, 36) br=16px pad=3px 24px 3px 3px disp=flex gap=16px jc=center ai=center fd=row
+y 5556 x1125   65x  59 <div> bg=rgb(26, 26, 26) br=14px disp=flex gap=10px jc=center ai=center fd=row
+y 5578 x1143   30x  15 <svg>
+y 5574 x1216  130x  24 <p> 'Digital Brain v4.0.2' Inter Display 16px/24px w400 lsnormal rgb(255, 255, 255)
+y 5783 x  60  293x   1 <div> bg=rgba(255, 255, 255, 0.1)
+y 5814 x  60  210x  45 <p> 'Semantic vector search for hyper-accurate retrieval' Inter Display 15px/22.5px w300 ls0.3px rgb(255, 255, 255) ta=left
+y 5724 x 399    8x   8 <div> bg=rgb(255, 255, 255) br=100%
+y 5728 x 431    6x   6 <div> bg=rgb(255, 255, 255) br=100%
+y 5723 x 422    7x   7 <div> bg=rgb(255, 255, 255) br=100% tf=matrix(1, 0, 0, 1, 0, -3.5)
+y 5783 x 403  293x   1 <div> bg=rgba(255, 255, 255, 0.1)
+y 5814 x 403  210x  45 <p> 'Unified data lakes for expansive model context.' Inter Display 15px/22.5px w300 ls0.3px rgb(255, 255, 255) ta=left
+y 5709 x 749    1x  44 <div> bg=rgb(255, 255, 255)
+y 5718 x 747    7x   3 <div> bg=rgb(255, 255, 255)
+y 5709 x 757    1x  44 <div> bg=rgb(255, 255, 255)
+y 5731 x 755    7x   3 <div> bg=rgb(255, 255, 255) tf=matrix(1, 0, 0, 1, 0, 0.38938)
+y 5709 x 765    1x  44 <div> bg=rgb(255, 255, 255)
+y 5724 x 763    7x   3 <div> bg=rgb(255, 255, 255)
+y 5709 x 773    1x  44 <div> bg=rgb(255, 255, 255)
+y 5737 x 771    7x   3 <div> bg=rgb(255, 255, 255) tf=matrix(1, 0, 0, 1, 0, 0.538402)
+y 5783 x 745  293x   1 <div> bg=rgba(255, 255, 255, 0.1)
+y 5814 x 745  210x  45 <p> 'Token-optimized flows for high speed processing' Inter Display 15px/22.5px w300 ls0.3px rgb(255, 255, 255) ta=left
+y 5722 x 976   14x  19 <p> 'ZH' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x 996   12x  19 <p> 'HI' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1015   13x  19 <p> 'ES' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1035   13x  19 <p> 'FR' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1055   14x  19 <p> 'AR' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1077   15x  19 <p> 'BN' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1099   13x  19 <p> 'PT' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1119   15x  19 <p> 'RU' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1141   14x  19 <p> 'EN' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5722 x1162   14x  19 <p> 'DE' Jaini 16px/19.2px w400 lsnormal rgb(255, 255, 255)
+y 5783 x1088  293x   1 <div> bg=rgba(255, 255, 255, 0.1)
+y 5814 x1088  210x  45 <p> 'Global LLM deployment. Support for 95+ languages.' Inter Display 15px/22.5px w300 ls0.3px rgb(255, 255, 255) ta=left
+y 6039 x   0 1440x1202 <section> bg=rgb(255, 255, 255) disp=flex gap=0px jc=center ai=center fd=column
+y 6039 x   0 1440x  20 <div> bg=rgb(26, 26, 26) br=0px 0px 20px 20px

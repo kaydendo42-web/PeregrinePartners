@@ -1,0 +1,30 @@
+y12308 x 108  323x   1 <div> bg=rgba(26, 26, 26, 0.2)
+y12299 x 451  101x  19 <p> 'COMMON QUERIES' Geist Mono 12px/19.2px w300 lsnormal rgb(26, 26, 26) ta=left tt=uppercase
+y12369 x  52  500x  48 <p> 'Find answers to technical specifications, deployment timelin' Inter Display 16px/24px w300 ls0.32px rgb(26, 26, 26) ta=left
+y12651 x  52  598x 119 <h2> 'Everything you need to know about our AI.' Inter Display 54px/59.4px w500 ls-2.16px rgb(26, 26, 26) ta=left
+y12810 x  52  252x  65 <a> [Primary] bg=rgb(26, 26, 26) br=16px pad=3px 24px 3px 3px disp=flex gap=16px jc=center ai=center fd=row
+y12813 x  55   65x  59 <div> bg=rgb(255, 255, 255) br=14px disp=flex gap=10px jc=center ai=center fd=row
+y12835 x  73   30x  15 <svg>
+y12830 x 150  116x  24 <p> 'Contact Support' Inter Display 16px/24px w400 lsnormal rgb(255, 255, 255)
+y12299 x 720  668x 132 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12319 x 740  602x  28 <h4> 'How do you ensure our data remains secure?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12325 x1352   16x  16 <svg> disp=inline-block
+y12363 x 740  628x  48 <p> 'We utilize SOC2-compliant local vector databases and on-prem' Inter Display 16px/24px w300 ls0.32px rgba(255, 255, 255, 0.8) ta=left
+y12437 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12457 x 740  602x  28 <h4> 'What is the typical deployment timeline?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12459 x1349   23x  23 <svg> disp=inline-block
+y12511 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12531 x 740  602x  28 <h4> 'Can we integrate with our existing CRM?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12533 x1349   23x  23 <svg> disp=inline-block
+y12585 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12605 x 740  602x  28 <h4> 'Do you provide model fine-tuning?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12607 x1349   23x  23 <svg> disp=inline-block
+y12659 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12679 x 740  602x  28 <h4> 'How do you calculate ROI for automation?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12681 x1349   23x  23 <svg> disp=inline-block
+y12733 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12753 x 740  602x  28 <h4> 'Do we own the custom code you build?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12755 x1349   23x  23 <svg> disp=inline-block
+y12807 x 720  668x  68 <div> bg=rgb(26, 26, 26) br=20px pad=20px disp=flex gap=16px jc=center ai=flex-start fd=column shadow=rgba(0, 0, 0, 0) 0px 8px 13px 3px
+y12827 x 740  602x  28 <h4> 'What models do you specialize in?' Inter Display 20px/28px w500 ls-0.4px rgb(255, 255, 255) ta=left
+y12829 x1349   23x  23 <svg> disp=inline-block
