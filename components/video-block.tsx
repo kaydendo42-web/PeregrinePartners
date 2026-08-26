@@ -51,12 +51,12 @@ export function VideoBlock() {
 
         {/* content */}
         <div className="absolute inset-0 flex flex-col justify-between px-[24px] py-[56px] md:px-[40px] md:py-[100px]">
-          <div className="flex items-start justify-between gap-[24px]">
+          <div className="flex flex-col gap-[16px] sm:flex-row sm:items-start sm:justify-between sm:gap-[24px]">
             <Reveal y={16} blur={4}>
               <p className="t-body max-w-[380px] text-white">{video.caption}</p>
             </Reveal>
 
-            <Reveal delay={0.08} y={16} blur={4}>
+            <Reveal delay={0.08} y={16} blur={4} className="shrink-0 self-start">
               <span
                 className="flex shrink-0 items-center"
                 style={{
@@ -74,7 +74,7 @@ export function VideoBlock() {
           </div>
 
           <div className="flex items-end justify-between gap-[24px]">
-            <Reveal delay={0.06} y={16} blur={4}>
+            <Reveal delay={0.06} y={16} blur={4} className="min-w-0">
               <h2 className="t-display max-w-[400px] text-white">{video.heading}</h2>
             </Reveal>
 

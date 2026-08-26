@@ -127,7 +127,7 @@ function Step({
         </span>
 
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="flex h-[20px] items-start justify-between gap-[10px]">
+          <span className="flex items-start justify-between gap-[10px] sm:h-[20px]">
             <span
               className="min-w-0 flex-1 text-white"
               style={{ fontSize: 18, lineHeight: "19.8px", fontWeight: 500, letterSpacing: "-0.72px" }}
