@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { Button } from "./ui/button";
 import { Marquee } from "./ui/motion-primitives";
 import { ClientMark } from "./ui/client-mark";
@@ -11,26 +10,22 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PLACEHOLDER = ["Meridian", "Northlake", "Aetheris", "Portway", "Halcyon"];
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-
   return (
     <section id="top" className="w-full bg-[color:var(--page)] p-[12px]">
       <div
-        ref={ref}
         className="section-card relative flex min-h-[calc(100svh-24px)] flex-col justify-between px-[24px] pb-[40px] pt-[130px] md:min-h-[876px] md:px-[40px] md:pt-[190px]"
       >
-        {/* backdrop */}
-        <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
+        {/* Backdrop. The reference holds this dead still through the whole
+            scroll — a parallax here is the one difference the eye catches
+            first, because the horizon moves against the fixed nav. */}
+        <div className="absolute inset-0">
           <img
             src={hero.bgFront}
             alt=""
             aria-hidden
             className="h-full w-full object-cover"
           />
-        </motion.div>
+        </div>
 
         {/* headline row */}
         <div className="relative flex w-full flex-1 items-start justify-between gap-8">

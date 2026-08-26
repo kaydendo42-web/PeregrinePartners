@@ -82,7 +82,7 @@ y1228   "t"  |  x 456->464
 y1228   "x"  |  x 618->630
 y1626   "Inference speed"  |  w 134->291
 y1668   "Faster speed to market."  |  x 501->497; w 163->151
-y1925   "We are officially expanding our neural compu"  |  x 1766->-28; w 1204->1210
+y1925   "We are officially expanding our neural compu"  |  x 1766->-27; w 1204->1210
 y1925   "We are officially expanding our neural compu"  |  x 244->1613; w 1204->1210
 y2147   "Our Works"  |  x -14->-327
 y2147   "Our Works"  |  x 1162->849
@@ -235,7 +235,7 @@ y5722   "PT"  |  x 1059->1087; w 13->21; font Jaini->Geist Mono; fs 16.0->15.0; 
 y5722   "RU"  |  x 1079->1108; w 15->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
 y5722   "ZH"  |  x 935->961; w 14->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
 y7212   "We are officially expanding our neural compu"  |  x 1710->1601; w 1204->1210
-y7212   "We are officially expanding our neural compu"  |  x 188->-40; w 1204->1210
+y7212   "We are officially expanding our neural compu"  |  x 188->-39; w 1204->1210
 y10554  "Head of Machine Learning"  |  w 297->139
 y10554  "Infrastructure Architect"  |  w 297->119
 y10554  "Lead Cognitive Scientist"  |  w 297->126
@@ -245,7 +245,7 @@ y10555  "Infrastructure Architect"  |  w 223->150
 y10555  "Lead Cognitive Scientist"  |  w 223->150
 y10555  "Principal Design Director"  |  w 223->157
 y12067  "We are officially expanding our neural compu"  |  x 1714->1601; w 1204->1210
-y12067  "We are officially expanding our neural compu"  |  x 192->-40; w 1204->1210
+y12067  "We are officially expanding our neural compu"  |  x 192->-39; w 1204->1210
 y12319  "How do you ensure our data remains secure?"  |  w 602->385
 y12363  "We utilize SOC2-compliant local vector datab"  |  x 740->720; w 628->668
 y12457  "What is the typical deployment timeline?"  |  w 602->345
