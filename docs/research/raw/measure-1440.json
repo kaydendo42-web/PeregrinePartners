@@ -136,7 +136,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1628819873_9275\"></use></svg>"
   },
   {
    "tag": "p",
@@ -260,7 +260,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": -29,
+   "x": -33,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -271,7 +271,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 170,
+   "x": 166,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -282,7 +282,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 369,
+   "x": 365,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -293,7 +293,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 568,
+   "x": 564,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -304,7 +304,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 767,
+   "x": 763,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -315,7 +315,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 966,
+   "x": 962,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -326,7 +326,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 1165,
+   "x": 1161,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -337,7 +337,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 1364,
+   "x": 1360,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -348,7 +348,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 1563,
+   "x": 1559,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -359,7 +359,7 @@
   {
    "tag": "img",
    "y": 791,
-   "x": 1762,
+   "x": 1758,
    "w": 189,
    "h": 57,
    "ov": "clip",
@@ -2319,7 +2319,7 @@
   {
    "tag": "p",
    "y": 1925,
-   "x": 1612,
+   "x": 1594,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -2334,7 +2334,7 @@
   {
    "tag": "p",
    "y": 1925,
-   "x": 1784,
+   "x": 1766,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2349,7 +2349,7 @@
   {
    "tag": "p",
    "y": 1925,
-   "x": 90,
+   "x": 72,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -2364,7 +2364,7 @@
   {
    "tag": "p",
    "y": 1925,
-   "x": 262,
+   "x": 244,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2411,7 +2411,7 @@
   {
    "tag": "h2",
    "y": 2147,
-   "x": -6,
+   "x": -14,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2425,17 +2425,17 @@
   },
   {
    "tag": "svg",
-   "y": 2156,
-   "x": 934,
-   "w": 202,
-   "h": 202,
+   "y": 2165,
+   "x": 935,
+   "w": 185,
+   "h": 185,
    "svgw": null,
    "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg872347806_1307\"></use></svg>"
   },
   {
    "tag": "h2",
    "y": 2147,
-   "x": 1170,
+   "x": 1162,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2450,7 +2450,7 @@
   {
    "tag": "svg",
    "y": 2182,
-   "x": 2135,
+   "x": 2127,
    "w": 151,
    "h": 151,
    "svgw": null,
@@ -3943,7 +3943,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1628819873_9275\"></use></svg>"
   },
   {
    "tag": "p",
@@ -5879,7 +5879,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1628819873_9275\"></use></svg>"
   },
   {
    "tag": "p",
@@ -5922,10 +5922,10 @@
   },
   {
    "tag": "div",
-   "y": 5724,
-   "x": 399,
-   "w": 8,
-   "h": 8,
+   "y": 5704,
+   "x": 411,
+   "w": 6,
+   "h": 6,
    "bg": "rgb(255, 255, 255)",
    "br": "100%",
    "pos": "absolute",
@@ -5934,7 +5934,7 @@
   {
    "tag": "div",
    "y": 5728,
-   "x": 431,
+   "x": 432,
    "w": 6,
    "h": 6,
    "bg": "rgb(255, 255, 255)",
@@ -6011,12 +6011,11 @@
   },
   {
    "tag": "div",
-   "y": 5731,
+   "y": 5730,
    "x": 755,
    "w": 7,
    "h": 3,
    "bg": "rgb(255, 255, 255)",
-   "tf": "matrix(1, 0, 0, 1, 0, 0.38938)",
    "pos": "absolute",
    "ov": "clip"
   },
@@ -6052,12 +6051,12 @@
   },
   {
    "tag": "div",
-   "y": 5737,
+   "y": 5736,
    "x": 771,
    "w": 7,
    "h": 3,
    "bg": "rgb(255, 255, 255)",
-   "tf": "matrix(1, 0, 0, 1, 0, 0.538402)",
+   "tf": "matrix(1, 0, 0, 1, 0, 0.0111751)",
    "pos": "absolute",
    "ov": "clip"
   },
@@ -6089,7 +6088,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 976,
+   "x": 935,
    "w": 14,
    "h": 19,
    "text": "ZH",
@@ -6103,7 +6102,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 996,
+   "x": 956,
    "w": 12,
    "h": 19,
    "text": "HI",
@@ -6117,7 +6116,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1015,
+   "x": 975,
    "w": 13,
    "h": 19,
    "text": "ES",
@@ -6131,7 +6130,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1035,
+   "x": 995,
    "w": 13,
    "h": 19,
    "text": "FR",
@@ -6145,7 +6144,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1055,
+   "x": 1015,
    "w": 14,
    "h": 19,
    "text": "AR",
@@ -6159,7 +6158,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1077,
+   "x": 1037,
    "w": 15,
    "h": 19,
    "text": "BN",
@@ -6173,7 +6172,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1099,
+   "x": 1059,
    "w": 13,
    "h": 19,
    "text": "PT",
@@ -6187,7 +6186,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1119,
+   "x": 1079,
    "w": 15,
    "h": 19,
    "text": "RU",
@@ -6201,7 +6200,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1141,
+   "x": 1100,
    "w": 14,
    "h": 19,
    "text": "EN",
@@ -6215,7 +6214,7 @@
   {
    "tag": "p",
    "y": 5722,
-   "x": 1162,
+   "x": 1122,
    "w": 14,
    "h": 19,
    "text": "DE",
@@ -6280,7 +6279,7 @@
   {
    "tag": "h2",
    "y": 6209,
-   "x": -3,
+   "x": -13,
    "w": 1054,
    "h": 220,
    "text": "Experiences",
@@ -6294,17 +6293,17 @@
   },
   {
    "tag": "svg",
-   "y": 6216,
-   "x": 1083,
-   "w": 207,
-   "h": 207,
+   "y": 6241,
+   "x": 1098,
+   "w": 157,
+   "h": 157,
    "svgw": null,
    "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg872347806_1307\"></use></svg>"
   },
   {
    "tag": "h2",
    "y": 6209,
-   "x": 1322,
+   "x": 1312,
    "w": 1054,
    "h": 220,
    "text": "Experiences",
@@ -6319,7 +6318,7 @@
   {
    "tag": "svg",
    "y": 6244,
-   "x": 2437,
+   "x": 2427,
    "w": 151,
    "h": 151,
    "svgw": null,
@@ -8337,7 +8336,7 @@
   {
    "tag": "p",
    "y": 7212,
-   "x": 38,
+   "x": 16,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -8352,7 +8351,7 @@
   {
    "tag": "p",
    "y": 7212,
-   "x": 210,
+   "x": 188,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8367,7 +8366,7 @@
   {
    "tag": "p",
    "y": 7212,
-   "x": 1560,
+   "x": 1538,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -8382,7 +8381,7 @@
   {
    "tag": "p",
    "y": 7212,
-   "x": 1732,
+   "x": 1710,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8958,7 +8957,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1628819873_9275\"></use></svg>"
   },
   {
    "tag": "p",
@@ -9045,7 +9044,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1628819873_9275\"></use></svg>"
   },
   {
    "tag": "p",
@@ -9869,7 +9868,7 @@
   {
    "tag": "h2",
    "y": 10941,
-   "x": -4,
+   "x": -14,
    "w": 591,
    "h": 220,
    "text": "Pricing",
@@ -9883,17 +9882,17 @@
   },
   {
    "tag": "svg",
-   "y": 10945,
-   "x": 617,
-   "w": 212,
-   "h": 212,
+   "y": 10953,
+   "x": 615,
+   "w": 196,
+   "h": 196,
    "svgw": null,
    "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg872347806_1307\"></use></svg>"
   },
   {
    "tag": "h2",
    "y": 10941,
-   "x": 858,
+   "x": 848,
    "w": 591,
    "h": 220,
    "text": "Pricing",
@@ -9908,7 +9907,7 @@
   {
    "tag": "svg",
    "y": 10976,
-   "x": 1509,
+   "x": 1499,
    "w": 151,
    "h": 151,
    "svgw": null,
@@ -9917,7 +9916,7 @@
   {
    "tag": "h2",
    "y": 10941,
-   "x": 1720,
+   "x": 1710,
    "w": 591,
    "h": 220,
    "text": "Pricing",
@@ -9932,7 +9931,7 @@
   {
    "tag": "svg",
    "y": 10976,
-   "x": 2371,
+   "x": 2361,
    "w": 151,
    "h": 151,
    "svgw": null,
@@ -10114,7 +10113,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -10347,7 +10346,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -10580,7 +10579,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -10814,7 +10813,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1005943501_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -10992,7 +10991,7 @@
   {
    "tag": "p",
    "y": 12067,
-   "x": 38,
+   "x": 21,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -11007,7 +11006,7 @@
   {
    "tag": "p",
    "y": 12067,
-   "x": 210,
+   "x": 192,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -11022,7 +11021,7 @@
   {
    "tag": "p",
    "y": 12067,
-   "x": 1560,
+   "x": 1543,
    "w": 72,
    "h": 20,
    "text": "//SPARTAN",
@@ -11037,7 +11036,7 @@
   {
    "tag": "p",
    "y": 12067,
-   "x": 1732,
+   "x": 1714,
    "w": 1204,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -11180,7 +11179,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg299757965_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -11522,7 +11521,7 @@
   {
    "tag": "h2",
    "y": 13085,
-   "x": 1932,
+   "x": 1923,
    "w": 671,
    "h": 220,
    "text": "Insights",
@@ -11536,17 +11535,17 @@
   },
   {
    "tag": "svg",
-   "y": 13088,
-   "x": 2632,
-   "w": 213,
-   "h": 213,
+   "y": 13091,
+   "x": 2626,
+   "w": 207,
+   "h": 207,
    "svgw": null,
    "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1041559296_1307\"></use></svg>"
   },
   {
    "tag": "h2",
    "y": 13085,
-   "x": 48,
+   "x": 38,
    "w": 671,
    "h": 220,
    "text": "Insights",
@@ -11560,17 +11559,17 @@
   },
   {
    "tag": "svg",
-   "y": 13088,
-   "x": 748,
-   "w": 213,
-   "h": 213,
+   "y": 13091,
+   "x": 741,
+   "w": 207,
+   "h": 207,
    "svgw": null,
    "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg1041559296_1307\"></use></svg>"
   },
   {
    "tag": "h2",
    "y": 13085,
-   "x": 990,
+   "x": 980,
    "w": 671,
    "h": 220,
    "text": "Insights",
@@ -11585,7 +11584,7 @@
   {
    "tag": "svg",
    "y": 13119,
-   "x": 1721,
+   "x": 1711,
    "w": 151,
    "h": 151,
    "svgw": null,
@@ -11647,7 +11646,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg299757965_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",
@@ -12844,7 +12843,7 @@
    "w": 30,
    "h": 15,
    "svgw": null,
-   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg299757965_9075\"></use></svg>"
+   "svg": "<svg style=\"width:100%;height:100%;overflow: visible;\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\"><use href=\"#svg-39145774_9125\"></use></svg>"
   },
   {
    "tag": "p",

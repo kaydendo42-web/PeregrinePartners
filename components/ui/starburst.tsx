@@ -1,5 +1,5 @@
 /** Twelve-point asterisk used as a separator inside the display marquees. */
-export function Starburst({ size = 202, color = "var(--ink-10)" }: { size?: number; color?: string }) {
+export function Starburst({ size = 151, color = "var(--ink-10)" }: { size?: number; color?: string }) {
   const petals = Array.from({ length: 12 });
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden style={{ flexShrink: 0 }}>

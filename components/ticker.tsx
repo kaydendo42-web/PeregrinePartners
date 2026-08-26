@@ -1,7 +1,7 @@
 "use client";
 
 import { Marquee } from "./ui/motion-primitives";
-import { ticker } from "@/lib/content";
+import { brand, ticker } from "@/lib/content";
 
 /** Thin announcement band that rides between sections. */
 export function Ticker({ tone = "light" }: { tone?: "light" | "dark" }) {
@@ -13,7 +13,7 @@ export function Ticker({ tone = "light" }: { tone?: "light" | "dark" }) {
     >
       <Marquee duration={46}>
         <div className="flex shrink-0 items-center gap-[172px] pr-[172px]" style={{ color }}>
-          <span className="t-label whitespace-nowrap">//PEREGRINE</span>
+          <span className="t-label whitespace-nowrap">{brand.tickerTag}</span>
           <span className="t-label whitespace-nowrap">{ticker}</span>
         </div>
       </Marquee>

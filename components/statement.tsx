@@ -7,7 +7,7 @@ import { statement } from "@/lib/content";
 export function Statement() {
   return (
     <section className="w-full bg-[color:var(--page)] px-[12px]">
-      <div className="section-card px-[24px] pb-[40px] pt-[120px] md:px-[40px] md:pt-[196px]">
+      <div className="section-card px-[24px] pb-[120px] pt-[120px] md:px-[40px] md:pb-[172px] md:pt-[208px]">
         <ScrollHighlightText
           text={statement.text}
           className="t-statement max-w-[1030px]"
@@ -16,11 +16,11 @@ export function Statement() {
         />
 
         <Reveal delay={0.05}>
-          <p className="t-body mt-[64px] max-w-[600px]">{statement.sub}</p>
+          <p className="t-body mt-[34px] max-w-[600px]">{statement.sub}</p>
         </Reveal>
 
         {/* metric mosaic */}
-        <div className="mt-[68px] grid grid-cols-1 gap-[10px] md:grid-cols-2 xl:grid-cols-[339px_291px_339px_339px]">
+        <div className="mt-[40px] grid grid-cols-1 gap-[10px] md:grid-cols-2 xl:grid-cols-[339px_291px_339px_339px]">
           <RevenueCard />
           <div className="flex flex-col gap-[10px]">
             <AgentsCard />
@@ -41,7 +41,7 @@ function RevenueCard() {
   return (
     <Reveal className="h-full" delay={0.02}>
       <div
-        className={`${CARD} flex h-[315px] flex-col justify-between p-[24px]`}
+        className={`${CARD} flex h-[315px] flex-col p-[24px]`}
         style={{ background: "var(--ink)", borderRadius: R }}
       >
         <div
@@ -55,13 +55,13 @@ function RevenueCard() {
         </div>
 
         <p
-          className="mt-auto text-white"
+          className="mt-[14px] block h-[43px] text-white"
           style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", fontWeight: 400 }}
         >
           <CountUp to={statement.revenue.value} prefix="$" suffix="M" duration={2} />
         </p>
 
-        <p className="t-label mt-[16px] max-w-[291px] text-white">
+        <p className="t-label mt-auto max-w-[291px] text-white">
           {statement.revenue.caption}
         </p>
       </div>
@@ -74,7 +74,7 @@ function AgentsCard() {
   return (
     <Reveal delay={0.06}>
       <div
-        className={`${CARD} flex h-[205px] flex-col items-center justify-center gap-[16px]`}
+        className={`${CARD} flex h-[210px] flex-col items-center justify-center gap-[26px]`}
         style={{
           borderRadius: R,
           border: "1px dashed var(--ink-20)",
@@ -111,7 +111,7 @@ function SpeedCard() {
         className={`${CARD} flex h-[95px] items-center gap-[26px] px-[27px] py-[20px]`}
         style={{ background: "var(--ink-06)", borderRadius: R }}
       >
-        <p style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", color: "var(--dark-3)" }}>
+        <p className="block h-[43px]" style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", color: "var(--dark-3)" }}>
           <CountUp to={statement.speed.value} suffix="x" duration={1.6} />
         </p>
         <p className="t-label" style={{ color: "var(--ink-60)" }}>

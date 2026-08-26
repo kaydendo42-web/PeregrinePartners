@@ -1,0 +1,170 @@
+{
+  "Comprehensive Strategic Audit": {
+    "rowW": 950,
+    "h": 172,
+    "parts": [
+      {
+        "text": "// 01",
+        "fs": "14px",
+        "lh": "21px",
+        "fw": "300",
+        "color": "rgba(255, 255, 255, 0.4)",
+        "w": 26,
+        "h": 21
+      },
+      {
+        "text": "Comprehensive Strategic Audit",
+        "fs": "18px",
+        "lh": "19.8px",
+        "fw": "500",
+        "color": "rgb(255, 255, 255)",
+        "w": 770,
+        "h": 20
+      },
+      {
+        "text": "Audit",
+        "fs": "10px",
+        "lh": "16px",
+        "fw": "400",
+        "color": "rgb(26, 26, 26)",
+        "w": 30,
+        "h": 16
+      },
+      {
+        "text": "We perform a deep-layer analysis of your current technical stack and fragmented data silos to identify high-impact AI opportunities that align with your core business objectives and ROI targets.",
+        "fs": "15px",
+        "lh": "22.5px",
+        "fw": "300",
+        "color": "rgb(255, 255, 255)",
+        "w": 600,
+        "h": 68
+      }
+    ]
+  },
+  "Custom Architecture Design": {
+    "rowW": 950,
+    "h": 172,
+    "parts": [
+      {
+        "text": "// 02",
+        "fs": "14px",
+        "lh": "21px",
+        "fw": "300",
+        "color": "rgba(255, 255, 255, 0.4)",
+        "w": 29,
+        "h": 21
+      },
+      {
+        "text": "Custom Architecture Design",
+        "fs": "18px",
+        "lh": "19.8px",
+        "fw": "500",
+        "color": "rgb(255, 255, 255)",
+        "w": 761,
+        "h": 20
+      },
+      {
+        "text": "Design",
+        "fs": "10px",
+        "lh": "16px",
+        "fw": "400",
+        "color": "rgb(26, 26, 26)",
+        "w": 36,
+        "h": 16
+      },
+      {
+        "text": "Our engineers architect bespoke neural model topologies and advanced RAG pipelines, ensuring every piece of the infrastructure is tailored to your unique data security needs and operational logic.",
+        "fs": "15px",
+        "lh": "22.5px",
+        "fw": "300",
+        "color": "rgb(255, 255, 255)",
+        "w": 600,
+        "h": 68
+      }
+    ]
+  },
+  "Rapid Prototype Development": {
+    "rowW": 950,
+    "h": 172,
+    "parts": [
+      {
+        "text": "// 03",
+        "fs": "14px",
+        "lh": "21px",
+        "fw": "300",
+        "color": "rgba(255, 255, 255, 0.4)",
+        "w": 30,
+        "h": 21
+      },
+      {
+        "text": "Rapid Prototype Development",
+        "fs": "18px",
+        "lh": "19.8px",
+        "fw": "500",
+        "color": "rgb(255, 255, 255)",
+        "w": 766,
+        "h": 20
+      },
+      {
+        "text": "Build",
+        "fs": "10px",
+        "lh": "16px",
+        "fw": "400",
+        "color": "rgb(26, 26, 26)",
+        "w": 30,
+        "h": 16
+      },
+      {
+        "text": "We transition from blueprints to functional MVPs within weeks, utilizing iterative sprints to validate model performance, optimize token latency, and refine the end-user interaction experience.",
+        "fs": "15px",
+        "lh": "22.5px",
+        "fw": "300",
+        "color": "rgb(255, 255, 255)",
+        "w": 600,
+        "h": 68
+      }
+    ]
+  },
+  "Enterprise Scale Deployment": {
+    "rowW": 950,
+    "h": 172,
+    "parts": [
+      {
+        "text": "// 04",
+        "fs": "14px",
+        "lh": "21px",
+        "fw": "300",
+        "color": "rgba(255, 255, 255, 0.4)",
+        "w": 30,
+        "h": 21
+      },
+      {
+        "text": "Enterprise Scale Deployment",
+        "fs": "18px",
+        "lh": "19.8px",
+        "fw": "500",
+        "color": "rgb(255, 255, 255)",
+        "w": 766,
+        "h": 20
+      },
+      {
+        "text": "Scale",
+        "fs": "10px",
+        "lh": "16px",
+        "fw": "400",
+        "color": "rgb(26, 26, 26)",
+        "w": 30,
+        "h": 16
+      },
+      {
+        "text": "We harden the validated system for full-scale production, ensuring seamless integration across your enterprise with robust monitoring, dedicated compute clusters, and strict SOC2 compliance layers.",
+        "fs": "15px",
+        "lh": "22.5px",
+        "fw": "300",
+        "color": "rgb(255, 255, 255)",
+        "w": 600,
+        "h": 68
+      }
+    ]
+  }
+}

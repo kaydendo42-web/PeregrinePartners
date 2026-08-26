@@ -24,7 +24,7 @@ export function Faq() {
               <p className="t-body mt-[52px] max-w-[500px]">{faq.intro}</p>
             </Reveal>
 
-            <div className="mt-auto pt-[120px]">
+            <div className="pt-[120px] lg:pt-[234px]">
               <Reveal delay={0.05}>
                 <h2 className="t-display max-w-[598px]">{faq.heading}</h2>
               </Reveal>

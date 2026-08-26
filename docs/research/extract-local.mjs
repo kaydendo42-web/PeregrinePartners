@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import puppeteer from 'puppeteer-core';
 
@@ -11,10 +11,24 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new'
 const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle2', timeout: 120000 });
 // autoscroll to trigger entrance animations
+// Walk to the true bottom. Two traps here: `document.body.scrollHeight`
+// under-reports this layout, and `scroll-behavior: smooth` makes scrollBy
+// animate, so a loop that reads scrollY back sees no movement. Force instant
+// scrolling and drive absolute offsets. Stopping short would leave every
+// scroll-triggered reveal below that point captured in its hidden state.
 await page.evaluate(async () => {
-  await new Promise((res) => { let y = 0; const t = setInterval(() => { window.scrollBy(0, 600); y += 600; if (y >= document.body.scrollHeight + 1200) { clearInterval(t); res(); } }, 60); });
+  document.documentElement.style.scrollBehavior = 'auto';
+  const max = () => document.documentElement.scrollHeight - window.innerHeight;
+  await new Promise((res) => {
+    let y = 0;
+    const t = setInterval(() => {
+      y += 260;
+      window.scrollTo(0, y);
+      if (y >= max()) { clearInterval(t); res(); }
+    }, 70);
+  });
 });
-await new Promise(r => setTimeout(r, 2500));
+await new Promise(r => setTimeout(r, 3000));
 await page.evaluate(() => window.scrollTo(0, 0));
 await new Promise(r => setTimeout(r, 1200));
 

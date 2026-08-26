@@ -41,7 +41,7 @@ export function NeuralGrid() {
           {neural.features.map((f, i) => (
             <Reveal key={f.icon} delay={i * 0.08}>
               <div className="flex w-full max-w-[293px] flex-col">
-                <div className="flex h-[74px] items-end">
+                <div className="flex h-[55px] items-end">
                   <FeatureIcon kind={f.icon} />
                 </div>
                 <motion.span

@@ -3,20 +3,19 @@
 import { motion } from "motion/react";
 import { Marquee, Reveal } from "./ui/motion-primitives";
 import { Starburst } from "./ui/starburst";
-import { ClientMark } from "./ui/client-mark";
 import { works } from "@/lib/content";
 
 export function Works() {
   return (
     <section id="works" className="relative w-full bg-[color:var(--dark)]">
       <div
-        className="w-full bg-[color:var(--page)] pb-[180px]"
+        className="w-full bg-[color:var(--page)] pb-[196px]"
         style={{ borderRadius: "0 0 20px 20px" }}
       >
         {/* display marquee */}
-        <div className="pt-[180px]">
+        <div className="pt-[174px]">
           <Marquee duration={30}>
-            <div className="flex shrink-0 items-center gap-[35px] pr-[35px]">
+            <div className="flex shrink-0 items-center gap-[60px] pr-[60px]">
               <h2 className="t-marquee whitespace-nowrap" style={{ letterSpacing: "-0.04em" }}>
                 {works.title}
               </h2>
@@ -26,7 +25,7 @@ export function Works() {
         </div>
 
         {/* case grid */}
-        <div className="mx-auto mt-[22px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-3">
+        <div className="mx-auto mt-[46px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-3">
           {works.cases.map((c, i) => (
             <Reveal key={c.tag + i} delay={(i % 3) * 0.06}>
               <CaseCard {...c} />

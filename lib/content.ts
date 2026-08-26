@@ -179,6 +179,52 @@ export const neural = {
   ],
 };
 
+export const video = {
+  /** Sits full-bleed between the neural grid and the process section. */
+  image: `${A}/Y43VBCJU98vH9ESfLTOmhYvVKjY.jpg`,
+  caption:
+    "Exploring the intersection of human creativity and machine logic to redefine what's possible in the digital age.",
+  duration: "2mins watch",
+  heading: "Intelligence by Design.",
+};
+
+export const process = {
+  label: "Our Process",
+  heading: "From raw data to refined intelligence. Our iterative deployment cycle.",
+  /** The framed illustration to the left of the step list. */
+  frame: `${A}/QRyW2z7jtn8Iu8Ohz7dYmwxFJo.png`,
+  frameInner: `${A}/liXydHdt7Kdt6VKUzzjSZwFJ4FA.png`,
+  note:
+    "We don't just ship code; we ship competitive advantages. Every step is designed to ensure your AI infrastructure is future-proof and scalable.",
+  cta: { label: "Build Now", href: "#faq" },
+  steps: [
+    {
+      n: "01",
+      tag: "Audit",
+      title: "Comprehensive Strategic Audit",
+      body: "We perform a deep-layer analysis of your current technical stack and fragmented data silos to identify high-impact AI opportunities that align with your core business objectives and ROI targets.",
+    },
+    {
+      n: "02",
+      tag: "Design",
+      title: "Custom Architecture Design",
+      body: "Our engineers architect bespoke neural model topologies and advanced RAG pipelines, ensuring every piece of the infrastructure is tailored to your unique data security needs and operational logic.",
+    },
+    {
+      n: "03",
+      tag: "Build",
+      title: "Rapid Prototype Development",
+      body: "We transition from blueprints to functional MVPs within weeks, utilizing iterative sprints to validate model performance, optimize token latency, and refine the end-user interaction experience.",
+    },
+    {
+      n: "04",
+      tag: "Scale",
+      title: "Enterprise Scale Deployment",
+      body: "We harden the validated system for full-scale production, ensuring seamless integration across your enterprise with robust monitoring, dedicated compute clusters, and strict SOC2 compliance layers.",
+    },
+  ],
+};
+
 export const faq = {
   label: "Common Queries",
   intro:

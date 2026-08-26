@@ -9,10 +9,9 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function Team() {
   return (
-    <section
-      id="team"
-      className="w-full overflow-hidden bg-[color:var(--dark)] px-[24px] py-[160px] md:px-[40px]"
-    >
+    /* Sits inside the dark run's padded column, so it carries no gutter of
+       its own — only the 90px lead-in the reference gives the headline. */
+    <section id="team" className="w-full pt-[90px]">
       {/* headline */}
       <Reveal>
         <h2
@@ -35,7 +34,7 @@ export function Team() {
         </Reveal>
         <Reveal delay={0.12}>
           <div className="mt-[40px]">
-            <Button href={team.cta.href} variant="secondary" gap={32}>
+            <Button href={team.cta.href} variant="secondary" gap={30} minWidth={202}>
               {team.cta.label}
             </Button>
           </div>

@@ -130,7 +130,7 @@ export function Hero() {
             {hero.trust}
           </motion.p>
 
-          <div className="mt-[26px] -mx-[24px] md:-mx-[40px]">
+          <div className="mt-[10px] -mx-[24px] md:-mx-[40px]">
             <Marquee duration={38}>
               {(useDemoClientLogos ? demoClientLogos : PLACEHOLDER).map((item, i) => (
                 <div

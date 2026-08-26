@@ -15,7 +15,7 @@ export function Capabilities() {
   return (
     <section
       id="capabilities"
-      className="w-full bg-[color:var(--dark)] px-[24px] pb-[160px] pt-[250px] md:px-[40px]"
+      className="w-full bg-[color:var(--dark)] px-[24px] pb-[120px] pt-[250px] md:px-[40px] md:pb-0"
     >
       <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-[60px] lg:flex-row lg:justify-between">
         {/* left rail */}

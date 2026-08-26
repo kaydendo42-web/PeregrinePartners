@@ -49,6 +49,7 @@ export function Button({
   icon,
   type,
   gap,
+  minWidth,
 }: {
   children: ReactNode;
   href?: string;
@@ -59,9 +60,16 @@ export function Button({
   type?: "button" | "submit";
   /** Override the slot-to-label gap for one-off placements. */
   gap?: number;
+  /** The reference sets a few buttons to a fixed width rather than hugging. */
+  minWidth?: number;
 }) {
   const base = styles[variant];
-  const s = gap == null ? base : { ...base, shell: { ...base.shell, gap } };
+  const shell = {
+    ...base.shell,
+    ...(gap == null ? null : { gap }),
+    ...(minWidth == null ? null : { minWidth }),
+  };
+  const s = { ...base, shell };
   const inner = (
     <>
       <span
@@ -92,7 +100,7 @@ export function Button({
       {type ? (
         <button
           type={type}
-          className="group inline-flex cursor-pointer items-center justify-center overflow-hidden"
+          className="group inline-flex cursor-pointer items-center justify-start overflow-hidden"
           style={s.shell}
         >
           {inner}
@@ -100,7 +108,7 @@ export function Button({
       ) : (
         <Link
           href={href}
-          className="group inline-flex items-center justify-center overflow-hidden"
+          className="group inline-flex items-center justify-start overflow-hidden"
           style={s.shell}
         >
           {inner}

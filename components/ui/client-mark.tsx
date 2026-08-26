@@ -16,10 +16,10 @@ export function ClientMark({
 
   return (
     <div
-      className="flex items-center gap-[8px]"
+      className="flex items-center gap-[12px]"
       style={{ color, transform: `scale(${scale})`, opacity: tone === "light" ? 0.92 : 1 }}
     >
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden>
         {glyph === 0 && (
           <path d="M12 2l3.2 6.8L22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2z" fill="currentColor" />
         )}
@@ -42,7 +42,7 @@ export function ClientMark({
       </svg>
       <span
         style={{
-          fontSize: 18,
+          fontSize: 26,
           fontWeight: 500,
           letterSpacing: "-0.03em",
           whiteSpace: "nowrap",

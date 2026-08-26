@@ -9,9 +9,73 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+/* -----------------------------------------------------------------
+   Entrance latch.
+
+   IntersectionObserver reports at rendering steps, so a block that
+   enters and leaves the viewport between two of them is never seen —
+   a fast flick or an anchor jump can leave a headline stuck at
+   opacity 0 forever. Latch on the rect instead: once an element's top
+   has crossed the trigger line it is revealed and stays revealed, no
+   matter how the page got there. One shared, rAF-throttled listener
+   drives every element so the cost stays flat.
+------------------------------------------------------------------ */
+const TRIGGER = 0.88; // fraction of the viewport height
+const THROTTLE = 60; // ms between sweeps
+const waiting = new Set<() => void>();
+let last = 0;
+
+/* Throttled on a clock rather than requestAnimationFrame: a backgrounded or
+   headless tab can stop serving frames, and a dropped sweep would strand every
+   remaining block. The trigger is monotonic — once past, always past — so a
+   late sweep still catches up and nothing is lost. */
+function schedule() {
+  const now = Date.now();
+  if (now - last < THROTTLE) return;
+  last = now;
+  for (const check of [...waiting]) check();
+}
+
+function subscribe(check: () => void) {
+  if (waiting.size === 0) {
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+  }
+  waiting.add(check);
+  return () => {
+    waiting.delete(check);
+    if (waiting.size === 0) {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    }
+  };
+}
+
+/** True once `ref`'s top has crossed the trigger line. Never resets. */
+export function useRevealed(ref: RefObject<HTMLElement | null>) {
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    if (shown) return;
+    const el = ref.current;
+    if (!el) return;
+    let live = true;
+    const check = () => {
+      if (!live) return;
+      if (el.getBoundingClientRect().top < window.innerHeight * TRIGGER) setShown(true);
+    };
+    check();
+    const off = subscribe(check);
+    return () => {
+      live = false;
+      off();
+    };
+  }, [ref, shown]);
+  return shown;
+}
 
 /** Entrance: fade + rise, triggered once when the block scrolls into view. */
 export function Reveal({
@@ -32,13 +96,19 @@ export function Reveal({
   as?: "div" | "span" | "li";
 }) {
   const Cmp = motion[as];
+  const ref = useRef<HTMLElement>(null);
+  const shown = useRevealed(ref);
   return (
     <Cmp
+      ref={ref as never}
       className={className}
-      initial={{ opacity: 0, y, filter: `blur(${blur}px)` }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-      transition={{ duration, delay, ease: EASE }}
+      initial={false}
+      animate={
+        shown
+          ? { opacity: 1, y: 0, filter: "blur(0px)" }
+          : { opacity: 0, y, filter: `blur(${blur}px)` }
+      }
+      transition={shown ? { duration, delay, ease: EASE } : { duration: 0 }}
     >
       {children}
     </Cmp>
@@ -57,16 +127,19 @@ export function RevealWords({
   delay?: number;
   stagger?: number;
 }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const shown = useRevealed(ref);
   return (
-    <span className={`inline-block ${className}`}>
+    <span ref={ref} className={`inline-block ${className}`}>
       {text.split(" ").map((word, i) => (
         <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: 0.85, delay: delay + i * stagger, ease: EASE }}
+            initial={false}
+            animate={{ y: shown ? 0 : "110%" }}
+            transition={
+              shown ? { duration: 0.85, delay: delay + i * stagger, ease: EASE } : { duration: 0 }
+            }
           >
             {word}
             {" "}

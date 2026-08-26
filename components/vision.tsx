@@ -7,7 +7,7 @@ export function Vision() {
   return (
     <section
       id="vision"
-      className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[40px]"
+      className="w-full bg-[color:var(--dark)] px-[24px] py-[140px] md:px-[40px] md:pb-[160px] md:pt-[250px]"
     >
       <div className="flex w-full flex-col gap-[60px] lg:flex-row lg:gap-[360px]">
         {/* portrait */}
@@ -38,7 +38,7 @@ export function Vision() {
                 </svg>
               ))}
             </div>
-            <figcaption className="mt-[38px]">
+            <figcaption className="mt-[29px]">
               <p className="t-mono text-white">{vision.person.name}</p>
               <p
                 className="mt-[6px]"
@@ -63,13 +63,13 @@ export function Vision() {
 
           <ScrollHighlightText
             text={vision.text}
-            className="t-statement mt-[46px] text-white"
+            className="t-statement mt-[46px] max-w-[545px] text-white"
             dim="rgba(255,255,255,0.16)"
             lit="#ffffff"
           />
 
           <Reveal delay={0.08}>
-            <p className="t-body mt-[62px] max-w-[500px] text-white">{vision.body}</p>
+            <p className="t-body mt-[44px] max-w-[500px] text-white">{vision.body}</p>
           </Reveal>
         </div>
       </div>

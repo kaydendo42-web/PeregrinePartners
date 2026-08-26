@@ -45,7 +45,7 @@ export function SectionLabel({
   );
 
   return (
-    <div className="flex w-full items-center gap-[18px]">
+    <div className="flex w-full items-center gap-[20px]">
       {align === "left" ? (
         <>
           {capsule}
