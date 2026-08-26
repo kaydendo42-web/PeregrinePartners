@@ -37,10 +37,31 @@ const jaini = Jaini({
   display: "swap",
 });
 
+const DESCRIPTION =
+  "Custom neural agents, LLM infrastructure and autonomous workflows, engineered for your stack.";
+
 export const metadata: Metadata = {
-  title: "Peregrine Partners — Applied AI Engineering",
-  description:
-    "Custom neural agents, LLM infrastructure and autonomous workflows, engineered for your stack.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://peregrine-partners.vercel.app",
+  ),
+  title: {
+    default: "Peregrine Partners — Applied AI Engineering",
+    template: "%s — Peregrine Partners",
+  },
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "Peregrine Partners",
+    title: "Peregrine Partners — Applied AI Engineering",
+    description: DESCRIPTION,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Peregrine Partners" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Peregrine Partners — Applied AI Engineering",
+    description: DESCRIPTION,
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
