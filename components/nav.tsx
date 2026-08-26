@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { LogoPill } from "./ui/mark";
@@ -15,20 +15,13 @@ const LINKS = [
 ];
 
 export function Nav() {
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useMotionValueEvent(scrollY, "change", (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setHidden(y > prev && y > 320);
-  });
 
   return (
     <motion.header
       className="pointer-events-none fixed inset-x-0 top-0 z-50 px-[30px] pt-[30px]"
       initial={{ y: -80, opacity: 0 }}
-      animate={{ y: hidden ? -110 : 0, opacity: 1 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="flex items-start justify-between">

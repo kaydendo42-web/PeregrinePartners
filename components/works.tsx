@@ -72,12 +72,16 @@ function CaseCard({
         className="relative flex h-[302px] w-full items-start overflow-hidden p-[10px]"
         style={{ background: "#fff", borderRadius: "19px 19px 10px 10px" }}
       >
+        {/* The reference hides the cover until hover and rests on the client's
+            mark instead. With no mark to rest on, the cover is the content —
+            flip `initial` to opacity 0 once real client artwork lands. */}
         <motion.img
           src={cover}
           alt=""
           aria-hidden
           className="absolute left-1/2 top-1/2 h-[330px] w-[440px] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover"
           variants={{ hover: { scale: 1.06 } }}
+          initial={{ opacity: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         />
 

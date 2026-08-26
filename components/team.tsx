@@ -77,6 +77,10 @@ function MemberCard({
         style={{ borderRadius: "0px 20px 20px 20px" }}
       >
         <img src={photo} alt={name} className="h-full w-full object-cover" />
+        <span
+          className="pointer-events-none absolute rounded-full"
+          style={{ top: 20, right: 24, width: 28, height: 16, border: "2px solid rgba(255,255,255,0.9)" }}
+        />
       </div>
 
       {/* name plate */}

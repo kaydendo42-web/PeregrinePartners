@@ -76,7 +76,7 @@ export function Button({
         className="relative flex shrink-0 items-center justify-center overflow-hidden"
         style={s.slot}
       >
-        <span className={`relative flex items-center justify-center ${s.mark}`}>
+        <span className={`relative flex items-center justify-center overflow-hidden ${s.mark}`}>
           <span className="block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[130%]">
             {icon ?? <Mark size={30} />}
           </span>

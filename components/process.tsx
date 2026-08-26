@@ -68,7 +68,7 @@ function Frame() {
   return (
     <motion.div
       className="relative flex h-[445px] w-full shrink-0 items-center justify-center overflow-hidden xl:w-[400px]"
-      style={{ borderRadius: 20, padding: 30 }}
+      style={{ borderRadius: 20, padding: 30, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
       initial="rest"
       whileHover="hover"
       animate="rest"

@@ -73,9 +73,25 @@ export function VideoBlock() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.06} y={16} blur={4}>
-            <h2 className="t-display max-w-[400px] text-white">{video.heading}</h2>
-          </Reveal>
+          <div className="flex items-end justify-between gap-[24px]">
+            <Reveal delay={0.06} y={16} blur={4}>
+              <h2 className="t-display max-w-[400px] text-white">{video.heading}</h2>
+            </Reveal>
+
+            {/* the house capsule, set large on the floor of the frame */}
+            <Reveal delay={0.12} y={16} blur={4} className="hidden md:block">
+              <span
+                className="flex items-center justify-center rounded-full bg-white"
+                style={{ width: 135, height: 83 }}
+                aria-hidden
+              >
+                <span
+                  className="block rounded-full"
+                  style={{ width: 86, height: 38, background: "var(--dark)" }}
+                />
+              </span>
+            </Reveal>
+          </div>
         </div>
 
         {/* play target */}
@@ -92,10 +108,9 @@ export function VideoBlock() {
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 24 }}
           >
-            {/* the ring only materialises on approach, so the still stays uncluttered */}
             <motion.span
-              className="absolute inset-0 rounded-full border border-white/30"
-              animate={{ opacity: armed ? 1 : 0, scale: armed ? 1 : 0.82 }}
+              className="absolute inset-0 rounded-full border border-white/45"
+              animate={{ opacity: armed ? 1 : 0.75, scale: armed ? 1.04 : 1 }}
               transition={{ duration: 0.45, ease: EASE }}
             />
             <motion.span

@@ -51,7 +51,7 @@ export function Capabilities() {
                   onHoverStart={() => setActive(i)}
                   onClick={() => setActive(i)}
                   className="relative flex cursor-pointer flex-col items-center overflow-hidden"
-                  style={{ borderRadius: 20 }}
+                  style={{ borderRadius: 20, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
                   animate={{
                     width: open ? 480 : 90,
                     backgroundColor: open ? "rgba(255,255,255,0)" : "rgba(255,255,255,0.04)",
@@ -62,16 +62,25 @@ export function Capabilities() {
 
                   {/* index */}
                   <span
-                    className="absolute top-[24px] z-20 font-mono uppercase"
+                    className="absolute top-[16px] z-20 flex items-center justify-center"
                     style={{
-                      fontSize: 12,
-                      lineHeight: "20.4px",
-                      fontWeight: 200,
-                      color: open ? "#fff" : "var(--paper-80)",
-                      right: open ? 34 : "auto",
+                      padding: "8px 16px",
+                      borderRadius: 10,
+                      border: "1px solid var(--paper-20)",
+                      right: open ? 18 : "auto",
                     }}
                   >
-                    {p.n}
+                    <span
+                      className="font-mono uppercase"
+                      style={{
+                        fontSize: 12,
+                        lineHeight: "20.4px",
+                        fontWeight: 200,
+                        color: open ? "#fff" : "var(--paper-80)",
+                      }}
+                    >
+                      {p.n}
+                    </span>
                   </span>
 
                   {/* open content */}
@@ -101,7 +110,7 @@ export function Capabilities() {
                     ) : (
                       <motion.div
                         key="closed"
-                        className="relative z-10 flex h-full items-center justify-center"
+                        className="relative z-10 flex h-full items-end justify-center pb-[18px]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -194,13 +203,13 @@ export function Capabilities() {
 /** Panel backdrop: the source artwork, with the object riding on top when open. */
 function PanelArt({ open, object }: { open: boolean; object: string }) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[500px] overflow-hidden">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[430px] overflow-hidden">
       <motion.img
         src={open ? capabilities.panelBgOpen : capabilities.panelBgClosed}
         alt=""
         aria-hidden
         className="absolute inset-0 h-full w-full object-cover"
-        animate={{ opacity: open ? 1 : 0.75 }}
+        animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: 0.6, ease: EASE }}
       />
       <motion.img

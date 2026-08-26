@@ -7,11 +7,11 @@ export function Starburst({ size = 151, color = "var(--ink-10)" }: { size?: numb
         {petals.map((_, i) => (
           <rect
             key={i}
-            x="46.5"
-            y="4"
-            width="7"
-            height="42"
-            rx="3.5"
+            x="44.5"
+            y="3"
+            width="11"
+            height="45"
+            rx="5.5"
             transform={`rotate(${(i * 360) / petals.length} 50 50)`}
           />
         ))}

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { Button } from "./ui/button";
-import { LogoPill } from "./ui/mark";
 import { brand, footer } from "@/lib/content";
 
 const SOCIALS = ["x", "in", "yt", "ig"] as const;
@@ -34,19 +33,21 @@ export function Footer() {
         <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
-            <div className="flex h-[42px] items-center gap-[10px]">
+            <div className="flex flex-col items-start gap-[17px]">
+              <span
+                className="flex items-center justify-center rounded-full"
+                style={{ width: 60, height: 32, border: "4px solid #fff" }}
+                aria-hidden
+              />
               {brand.wordmarkSrc ? (
                 <img src={brand.wordmarkSrc} alt={brand.name} className="h-[42px] w-[155px] object-contain" />
               ) : (
-                <>
-                  <LogoPill dark={false} />
-                  <span
-                    className="text-white"
-                    style={{ fontSize: 28, lineHeight: "42px", fontWeight: 600, letterSpacing: "-0.04em" }}
-                  >
-                    {brand.name}
-                  </span>
-                </>
+                <span
+                  className="text-white"
+                  style={{ fontSize: 38, lineHeight: "42px", fontWeight: 600, letterSpacing: "-0.045em" }}
+                >
+                  {brand.name}
+                </span>
               )}
             </div>
 
@@ -90,9 +91,13 @@ export function Footer() {
           </div>
 
           {/* link columns */}
-          <div className="flex flex-wrap gap-y-[40px] lg:-mt-[50px]">
+          <div className="flex flex-wrap gap-y-[40px]">
             {footer.columns.map((col) => (
-              <div key={col.title} className="w-[200px] pl-[35px]">
+              <div
+                key={col.title}
+                className="w-[200px] pl-[35px]"
+                style={{ borderLeft: "1px solid var(--paper-20)" }}
+              >
                 <p
                   className="font-mono text-white"
                   style={{ fontSize: 16, lineHeight: "22.4px", fontWeight: 500 }}
@@ -105,7 +110,7 @@ export function Footer() {
                       {/* the marker hangs in the 35px indent, as in the reference */}
                       <span
                         className="-ml-[35px] mr-[20px] block h-[1px] w-[15px] shrink-0 transition-[width] duration-300 group-hover/link:w-[24px]"
-                        style={{ background: "var(--paper-50)" }}
+                        style={{ background: "var(--paper-40)" }}
                       />
                       <Link
                         href={l.href}
@@ -150,8 +155,11 @@ function SocialGlyph({ kind }: { kind: (typeof SOCIALS)[number] }) {
   const p = { stroke: "currentColor", strokeWidth: 1.5, fill: "none" } as const;
   if (kind === "x")
     return (
-      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden>
-        <path d="M4 4l16 16M20 4L4 20" {...p} strokeLinecap="round" />
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden>
+        <path
+          d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+          fill="currentColor"
+        />
       </svg>
     );
   if (kind === "in")

@@ -19,6 +19,15 @@ export function Vision() {
                 alt={vision.person.name}
                 className="h-full w-full object-cover"
               />
+              {/* inset frame the corner marks sit on */}
+              <span
+                className="pointer-events-none absolute"
+                style={{
+                  inset: 23,
+                  border: "1px solid rgba(255,255,255,0.28)",
+                  borderRadius: 4,
+                }}
+              />
               {[
                 { top: 23, left: 23, rot: 0 },
                 { top: 23, right: 23, rot: 90 },

@@ -6,7 +6,7 @@
    "tag": "nav",
    "y": 30,
    "x": 30,
-   "w": 508,
+   "w": 492,
    "h": 44,
    "bg": "rgb(255, 255, 255)",
    "br": "100px",
@@ -21,7 +21,7 @@
    "tag": "div",
    "y": 35,
    "x": 35,
-   "w": 76,
+   "w": 60,
    "h": 34,
    "bg": "rgb(26, 26, 26)",
    "br": "3.35544e+07px",
@@ -33,17 +33,17 @@
   },
   {
    "tag": "span",
-   "y": 45,
-   "x": 56,
-   "w": 34,
-   "h": 14,
+   "y": 41,
+   "x": 41,
+   "w": 48,
+   "h": 22,
    "bg": "rgb(255, 255, 255)",
    "br": "3.35544e+07px"
   },
   {
    "tag": "span",
    "y": 42,
-   "x": 135,
+   "x": 119,
    "w": 40,
    "h": 20,
    "text": "Works",
@@ -58,7 +58,7 @@
   {
    "tag": "span",
    "y": 62,
-   "x": 135,
+   "x": 119,
    "w": 40,
    "h": 20,
    "text": "Works",
@@ -74,7 +74,7 @@
   {
    "tag": "span",
    "y": 42,
-   "x": 207,
+   "x": 191,
    "w": 55,
    "h": 20,
    "text": "Services",
@@ -89,7 +89,7 @@
   {
    "tag": "span",
    "y": 62,
-   "x": 207,
+   "x": 191,
    "w": 55,
    "h": 20,
    "text": "Services",
@@ -105,7 +105,7 @@
   {
    "tag": "span",
    "y": 42,
-   "x": 293,
+   "x": 277,
    "w": 49,
    "h": 20,
    "text": "Insights",
@@ -120,7 +120,7 @@
   {
    "tag": "span",
    "y": 62,
-   "x": 293,
+   "x": 277,
    "w": 49,
    "h": 20,
    "text": "Insights",
@@ -136,7 +136,7 @@
   {
    "tag": "span",
    "y": 42,
-   "x": 374,
+   "x": 358,
    "w": 44,
    "h": 20,
    "text": "Pricing",
@@ -151,7 +151,7 @@
   {
    "tag": "span",
    "y": 62,
-   "x": 374,
+   "x": 358,
    "w": 44,
    "h": 20,
    "text": "Pricing",
@@ -167,7 +167,7 @@
   {
    "tag": "span",
    "y": 42,
-   "x": 450,
+   "x": 434,
    "w": 62,
    "h": 20,
    "text": "Company",
@@ -182,7 +182,7 @@
   {
    "tag": "span",
    "y": 62,
-   "x": 450,
+   "x": 434,
    "w": 62,
    "h": 20,
    "text": "Company",
@@ -235,7 +235,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -245,7 +245,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -389,7 +389,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -399,7 +399,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -520,7 +520,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": -184,
+   "x": -185,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -530,7 +530,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": -138,
+   "x": -139,
    "w": 95,
    "h": 39,
    "text": "Meridian",
@@ -544,7 +544,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 10,
+   "x": 8,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -554,7 +554,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 56,
+   "x": 54,
    "w": 106,
    "h": 39,
    "text": "Northlake",
@@ -568,7 +568,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 217,
+   "x": 216,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -578,7 +578,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 263,
+   "x": 262,
    "w": 89,
    "h": 39,
    "text": "Aetheris",
@@ -592,7 +592,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 415,
+   "x": 414,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -602,7 +602,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 461,
+   "x": 460,
    "w": 91,
    "h": 39,
    "text": "Portway",
@@ -616,7 +616,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 615,
+   "x": 614,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -626,7 +626,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 661,
+   "x": 660,
    "w": 89,
    "h": 39,
    "text": "Halcyon",
@@ -640,7 +640,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 811,
+   "x": 810,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -650,7 +650,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 857,
+   "x": 856,
    "w": 95,
    "h": 39,
    "text": "Meridian",
@@ -664,7 +664,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1005,
+   "x": 1003,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -674,7 +674,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1051,
+   "x": 1049,
    "w": 106,
    "h": 39,
    "text": "Northlake",
@@ -688,7 +688,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1212,
+   "x": 1211,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -698,7 +698,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1258,
+   "x": 1257,
    "w": 89,
    "h": 39,
    "text": "Aetheris",
@@ -712,7 +712,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1410,
+   "x": 1409,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -722,7 +722,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1456,
+   "x": 1455,
    "w": 91,
    "h": 39,
    "text": "Portway",
@@ -736,7 +736,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1610,
+   "x": 1609,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -746,7 +746,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1656,
+   "x": 1655,
    "w": 89,
    "h": 39,
    "text": "Halcyon",
@@ -2769,7 +2769,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -294,
+   "x": -296,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2783,7 +2783,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -36,
+   "x": -37,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2797,7 +2797,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1346,
+   "x": 1345,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2811,7 +2811,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1604,
+   "x": 1603,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2844,7 +2844,7 @@
   {
    "tag": "h2",
    "y": 2147,
-   "x": -336,
+   "x": -338,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2858,17 +2858,17 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 628,
+   "x": 627,
    "w": 151,
    "h": 151,
    "ov": "hidden",
    "svgw": "0 0 100 100",
-   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
+   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
   },
   {
    "tag": "h2",
    "y": 2147,
-   "x": 839,
+   "x": 838,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2882,12 +2882,12 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 1804,
+   "x": 1803,
    "w": 151,
    "h": 151,
    "ov": "hidden",
    "svgw": "0 0 100 100",
-   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"46.5\" y=\"4\" width=\"7\" height=\"42\" rx=\"3.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
+   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
   },
   {
    "tag": "article",
@@ -4248,7 +4248,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -4258,7 +4258,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -4287,15 +4287,16 @@
    "jc": "normal",
    "ai": "center",
    "gap": "normal",
+   "shadow": "rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
    "pos": "relative",
    "ov": "hidden"
   },
   {
    "tag": "img",
-   "y": 3922,
+   "y": 3992,
    "x": 720,
    "w": 480,
-   "h": 500,
+   "h": 430,
    "pos": "absolute",
    "ov": "clip",
    "src": "http://localhost:3001/assets/qWpzthqQ4FGQWP39IeKgah1OP8.png",
@@ -4304,7 +4305,7 @@
   },
   {
    "tag": "img",
-   "y": 4066,
+   "y": 4136,
    "x": 825,
    "w": 270,
    "h": 270,
@@ -4316,8 +4317,24 @@
   },
   {
    "tag": "span",
-   "y": 3816,
-   "x": 1144,
+   "y": 3808,
+   "x": 1126,
+   "w": 56,
+   "h": 38,
+   "br": "10px",
+   "bd": "1px solid rgba(255, 255, 255, 0.2)",
+   "pad": "8px 16px",
+   "disp": "flex",
+   "fd": "row",
+   "jc": "center",
+   "ai": "center",
+   "gap": "normal",
+   "pos": "absolute"
+  },
+  {
+   "tag": "span",
+   "y": 3817,
+   "x": 1143,
    "w": 22,
    "h": 20,
    "text": "001",
@@ -4327,8 +4344,7 @@
    "lh": "20.4px",
    "ls": "normal",
    "color": "rgb(255, 255, 255)",
-   "tt": "uppercase",
-   "pos": "absolute"
+   "tt": "uppercase"
   },
   {
    "tag": "h3",
@@ -4371,16 +4387,17 @@
    "jc": "normal",
    "ai": "center",
    "gap": "normal",
+   "shadow": "rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
    "pos": "relative",
    "ov": "hidden"
   },
   {
    "tag": "img",
-   "y": 3922,
+   "y": 3992,
    "x": 1210,
    "w": 90,
-   "h": 500,
-   "op": "0.75",
+   "h": 430,
+   "op": "0",
    "pos": "absolute",
    "ov": "clip",
    "src": "http://localhost:3001/assets/pEct5trUmjDYAblzuKYq2MpHaA.png",
@@ -4389,7 +4406,7 @@
   },
   {
    "tag": "img",
-   "y": 4080,
+   "y": 4150,
    "x": 1210,
    "w": 90,
    "h": 270,
@@ -4403,7 +4420,23 @@
   },
   {
    "tag": "span",
-   "y": 3816,
+   "y": 3808,
+   "x": 1227,
+   "w": 56,
+   "h": 38,
+   "br": "10px",
+   "bd": "1px solid rgba(255, 255, 255, 0.2)",
+   "pad": "8px 16px",
+   "disp": "flex",
+   "fd": "row",
+   "jc": "center",
+   "ai": "center",
+   "gap": "normal",
+   "pos": "absolute"
+  },
+  {
+   "tag": "span",
+   "y": 3817,
    "x": 1244,
    "w": 22,
    "h": 20,
@@ -4414,12 +4447,11 @@
    "lh": "20.4px",
    "ls": "normal",
    "color": "rgba(255, 255, 255, 0.8)",
-   "tt": "uppercase",
-   "pos": "absolute"
+   "tt": "uppercase"
   },
   {
    "tag": "span",
-   "y": 3988,
+   "y": 4166,
    "x": 1237,
    "w": 37,
    "h": 238,
@@ -4447,16 +4479,17 @@
    "jc": "normal",
    "ai": "center",
    "gap": "normal",
+   "shadow": "rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
    "pos": "relative",
    "ov": "hidden"
   },
   {
    "tag": "img",
-   "y": 3922,
+   "y": 3992,
    "x": 1310,
    "w": 90,
-   "h": 500,
-   "op": "0.75",
+   "h": 430,
+   "op": "0",
    "pos": "absolute",
    "ov": "clip",
    "src": "http://localhost:3001/assets/pEct5trUmjDYAblzuKYq2MpHaA.png",
@@ -4465,7 +4498,7 @@
   },
   {
    "tag": "img",
-   "y": 4080,
+   "y": 4150,
    "x": 1310,
    "w": 90,
    "h": 270,
@@ -4479,7 +4512,23 @@
   },
   {
    "tag": "span",
-   "y": 3816,
+   "y": 3808,
+   "x": 1327,
+   "w": 56,
+   "h": 38,
+   "br": "10px",
+   "bd": "1px solid rgba(255, 255, 255, 0.2)",
+   "pad": "8px 16px",
+   "disp": "flex",
+   "fd": "row",
+   "jc": "center",
+   "ai": "center",
+   "gap": "normal",
+   "pos": "absolute"
+  },
+  {
+   "tag": "span",
+   "y": 3817,
    "x": 1344,
    "w": 22,
    "h": 20,
@@ -4490,12 +4539,11 @@
    "lh": "20.4px",
    "ls": "normal",
    "color": "rgba(255, 255, 255, 0.8)",
-   "tt": "uppercase",
-   "pos": "absolute"
+   "tt": "uppercase"
   },
   {
    "tag": "span",
-   "y": 3988,
+   "y": 4166,
    "x": 1337,
    "w": 37,
    "h": 238,
@@ -4529,6 +4577,16 @@
    "src": "http://localhost:3001/assets/jnIpVvHAXWiAGa8gLEmWtRuDwQ.png",
    "alt": "Alexander Vacca",
    "fit": "cover"
+  },
+  {
+   "tag": "span",
+   "y": 4695,
+   "x": 63,
+   "w": 274,
+   "h": 274,
+   "br": "4px",
+   "bd": "1px solid rgba(255, 255, 255, 0.28)",
+   "pos": "absolute"
   },
   {
    "tag": "svg",
@@ -6276,7 +6334,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -6286,7 +6344,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -6310,7 +6368,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 34px 8px 0px; transform: scale(0.930104); transform-box: fill-box;\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 34px 8px 0px; transform: scale(0.941501); transform-box: fill-box;\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
   },
   {
    "tag": "span",
@@ -6342,7 +6400,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(59.1429deg); transform-box: fill-box;\"></circle><circle cx=\"43\" cy=\"28\" r=\"3\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(-226.8deg); transform-box: fill-box;\"></circle></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(62.2286deg); transform-box: fill-box;\"></circle><circle cx=\"43\" cy=\"28\" r=\"3\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(-231.12deg); transform-box: fill-box;\"></circle></svg>"
   },
   {
    "tag": "span",
@@ -6374,7 +6432,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(30.644px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(25.0245px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.0995px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(27.3582px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(29.9762px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(25.4262px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.1232px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(27.459px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -6429,7 +6487,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 958,
+   "x": 957,
    "w": 20,
    "h": 19,
    "text": "ZH",
@@ -6444,7 +6502,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 978,
+   "x": 977,
    "w": 20,
    "h": 19,
    "text": "HI",
@@ -6459,7 +6517,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 998,
+   "x": 997,
    "w": 20,
    "h": 19,
    "text": "ES",
@@ -6474,7 +6532,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1018,
+   "x": 1017,
    "w": 20,
    "h": 19,
    "text": "FR",
@@ -6489,7 +6547,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1038,
+   "x": 1037,
    "w": 20,
    "h": 19,
    "text": "AR",
@@ -6504,7 +6562,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1058,
+   "x": 1057,
    "w": 20,
    "h": 19,
    "text": "BN",
@@ -6519,7 +6577,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1078,
+   "x": 1077,
    "w": 20,
    "h": 19,
    "text": "PT",
@@ -6534,7 +6592,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1098,
+   "x": 1097,
    "w": 20,
    "h": 19,
    "text": "RU",
@@ -6549,7 +6607,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1118,
+   "x": 1117,
    "w": 20,
    "h": 19,
    "text": "EN",
@@ -6564,7 +6622,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1138,
+   "x": 1137,
    "w": 20,
    "h": 19,
    "text": "DE",
@@ -6579,7 +6637,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1158,
+   "x": 1157,
    "w": 20,
    "h": 19,
    "text": "ZH",
@@ -6594,7 +6652,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1178,
+   "x": 1177,
    "w": 20,
    "h": 19,
    "text": "HI",
@@ -6609,7 +6667,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1198,
+   "x": 1197,
    "w": 20,
    "h": 19,
    "text": "ES",
@@ -6624,7 +6682,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1218,
+   "x": 1217,
    "w": 20,
    "h": 19,
    "text": "FR",
@@ -6639,7 +6697,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1238,
+   "x": 1237,
    "w": 20,
    "h": 19,
    "text": "AR",
@@ -6654,7 +6712,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1258,
+   "x": 1257,
    "w": 20,
    "h": 19,
    "text": "BN",
@@ -6669,7 +6727,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1278,
+   "x": 1277,
    "w": 20,
    "h": 19,
    "text": "PT",
@@ -6684,7 +6742,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1298,
+   "x": 1297,
    "w": 20,
    "h": 19,
    "text": "RU",
@@ -6699,7 +6757,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1318,
+   "x": 1317,
    "w": 20,
    "h": 19,
    "text": "EN",
@@ -6714,7 +6772,7 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 1338,
+   "x": 1337,
    "w": 20,
    "h": 19,
    "text": "DE",
@@ -6762,7 +6820,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -306,
+   "x": -308,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6776,7 +6834,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -48,
+   "x": -49,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -6790,7 +6848,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1334,
+   "x": 1333,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6804,7 +6862,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1592,
+   "x": 1591,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -6918,14 +6976,36 @@
   },
   {
    "tag": "span",
-   "y": 6506,
-   "x": 681,
-   "w": 79,
-   "h": 79,
+   "y": 6790,
+   "x": 1265,
+   "w": 135,
+   "h": 83,
+   "bg": "rgb(255, 255, 255)",
    "br": "3.35544e+07px",
-   "bd": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.3)",
-   "tf": "matrix(0.82, 0, 0, 0.82, 0, 0)",
-   "op": "0",
+   "disp": "flex",
+   "fd": "row",
+   "jc": "center",
+   "ai": "center",
+   "gap": "normal"
+  },
+  {
+   "tag": "span",
+   "y": 6813,
+   "x": 1290,
+   "w": 86,
+   "h": 38,
+   "bg": "rgb(26, 26, 26)",
+   "br": "3.35544e+07px"
+  },
+  {
+   "tag": "span",
+   "y": 6498,
+   "x": 672,
+   "w": 96,
+   "h": 96,
+   "br": "3.35544e+07px",
+   "bd": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.45)",
+   "op": "0.75",
    "pos": "absolute"
   },
   {
@@ -7295,7 +7375,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -7305,7 +7385,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -7600,7 +7680,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -7610,7 +7690,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -7636,6 +7716,16 @@
    "src": "http://localhost:3001/assets/OrsgMbvM0AZiEvhgHFZUJM2g.png",
    "alt": "Sarah Jenkins",
    "fit": "cover"
+  },
+  {
+   "tag": "span",
+   "y": 9005,
+   "x": 318,
+   "w": 28,
+   "h": 16,
+   "br": "3.35544e+07px",
+   "bd": "2px solid rgba(255, 255, 255, 0.9)",
+   "pos": "absolute"
   },
   {
    "tag": "span",
@@ -7821,6 +7911,16 @@
   },
   {
    "tag": "span",
+   "y": 9005,
+   "x": 662,
+   "w": 28,
+   "h": 16,
+   "br": "3.35544e+07px",
+   "bd": "2px solid rgba(255, 255, 255, 0.9)",
+   "pos": "absolute"
+  },
+  {
+   "tag": "span",
    "y": 9408,
    "x": 394,
    "w": 3,
@@ -8000,6 +8100,16 @@
    "src": "http://localhost:3001/assets/8k7FcfFSjgocOslFu94p0ih1UY.png",
    "alt": "Elena Vance",
    "fit": "cover"
+  },
+  {
+   "tag": "span",
+   "y": 9005,
+   "x": 1006,
+   "w": 28,
+   "h": 16,
+   "br": "3.35544e+07px",
+   "bd": "2px solid rgba(255, 255, 255, 0.9)",
+   "pos": "absolute"
   },
   {
    "tag": "span",
@@ -8185,6 +8295,16 @@
   },
   {
    "tag": "span",
+   "y": 9005,
+   "x": 1350,
+   "w": 28,
+   "h": 16,
+   "br": "3.35544e+07px",
+   "bd": "2px solid rgba(255, 255, 255, 0.9)",
+   "pos": "absolute"
+  },
+  {
+   "tag": "span",
    "y": 9408,
    "x": 1082,
    "w": 3,
@@ -8366,7 +8486,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -306,
+   "x": -308,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8380,7 +8500,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -48,
+   "x": -49,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8394,7 +8514,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1334,
+   "x": 1333,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8408,7 +8528,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1592,
+   "x": 1591,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8540,7 +8660,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -8550,7 +8670,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -8870,13 +8990,13 @@
    "pos": "absolute"
   },
   {
-   "tag": "div",
-   "y": 345,
+   "tag": "span",
+   "y": 292,
    "x": 40,
-   "w": 76,
-   "h": 34,
+   "w": 60,
+   "h": 32,
    "br": "3.35544e+07px",
-   "bd": "2px solid rgb(255, 255, 255)",
+   "bd": "4px solid rgb(255, 255, 255)",
    "disp": "flex",
    "fd": "row",
    "jc": "center",
@@ -8885,25 +9005,16 @@
   },
   {
    "tag": "span",
-   "y": 355,
-   "x": 61,
-   "w": 34,
-   "h": 14,
-   "br": "3.35544e+07px",
-   "bd": "2px solid rgb(255, 255, 255)"
-  },
-  {
-   "tag": "span",
    "y": 341,
-   "x": 126,
-   "w": 112,
+   "x": 40,
+   "w": 150,
    "h": 42,
    "text": "peregrine",
    "font": "interDisplay",
-   "fs": "28px",
+   "fs": "38px",
    "fw": "600",
    "lh": "42px",
-   "ls": "-1.12px",
+   "ls": "-1.71px",
    "color": "rgb(255, 255, 255)"
   },
   {
@@ -8976,7 +9087,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "svg",
@@ -8986,7 +9097,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"2\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"7\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"12\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"2.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"18\" y=\"9.5\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect><rect x=\"23\" y=\"6\" width=\"3.4\" height=\"3.4\" rx=\"0.6\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -9034,13 +9145,13 @@
   },
   {
    "tag": "svg",
-   "y": 585,
-   "x": 49,
-   "w": 16,
-   "h": 16,
+   "y": 586,
+   "x": 50,
+   "w": 15,
+   "h": 15,
    "ov": "hidden",
    "svgw": "0 0 24 24",
-   "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 4l16 16M20 4L4 20\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\" stroke-linecap=\"round\"></path></svg>"
+   "svg": "<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z\" fill=\"currentColor\"></path></svg>"
   },
   {
    "tag": "a",
@@ -9116,9 +9227,9 @@
   },
   {
    "tag": "p",
-   "y": 291,
-   "x": 737,
-   "w": 165,
+   "y": 292,
+   "x": 738,
+   "w": 164,
    "h": 22,
    "text": "Quick Links",
    "font": "Geist Mono",
@@ -9130,17 +9241,17 @@
   },
   {
    "tag": "span",
-   "y": 349,
-   "x": 702,
+   "y": 350,
+   "x": 703,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 339,
-   "x": 737,
+   "y": 340,
+   "x": 738,
    "w": 37,
    "h": 21,
    "text": "Home",
@@ -9154,17 +9265,17 @@
   },
   {
    "tag": "span",
-   "y": 382,
-   "x": 702,
+   "y": 383,
+   "x": 703,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 372,
-   "x": 737,
+   "y": 373,
+   "x": 738,
    "w": 75,
    "h": 21,
    "text": "Digital Brain",
@@ -9178,17 +9289,17 @@
   },
   {
    "tag": "span",
-   "y": 415,
-   "x": 702,
+   "y": 416,
+   "x": 703,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 405,
-   "x": 737,
+   "y": 406,
+   "x": 738,
    "w": 50,
    "h": 21,
    "text": "Projects",
@@ -9202,17 +9313,17 @@
   },
   {
    "tag": "span",
-   "y": 448,
-   "x": 702,
+   "y": 449,
+   "x": 703,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 438,
-   "x": 737,
+   "y": 439,
+   "x": 738,
    "w": 46,
    "h": 21,
    "text": "Articles",
@@ -9226,9 +9337,9 @@
   },
   {
    "tag": "p",
-   "y": 291,
-   "x": 937,
-   "w": 165,
+   "y": 292,
+   "x": 938,
+   "w": 164,
    "h": 22,
    "text": "Company",
    "font": "Geist Mono",
@@ -9240,17 +9351,17 @@
   },
   {
    "tag": "span",
-   "y": 349,
-   "x": 902,
+   "y": 350,
+   "x": 903,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 339,
-   "x": 937,
+   "y": 340,
+   "x": 938,
    "w": 58,
    "h": 21,
    "text": "About Us",
@@ -9264,17 +9375,17 @@
   },
   {
    "tag": "span",
-   "y": 382,
-   "x": 902,
+   "y": 383,
+   "x": 903,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 372,
-   "x": 937,
+   "y": 373,
+   "x": 938,
    "w": 70,
    "h": 21,
    "text": "Contact Us",
@@ -9288,17 +9399,17 @@
   },
   {
    "tag": "span",
-   "y": 415,
-   "x": 902,
+   "y": 416,
+   "x": 903,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 405,
-   "x": 937,
+   "y": 406,
+   "x": 938,
    "w": 72,
    "h": 21,
    "text": "Book A Call",
@@ -9312,17 +9423,17 @@
   },
   {
    "tag": "span",
-   "y": 448,
-   "x": 902,
+   "y": 449,
+   "x": 903,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 438,
-   "x": 937,
+   "y": 439,
+   "x": 938,
    "w": 100,
    "h": 21,
    "text": "More Templates",
@@ -9336,9 +9447,9 @@
   },
   {
    "tag": "p",
-   "y": 291,
-   "x": 1137,
-   "w": 165,
+   "y": 292,
+   "x": 1138,
+   "w": 164,
    "h": 22,
    "text": "Policies",
    "font": "Geist Mono",
@@ -9350,17 +9461,17 @@
   },
   {
    "tag": "span",
-   "y": 349,
-   "x": 1102,
+   "y": 350,
+   "x": 1103,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 339,
-   "x": 1137,
+   "y": 340,
+   "x": 1138,
    "w": 120,
    "h": 21,
    "text": "Terms & Conditions",
@@ -9374,17 +9485,17 @@
   },
   {
    "tag": "span",
-   "y": 382,
-   "x": 1102,
+   "y": 383,
+   "x": 1103,
    "w": 15,
    "h": 1,
-   "bg": "rgba(255, 255, 255, 0.5)",
+   "bg": "rgba(255, 255, 255, 0.4)",
    "trans": "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
   },
   {
    "tag": "a",
-   "y": 372,
-   "x": 1137,
+   "y": 373,
+   "x": 1138,
    "w": 86,
    "h": 21,
    "text": "Privacy Policy",
