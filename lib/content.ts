@@ -182,6 +182,10 @@ export const neural = {
 export const video = {
   /** Sits full-bleed between the neural grid and the process section. */
   image: `${A}/Y43VBCJU98vH9ESfLTOmhYvVKjY.jpg`,
+  /** Point this at a real film and the play target starts working: the still
+   *  gives way to a player in place. Until then the mark is decoration, which
+   *  is all it is in the source template too. */
+  src: null as string | null,
   caption:
     "Exploring the intersection of human creativity and machine logic to redefine what's possible in the digital age.",
   duration: "2mins watch",
