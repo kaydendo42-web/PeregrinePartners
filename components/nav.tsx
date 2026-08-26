@@ -28,7 +28,7 @@ export function Nav() {
         {/* left pill */}
         <nav
           className="pointer-events-auto flex items-center bg-white"
-          style={{ borderRadius: 100, padding: "5px 26px 5px 5px", gap: 24 }}
+          style={{ borderRadius: 100, padding: "5px 26px 5px 5px", gap: 40 }}
         >
           <Link href="#top" aria-label="Home">
             <LogoPill />
