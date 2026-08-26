@@ -78,6 +78,7 @@ function AgentsCard() {
         style={{
           borderRadius: R,
           border: "1px dashed var(--ink-20)",
+          backgroundImage: "none",
         }}
       >
         <div className="flex items-center">
@@ -134,8 +135,8 @@ function InferenceCard() {
           <svg viewBox="0 0 160 160" className="absolute inset-0 h-full w-full" aria-hidden>
             {ticks.map((_, i) => {
               const angle = (i / ticks.length) * Math.PI * 2 - Math.PI / 2;
-              const inner = 52;
-              const len = 12 + ((i * 7) % 11);
+              const inner = 48;
+              const len = 15 + ((i * 7) % 14);
               // rounded so server and client render byte-identical coordinates
               const r2 = (n: number) => Number(n.toFixed(2));
               const x1 = r2(80 + Math.cos(angle) * inner);
@@ -150,7 +151,7 @@ function InferenceCard() {
                   x2={x2}
                   y2={y2}
                   stroke="var(--ink)"
-                  strokeWidth="1"
+                  strokeWidth="1.1"
                   strokeLinecap="round"
                   initial={{ opacity: 0.15 }}
                   whileInView={{ opacity: [0.15, 0.85, 0.55] }}

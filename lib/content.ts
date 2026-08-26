@@ -27,7 +27,7 @@ export const hero = {
   },
   trust: "+2,400 active deployments and 8,200 brands trust our high-performance architecture.",
   bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.png`,
-  bgBack: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.png`,
+  bgBack: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
 };
 
 /**
@@ -325,7 +325,7 @@ export const team = {
 export const footer = {
   blurb:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac ultrices massa. Vivamus faucibus egestas nulla",
-  bg: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.png`,
+  bg: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
   columns: [
     {
       title: "Quick Links",
