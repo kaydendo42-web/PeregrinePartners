@@ -26,7 +26,7 @@ export const hero = {
     video: `${A}/2WO0ZC7yTbYNkxdTbPKkcOs30s.mp4`,
   },
   trust: "+2,400 active deployments and 8,200 brands trust our high-performance architecture.",
-  bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.png`,
+  bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.webp`,
   bgBack: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
 };
 

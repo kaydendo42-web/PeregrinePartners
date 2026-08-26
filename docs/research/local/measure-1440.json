@@ -303,7 +303,7 @@
    "w": 1416,
    "h": 876,
    "ov": "clip",
-   "src": "http://localhost:3001/assets/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.png",
+   "src": "http://localhost:3001/assets/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.webp",
    "alt": "",
    "fit": "cover"
   },
@@ -520,7 +520,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": -165,
+   "x": -167,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -530,7 +530,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": -127,
+   "x": -129,
    "w": 81,
    "h": 33,
    "text": "Meridian",
@@ -544,7 +544,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 29,
+   "x": 27,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -554,7 +554,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 67,
+   "x": 65,
    "w": 90,
    "h": 33,
    "text": "Northlake",
@@ -568,7 +568,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 235,
+   "x": 233,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -578,7 +578,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 273,
+   "x": 271,
    "w": 76,
    "h": 33,
    "text": "Aetheris",
@@ -592,7 +592,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 433,
+   "x": 432,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -602,7 +602,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 471,
+   "x": 470,
    "w": 77,
    "h": 33,
    "text": "Portway",
@@ -616,7 +616,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 633,
+   "x": 631,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -626,7 +626,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 671,
+   "x": 669,
    "w": 76,
    "h": 33,
    "text": "Halcyon",
@@ -640,7 +640,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 830,
+   "x": 828,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -650,7 +650,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 868,
+   "x": 866,
    "w": 81,
    "h": 33,
    "text": "Meridian",
@@ -664,7 +664,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 1024,
+   "x": 1022,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -674,7 +674,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 1062,
+   "x": 1060,
    "w": 90,
    "h": 33,
    "text": "Northlake",
@@ -688,7 +688,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 1230,
+   "x": 1228,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -698,7 +698,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 1268,
+   "x": 1266,
    "w": 76,
    "h": 33,
    "text": "Aetheris",
@@ -712,7 +712,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 1428,
+   "x": 1427,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -722,7 +722,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 1466,
+   "x": 1465,
    "w": 77,
    "h": 33,
    "text": "Portway",
@@ -736,7 +736,7 @@
   {
    "tag": "svg",
    "y": 806,
-   "x": 1628,
+   "x": 1626,
    "w": 28,
    "h": 28,
    "ov": "hidden",
@@ -746,7 +746,7 @@
   {
    "tag": "span",
    "y": 803,
-   "x": 1666,
+   "x": 1664,
    "w": 76,
    "h": 33,
    "text": "Halcyon",
@@ -2769,7 +2769,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -284,
+   "x": -287,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2783,7 +2783,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -26,
+   "x": -28,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2797,7 +2797,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1356,
+   "x": 1354,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2811,7 +2811,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1614,
+   "x": 1612,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2844,7 +2844,7 @@
   {
    "tag": "h2",
    "y": 2147,
-   "x": -326,
+   "x": -328,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2858,7 +2858,7 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 639,
+   "x": 637,
    "w": 151,
    "h": 151,
    "ov": "hidden",
@@ -2868,7 +2868,7 @@
   {
    "tag": "h2",
    "y": 2147,
-   "x": 850,
+   "x": 848,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2882,7 +2882,7 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 1815,
+   "x": 1812,
    "w": 151,
    "h": 151,
    "ov": "hidden",
@@ -6368,7 +6368,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: scale(0.905637);\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: scale(0.906013);\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
   },
   {
    "tag": "span",
@@ -6400,7 +6400,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(318.2deg);\"><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\"></circle></g><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(-117.3deg);\"><circle cx=\"43\" cy=\"28\" r=\"2.6\" fill=\"#fff\" opacity=\"0.85\"></circle></g></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(318.4deg);\"><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\"></circle></g><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(-117.6deg);\"><circle cx=\"43\" cy=\"28\" r=\"2.6\" fill=\"#fff\" opacity=\"0.85\"></circle></g></svg>"
   },
   {
    "tag": "span",
@@ -6432,7 +6432,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(32.3833px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(23.6514px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.0406px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(26.9654px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(32.3457px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(23.689px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.042px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(26.9742px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -6820,7 +6820,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -296,
+   "x": -299,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6834,7 +6834,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -38,
+   "x": -40,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -6848,7 +6848,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1344,
+   "x": 1342,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6862,7 +6862,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1602,
+   "x": 1600,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8486,7 +8486,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -296,
+   "x": -299,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8500,7 +8500,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -38,
+   "x": -40,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8514,7 +8514,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1344,
+   "x": 1342,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8528,7 +8528,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1602,
+   "x": 1600,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
