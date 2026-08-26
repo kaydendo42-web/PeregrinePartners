@@ -14,6 +14,10 @@ agent-floor demo ported from the user's own `consilium` repo.
 - **Reference site:** https://spartanai.framer.website/
 - **Local:** `npm run dev` → http://localhost:3001
 - **Repo:** https://github.com/kaydendo42-web/PeregrinePartners (private)
+- **Live:** https://peregrine-partners-ten.vercel.app — note the `-ten`,
+  Vercel took it because `peregrine-partners.vercel.app` was already claimed.
+  `metadataBase` in `app/layout.tsx` points at it; override with
+  `NEXT_PUBLIC_SITE_URL` once there is a real domain.
 - **Vercel:** `kaydendo42-webs-projects/peregrine-partners`, deploys on push to `main`
 - **Stack:** Next.js 16 App Router, React 19, Tailwind v4, `motion` (Framer Motion v12 API)
 
@@ -33,6 +37,10 @@ python3 docs/research/pair.py <y0> <y1> <delta>        # ref and local side by s
 node docs/research/compare.mjs                         # matched screenshot pairs
 node docs/research/shoot-widths.mjs [path]             # 390 / 810 / 1100 strips
 node docs/research/shoot-platform.mjs                  # /platform full-page strip
+python3 docs/research/crop-ref.py <which> <y0> <y1> <out>   # band out of a design reference
+node docs/research/optimise-assets.mjs                 # cap assets at 2x their render
+node docs/research/og/shoot.mjs                        # re-render public/og.png
+node docs/research/og/shoot-platform-card.mjs          # re-render public/og-platform.png
 python3 docs/research/q.py  <y0> <y1>                  # reference y-range, full styles
 python3 docs/research/ql.py <y0> <y1>                  # same for local
 ```
@@ -71,6 +79,8 @@ absolute values.
 | `y42 "Company"` Δ−20 | matches the mobile menu's copy, not the nav. Fine. |
 | `y198 "Build with AI."` Δ−81 | the reference wraps both hero lines in one animated span. Fine. |
 | `y10941 "Pricing"`, `y13085 "Insights"` | matching a nav link, not the cut section. Fine. |
+| nav `x` on Services/Insights/Company | we carry Platform where the reference carries Pricing, so the labels are different widths. Fine. |
+| footer Quick Links rows one place low | that column gained Platform. Fine. |
 | marquee `right=` overflow in shoot-widths | marquees are wider than the viewport by design. Fine. |
 
 Anything else is real. **Verify a fix by re-running extract-local + align, not
@@ -147,6 +157,42 @@ Other reference behaviour worth knowing:
 
 ---
 
+## 3b. Responsive
+
+The three full-page captures in `docs/research/design-references/` are the
+reference at 1440, 834 and 390 (all at 2x). **Only their first 8192px tile
+carries trustworthy offsets** — the tablet and phone ones are stitched and
+repeat after that. `crop-ref.py` pulls a band out of any of them.
+
+Checked and matched: the hero keeps its product card at every width (it drops
+under the copy), the nav runs full width on a phone with a 16px gutter, the
+display marquee holds near 130px there, the capability rows lead with the
+index pill and a mono label, and vision reads copy before portrait.
+
+One thing the phone capture settles: **the reference's works cards do show
+their cover on a phone.** Hiding it until hover is a desktop affordance, so
+showing it where there is no hover is the reference's own behaviour.
+
+`node docs/research/shoot-widths.mjs [path]` walks 390/810/1100 and reports
+console errors and horizontal overflow. Marquees always report overflow —
+they are wider than the viewport by design.
+
+---
+
+## 3c. Weight
+
+The source project's CDN resized on the way out; a plain `/public` does not,
+so every asset shipped at full resolution and the home page was **25.5MB**.
+`node docs/research/optimise-assets.mjs` reads the render sizes out of the
+local capture and caps each file at twice its largest measured box. The
+footer photograph was a fully opaque PNG and is now a JPEG; the hero
+backdrop carries real alpha and is now WebP. **Home page is 2.63MB.**
+
+If you add an asset, run the script. If you change what size something
+renders at, re-run the local capture first so the script sees it.
+
+---
+
 ## 4. Design system (measured, in `app/globals.css`)
 
 ```
@@ -208,5 +254,9 @@ full-page strip and reports console errors.
 - `/platform` exists, linked from nav and footer, functionally identical to
   consilium's `AgentFloor`, visually part of this site ✅
 - `npm run build` clean, no console errors, no lint errors ✅
-- 390 / 810 / 1100 all check out ✅
+- 390 / 810 / 1100 all check out against the design references ✅
+- Focus styles on every control, reduced motion honoured ✅
+- Social cards and icon in place ✅
+- Home page 2.63MB, no failed requests, no console errors — checked on the
+  deployed site, not just locally ✅
 - Work committed and pushed; Vercel deploys on push ✅

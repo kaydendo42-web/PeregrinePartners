@@ -42,7 +42,7 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://peregrine-partners.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://peregrine-partners-ten.vercel.app",
   ),
   title: {
     default: "Peregrine Partners — Applied AI Engineering",
