@@ -131,6 +131,16 @@ body {
   font-weight: 300;
 }
 
+/* House mark: one chevron inked at a time, walking toward the label. ---- */
+@keyframes mark-march {
+  0%, 15% { opacity: 1; }
+  19%, 100% { opacity: 0; }
+}
+.mark-chevron {
+  opacity: 0;
+  animation: mark-march 2.4s linear infinite;
+}
+
 /* Marquee ------------------------------------------------------- */
 @keyframes marquee-x {
   from { transform: translate3d(0, 0, 0); }
@@ -148,6 +158,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   html { scroll-behavior: auto; }
+  .mark-chevron { animation: none; opacity: 0; }
+  .mark-chevron[data-rest] { opacity: 1; }
 }
 
 /* Utility ------------------------------------------------------- */

@@ -216,8 +216,8 @@ function PanelArt({ open, object }: { open: boolean; object: string }) {
         src={object}
         alt=""
         aria-hidden
-        className="absolute left-1/2 h-[270px] w-[270px] -translate-x-1/2 object-contain"
-        style={{ top: 144 }}
+        className="absolute left-1/2 h-[200px] w-[270px] -translate-x-1/2 object-contain"
+        style={{ top: 100 }}
         animate={{ opacity: open ? 1 : 0, y: open ? 0 : 14 }}
         transition={{ duration: 0.7, ease: EASE }}
       />

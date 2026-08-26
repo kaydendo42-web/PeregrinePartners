@@ -24,7 +24,7 @@ export function Vision() {
                 className="pointer-events-none absolute"
                 style={{
                   inset: 23,
-                  border: "1px solid rgba(255,255,255,0.28)",
+                  border: "1px solid rgba(255,255,255,0.18)",
                   borderRadius: 4,
                 }}
               />

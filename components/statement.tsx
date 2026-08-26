@@ -153,7 +153,7 @@ function InferenceCard() {
                   strokeWidth="1"
                   strokeLinecap="round"
                   initial={{ opacity: 0.15 }}
-                  whileInView={{ opacity: [0.15, 0.75, 0.35] }}
+                  whileInView={{ opacity: [0.15, 0.85, 0.55] }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.4, delay: i * 0.015, ease: "easeOut" }}
                 />

@@ -235,7 +235,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -245,7 +245,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -389,7 +389,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -399,7 +399,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -520,7 +520,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": -183,
+   "x": -186,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -530,7 +530,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": -137,
+   "x": -140,
    "w": 95,
    "h": 39,
    "text": "Meridian",
@@ -544,7 +544,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 10,
+   "x": 7,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -554,7 +554,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 56,
+   "x": 53,
    "w": 106,
    "h": 39,
    "text": "Northlake",
@@ -568,7 +568,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 218,
+   "x": 215,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -578,7 +578,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 264,
+   "x": 261,
    "w": 89,
    "h": 39,
    "text": "Aetheris",
@@ -592,7 +592,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 416,
+   "x": 413,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -602,7 +602,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 462,
+   "x": 459,
    "w": 91,
    "h": 39,
    "text": "Portway",
@@ -616,7 +616,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 616,
+   "x": 613,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -626,7 +626,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 662,
+   "x": 659,
    "w": 89,
    "h": 39,
    "text": "Halcyon",
@@ -640,7 +640,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 812,
+   "x": 809,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -650,7 +650,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 858,
+   "x": 855,
    "w": 95,
    "h": 39,
    "text": "Meridian",
@@ -664,7 +664,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1005,
+   "x": 1002,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -674,7 +674,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1051,
+   "x": 1048,
    "w": 106,
    "h": 39,
    "text": "Northlake",
@@ -688,7 +688,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1213,
+   "x": 1210,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -698,7 +698,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1259,
+   "x": 1256,
    "w": 89,
    "h": 39,
    "text": "Aetheris",
@@ -712,7 +712,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1411,
+   "x": 1408,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -722,7 +722,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1457,
+   "x": 1454,
    "w": 91,
    "h": 39,
    "text": "Portway",
@@ -736,7 +736,7 @@
   {
    "tag": "svg",
    "y": 803,
-   "x": 1611,
+   "x": 1608,
    "w": 34,
    "h": 34,
    "ov": "hidden",
@@ -746,7 +746,7 @@
   {
    "tag": "span",
    "y": 800,
-   "x": 1657,
+   "x": 1654,
    "w": 89,
    "h": 39,
    "text": "Halcyon",
@@ -2622,7 +2622,7 @@
    "pos": "absolute",
    "ov": "hidden",
    "svgw": "0 0 160 160",
-   "svg": "<svg viewBox=\"0 0 160 160\" class=\"absolute inset-0 h-full w-full\" aria-hidden=\"true\"><line x1=\"80\" y1=\"28\" x2=\"80\" y2=\"16\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"86.79\" y1=\"28.44\" x2=\"89.27\" y2=\"9.61\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"93.46\" y1=\"29.77\" x2=\"97.34\" y2=\"15.28\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"99.9\" y1=\"31.96\" x2=\"108.32\" y2=\"11.63\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"106\" y1=\"34.97\" x2=\"115\" y2=\"19.38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"111.66\" y1=\"38.75\" x2=\"120.18\" y2=\"27.64\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"116.77\" y1=\"43.23\" x2=\"131.62\" y2=\"28.38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"121.25\" y1=\"48.34\" x2=\"134.74\" y2=\"38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"125.03\" y1=\"54\" x2=\"136.29\" y2=\"47.5\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"128.04\" y1=\"60.1\" x2=\"146.52\" y2=\"52.45\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"130.23\" y1=\"66.54\" x2=\"145.68\" y2=\"62.4\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"131.56\" y1=\"73.21\" x2=\"143.45\" y2=\"71.65\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"132\" y1=\"80\" x2=\"151\" y2=\"80\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"131.56\" y1=\"86.79\" x2=\"146.43\" y2=\"88.75\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"130.23\" y1=\"93.46\" x2=\"151.48\" y2=\"99.15\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"128.04\" y1=\"99.9\" x2=\"144.67\" y2=\"106.79\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"125.03\" y1=\"106\" x2=\"137.16\" y2=\"113\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"121.25\" y1=\"111.66\" x2=\"137.91\" y2=\"124.44\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"116.77\" y1=\"116.77\" x2=\"128.79\" y2=\"128.79\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"111.66\" y1=\"121.25\" x2=\"119.57\" y2=\"131.57\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.35;\"></line><line x1=\"106\" y1=\"125.03\" x2=\"116\" y2=\"142.35\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacit"
+   "svg": "<svg viewBox=\"0 0 160 160\" class=\"absolute inset-0 h-full w-full\" aria-hidden=\"true\"><line x1=\"80\" y1=\"28\" x2=\"80\" y2=\"16\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"86.79\" y1=\"28.44\" x2=\"89.27\" y2=\"9.61\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"93.46\" y1=\"29.77\" x2=\"97.34\" y2=\"15.28\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"99.9\" y1=\"31.96\" x2=\"108.32\" y2=\"11.63\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"106\" y1=\"34.97\" x2=\"115\" y2=\"19.38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"111.66\" y1=\"38.75\" x2=\"120.18\" y2=\"27.64\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"116.77\" y1=\"43.23\" x2=\"131.62\" y2=\"28.38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"121.25\" y1=\"48.34\" x2=\"134.74\" y2=\"38\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"125.03\" y1=\"54\" x2=\"136.29\" y2=\"47.5\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"128.04\" y1=\"60.1\" x2=\"146.52\" y2=\"52.45\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"130.23\" y1=\"66.54\" x2=\"145.68\" y2=\"62.4\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"131.56\" y1=\"73.21\" x2=\"143.45\" y2=\"71.65\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"132\" y1=\"80\" x2=\"151\" y2=\"80\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"131.56\" y1=\"86.79\" x2=\"146.43\" y2=\"88.75\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"130.23\" y1=\"93.46\" x2=\"151.48\" y2=\"99.15\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"128.04\" y1=\"99.9\" x2=\"144.67\" y2=\"106.79\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"125.03\" y1=\"106\" x2=\"137.16\" y2=\"113\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"121.25\" y1=\"111.66\" x2=\"137.91\" y2=\"124.44\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"116.77\" y1=\"116.77\" x2=\"128.79\" y2=\"128.79\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"111.66\" y1=\"121.25\" x2=\"119.57\" y2=\"131.57\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacity: 0.55;\"></line><line x1=\"106\" y1=\"125.03\" x2=\"116\" y2=\"142.35\" stroke=\"var(--ink)\" stroke-width=\"1\" stroke-linecap=\"round\" style=\"opacit"
   },
   {
    "tag": "div",
@@ -2769,7 +2769,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -293,
+   "x": -297,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2783,7 +2783,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": -35,
+   "x": -39,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2797,7 +2797,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1347,
+   "x": 1343,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -2811,7 +2811,7 @@
   {
    "tag": "span",
    "y": 1925,
-   "x": 1606,
+   "x": 1601,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -2844,7 +2844,7 @@
   {
    "tag": "h2",
    "y": 2147,
-   "x": -335,
+   "x": -340,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2858,17 +2858,17 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 630,
+   "x": 625,
    "w": 151,
    "h": 151,
    "ov": "hidden",
    "svgw": "0 0 100 100",
-   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
+   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(0 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(30 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(60 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(90 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(120 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(150 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(180 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(210 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(240 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(270 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(300 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(330 50 50)\"></path></g></svg>"
   },
   {
    "tag": "h2",
    "y": 2147,
-   "x": 841,
+   "x": 836,
    "w": 905,
    "h": 220,
    "text": "Our Works",
@@ -2882,12 +2882,12 @@
   {
    "tag": "svg",
    "y": 2181,
-   "x": 1806,
+   "x": 1801,
    "w": 151,
    "h": 151,
    "ov": "hidden",
    "svgw": "0 0 100 100",
-   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(0 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(30 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(60 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(90 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(120 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(150 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(180 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(210 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(240 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(270 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(300 50 50)\"></rect><rect x=\"44.5\" y=\"3\" width=\"11\" height=\"45\" rx=\"5.5\" transform=\"rotate(330 50 50)\"></rect></g></svg>"
+   "svg": "<svg width=\"151\" height=\"151\" viewBox=\"0 0 100 100\" aria-hidden=\"true\" style=\"flex-shrink:0\"><g fill=\"var(--ink-10)\"><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(0 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(30 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(60 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(90 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(120 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(150 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(180 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(210 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(240 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(270 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(300 50 50)\"></path><path d=\"M47.4 45.5 L44.6 13.5 Q50 6.5 55.4 13.5 L52.6 45.5 Q50 48.5 47.4 45.5 Z\" transform=\"rotate(330 50 50)\"></path></g></svg>"
   },
   {
    "tag": "article",
@@ -4248,7 +4248,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -4258,7 +4258,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -4305,10 +4305,10 @@
   },
   {
    "tag": "img",
-   "y": 4136,
+   "y": 4092,
    "x": 825,
    "w": 270,
-   "h": 270,
+   "h": 200,
    "pos": "absolute",
    "ov": "clip",
    "src": "http://localhost:3001/assets/WTuFQeqWgOcQVCks16yKxgDaefI.png",
@@ -4406,10 +4406,10 @@
   },
   {
    "tag": "img",
-   "y": 4150,
+   "y": 4106,
    "x": 1210,
    "w": 90,
-   "h": 270,
+   "h": 200,
    "tf": "matrix(1, 0, 0, 1, 0, 14)",
    "op": "0",
    "pos": "absolute",
@@ -4498,10 +4498,10 @@
   },
   {
    "tag": "img",
-   "y": 4150,
+   "y": 4106,
    "x": 1310,
    "w": 90,
-   "h": 270,
+   "h": 200,
    "tf": "matrix(1, 0, 0, 1, 0, 14)",
    "op": "0",
    "pos": "absolute",
@@ -4585,7 +4585,7 @@
    "w": 274,
    "h": 274,
    "br": "4px",
-   "bd": "1px solid rgba(255, 255, 255, 0.28)",
+   "bd": "1px solid rgba(255, 255, 255, 0.18)",
    "pos": "absolute"
   },
   {
@@ -6334,7 +6334,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -6344,7 +6344,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -6368,7 +6368,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 34px 8px 0px; transform: scale(0.924875); transform-box: fill-box;\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"18\" r=\"12\" stroke=\"#fff\" stroke-width=\"1.4\"></circle><path d=\"M11.6 27.2L4 44\" stroke=\"#fff\" stroke-width=\"1.4\" stroke-linecap=\"round\"></path><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: scale(0.935929);\" opacity=\"undefined\"><path d=\"M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z\" fill=\"#fff\"></path></g><path d=\"M40 18l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z\" fill=\"#fff\" opacity=\"0.85\"></path></svg>"
   },
   {
    "tag": "span",
@@ -6400,7 +6400,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(57.5486deg); transform-box: fill-box;\"></circle><circle cx=\"43\" cy=\"28\" r=\"3\" fill=\"#fff\" style=\"transform-origin: 26px 28px 0px; transform: rotate(-224.568deg); transform-box: fill-box;\"></circle></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"26\" cy=\"28\" r=\"17\" stroke=\"#fff\" stroke-width=\"1.3\"></circle><circle cx=\"26\" cy=\"28\" r=\"7\" fill=\"#fff\"></circle><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(327.28deg);\"><circle cx=\"26\" cy=\"11\" r=\"4\" fill=\"#fff\"></circle></g><g style=\"transform-origin: 50% 50%; transform-box: view-box; transform: rotate(-130.92deg);\"><circle cx=\"43\" cy=\"28\" r=\"2.6\" fill=\"#fff\" opacity=\"0.85\"></circle></g></svg>"
   },
   {
    "tag": "span",
@@ -6432,7 +6432,7 @@
    "h": 44,
    "ov": "hidden",
    "svgw": "0 0 52 52",
-   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(30.9665px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(24.8196px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.0882px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(27.2994px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
+   "svg": "<svg width=\"44\" height=\"44\" viewBox=\"0 0 52 52\" fill=\"none\" aria-hidden=\"true\"><g><rect x=\"12\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"9\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(30.296px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"20\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"17\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(25.2442px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"28\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"25\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(22.1115px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g><g><rect x=\"36\" y=\"6\" width=\"1\" height=\"44\" fill=\"#fff\"></rect><rect x=\"33\" width=\"7\" height=\"3\" fill=\"#fff\" style=\"transform: translateY(27.4112px); transform-origin: 50% 50%; transform-box: fill-box;\"></rect></g></svg>"
   },
   {
    "tag": "span",
@@ -6487,15 +6487,15 @@
   {
    "tag": "span",
    "y": 5727,
-   "x": 959,
-   "w": 20,
+   "x": 958,
+   "w": 21,
    "h": 19,
    "text": "ZH",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
@@ -6503,284 +6503,284 @@
    "tag": "span",
    "y": 5727,
    "x": 979,
-   "w": 20,
+   "w": 21,
    "h": 19,
    "text": "HI",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 999,
-   "w": 20,
+   "x": 1000,
+   "w": 21,
    "h": 19,
    "text": "ES",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1019,
-   "w": 20,
+   "x": 1021,
+   "w": 21,
    "h": 19,
    "text": "FR",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1039,
-   "w": 20,
+   "x": 1042,
+   "w": 21,
    "h": 19,
    "text": "AR",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1059,
-   "w": 20,
+   "x": 1063,
+   "w": 21,
    "h": 19,
    "text": "BN",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1079,
-   "w": 20,
+   "x": 1084,
+   "w": 21,
    "h": 19,
    "text": "PT",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1099,
-   "w": 20,
+   "x": 1105,
+   "w": 21,
    "h": 19,
    "text": "RU",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1119,
-   "w": 20,
+   "x": 1126,
+   "w": 21,
    "h": 19,
    "text": "EN",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1139,
-   "w": 20,
+   "x": 1147,
+   "w": 21,
    "h": 19,
    "text": "DE",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1159,
-   "w": 20,
+   "x": 1168,
+   "w": 21,
    "h": 19,
    "text": "ZH",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1179,
-   "w": 20,
+   "x": 1189,
+   "w": 21,
    "h": 19,
    "text": "HI",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1199,
-   "w": 20,
+   "x": 1210,
+   "w": 21,
    "h": 19,
    "text": "ES",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1219,
-   "w": 20,
+   "x": 1231,
+   "w": 21,
    "h": 19,
    "text": "FR",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1239,
-   "w": 20,
+   "x": 1252,
+   "w": 21,
    "h": 19,
    "text": "AR",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1259,
-   "w": 20,
+   "x": 1273,
+   "w": 21,
    "h": 19,
    "text": "BN",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1279,
-   "w": 20,
+   "x": 1294,
+   "w": 21,
    "h": 19,
    "text": "PT",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1299,
-   "w": 20,
+   "x": 1315,
+   "w": 21,
    "h": 19,
    "text": "RU",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1319,
-   "w": 20,
+   "x": 1336,
+   "w": 21,
    "h": 19,
    "text": "EN",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
   {
    "tag": "span",
    "y": 5727,
-   "x": 1339,
-   "w": 20,
+   "x": 1357,
+   "w": 21,
    "h": 19,
    "text": "DE",
-   "font": "Jaini",
-   "fs": "16px",
+   "font": "Geist Mono",
+   "fs": "15px",
    "fw": "400",
    "lh": "19.2px",
-   "ls": "normal",
+   "ls": "0.3px",
    "color": "rgb(255, 255, 255)",
    "ta": "center"
   },
@@ -6820,7 +6820,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -305,
+   "x": -309,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6834,7 +6834,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": -47,
+   "x": -51,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -6848,7 +6848,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1335,
+   "x": 1331,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -6862,7 +6862,7 @@
   {
    "tag": "span",
    "y": 6070,
-   "x": 1594,
+   "x": 1589,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -7375,7 +7375,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -7385,7 +7385,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -7680,7 +7680,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -7690,7 +7690,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -8486,7 +8486,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -305,
+   "x": -309,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8500,7 +8500,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": -47,
+   "x": -51,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8514,7 +8514,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1335,
+   "x": 1331,
    "w": 86,
    "h": 20,
    "text": "//PEREGRINE",
@@ -8528,7 +8528,7 @@
   {
    "tag": "span",
    "y": 9694,
-   "x": 1594,
+   "x": 1589,
    "w": 1210,
    "h": 20,
    "text": "We are officially expanding our neural compute clusters to three new global regions, providing sub-50ms inference speeds for our enterprise partners across EMEA, APAC, and North America.",
@@ -8660,7 +8660,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -8670,7 +8670,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",
@@ -9087,7 +9087,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "svg",
@@ -9097,7 +9097,7 @@
    "h": 15,
    "ov": "hidden",
    "svgw": "0 0 30 15",
-   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g></svg>"
+   "svg": "<svg width=\"30\" height=\"15\" viewBox=\"0 0 30 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"\" aria-hidden=\"true\"><g fill=\"currentColor\"><g class=\"mark-chevron\" style=\"animation-delay:0s\"><rect x=\"0.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"0.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:0.48s\"><rect x=\"3.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"3.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"6.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" data-rest=\"\" style=\"animation-delay:0.96s\"><rect x=\"9.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"9.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"12.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.44s\"><rect x=\"15.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"21.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"15.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"18.15\" y=\"12.15\" width=\"2.7\" height=\"2.7\"></rect></g><g class=\"mark-chevron\" style=\"animation-delay:1.92s\"><rect x=\"21.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"0.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"3.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"6.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"24.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect x=\"27.15\" y=\"9.15\" width=\"2.7\" height=\"2.7\"></rect><rect"
   },
   {
    "tag": "span",

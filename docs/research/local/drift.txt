@@ -1,11 +1,11 @@
-362 strings matched, 258 with real drift
+359 strings matched, 256 with real drift
 
-y42     "Company"  |  x 450->434
-y42     "Services"  |  x 207->191
+y42     "Company"  |  x 450->444
+y42     "Services"  |  x 207->277
 y42     "Works"  |  x 135->119
 y198    "Build with AI."  |  w 490->483
 y202    "Scale your ideas."  |  w 500->483
-y291    "Company"  |  x 937->434; w 67->62; font Geist Mono->interDisplay; fs 16.0->14.0; lh 22.4->19.6; ls normal->0.3; fw 500->400; color rgb(255, 255, 255)->rgb(26, 26, 26)
+y291    "Company"  |  x 937->444; w 67->62; font Geist Mono->interDisplay; fs 16.0->14.0; lh 22.4->19.6; ls normal->0.3; fw 500->400; color rgb(255, 255, 255)->rgb(26, 26, 26)
 y291    "Policies"  |  w 77->164
 y291    "Quick Links"  |  w 106->164
 y444    "Digital Brain"  |  w 280->256
@@ -82,10 +82,10 @@ y1228   "t"  |  x 456->464
 y1228   "x"  |  x 618->630
 y1626   "Inference speed"  |  w 134->291
 y1668   "Faster speed to market."  |  x 501->497; w 163->151
-y1925   "We are officially expanding our neural compu"  |  x 1766->-37; w 1204->1210
-y1925   "We are officially expanding our neural compu"  |  x 244->1603; w 1204->1210
-y2147   "Our Works"  |  x -14->-338
-y2147   "Our Works"  |  x 1162->838
+y1925   "We are officially expanding our neural compu"  |  x 1766->-39; w 1204->1210
+y1925   "We are officially expanding our neural compu"  |  x 244->1601; w 1204->1210
+y2147   "Our Works"  |  x -14->-340
+y2147   "Our Works"  |  x 1162->836
 y2731   "$45M+"  |  w 48->177
 y2731   "$62M+"  |  w 48->177
 y2731   "$82M+"  |  w 48->177
@@ -224,18 +224,18 @@ y5037   "u"  |  x 935->947; ls -3.0->-2.0; color rgba(255, 255, 255, 0.1)->rgba(
 y5037   "v"  |  x 800->806; ls -3.0->-2.0; color rgba(255, 255, 255, 0.1)->rgba(255, 255, 255, 0.16)
 y5037   "y"  |  x 870->879; ls -3.0->-2.0; color rgba(255, 255, 255, 0.1)->rgba(255, 255, 255, 0.16)
 y5046   "Founder & Lead Engineer"  |  w 131->320
-y5722   "AR"  |  x 1015->1037; w 14->20
-y5722   "BN"  |  x 1037->1057; w 15->20
-y5722   "DE"  |  x 1122->1137; w 14->20
-y5722   "EN"  |  x 1100->1117; w 14->20
-y5722   "ES"  |  x 975->997; w 13->20
-y5722   "FR"  |  x 995->1017; w 13->20
-y5722   "HI"  |  x 956->977; w 12->20
-y5722   "PT"  |  x 1059->1077; w 13->20
-y5722   "RU"  |  x 1079->1097; w 15->20
-y5722   "ZH"  |  x 935->957; w 14->20
-y7212   "We are officially expanding our neural compu"  |  x 1710->1591; w 1204->1210
-y7212   "We are officially expanding our neural compu"  |  x 188->-49; w 1204->1210
+y5722   "AR"  |  x 1015->1042; w 14->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "BN"  |  x 1037->1063; w 15->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "DE"  |  x 1122->1147; w 14->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "EN"  |  x 1100->1126; w 14->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "ES"  |  x 975->1000; w 13->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "FR"  |  x 995->1021; w 13->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "HI"  |  x 956->979; w 12->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "PT"  |  x 1059->1084; w 13->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "RU"  |  x 1079->1105; w 15->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y5722   "ZH"  |  x 935->958; w 14->21; font Jaini->Geist Mono; fs 16.0->15.0; ls normal->0.3
+y7212   "We are officially expanding our neural compu"  |  x 1710->1589; w 1204->1210
+y7212   "We are officially expanding our neural compu"  |  x 188->-51; w 1204->1210
 y10554  "Head of Machine Learning"  |  w 297->139
 y10554  "Infrastructure Architect"  |  w 297->119
 y10554  "Lead Cognitive Scientist"  |  w 297->126
@@ -244,10 +244,8 @@ y10555  "Head of Machine Learning"  |  w 223->150
 y10555  "Infrastructure Architect"  |  w 223->150
 y10555  "Lead Cognitive Scientist"  |  w 223->150
 y10555  "Principal Design Director"  |  w 223->157
-y10941  "Pricing"  |  x -14->358; w 591->44; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400
-y10941  "Pricing"  |  x 848->358; w 591->44; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400
-y12067  "We are officially expanding our neural compu"  |  x 1714->1591; w 1204->1210
-y12067  "We are officially expanding our neural compu"  |  x 192->-49; w 1204->1210
+y12067  "We are officially expanding our neural compu"  |  x 1714->1589; w 1204->1210
+y12067  "We are officially expanding our neural compu"  |  x 192->-51; w 1204->1210
 y12319  "How do you ensure our data remains secure?"  |  w 602->385
 y12363  "We utilize SOC2-compliant local vector datab"  |  x 740->720; w 628->668
 y12457  "What is the typical deployment timeline?"  |  w 602->345
@@ -256,5 +254,5 @@ y12605  "Do you provide model fine-tuning?"  |  w 602->293
 y12679  "How do you calculate ROI for automation?"  |  w 602->360
 y12753  "Do we own the custom code you build?"  |  w 602->333
 y12827  "What models do you specialize in?"  |  w 602->294
-y13085  "Insights"  |  x 1923->277; w 671->49; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400
-y13085  "Insights"  |  x 38->277; w 671->49; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400
+y13085  "Insights"  |  x 1923->363; w 671->49; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400
+y13085  "Insights"  |  x 38->363; w 671->49; fs 200.0->14.0; lh 220.0->19.6; ls -8.0->0.3; fw 700->400

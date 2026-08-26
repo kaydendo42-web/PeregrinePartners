@@ -81,7 +81,15 @@ function ModelCluster() {
           transition={{ delay: i * 0.08, type: "spring", stiffness: 340, damping: 22 }}
           whileHover={{ y: -4 }}
         >
-          <img src={src} alt="" aria-hidden className="h-[21px] w-[21px] object-contain" />
+          {/* The marks ship as white glyphs on transparent — drawn for a dark
+              ground. On the white badge they need inverting to read at all. */}
+          <img
+            src={src}
+            alt=""
+            aria-hidden
+            className="h-[21px] w-[21px] object-contain"
+            style={{ filter: "invert(1)" }}
+          />
         </motion.span>
       ))}
     </div>
@@ -105,7 +113,7 @@ function SearchIcon() {
       <motion.g
         animate={{ opacity: [0.35, 1, 0.35], scale: [0.9, 1.1, 0.9] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-        style={{ originX: "34px", originY: "8px" }}
+        style={{ transformOrigin: "34px 8px", transformBox: "view-box" }}
       >
         <path d="M34 3l1.5 3.8L39 8l-3.5 1.4L34 13l-1.4-3.6L29 8l3.6-1.2z" fill="#fff" />
       </motion.g>
@@ -119,24 +127,20 @@ function OrbitIcon() {
     <svg width="44" height="44" viewBox="0 0 52 52" fill="none" aria-hidden>
       <circle cx="26" cy="28" r="17" stroke="#fff" strokeWidth="1.3" />
       <circle cx="26" cy="28" r="7" fill="#fff" />
-      <motion.circle
-        cx="26"
-        cy="11"
-        r="4"
-        fill="#fff"
-        style={{ originX: "26px", originY: "28px" }}
+      <motion.g
+        style={{ transformOrigin: "26px 28px", transformBox: "view-box" }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.circle
-        cx="43"
-        cy="28"
-        r="3"
-        fill="#fff"
-        style={{ originX: "26px", originY: "28px" }}
+        transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+      >
+        <circle cx="26" cy="11" r="4" fill="#fff" />
+      </motion.g>
+      <motion.g
+        style={{ transformOrigin: "26px 28px", transformBox: "view-box" }}
         animate={{ rotate: -360 }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-      />
+        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+      >
+        <circle cx="43" cy="28" r="2.6" fill="#fff" opacity="0.85" />
+      </motion.g>
     </svg>
   );
 }
@@ -169,7 +173,13 @@ function LanguageIcon() {
       <svg width="10" height="6" viewBox="0 0 10 6" className="mb-[3px]" aria-hidden>
         <path d="M0 0h10L5 6z" fill="#fff" />
       </svg>
-      <div className="relative flex h-[26px] w-[34px] items-center overflow-hidden">
+      <div
+        className="relative flex h-[26px] w-[34px] items-center overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent)",
+          WebkitMaskImage: "linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent)",
+        }}
+      >
         <span className="absolute left-0 top-0 h-full w-[1px] bg-white/70" />
         <span className="absolute right-0 top-0 h-full w-[1px] bg-white/70" />
         <motion.div
@@ -180,8 +190,14 @@ function LanguageIcon() {
           {[...codes, ...codes].map((c, i) => (
             <span
               key={`${c}-${i}`}
-              className="font-glyph shrink-0 text-center text-white"
-              style={{ fontSize: 16, lineHeight: "19.2px", width: 20 }}
+              className="shrink-0 text-center text-white"
+              style={{
+                fontFamily: "var(--font-mono-ui), ui-monospace, monospace",
+                fontSize: 15,
+                lineHeight: "19.2px",
+                letterSpacing: "0.02em",
+                width: 21,
+              }}
             >
               {c}
             </span>
