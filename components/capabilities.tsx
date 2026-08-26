@@ -152,20 +152,27 @@ export function Capabilities() {
                 animate={{ backgroundColor: open ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.04)" }}
                 transition={{ duration: 0.5, ease: EASE }}
               >
-                <div className="relative z-10 p-[24px]">
-                  <div className="flex items-start justify-between gap-[16px]">
+                <div className="relative z-10 p-[20px]">
+                  {/* On a phone the reference leads with the index in its
+                      pill and sets the title as a mono label, not a heading. */}
+                  <div className="flex items-center gap-[18px]">
+                    <span
+                      className="flex shrink-0 items-center justify-center"
+                      style={{ padding: "8px 16px", borderRadius: 10, border: "1px solid var(--paper-20)" }}
+                    >
+                      <span
+                        className="font-mono uppercase"
+                        style={{ fontSize: 12, lineHeight: "20.4px", fontWeight: 200, color: "var(--paper-80)" }}
+                      >
+                        {p.n}
+                      </span>
+                    </span>
                     <h3
-                      className="max-w-[320px] text-white"
-                      style={{ fontSize: 22, lineHeight: "30px", fontWeight: 500, letterSpacing: "-0.28px" }}
+                      className="font-mono uppercase text-white"
+                      style={{ fontSize: 12, lineHeight: "20.4px", fontWeight: 300, letterSpacing: "0.04em" }}
                     >
                       {p.title}
                     </h3>
-                    <span
-                      className="font-mono uppercase"
-                      style={{ fontSize: 12, lineHeight: "20.4px", fontWeight: 200, color: "var(--paper-80)" }}
-                    >
-                      {p.n}
-                    </span>
                   </div>
 
                   <AnimatePresence initial={false}>
@@ -184,7 +191,7 @@ export function Capabilities() {
                           {p.body}
                         </p>
                         <div className="relative mt-[16px] h-[220px]">
-                          <PanelArt open object={p.object} />
+                          <PanelArt open object={p.object} height={220} />
                         </div>
                       </motion.div>
                     )}
@@ -201,9 +208,21 @@ export function Capabilities() {
 
 
 /** Panel backdrop: the source artwork, with the object riding on top when open. */
-function PanelArt({ open, object }: { open: boolean; object: string }) {
+function PanelArt({
+  open,
+  object,
+  height = 430,
+}: {
+  open: boolean;
+  object: string;
+  /** The stacked panels give it a shorter box than the desktop columns. */
+  height?: number;
+}) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[430px] overflow-hidden">
+    <div
+      className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
+      style={{ height }}
+    >
       <motion.img
         src={open ? capabilities.panelBgOpen : capabilities.panelBgClosed}
         alt=""
@@ -216,8 +235,8 @@ function PanelArt({ open, object }: { open: boolean; object: string }) {
         src={object}
         alt=""
         aria-hidden
-        className="absolute left-1/2 h-[200px] w-[270px] -translate-x-1/2 object-contain"
-        style={{ top: 100 }}
+        className="absolute left-1/2 w-[270px] -translate-x-1/2 object-contain"
+        style={{ top: height * 0.23, height: Math.round(height * 0.47) }}
         animate={{ opacity: open ? 1 : 0, y: open ? 0 : 14 }}
         transition={{ duration: 0.7, ease: EASE }}
       />

@@ -11,7 +11,7 @@ export function Vision() {
     >
       <div className="flex w-full flex-col gap-[60px] lg:flex-row lg:gap-[360px]">
         {/* portrait */}
-        <Reveal className="shrink-0">
+        <Reveal className="order-2 shrink-0 lg:order-1">
           <figure className="w-[320px]">
             <div className="relative h-[320px] w-[320px] overflow-hidden" style={{ borderRadius: 12 }}>
               <img
@@ -60,7 +60,7 @@ export function Vision() {
         </Reveal>
 
         {/* statement */}
-        <div className="w-full max-w-[640px]">
+        <div className="order-1 w-full max-w-[640px] lg:order-2">
           <div className="flex items-center gap-[20px]">
             <span className="t-mono shrink-0 text-white">{vision.label}</span>
             <span className="h-[1px] w-full max-w-[352px]" style={{ background: "var(--paper-10)" }} />
