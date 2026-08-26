@@ -225,6 +225,27 @@ export const process = {
   ],
 };
 
+export const platform = {
+  label: "The Platform",
+  marquee: "The Floor",
+  heading: "The office it keeps overnight.",
+  intro:
+    "A modelled morning at a 40-cover bistro. Six departments run through the night on your own systems; by open, only the decisions that need a person are still on the desk.",
+  cta: { label: "Walk the floor", href: "#floor" },
+  facts: [
+    { value: "6", label: "Departments running unattended" },
+    { value: "2", label: "Decisions left for a person" },
+    { value: "94%", label: "Actions closed without a hand-off" },
+    { value: "06:04", label: "Brief on the desk before open" },
+  ],
+  close: {
+    heading: "Every step is on the log, with what it cost and why it ran.",
+    body:
+      "Nothing here is a black box. Each department shows the systems it works through, the trail behind a decision, and the point where it stopped and asked.",
+    cta: { label: "Book a walkthrough", href: "/#faq" },
+  },
+};
+
 export const faq = {
   label: "Common Queries",
   intro:
@@ -309,19 +330,19 @@ export const footer = {
     {
       title: "Quick Links",
       links: [
-        { label: "Home", href: "#top" },
-        { label: "Digital Brain", href: "#neural" },
-        { label: "Projects", href: "#works" },
-        { label: "Articles", href: "#neural" },
+        { label: "Home", href: "/#top" },
+        { label: "Platform", href: "/platform" },
+        { label: "Digital Brain", href: "/#neural" },
+        { label: "Projects", href: "/#works" },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "About Us", href: "#vision" },
-        { label: "Contact Us", href: "#faq" },
-        { label: "Book A Call", href: "#faq" },
-        { label: "More Templates", href: "#footer" },
+        { label: "About Us", href: "/#vision" },
+        { label: "Contact Us", href: "/#faq" },
+        { label: "Book A Call", href: "/#faq" },
+        { label: "More Templates", href: "/#footer" },
       ],
     },
     {

@@ -1,0 +1,1152 @@
+/* ------------------------------------------------------------------
+   The floor — ported from the consilium build and restyled onto this
+   site's palette.
+
+   The scene is entirely token-driven, so the restyle is mostly this
+   block: the sage/teal/cere system collapses to the monochrome ramp
+   the rest of the site is built from, and the three task states are
+   told apart by weight and fill rather than by hue (a solid mark for
+   what needs you, a ring for what is being watched, a soft mark for
+   what is done) — see the overrides at the foot of this file.
+------------------------------------------------------------------- */
+
+.floor {
+  /* grounds */
+  --paper: #f0f0f0;
+  --surface: #ffffff;
+  --surface-2: #e2e2e2;
+  --blush: #e8e8e8;
+  --night: #1a1a1a;
+  --deep: #171717;
+
+  /* ink ramp */
+  --ink: #1a1a1a;
+  --muted: rgba(26, 26, 26, 0.6);
+  --faint: rgba(26, 26, 26, 0.38);
+  --rule: rgba(26, 26, 26, 0.16);
+
+  /* the site has no accent hue: emphasis is contrast */
+  --accent: #1a1a1a;
+  --accent-lift: #1a1a1a;
+  --cere-deep: rgba(26, 26, 26, 0.72);
+  /* The venue block needs three separable facets, so the fill ramp is
+     spread rather than stacked at the bottom of the scale. */
+  --fill: #3d3d3d;
+  --fill-deep: #272727;
+  --sage: rgba(26, 26, 26, 0.42);
+  --sage-lift: rgba(255, 255, 255, 0.62);
+
+  --font-plex-mono: var(--font-plex);
+  --pd: 40px;
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-deep: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.44, 0, 0.56, 1);
+}
+
+.floor__head {
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Platform · the floor --------------------------------------------------- */
+
+.floor {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+}
+
+.floor__caption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  padding: 24px 20px 8px;
+}
+
+.floor__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 560px;
+}
+
+.floor__title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25em;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.floor__body {
+  font-size: 15px;
+  line-height: 1.45em;
+  color: var(--muted);
+}
+
+.floor__legendwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.floor__live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.floor__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: floor-flag 1.8s var(--ease-in-out) infinite;
+}
+
+.floor__legend {
+  display: flex;
+  gap: 18px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.floor__legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.floor__legend span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.floor__legend span[data-k="needs"]::before { background: var(--accent-lift); }
+.floor__legend span[data-k="watching"]::before { background: var(--accent); }
+.floor__legend span[data-k="done"]::before { background: var(--sage); }
+
+.floor__stage {
+  width: 100%;
+  padding: 12px 20px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.floor__scene {
+  position: relative;
+  width: 100%;
+}
+
+/* The scene is the desktop surface; the phone gets the brief instead. */
+.floor__scene svg {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+/* -- the isometric scene ------------------------------------------------- */
+
+.floor__scene {
+  overflow: hidden;
+}
+
+.floor__walk {
+  fill: none;
+  stroke: var(--surface-2);
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+
+.floor__mote { fill: var(--accent); opacity: 0.5; }
+.floor__burst { fill: var(--accent); }
+.floor__brain { fill: var(--accent); }
+
+.floor__isle { cursor: pointer; transition: transform 0.35s var(--ease-out-soft); }
+.floor__isle:hover { transform: translateY(-3px); }
+
+.floor__isle-top {
+  fill: var(--surface);
+  stroke: var(--rule);
+  stroke-width: 0.75;
+  transition: stroke 0.25s var(--ease-in-out);
+}
+
+.floor__isle[data-own] .floor__isle-top { fill: var(--blush); }
+.floor__isle[data-selected] .floor__isle-top { stroke: var(--accent); stroke-width: 1.75; }
+.floor__isle[data-selected] { filter: drop-shadow(0 12px 18px rgb(20 30 40 / 0.14)); }
+
+.floor__isle-side { fill: var(--surface-2); }
+.floor__isle-side--l { fill: var(--rule); }
+
+.floor__isle-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-anchor: middle;
+  fill: var(--faint);
+}
+
+.floor__isle[data-own] .floor__isle-label { fill: var(--accent); }
+
+.floor__isle-flag circle { fill: var(--accent-lift); }
+.floor__isle-flag { animation: floor-flag 2.4s var(--ease-in-out) infinite; }
+
+@keyframes floor-flag {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.floor__isle-flag text {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+/* furniture */
+
+.floor__desk-leg { stroke: var(--faint); stroke-width: 1.4; opacity: 0.7; }
+.floor__desk-top { fill: #ffffff; opacity: 0.95; }
+.floor__desk-edge { fill: var(--rule); }
+.floor__desk-stand { stroke: var(--muted); stroke-width: 1.4; }
+.floor__desk-frame { fill: var(--ink); }
+.floor__desk-screen {
+  fill: var(--sage-lift);
+  opacity: 0.85;
+  animation: floor-screen 3.4s var(--ease-in-out) infinite;
+  animation-delay: var(--pd, 0s);
+}
+
+@keyframes floor-screen {
+  0%, 100% { opacity: 0.85; }
+  46% { opacity: 0.85; }
+  50% { opacity: 0.62; }
+  54% { opacity: 0.85; }
+}
+.floor__desk-keys { stroke: var(--faint); stroke-width: 1.6; stroke-linecap: round; }
+.floor__desk-paper { fill: #ffffff; stroke: var(--rule); stroke-width: 0.6; }
+.floor__desk-mug { fill: var(--accent); opacity: 0.8; }
+.floor__chair { fill: var(--faint); opacity: 0.55; }
+
+.floor__person {
+  animation: floor-type 1.9s var(--ease-in-out) infinite;
+  animation-delay: var(--pd, 0s);
+  transform-box: fill-box;
+}
+
+@keyframes floor-type {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.3px); }
+}
+
+.floor__person-head { fill: var(--ink); }
+.floor__desk[data-own] .floor__person-head { fill: var(--fill); }
+
+.floor__desk-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+  fill: var(--muted);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-in-out);
+}
+
+.floor__isle:hover .floor__desk-label,
+.floor__isle[data-selected] .floor__desk-label { opacity: 1; }
+
+.floor__plant-pot { fill: var(--muted); opacity: 0.75; }
+.floor__plant-leaf { fill: var(--sage); opacity: 0.9; }
+
+/* the restaurant */
+
+.floor__hub-top { fill: var(--surface-2); }
+.floor__hub-side { fill: var(--rule); }
+.floor__hub-side--l { fill: var(--faint); opacity: 0.6; }
+.floor__hub-btop { fill: var(--fill); }
+.floor__hub-bside { fill: var(--fill-deep); }
+.floor__hub-bside--l { fill: var(--deep); }
+.floor__hub-window { fill: var(--sage-lift); opacity: 0.55; }
+.floor__hub-door { fill: var(--sage-lift); }
+.floor__hub-awn { fill: #ffffff; opacity: 0.92; }
+.floor__hub-awn--deep { fill: var(--accent); opacity: 1; }
+.floor__hub-signleg { stroke: var(--deep); stroke-width: 2; }
+.floor__hub-sign { fill: var(--night); }
+
+.floor__hub-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-anchor: middle;
+  fill: #ffffff;
+  opacity: 0.95;
+}
+
+.floor__table-leg { stroke: var(--muted); stroke-width: 1.4; }
+.floor__table-top { fill: #ffffff; stroke: var(--rule); stroke-width: 0.6; }
+.floor__table-chair { fill: var(--muted); opacity: 0.7; }
+.floor__parasol { fill: var(--accent); opacity: 0.9; }
+
+.floor__zoomout {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  cursor: pointer;
+  z-index: 2;
+  display: none;
+}
+
+.floor__zoomout:hover { border-color: var(--accent); }
+
+.floor__scene[data-view="venue"] .floor__zoomout { display: none; }
+
+.floor__zoomout:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* -- inside the venue ----------------------------------------------------- */
+
+.floor__hubhit { cursor: pointer; }
+
+.floor__hub-hint {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-anchor: middle;
+  fill: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-in-out);
+}
+
+.floor__hubhit:hover .floor__hub-hint { opacity: 1; }
+
+.floor__venue { animation: floor-swap 0.7s var(--ease-out-deep) 1; }
+
+.floor__varrive {
+  animation: floor-swap 0.55s var(--ease-out-soft) both;
+}
+.floor__office {
+  animation: floor-fade 0.5s var(--ease-out-soft) 1;
+  transition: transform 0.85s var(--ease-out-deep);
+}
+
+@keyframes floor-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floor-swap {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.floor__vwall { fill: var(--surface-2); }
+.floor__vwall--l { fill: var(--rule); }
+.floor__vwindow { fill: var(--sage-lift); opacity: 0.5; }
+.floor__vhatch { fill: var(--fill-deep); opacity: 0.35; }
+.floor__vdoor { fill: var(--fill); opacity: 0.55; }
+.floor__vfloor { fill: var(--blush); stroke: var(--rule); stroke-width: 0.75; }
+.floor__vboard { stroke: #ffffff; stroke-width: 0.7; opacity: 0.5; }
+.floor__vbar { fill: #ffffff; opacity: 0.95; }
+.floor__vbar-side { fill: var(--fill); }
+.floor__vbar-side--l { fill: var(--fill-deep); }
+.floor__vmachine { fill: var(--ink); }
+
+/* chairs */
+.floor__vseat { fill: var(--muted); opacity: 0.5; }
+.floor__vchairback { fill: var(--muted); opacity: 0.42; }
+.floor__vchairleg { stroke: var(--muted); stroke-width: 1.3; opacity: 0.5; }
+.floor__vtable[data-booked] .floor__vseat { opacity: 0.68; }
+
+/* tables */
+.floor__vleg { stroke: var(--muted); stroke-width: 2.4; }
+.floor__vfoot { fill: var(--muted); opacity: 0.35; }
+.floor__vtop { fill: var(--rule); }
+.floor__vtop-hi { fill: #ffffff; stroke: var(--rule); stroke-width: 0.7; }
+.floor__vtop-sq { fill: #ffffff; stroke: var(--rule); stroke-width: 0.7; }
+.floor__vlegs { fill: var(--rule); }
+.floor__vlegs--l { fill: var(--faint); opacity: 0.55; }
+.floor__vbench { fill: var(--fill); opacity: 0.8; }
+.floor__vbenchback { fill: var(--fill-deep); opacity: 0.75; }
+
+/* settings */
+.floor__vplate { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+.floor__vglass { fill: var(--sage-lift); opacity: 0.7; }
+
+/* room fittings */
+.floor__vskirt { fill: var(--rule); opacity: 0.75; }
+.floor__vmullion { fill: var(--surface); opacity: 0.9; }
+.floor__vlamp line { stroke: var(--muted); stroke-width: 1; opacity: 0.55; }
+.floor__vshade { fill: var(--ink); opacity: 0.85; }
+.floor__vbulb { fill: var(--accent-lift); opacity: 0.9; }
+.floor__vtill { fill: var(--ink); opacity: 0.8; }
+
+.floor__vguest { fill: var(--ink); }
+
+.floor__vmark line {
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+
+.floor__vmark rect {
+  fill: var(--paper);
+  stroke: var(--rule);
+  stroke-width: 0.8;
+}
+
+.floor__vmark text {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.03em;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+.floor__vmark-dot { fill: var(--accent); }
+
+/* A table waiting on a booking says so quietly; one under fifteen minutes
+   wears the cere, because that is the only thing on the floor a host has to
+   act on. Seated tables go solid. */
+.floor__vtable[data-state="free"] .floor__vmark rect { opacity: 0.55; }
+.floor__vtable[data-state="free"] .floor__vmark text { fill: var(--faint); }
+.floor__vtable[data-state="free"] .floor__vmark line { opacity: 0.4; }
+
+.floor__vtable[data-state="seated"] .floor__vmark rect {
+  fill: var(--night);
+  stroke: var(--night);
+}
+.floor__vtable[data-state="seated"] .floor__vmark text { fill: #ffffff; }
+.floor__vtable[data-state="seated"] .floor__vmark-dot { fill: var(--sage-lift); }
+
+.floor__vtable[data-soon] .floor__vmark rect {
+  stroke: var(--accent-lift);
+  stroke-width: 1.4;
+}
+.floor__vtable[data-soon] .floor__vmark-dot {
+  fill: var(--accent-lift);
+  animation: floor-flag 1.4s var(--ease-in-out) infinite;
+}
+.floor__vtable[data-soon] .floor__vmark text { fill: var(--cere-deep); }
+
+.floor__vnote {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+  fill: var(--accent);
+}
+
+.floor__vpool { fill: var(--accent-lift); }
+
+.floor__vstaff rect,
+.floor__vstaff circle { fill: var(--fill); }
+.floor__vtray { fill: var(--rule) !important; }
+
+.floor__vclosed rect { fill: var(--night); }
+
+.floor__vclosed text {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-anchor: middle;
+  fill: #ffffff;
+}
+
+.floor__clock {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 16px 11px;
+  border-radius: 12px;
+  background: var(--night);
+  box-shadow: 0 12px 34px rgb(20 30 40 / 0.16);
+  z-index: 2;
+}
+
+.floor__clock-time {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--sage-lift);
+  font-variant-numeric: tabular-nums;
+}
+
+.floor__clock-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #ffffff8c;
+}
+
+.floor__clock-meta em {
+  font-style: normal;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sage-lift) 22%, transparent);
+  color: var(--sage-lift);
+}
+
+.floor__exit {
+  margin-left: 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: transparent;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.25s var(--ease-in-out);
+}
+
+.floor__exit:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+.floor__exit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.floor__status {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  box-shadow: 0 10px 30px rgb(20 30 40 / 0.08);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.floor__status b {
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.floor__status-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--rule);
+}
+
+.floor__status-fn {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sage) 16%, transparent);
+  color: var(--sage);
+}
+
+.floor__enq-empty {
+  padding: 14px;
+  font-size: 12.5px;
+  color: var(--faint);
+  border: 1px dashed var(--rule);
+  border-radius: 10px;
+}
+
+.floor__venue-sub {
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.5em;
+  color: var(--muted);
+}
+
+.floor__enquiries {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.floor__enq {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: #ffffff55;
+}
+
+.floor__enq-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--faint);
+}
+
+.floor__enq-ch {
+  padding: 1.5px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.floor__enq-tag {
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+
+.floor__enq-tag[data-tag="Booked"] { color: var(--sage); }
+.floor__enq-tag[data-tag="Answered"] { color: var(--accent); }
+.floor__enq-tag[data-tag="Held for you"] { color: var(--cere-deep); }
+.floor__enq-tag[data-tag="Filed"] { color: var(--faint); }
+
+.floor__enq-text {
+  font-size: 13px;
+  line-height: 1.4em;
+  color: var(--ink);
+}
+
+.floor__enq-reply {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.45em;
+  color: var(--muted);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding-left: 9px;
+  margin-top: 3px;
+}
+
+.floor__enq-reply span {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* -- the department cards ------------------------------------------------ */
+
+.floor__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.floor__card {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 14px 16px;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease-in-out), transform 0.3s var(--ease-out-soft);
+}
+
+.floor__card:hover { border-color: var(--faint); }
+
+.floor__card--venue { border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.floor__card--venue:hover { border-color: var(--accent); }
+.floor__card[data-selected] { border-color: var(--accent); }
+
+.floor__card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.floor__card-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.floor__card-name em {
+  font-style: normal;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-left: 7px;
+}
+
+.floor__card-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--faint);
+}
+
+.floor__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-lift) 24%, transparent);
+  color: var(--cere-deep);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.floor__chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lift);
+}
+
+.floor__card-metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.floor__card-metric span:last-child {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  color: var(--ink);
+}
+
+/* -- the panel ----------------------------------------------------------- */
+
+.floor__panel {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+  padding-top: 22px;
+}
+
+.floor__panel-time {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+.floor__panel-headline {
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15em;
+  color: var(--ink);
+}
+
+.floor__panel-headline[data-clear] { color: var(--sage); }
+
+.floor__panel-tally {
+  margin-top: 6px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.floor__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.floor__panel-dept {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.floor__panel-back {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.floor__stackrow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.floor__stackrow-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.floor__stackrow-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.floor__syschip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px 4px 5px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: #ffffff66;
+  font-size: 11.5px;
+  color: var(--ink);
+}
+
+.floor__syschip-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: var(--surface-2);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.floor__syschip[data-own] {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--accent);
+}
+
+.floor__syschip[data-own] .floor__syschip-tile {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+
+.floor__tasks {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.floor__task {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 10px;
+}
+
+.floor__task-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.floor__task[data-state="needs"] .floor__task-dot { background: var(--accent-lift); }
+.floor__task[data-state="watching"] .floor__task-dot { background: var(--accent); }
+.floor__task[data-state="done"] .floor__task-dot { background: var(--sage); }
+
+.floor__task-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.floor__task-text {
+  font-size: 13.5px;
+  line-height: 1.4em;
+  color: var(--ink);
+}
+
+.floor__task[data-state="done"] .floor__task-text { color: var(--muted); }
+
+.floor__task-meta {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--faint);
+}
+
+.floor__trail {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 2px 0 2px 12px;
+  border-left: 2px solid color-mix(in srgb, var(--accent-lift) 55%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  line-height: 1.45em;
+  color: var(--muted);
+}
+
+.floor__approve {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--fill);
+  color: #ffffff;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s var(--ease-in-out);
+}
+
+.floor__approve:hover { background: var(--fill-deep); }
+
+.floor__approve:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.floor__task[data-cleared] { animation: floor-cleared 1.6s var(--ease-out-soft) 1; }
+
+@keyframes floor-cleared {
+  0% { background: color-mix(in srgb, var(--sage) 22%, transparent); }
+  100% { background: transparent; }
+}
+
+.floor__task-empty {
+  font-size: 13.5px;
+  line-height: 1.5em;
+  color: var(--sage);
+}
+
+.floor__panel-note {
+  margin-top: 22px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--faint);
+}
+
+@media (min-width: 810px) {
+  .floor__caption {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 24px 20px 12px;
+  }
+
+  .floor__scene svg { display: block; }
+
+  .floor__zoomout { display: inline-flex; }
+
+  .floor__clock { display: flex; }
+  .floor__status { display: flex; }
+
+  .floor__scene[data-zoomed] .floor__cards {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .floor__cards { transition: opacity 0.4s var(--ease-in-out); }
+
+  .floor__scene[data-view="venue"] .floor__card {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease-in-out);
+  }
+
+  .floor__cards { grid-template-columns: repeat(3, 1fr); }
+
+  /* Only what the scene cannot say: the brief note is for the phone. */
+  .floor__panel-note { display: none; }
+}
+
+@media (min-width: 1200px) {
+  .floor__stage {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 36px;
+    align-items: start;
+  }
+
+  .floor__panel {
+    border-top: 0;
+    border-left: 1px solid var(--rule);
+    padding: 4px 0 4px 32px;
+    min-height: 560px;
+  }
+
+  /* The cards float in the diamond's corner pockets, reference style. */
+  .floor__cards {
+    display: block;
+  }
+
+  .floor__card {
+    position: absolute;
+    width: 200px;
+    box-shadow: 0 10px 30px rgb(20 30 40 / 0.07);
+  }
+
+  .floor__card[data-dept="roster"] { left: 0; top: 0; }
+  .floor__card[data-dept="books"] { right: 0; top: 0; }
+  .floor__card[data-dept="suppliers"] { right: 0; top: 195px; }
+  .floor__card[data-dept="marketing"] { left: 0; top: 47%; }
+  .floor__card[data-dept="bookings"] { left: 0; bottom: 0; }
+  .floor__card[data-dept="admin"] { right: 0; bottom: 0; }
+  .floor__card[data-dept="venue"] { left: 0; top: 23%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floor__isle,
+  .floor__isle:hover,
+  .floor__card,
+  .floor__card:hover,
+  .floor__scene svg {
+    transition: none;
+    transform: none;
+  }
+
+  .floor__isle-flag,
+  .floor__vtable[data-soon] .floor__vmark-dot,
+  .floor__live-dot,
+  .floor__task[data-cleared],
+  .floor__venue,
+  .floor__office,
+  .floor__person,
+  .floor__desk-screen,
+  .floor__varrive {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Peregrine overrides — the parts hue was carrying.
+------------------------------------------------------------------- */
+
+/* States read by fill weight: solid needs you, a ring is watched, a
+   soft mark is done. */
+.floor__legend span[data-k="watching"]::before,
+.floor__task[data-state="watching"] .floor__task-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.floor__legend span[data-k="done"]::before,
+.floor__task[data-state="done"] .floor__task-dot {
+  background: var(--sage);
+}
+
+/* The section is a card on the page, not a banded strip. */
+.floor {
+  background: transparent;
+  border-bottom: 0;
+  border-radius: var(--r-card);
+}
+
+.floor__title {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+}
+
+.floor__body,
+.floor__panel-tally,
+.floor__card-count,
+.floor__task-text {
+  letter-spacing: 0.02em;
+  font-weight: 300;
+}
+
+.floor__panel-headline {
+  letter-spacing: -0.02em;
+}
+
+/* Cards and the panel pick up the site's radii. */
+.floor__card,
+.floor__enq,
+.floor__trail,
+.floor__syschip {
+  border-radius: 12px;
+}
+
+.floor__approve,
+.floor__exit,
+.floor__panel-back,
+.floor__zoomout {
+  border-radius: 10px;
+}
+
+/* Light, in a palette with no warm end: the bulb and its pool read as
+   white against the dark shade rather than as the cere yellow. */
+.floor__vbulb { fill: #ffffff; }
+.floor__vpool { fill: #ffffff; }
+
+/* The approve action is the site's button, in miniature. */
+.floor__approve {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 12px;
+}
+.floor__approve:hover { background: var(--dark-2); }

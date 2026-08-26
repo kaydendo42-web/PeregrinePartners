@@ -7,11 +7,11 @@ import { Button } from "./ui/button";
 import { LogoPill } from "./ui/mark";
 
 const LINKS = [
-  { label: "Works", href: "#works" },
-  { label: "Services", href: "#capabilities" },
-  { label: "Insights", href: "#neural" },
-  { label: "Pricing", href: "#faq" },
-  { label: "Company", href: "#footer" },
+  { label: "Works", href: "/#works" },
+  { label: "Platform", href: "/platform" },
+  { label: "Services", href: "/#capabilities" },
+  { label: "Insights", href: "/#neural" },
+  { label: "Company", href: "/#footer" },
 ];
 
 export function Nav() {
