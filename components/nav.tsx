@@ -19,7 +19,7 @@ export function Nav() {
 
   return (
     <motion.header
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-[30px] pt-[30px]"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-[16px] pt-[16px] md:px-[30px] md:pt-[30px]"
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -27,7 +27,7 @@ export function Nav() {
       <div className="flex items-start justify-between">
         {/* left pill */}
         <nav
-          className="pointer-events-auto flex items-center bg-white"
+          className="pointer-events-auto flex w-full items-center justify-between bg-white md:w-auto md:justify-start"
           style={{ borderRadius: 100, padding: "5px 26px 5px 5px", gap: 40 }}
         >
           <Link href="#top" aria-label="Home">

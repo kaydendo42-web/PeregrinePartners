@@ -28,8 +28,8 @@ export function Hero() {
         </div>
 
         {/* headline row */}
-        <div className="relative flex w-full flex-1 items-start justify-between gap-8">
-          <div className="max-w-[560px]">
+        <div className="relative flex w-full flex-1 flex-col items-start justify-between gap-[40px] lg:flex-row lg:gap-8">
+          <div className="w-full max-w-[560px]">
             <h1 className="t-hero">
               <span className="block overflow-hidden">
                 <motion.span
@@ -76,7 +76,7 @@ export function Hero() {
           {/* product card */}
           <motion.a
             href="#neural"
-            className="group hidden w-[320px] shrink-0 flex-col overflow-hidden lg:flex"
+            className="group flex w-full shrink-0 flex-col overflow-hidden sm:w-[320px]"
             style={{ background: "var(--ink)", borderRadius: 24, padding: 6 }}
             initial={{ opacity: 0, y: 26, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
