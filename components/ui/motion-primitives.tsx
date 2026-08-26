@@ -71,16 +71,16 @@ export function useRevealed(ref: RefObject<HTMLElement | null>) {
     const el = ref.current;
     if (!el) return;
     // Less movement means no entrance at all: the block is simply there.
-    if (prefersReducedMotion()) {
-      setShown(true);
-      return;
-    }
+    const still = prefersReducedMotion();
     let live = true;
     const check = () => {
       if (!live) return;
-      if (el.getBoundingClientRect().top < window.innerHeight * TRIGGER) setShown(true);
+      if (still || el.getBoundingClientRect().top < window.innerHeight * TRIGGER) {
+        setShown(true);
+      }
     };
     check();
+    if (still) return;
     const off = subscribe(check);
     return () => {
       live = false;
