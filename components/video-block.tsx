@@ -103,7 +103,7 @@ export function VideoBlock() {
             onHoverEnd={() => setArmed(false)}
             onFocus={() => setArmed(true)}
             onBlur={() => setArmed(false)}
-            className="pointer-events-auto relative flex h-[96px] w-[96px] cursor-pointer items-center justify-center rounded-full outline-none"
+            className="pointer-events-auto relative flex h-[96px] w-[96px] cursor-pointer items-center justify-center rounded-full"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 24 }}

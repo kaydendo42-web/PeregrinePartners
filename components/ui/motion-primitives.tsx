@@ -24,6 +24,14 @@ const EASE = [0.22, 1, 0.36, 1] as const;
    matter how the page got there. One shared, rAF-throttled listener
    drives every element so the cost stays flat.
 ------------------------------------------------------------------ */
+/** True when the reader has asked for less movement. */
+export function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true
+  );
+}
+
 const TRIGGER = 0.88; // fraction of the viewport height
 const THROTTLE = 60; // ms between sweeps
 const waiting = new Set<() => void>();
@@ -62,6 +70,11 @@ export function useRevealed(ref: RefObject<HTMLElement | null>) {
     if (shown) return;
     const el = ref.current;
     if (!el) return;
+    // Less movement means no entrance at all: the block is simply there.
+    if (prefersReducedMotion()) {
+      setShown(true);
+      return;
+    }
     let live = true;
     const check = () => {
       if (!live) return;
@@ -98,6 +111,7 @@ export function Reveal({
   const Cmp = motion[as];
   const ref = useRef<HTMLElement>(null);
   const shown = useRevealed(ref);
+  const still = prefersReducedMotion();
   return (
     <Cmp
       ref={ref as never}
@@ -108,7 +122,7 @@ export function Reveal({
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
           : { opacity: 0, y, filter: `blur(${blur}px)` }
       }
-      transition={shown ? { duration, delay, ease: EASE } : { duration: 0 }}
+      transition={shown && !still ? { duration, delay, ease: EASE } : { duration: 0 }}
     >
       {children}
     </Cmp>
@@ -129,6 +143,7 @@ export function RevealWords({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const shown = useRevealed(ref);
+  const still = prefersReducedMotion();
   return (
     <span ref={ref} className={`inline-block ${className}`}>
       {text.split(" ").map((word, i) => (
@@ -138,7 +153,9 @@ export function RevealWords({
             initial={false}
             animate={{ y: shown ? 0 : "110%" }}
             transition={
-              shown ? { duration: 0.85, delay: delay + i * stagger, ease: EASE } : { duration: 0 }
+              shown && !still
+                ? { duration: 0.85, delay: delay + i * stagger, ease: EASE }
+                : { duration: 0 }
             }
           >
             {word}
@@ -248,8 +265,13 @@ export function CountUp({
   const spring = useSpring(value, { duration: duration * 1000, bounce: 0 });
 
   useEffect(() => {
-    if (inView) value.set(to);
-  }, [inView, to, value]);
+    if (!inView) return;
+    if (prefersReducedMotion() && ref.current) {
+      ref.current.textContent = `${prefix}${to.toFixed(decimals)}${suffix}`;
+      return;
+    }
+    value.set(to);
+  }, [inView, to, value, prefix, suffix, decimals]);
 
   useEffect(() => {
     return spring.on("change", (v) => {

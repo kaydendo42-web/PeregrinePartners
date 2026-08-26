@@ -73,6 +73,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Keyboard focus.
+   A dark ring with a light halo, so the same treatment stays visible on the
+   white page, the #f0f0f0 cards and the dark runs without any of them having
+   to declare which ground they are. */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.85);
+}
+
 ::selection {
   background: var(--ink);
   color: #fff;

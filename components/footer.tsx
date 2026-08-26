@@ -55,7 +55,7 @@ export function Footer() {
 
             <form
               onSubmit={submit}
-              className="mt-[20px] flex w-full max-w-[400px] items-center gap-[8px] backdrop-blur-[6px]"
+              className="mt-[20px] flex w-full max-w-[400px] items-center gap-[8px] backdrop-blur-[6px] focus-within:outline focus-within:outline-2 focus-within:outline-offset-[3px] focus-within:outline-white"
               style={{ background: "rgba(255,255,255,0.2)", borderRadius: 17, padding: 6 }}
             >
               <input

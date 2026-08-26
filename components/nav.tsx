@@ -65,7 +65,7 @@ export function Nav() {
 
         {/* right action */}
         <div className="pointer-events-auto hidden sm:block">
-          <Button href="#footer" variant="small">
+          <Button href="/#footer" variant="small">
             Hire Team
           </Button>
         </div>
