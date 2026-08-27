@@ -10,19 +10,42 @@ import { hero } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * The opening sheet, and it fills whatever screen it opens on.
+ *
+ * The reference measured 876px here, which the rebuild carried as a hard
+ * `md:min-h`. That capped the hero: on anything taller than about 900px the
+ * card stopped short and the section below it started peeking over the fold,
+ * which reads as a page that has already begun rather than one about to. The
+ * 876 stays as a floor so a short laptop never crushes the headline, the card
+ * and the rail into each other; above that the viewport wins.
+ *
+ * `svh` rather than `vh` because on a phone `vh` is the height with the
+ * browser chrome retracted, so the rail sits under the address bar until the
+ * reader scrolls.
+ */
 export function Hero() {
   return (
     <section id="top" className="w-full bg-[color:var(--page)] p-[12px]">
-      <div className="section-card relative flex min-h-[calc(100svh-24px)] flex-col justify-between px-[24px] pb-[40px] pt-[130px] md:min-h-[876px] md:px-[40px] md:pt-[190px]">
+      <div className="section-card relative flex min-h-[calc(100svh_-_24px)] flex-col justify-between px-[24px] pb-[40px] pt-[130px] md:min-h-[max(876px,calc(100svh_-_24px))] md:px-[40px] md:pt-[190px]">
         {/* Backdrop. The reference holds this dead still through the whole
             scroll — a parallax here is the one difference the eye catches
             first, because the horizon moves against the fixed nav. */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 20 }}>
           <img
             src={hero.bgFront}
             alt=""
             aria-hidden
             className="h-full w-full object-cover"
+          />
+          {/* The plate's own dark grass is what the white trust line and the
+              rail sit on. Now that the card grows with the viewport, the crop
+              shifts and that ground slides up out from under them. This puts a
+              floor back under the bottom fifth and touches nothing above it,
+              so the photograph still reads as itself. */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%]"
+            style={{ background: "linear-gradient(to bottom, rgba(12,14,12,0) 0%, rgba(12,14,12,0.5) 100%)" }}
           />
         </div>
 
