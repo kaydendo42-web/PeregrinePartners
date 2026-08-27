@@ -5,7 +5,8 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Reveal } from "./ui/motion-primitives";
 import { SectionLabel } from "./ui/section-label";
-import { faq } from "@/lib/content";
+import { Cite } from "./ui/cite";
+import { faq, type SourceKey } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -57,11 +58,14 @@ export function Faq() {
 function FaqRow({
   q,
   a,
+  cite,
   open,
   onToggle,
 }: {
   q: string;
   a: string;
+  /** Where the answer's numbers came from. Empty when it makes no claim. */
+  cite: SourceKey[];
   open: boolean;
   onToggle: () => void;
 }) {
@@ -110,12 +114,22 @@ function FaqRow({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
           >
-            <p
-              className="px-[20px] pb-[20px]"
-              style={{ fontSize: 16, lineHeight: "24px", fontWeight: 300, letterSpacing: "0.02em", color: "var(--paper-80)" }}
-            >
-              {a}
-            </p>
+            <div className="px-[20px] pb-[20px]">
+              <p
+                style={{
+                  fontSize: 16,
+                  lineHeight: "24px",
+                  fontWeight: 300,
+                  letterSpacing: "0.02em",
+                  color: "var(--paper-80)",
+                }}
+              >
+                {a}
+              </p>
+              {/* The answer's evidence, in the open panel rather than a
+                  footnote at the bottom of the page nobody scrolls to. */}
+              <Cite keys={cite} tone="dark" className="mt-[14px]" />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

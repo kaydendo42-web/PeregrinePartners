@@ -35,13 +35,12 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  .lockup { display: flex; align-items: center; gap: 20px; }
-  .ring {
-    width: 60px; height: 34px; border-radius: 999px; background: #1a1a1a;
+  .lockup { display: flex; align-items: center; gap: 16px; }
+  .tile {
+    width: 52px; height: 52px; border-radius: 17px; background: #1a1a1a;
     display: flex; align-items: center; justify-content: center;
   }
-  .ring span { width: 48px; height: 22px; border-radius: 999px; background: #fff; }
-  .word { font-size: 30px; font-weight: 500; letter-spacing: -0.045em; }
+  .word { font-size: 26px; font-weight: 500; letter-spacing: -0.04em; }
   h1 {
     font-size: 84px; line-height: 0.98; letter-spacing: -0.045em;
     font-weight: 500; max-width: 700px;
@@ -63,14 +62,18 @@
 <div class="wash"></div>
 <div class="inner">
   <div class="lockup">
-    <span class="ring"><span></span></span>
-    <span class="word">peregrine</span>
+    <span class="tile">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+        <path d="M16 1.6 17.9 8.4 30.4 21.2 26.4 20.4 17.7 14.2 17.4 24.2 20.4 30.4 16 27.4 11.6 30.4 14.6 24.2 14.3 14.2 5.6 20.4 1.6 21.2 14.1 8.4Z" fill="#fff"/>
+      </svg>
+    </span>
+    <span class="word">Peregrine Partners</span>
   </div>
   <div>
     <div class="rule"><b>The Platform</b><i></i></div>
     <h1><span class="dim">The office it</span><br>keeps overnight.</h1>
   </div>
   <div class="foot">
-    <p>Six departments running through the night. By open, only the decisions that need a person are left.</p>
+    <p>Six departments running through the night on the systems the venue already pays for. By open, only the decisions that need a person are left.</p>
   </div>
 </div>

@@ -5,35 +5,51 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Reveal } from "./ui/motion-primitives";
 import { SectionLabel } from "./ui/section-label";
-import { capabilities } from "@/lib/content";
+import { BranchArt } from "./art/branch-art";
+import { external } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function Capabilities() {
+/**
+ * External branches — 001 to 005.
+ *
+ * The horizontal accordion is the reference's, but its geometry was hard-coded
+ * for exactly three panels (480 open, 90 closed, 680 total). There are five
+ * here, so the widths are derived from the count against a fixed total
+ * instead: adding a sixth branch later re-fits the row rather than pushing it
+ * off the grid. The rail beside it gives up 80px to pay for the extra columns.
+ */
+const TOTAL = 760;
+const CLOSED = 72;
+const GAP = 10;
+
+export function External() {
   const [active, setActive] = useState(0);
+  const n = external.panels.length;
+  const open = TOTAL - (n - 1) * (CLOSED + GAP);
 
   return (
     <section
-      id="capabilities"
+      id="external"
       className="w-full bg-[color:var(--dark)] px-[24px] pb-[120px] pt-[250px] md:px-[40px] md:pb-0"
     >
       <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-[60px] lg:flex-row lg:justify-between">
         {/* left rail */}
-        <div className="flex w-full max-w-[640px] flex-col">
-          <SectionLabel label={capabilities.label} tone="dark" ruleWidth={338} />
+        <div className="flex w-full max-w-[560px] flex-col">
+          <SectionLabel label={external.label} tone="dark" ruleWidth={280} />
 
           <Reveal delay={0.05}>
-            <p className="t-body mt-[52px] max-w-[500px] text-white">{capabilities.intro}</p>
+            <p className="t-body mt-[52px] max-w-[480px] text-white">{external.intro}</p>
           </Reveal>
 
-          <div className="mt-[280px] max-w-[600px]">
+          <div className="mt-[220px] max-w-[540px]">
             <Reveal delay={0.05}>
-              <h2 className="t-display text-white">{capabilities.heading}</h2>
+              <h2 className="t-display text-white">{external.heading}</h2>
             </Reveal>
             <Reveal delay={0.12}>
               <div className="mt-[40px]">
-                <Button href={capabilities.cta.href} variant="secondary" gap={32}>
-                  {capabilities.cta.label}
+                <Button href={external.cta.href} variant="secondary" gap={32}>
+                  {external.cta.label}
                 </Button>
               </div>
             </Reveal>
@@ -41,33 +57,37 @@ export function Capabilities() {
         </div>
 
         {/* accordion */}
-        <Reveal delay={0.1} className="w-full lg:w-[680px] lg:shrink-0">
-          <div className="hidden h-[630px] w-[680px] shrink-0 gap-[10px] lg:flex">
-            {capabilities.panels.map((p, i) => {
-              const open = i === active;
+        <Reveal delay={0.1} className="w-full lg:w-[760px] lg:shrink-0">
+          <div className="hidden h-[630px] shrink-0 lg:flex" style={{ width: TOTAL, gap: GAP }}>
+            {external.panels.map((p, i) => {
+              const isOpen = i === active;
               return (
-                <motion.div
+                <motion.button
                   key={p.n}
-                  onHoverStart={() => setActive(i)}
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-label={p.title}
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
                   onClick={() => setActive(i)}
-                  className="relative flex cursor-pointer flex-col items-center overflow-hidden"
+                  className="relative flex cursor-pointer flex-col items-center overflow-hidden text-left"
                   style={{ borderRadius: 20, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
                   animate={{
-                    width: open ? 480 : 90,
-                    backgroundColor: open ? "rgba(255,255,255,0)" : "rgba(255,255,255,0.04)",
+                    width: isOpen ? open : CLOSED,
+                    backgroundColor: isOpen ? "rgba(255,255,255,0)" : "rgba(255,255,255,0.04)",
                   }}
                   transition={{ duration: 0.7, ease: EASE }}
                 >
-                  <PanelArt open={open} object={p.object} />
+                  <PanelArt open={isOpen} art={p.art} />
 
                   {/* index */}
                   <span
                     className="absolute top-[16px] z-20 flex items-center justify-center"
                     style={{
-                      padding: "8px 16px",
+                      padding: "8px 14px",
                       borderRadius: 10,
                       border: "1px solid var(--paper-20)",
-                      right: open ? 18 : "auto",
+                      right: isOpen ? 18 : "auto",
                     }}
                   >
                     <span
@@ -76,36 +96,46 @@ export function Capabilities() {
                         fontSize: 12,
                         lineHeight: "20.4px",
                         fontWeight: 200,
-                        color: open ? "#fff" : "var(--paper-80)",
+                        color: isOpen ? "#fff" : "var(--paper-80)",
                       }}
                     >
                       {p.n}
                     </span>
                   </span>
 
-                  {/* open content */}
                   <AnimatePresence mode="wait">
-                    {open ? (
+                    {isOpen ? (
                       <motion.div
                         key="open"
-                        className="relative z-10 w-full px-[30px] pt-[30px]"
+                        className="relative z-10 flex h-full w-full flex-col px-[26px] pb-[26px] pt-[28px]"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.45, ease: EASE, delay: 0.12 }}
                       >
                         <h3
-                          className="max-w-[350px] text-white"
-                          style={{ fontSize: 28, lineHeight: "39.2px", fontWeight: 500, letterSpacing: "-0.28px" }}
+                          className="max-w-[300px] text-white"
+                          style={{
+                            fontSize: 26,
+                            lineHeight: "33px",
+                            fontWeight: 500,
+                            letterSpacing: "-0.4px",
+                          }}
                         >
                           {p.title}
                         </h3>
                         <p
-                          className="mt-[20px] max-w-[380px] text-white"
-                          style={{ fontSize: 14, lineHeight: "21px", fontWeight: 300, letterSpacing: "0.02em" }}
+                          className="mt-[16px] max-w-[350px] text-white"
+                          style={{
+                            fontSize: 14,
+                            lineHeight: "21px",
+                            fontWeight: 300,
+                            letterSpacing: "0.02em",
+                          }}
                         >
                           {p.body}
                         </p>
+                        <PanelFacts runsOn={p.runsOn} waits={p.waits} />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -119,7 +149,7 @@ export function Capabilities() {
                         <span
                           className="font-mono uppercase"
                           style={{
-                            fontSize: 13,
+                            fontSize: 12,
                             lineHeight: "normal",
                             padding: 10,
                             color: "var(--paper-70)",
@@ -133,28 +163,34 @@ export function Capabilities() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </motion.button>
               );
             })}
           </div>
         </Reveal>
 
-        {/* narrow screens: the same three panels, stacked and expandable */}
+        {/* narrow screens: the same panels, stacked and expandable */}
         <div className="flex w-full flex-col gap-[10px] lg:hidden">
-          {capabilities.panels.map((p, i) => {
-            const open = i === active;
+          {external.panels.map((p, i) => {
+            const isOpen = i === active;
             return (
               <motion.div
                 key={p.n}
-                onClick={() => setActive(i)}
-                className="relative w-full cursor-pointer overflow-hidden"
-                style={{ borderRadius: 20 }}
-                animate={{ backgroundColor: open ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.04)" }}
+                className="relative w-full overflow-hidden"
+                style={{ borderRadius: 20, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
+                animate={{
+                  backgroundColor: isOpen ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.04)",
+                }}
                 transition={{ duration: 0.5, ease: EASE }}
               >
-                <div className="relative z-10 p-[20px]">
-                  {/* On a phone the reference leads with the index in its
-                      pill and sets the title as a mono label, not a heading. */}
+                <button
+                  type="button"
+                  className="w-full cursor-pointer p-[20px] text-left"
+                  aria-expanded={isOpen}
+                  onClick={() => setActive(i)}
+                >
+                  {/* On a phone the reference leads with the index in its pill
+                      and sets the title as a mono label, not a heading. */}
                   <div className="flex items-center gap-[18px]">
                     <span
                       className="flex shrink-0 items-center justify-center"
@@ -176,7 +212,7 @@ export function Capabilities() {
                   </div>
 
                   <AnimatePresence initial={false}>
-                    {open && (
+                    {isOpen && (
                       <motion.div
                         key="body"
                         initial={{ height: 0, opacity: 0 }}
@@ -190,13 +226,14 @@ export function Capabilities() {
                         >
                           {p.body}
                         </p>
-                        <div className="relative mt-[16px] h-[220px]">
-                          <PanelArt open object={p.object} height={220} />
+                        <PanelFacts runsOn={p.runsOn} waits={p.waits} />
+                        <div className="relative mt-[16px] h-[200px]">
+                          <PanelArt open art={p.art} height={200} />
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </button>
               </motion.div>
             );
           })}
@@ -206,40 +243,79 @@ export function Capabilities() {
   );
 }
 
+/** What the branch works through, and what it always stops for. */
+function PanelFacts({ runsOn, waits }: { runsOn: string; waits: string }) {
+  return (
+    <dl
+      className="mt-auto flex flex-col gap-[10px] pt-[24px]"
+      style={{ borderTop: "1px solid var(--paper-10)" }}
+    >
+      {[
+        ["Runs on", runsOn],
+        ["Waits for you", waits],
+      ].map(([k, v]) => (
+        <div key={k} className="flex items-baseline justify-between gap-[16px]">
+          <dt
+            className="font-mono uppercase"
+            style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-40)" }}
+          >
+            {k}
+          </dt>
+          <dd
+            className="text-right text-white"
+            style={{ fontSize: 12, lineHeight: "18px", fontWeight: 300 }}
+          >
+            {v}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
-/** Panel backdrop: the source artwork, with the object riding on top when open. */
+/** Panel backdrop: the plate, with the branch's own object drawn on top. */
 function PanelArt({
   open,
-  object,
-  height = 430,
+  art,
+  height = 400,
 }: {
   open: boolean;
-  object: string;
-  /** The stacked panels give it a shorter box than the desktop columns. */
+  art: (typeof external.panels)[number]["art"];
   height?: number;
 }) {
+  const tall = height >= 300;
   return (
     <div
       className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
       style={{ height }}
     >
       <motion.img
-        src={open ? capabilities.panelBgOpen : capabilities.panelBgClosed}
+        src={open ? external.panelBgOpen : external.panelBgClosed}
         alt=""
         aria-hidden
         className="absolute inset-0 h-full w-full object-cover"
         animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: 0.6, ease: EASE }}
       />
-      <motion.img
-        src={object}
-        alt=""
-        aria-hidden
-        className="absolute left-1/2 w-[270px] -translate-x-1/2 object-contain"
-        style={{ top: height * 0.23, height: Math.round(height * 0.47) }}
+      {/* The facts row sits on the floor of the panel, so the object is raised
+          clear of it rather than drawn behind it — and a short wash under the
+          facts keeps them legible whatever the plate is doing down there. */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{ bottom: tall ? 128 : 14, width: tall ? 215 : 150 }}
         animate={{ opacity: open ? 1 : 0, y: open ? 0 : 14 }}
         transition={{ duration: 0.7, ease: EASE }}
-      />
+      >
+        {open ? <BranchArt kind={art} className="h-auto w-full" /> : null}
+      </motion.div>
+      {tall && open ? (
+        <div
+          className="absolute inset-x-0 bottom-0 h-[150px]"
+          style={{
+            background: "linear-gradient(to bottom, rgba(26,26,26,0) 0%, rgba(26,26,26,0.86) 60%)",
+          }}
+        />
+      ) : null}
     </div>
   );
 }

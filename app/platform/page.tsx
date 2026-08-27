@@ -114,7 +114,7 @@ export default function Platform() {
                 <p className="t-body max-w-[520px] text-white">{platform.close.body}</p>
               </Reveal>
               <Reveal delay={0.12}>
-                <Button href="/#faq" variant="secondary" gap={30} minWidth={232}>
+                <Button href={platform.close.cta.href} variant="secondary" gap={30} minWidth={232}>
                   {platform.close.cta.label}
                 </Button>
               </Reveal>

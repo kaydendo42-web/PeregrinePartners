@@ -5,33 +5,40 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Reveal } from "./ui/motion-primitives";
 import { SectionLabel } from "./ui/section-label";
-import { process } from "@/lib/content";
+import { external, internal } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * The deployment cycle: a framed illustration beside a four-step accordion.
- * One step is open at a time and the column height is fixed by the frame, so
- * opening a step never moves the block.
+ * Internal branches — 006 to 009.
+ *
+ * Numbered on from the external five rather than restarting at 01, which is
+ * the one thing the numbering has to say: these are not two product lines, they
+ * are one index of nine, split by where the work points. The plate to the left
+ * carries the whole index so the claim is visible rather than asserted.
+ *
+ * The reference's four-step accordion is unchanged underneath — one row open at
+ * a time, the column height fixed by the plate so opening a row never moves the
+ * block.
  */
-export function Process() {
+export function Internal() {
   const [open, setOpen] = useState(0);
 
   return (
-    <div id="process" className="w-full">
-      <SectionLabel label={process.label} tone="dark" align="right" ruleWidth={1205} />
+    <div id="internal" className="w-full">
+      <SectionLabel label={internal.label} tone="dark" align="right" ruleWidth={1205} />
 
       <Reveal delay={0.04}>
-        <h2 className="t-display mt-[52px] max-w-[800px] text-white">{process.heading}</h2>
+        <h2 className="t-display mt-[52px] max-w-[800px] text-white">{internal.heading}</h2>
       </Reveal>
 
       <div className="mt-[50px] flex flex-col gap-[10px] xl:flex-row">
         <Reveal className="w-full shrink-0 xl:w-[400px]">
-          <Frame />
+          <BranchIndex />
         </Reveal>
 
         <div className="flex w-full flex-col gap-[10px]">
-          {process.steps.map((s, i) => (
+          {internal.steps.map((s, i) => (
             <Reveal key={s.n} delay={0.05 + i * 0.06} className="w-full">
               <Step {...s} open={open === i} onOpen={() => setOpen(i)} />
             </Reveal>
@@ -50,12 +57,12 @@ export function Process() {
               fontWeight: 200,
             }}
           >
-            {process.note}
+            {internal.note}
           </p>
         </Reveal>
         <Reveal delay={0.08}>
-          <Button href={process.cta.href} variant="secondary" gap={43} minWidth={232}>
-            {process.cta.label}
+          <Button href={internal.cta.href} variant="secondary" gap={43} minWidth={232}>
+            {internal.cta.label}
           </Button>
         </Reveal>
       </div>
@@ -63,31 +70,80 @@ export function Process() {
   );
 }
 
-/** The illustration card: a printed plate with the model object floating on it. */
-function Frame() {
+/**
+ * The plate: all nine branches, in one column, with the internal four lit.
+ *
+ * This replaces the template's rendered object, which was decoration. A list
+ * of nine rows is a duller picture and a truer one — the argument the section
+ * is making is about the shape of the set, and the set is the picture.
+ */
+function BranchIndex() {
+  const all = [
+    ...external.panels.map((p) => ({ n: p.n, title: p.title, lit: false })),
+    ...internal.steps.map((s) => ({ n: s.n, title: s.title.split(",")[0].trim(), lit: true })),
+  ];
+
   return (
-    <motion.div
-      className="relative flex h-[445px] w-full shrink-0 items-center justify-center overflow-hidden xl:w-[400px]"
+    <div
+      className="relative flex h-[445px] w-full shrink-0 flex-col justify-between overflow-hidden xl:w-[400px]"
       style={{ borderRadius: 20, padding: 30, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
     >
-      <img
-        src={process.frame}
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <motion.img
-        src={process.frameInner}
-        alt=""
-        aria-hidden
-        className="relative h-[300px] w-[300px] object-cover"
-        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -10, scale: 1.03 } }}
-        transition={{ duration: 0.9, ease: EASE }}
-      />
-    </motion.div>
+      <p
+        className="font-mono uppercase"
+        style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--paper-40)" }}
+      >
+        The index
+      </p>
+
+      <ul className="flex flex-col gap-[2px]">
+        {all.map((b, i) => (
+          <motion.li
+            key={b.n}
+            className="flex items-center gap-[14px] py-[6px]"
+            style={{ borderTop: i === 0 ? "none" : "1px solid var(--paper-06)" }}
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.05 + i * 0.05, ease: EASE }}
+          >
+            <span
+              className="font-mono shrink-0"
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.04em",
+                color: b.lit ? "#ffffff" : "var(--paper-40)",
+              }}
+            >
+              {b.n}
+            </span>
+            <span
+              className="min-w-0 truncate"
+              style={{
+                fontSize: 13,
+                lineHeight: "19px",
+                fontWeight: b.lit ? 500 : 300,
+                color: b.lit ? "#ffffff" : "var(--paper-40)",
+              }}
+            >
+              {b.title}
+            </span>
+            {b.lit ? (
+              <span
+                className="ml-auto block h-[5px] w-[5px] shrink-0 rounded-full"
+                style={{ background: "#fff" }}
+              />
+            ) : null}
+          </motion.li>
+        ))}
+      </ul>
+
+      <p
+        className="font-mono uppercase"
+        style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-40)" }}
+      >
+        005 external · 004 internal
+      </p>
+    </div>
   );
 }
 
@@ -121,7 +177,13 @@ function Step({
       >
         <span
           className="shrink-0"
-          style={{ fontSize: 14, lineHeight: "21px", fontWeight: 300, letterSpacing: "0.28px", color: "var(--paper-40)" }}
+          style={{
+            fontSize: 14,
+            lineHeight: "21px",
+            fontWeight: 300,
+            letterSpacing: "0.28px",
+            color: "var(--paper-40)",
+          }}
         >
           {`// ${n}`}
         </span>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { Button } from "./ui/button";
+import { Falcon } from "./ui/mark";
 import { brand, footer } from "@/lib/content";
 
 const SOCIALS = ["x", "in", "yt", "ig"] as const;
@@ -33,22 +34,30 @@ export function Footer() {
         <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
-            <div className="flex flex-col items-start gap-[17px]">
+            {/* Horizontal, not stacked. The footer is 1140 tall against a
+                viewport that is usually shorter, and because it is sticky the
+                block is anchored to the floor — every pixel the lockup adds
+                pushes its own top further above the fold. Side by side it fits
+                in the height of the wordmark alone. */}
+            <div className="flex items-center gap-[18px]">
               <span
-                className="flex items-center justify-center rounded-full"
-                style={{ width: 60, height: 32, border: "4px solid #fff" }}
+                className="flex shrink-0 items-center justify-center"
+                style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(255,255,255,0.12)", color: "#fff" }}
                 aria-hidden
+              >
+                <Falcon size={30} />
+              </span>
+              {/* The formal lockup, and the only place it appears at a size
+                  where a stacked serif wordmark can actually be read. It ships
+                  as navy on transparent, so it is knocked out to white here
+                  rather than kept as a second artwork file to fall out of
+                  sync. */}
+              <img
+                src={brand.wordmarkSrc}
+                alt={brand.full}
+                className="h-[58px] w-auto object-contain object-left"
+                style={{ filter: "brightness(0) invert(1)" }}
               />
-              {brand.wordmarkSrc ? (
-                <img src={brand.wordmarkSrc} alt={brand.name} className="h-[42px] w-[155px] object-contain" />
-              ) : (
-                <span
-                  className="text-white"
-                  style={{ fontSize: 38, lineHeight: "42px", fontWeight: 600, letterSpacing: "-0.045em" }}
-                >
-                  {brand.name}
-                </span>
-              )}
             </div>
 
             <p className="t-body-sm mt-[15px] text-white">{footer.blurb}</p>
@@ -71,6 +80,13 @@ export function Footer() {
                 {sent ? "Sent" : "Subscribe"}
               </Button>
             </form>
+
+            <p
+              className="mt-[10px] font-mono uppercase text-white/50"
+              style={{ fontSize: 11, lineHeight: "17px", letterSpacing: "0.06em" }}
+            >
+              {footer.subscribeNote}
+            </p>
 
             <p className="t-mono mt-[30px] text-white">Follow Us:</p>
             <div className="mt-[10px] flex items-center gap-[10px]">
@@ -145,6 +161,17 @@ export function Footer() {
           >
             {brand.name}
           </motion.p>
+
+          {/* The legal line rides in the dead space under the cropped wordmark
+              rather than taking a row of its own. The footer is sticky and
+              bottom-anchored, so a row here costs its own height off the top of
+              the block — which is where the lockup lives. */}
+          <p
+            className="absolute inset-x-0 bottom-0 font-mono uppercase text-white/40"
+            style={{ fontSize: 11, lineHeight: "18px", letterSpacing: "0.06em" }}
+          >
+            {footer.legal}
+          </p>
         </div>
       </div>
     </footer>

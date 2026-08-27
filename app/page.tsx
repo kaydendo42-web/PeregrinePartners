@@ -2,16 +2,24 @@ import { Nav } from "@/components/nav";
 import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { Ticker } from "@/components/ticker";
-import { Works } from "@/components/works";
-import { Capabilities } from "@/components/capabilities";
+import { Roster } from "@/components/roster";
+import { External } from "@/components/external";
 import { Vision } from "@/components/vision";
-import { NeuralGrid } from "@/components/neural-grid";
-import { VideoBlock } from "@/components/video-block";
-import { Process } from "@/components/process";
+import { Stack } from "@/components/stack";
+import { Internal } from "@/components/internal";
 import { Team } from "@/components/team";
 import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 
+/**
+ * The home page sells the result: what it is like to run a business with the
+ * nine branches on. The argument for why it should exist at all lives on
+ * `/about`, and the page hands over to it twice — once at the vision block and
+ * once under the team.
+ *
+ * Section order is the reference's, minus the cut sections. What changed is
+ * what each slot carries; see the header comment on each component.
+ */
 export default function Home() {
   return (
     <>
@@ -28,19 +36,18 @@ export default function Home() {
           </div>
         </div>
 
-        <Works />
+        <Roster />
 
-        {/* the dark run: capabilities → vision → neural grid */}
+        {/* the dark run: external branches → why → the stack it runs on */}
         <div
           className="bg-[color:var(--dark)]"
           style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
         >
-          <Capabilities />
+          <External />
           <Vision />
-          <NeuralGrid />
+          <Stack />
         </div>
 
-        {/* white band over the film frame, rounded into it */}
         <div
           className="relative z-10 bg-[color:var(--page)] py-[7px]"
           style={{ borderRadius: "0 0 20px 20px" }}
@@ -48,15 +55,13 @@ export default function Home() {
           <Ticker />
         </div>
 
-        <VideoBlock />
-
-        {/* the second dark run: process → team */}
+        {/* the second dark run: internal branches → the three of us */}
         <section
           className="w-full bg-[color:var(--dark)]"
           style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
         >
           <div className="flex flex-col items-start gap-[160px] px-[24px] py-[140px] md:px-[40px] xl:pt-[250px] xl:pb-[200px]">
-            <Process />
+            <Internal />
             <Team />
           </div>
         </section>

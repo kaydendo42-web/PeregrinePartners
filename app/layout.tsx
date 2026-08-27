@@ -38,27 +38,27 @@ const jaini = Jaini({
 });
 
 const DESCRIPTION =
-  "Custom neural agents, LLM infrastructure and autonomous workflows, engineered for your stack.";
+  "Nine branches of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://peregrine-partners-ten.vercel.app",
   ),
   title: {
-    default: "Peregrine Partners — Applied AI Engineering",
-    template: "%s — Peregrine Partners",
+    default: "Peregrine Partners, We do the work",
+    template: "%s · Peregrine Partners",
   },
   description: DESCRIPTION,
   openGraph: {
     type: "website",
     siteName: "Peregrine Partners",
-    title: "Peregrine Partners — Applied AI Engineering",
+    title: "Peregrine Partners, We do the work",
     description: DESCRIPTION,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Peregrine Partners" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Peregrine Partners — Applied AI Engineering",
+    title: "Peregrine Partners, We do the work",
     description: DESCRIPTION,
     images: ["/og.png"],
   },

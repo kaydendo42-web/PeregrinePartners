@@ -1,8 +1,11 @@
-# Peregrine Partners — site build
+# Peregrine Partners
 
-Next.js 16 (App Router) + Tailwind v4 + `motion`. Rebuilt from a measured design
+Next.js 16 (App Router) + Tailwind v4 + `motion`. Built on a measured design
 system rather than eyeballed: every size, spacing and radius below came out of
 `getComputedStyle` on the reference at a 1440px viewport.
+
+Copy and content rules live in `handoff/02-peregrine-remould.md`. Read that
+before changing a word on the site.
 
 ## Run
 
@@ -11,24 +14,37 @@ npm run dev     # http://localhost:3000 (3001 if 3000 is taken)
 npm run build   # production build
 ```
 
-## Page order
+## Pages
+
+| Route | What it does |
+|---|---|
+| `/` | Sells the result: what a week looks like with the nine branches on |
+| `/about` | The argument. Where the hours go, why nine good products still leave you working at eleven at night |
+| `/platform` | The floor demo, ported from `consilium` |
+| `/waitlist` | Intake form, nine-branch picker, API route behind it |
+| `/sign-in` | Door to the client dashboard. Answers identically for every address |
+
+## Home, in order
 
 | # | Section | File |
 |---|---------|------|
-| 1 | Fixed nav (hide-on-scroll-down, mobile sheet) | `components/nav.tsx` |
-| 2 | Hero — split headline, product card, logo marquee | `components/hero.tsx` |
-| 3 | Scroll-inked statement + metric mosaic (count-ups) | `components/statement.tsx` |
+| 1 | Fixed nav, falcon lockup, four links, Join Waitlist | `components/nav.tsx` |
+| 2 | Hero, split headline, platform card, connection rail | `components/hero.tsx` |
+| 3 | Scroll-inked promise + the metric mosaic | `components/statement.tsx` |
 | 4 | Announcement ticker | `components/ticker.tsx` |
-| 5 | Works — 200px display marquee + case grid | `components/works.tsx` |
-| 6 | Capabilities — horizontal accordion (stacks under `lg`) | `components/capabilities.tsx` |
-| 7 | Vision — portrait plate + scroll-inked statement | `components/vision.tsx` |
-| 8 | Neural grid — mono lede, model cluster, 4 animated marks | `components/neural-grid.tsx` |
-| 9 | FAQ — dark accordion list | `components/faq.tsx` |
-| 10 | Footer — sticky reveal, subscribe, oversized wordmark | `components/footer.tsx` |
+| 5 | The floors it runs on | `components/roster.tsx` |
+| 6 | External branches 001-005 | `components/external.tsx` |
+| 7 | Why we built it | `components/vision.tsx` |
+| 8 | The connected stack | `components/stack.tsx` |
+| 9 | Internal branches 006-009 + the index plate | `components/internal.tsx` |
+| 10 | The partners | `components/team.tsx` |
+| 11 | FAQ, sourced | `components/faq.tsx` |
+| 12 | Footer, sticky reveal, oversized wordmark | `components/footer.tsx` |
 
-Scope as briefed: top of page through the neural grid, then the FAQ, then the
-footer. The reference's testimonial carousel, video block, process, team,
-pricing and blog sections sit between those and were left out.
+Two devices carry the whole site. The **three states** (Needs you / Watching /
+Done) are told apart by weight and never by colour. The **index of nine** runs
+001 to 009 across the two branch sections without restarting, because they are
+one set split by where the work points.
 
 ## Design tokens
 
@@ -50,10 +66,25 @@ pricing and blog sections sit between those and were left out.
 
 ## Content and assets
 
-Copy lives in `lib/content.ts`. Every illustration — hero meadow, neural core,
-case covers, portrait plate, footer garden, all icons and logos — is drawn in
-SVG/CSS in `components/art/` and `components/ui/`, so nothing external is
-fetched at runtime and no third-party imagery ships in the repo.
+Every word lives in `lib/content.ts`, under four rules set out at the top of
+that file: no figure without a source, no invented scale, write to the owner
+rather than the investor, and no em dashes. `<Cite>` renders the source
+registry; a citation that cannot be clicked is decoration.
+
+The falcon, the nine agent discs, the hero card's floor and the five branch
+objects are all drawn in SVG in `components/art/` and `components/ui/`. Brand
+and client artwork sits in `public/brand`, portraits in `public/people`.
+
+## Capture
+
+```bash
+node docs/research/shoot-tiles.mjs [path] [width]
+```
+
+Walks a page at an exact viewport and writes one PNG per screen to
+`docs/research/tiles/`, reporting console errors, failed requests and
+horizontal overflow. Marquees always report overflow; they are wider than the
+viewport by design.
 
 ## Recon record
 

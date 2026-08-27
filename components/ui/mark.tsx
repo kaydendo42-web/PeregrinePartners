@@ -80,3 +80,74 @@ export function LogoPill({ dark = true }: { dark?: boolean }) {
     </div>
   );
 }
+
+/**
+ * The house glyph: a peregrine in a stoop.
+ *
+ * Chosen because `Mark()` above is already a chevron — read off the source's
+ * own symbol — and a falcon at terminal velocity is a chevron. Same shape,
+ * one carrying the brand and the other carrying motion, so the pair reads as
+ * a family rather than two unrelated marks.
+ *
+ * Drawn hard-edged rather than curved to sit with the site's mono furniture:
+ * wings swept into a delta, a spine, and a forked tail. Every vertex is on a
+ * 0.2 grid so it stays crisp at 16px, which is the smallest it ever renders.
+ */
+export function Falcon({ size = 22, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <path
+        d="M16 1.6 17.9 8.4 30.4 21.2 26.4 20.4 17.7 14.2 17.4 24.2 20.4 30.4 16 27.4 11.6 30.4 14.6 24.2 14.3 14.2 5.6 20.4 1.6 21.2 14.1 8.4Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Nav and footer lockup: the falcon on a dark tile, then the name.
+ *
+ * The company is unknown, so the mark alone would be doing brand work it has
+ * not earned yet — the wordmark travels with it everywhere it is small enough
+ * to fit. The stacked serif artwork in `public/brand` is the formal lockup and
+ * only appears in the footer, where there is room to set it properly.
+ */
+export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
+  const onDark = tone === "light";
+  return (
+    <span className="flex shrink-0 items-center" style={{ gap: 10 }}>
+      <span
+        className="flex items-center justify-center"
+        style={{
+          width: 34,
+          height: 34,
+          borderRadius: 11,
+          background: onDark ? "#fff" : "var(--ink)",
+          color: onDark ? "var(--ink)" : "#fff",
+        }}
+      >
+        <Falcon size={20} />
+      </span>
+      <span
+        className="whitespace-nowrap"
+        style={{
+          fontSize: 15,
+          lineHeight: "20px",
+          fontWeight: 600,
+          letterSpacing: "-0.035em",
+          color: onDark ? "#fff" : "var(--ink)",
+        }}
+      >
+        Peregrine Partners
+      </span>
+    </span>
+  );
+}

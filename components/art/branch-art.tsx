@@ -1,0 +1,300 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+
+/**
+ * One drawn object per external branch.
+ *
+ * The template shipped a single rendered PNG and reused it behind all three
+ * capability panels; with five panels that reads as five copies of nothing.
+ * These are drawn instead, in the same isometric line language as `/platform`
+ * so the marketing page and the product look like one system.
+ *
+ * Each is a picture of the branch's actual mechanic rather than an icon of its
+ * category — the supplier panel shows a price moving and an order redrawn
+ * around it, the books panel shows two lines out of a hundred and forty-eight
+ * failing to match. Nothing here is a chart of invented data; they are
+ * diagrams of behaviour.
+ */
+
+export type BranchArtKey = "supply" | "books" | "marketing" | "reception" | "web";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Isometric projection: grid units in, screen coordinates out. */
+const iso = (gx: number, gy: number, gz = 0): [number, number] => [
+  60 + (gx - gy) * 15,
+  62 + (gx + gy) * 7.5 - gz * 13,
+];
+
+const ink = "rgba(255,255,255,0.82)";
+const faint = "rgba(255,255,255,0.26)";
+const dim = "rgba(255,255,255,0.14)";
+
+/** A flat isometric tile, used as the ground every object stands on. */
+function Ground() {
+  return (
+    <path
+      d="M60 14 L114 41 L60 68 L6 41 Z"
+      fill="rgba(255,255,255,0.03)"
+      stroke={dim}
+      strokeWidth="0.8"
+      transform="translate(0 34)"
+    />
+  );
+}
+
+export function BranchArt({ kind, className = "" }: { kind: BranchArtKey; className?: string }) {
+  const still = useReducedMotion();
+  const draw = still
+    ? {}
+    : {
+        initial: { pathLength: 0, opacity: 0 },
+        whileInView: { pathLength: 1, opacity: 1 },
+        viewport: { once: true },
+      };
+
+  return (
+    <svg viewBox="0 0 120 120" className={className} fill="none" aria-hidden>
+      <Ground />
+      {kind === "supply" ? <Supply draw={draw} still={still} /> : null}
+      {kind === "books" ? <Books draw={draw} still={still} /> : null}
+      {kind === "marketing" ? <Marketing draw={draw} still={still} /> : null}
+      {kind === "reception" ? <Reception draw={draw} still={still} /> : null}
+      {kind === "web" ? <Web draw={draw} still={still} /> : null}
+    </svg>
+  );
+}
+
+type DrawProps = { draw: Record<string, unknown>; still: boolean | null };
+
+/** A crate box in isometric, given its base grid cell and height in units. */
+function Crate({ gx, gy, h = 1, lit = false }: { gx: number; gy: number; h?: number; lit?: boolean }) {
+  const [tx, ty] = iso(gx, gy, h);
+  const [bx, by] = iso(gx, gy, 0);
+  const w = 15;
+  const d = 7.5;
+  const top = `M${tx} ${ty - d} L${tx + w} ${ty} L${tx} ${ty + d} L${tx - w} ${ty} Z`;
+  const left = `M${tx - w} ${ty} L${tx} ${ty + d} L${bx} ${by + d} L${bx - w} ${by} Z`;
+  const right = `M${tx + w} ${ty} L${tx} ${ty + d} L${bx} ${by + d} L${bx + w} ${by} Z`;
+  return (
+    <g>
+      <path d={left} fill={lit ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.05)"} stroke={faint} strokeWidth="0.8" />
+      <path d={right} fill={lit ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.03)"} stroke={faint} strokeWidth="0.8" />
+      <path d={top} fill={lit ? "#ffffff" : "rgba(255,255,255,0.09)"} stroke={lit ? "none" : faint} strokeWidth="0.8" />
+    </g>
+  );
+}
+
+/** 001 — a price moves, and the order is redrawn around it. */
+function Supply({ still }: DrawProps) {
+  return (
+    <>
+      <Crate gx={-0.6} gy={0.6} />
+      <Crate gx={0.6} gy={0.6} />
+      <Crate gx={0} gy={-0.4} lit />
+      {/* the line that moved, climbing off the stack */}
+      <motion.path
+        d="M78 52 L88 44 L96 47 L106 30"
+        stroke={ink}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={still ? false : { pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.1, ease: EASE, delay: 0.2 }}
+      />
+      <path d="M100 30h6v6" stroke={ink} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <text
+        x="106"
+        y="24"
+        textAnchor="end"
+        fill={ink}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        +34%
+      </text>
+      {/* and the one held flat */}
+      <path d="M14 60 L30 60" stroke={faint} strokeWidth="1.2" strokeLinecap="round" strokeDasharray="2 3" />
+    </>
+  );
+}
+
+/** 002 — a hundred and forty-eight lines clear, two do not. */
+function Books({ still }: DrawProps) {
+  const rows = Array.from({ length: 9 });
+  return (
+    <>
+      {/* the sheet, standing on the tile */}
+      <path
+        d="M30 26 L90 26 L90 84 L30 84 Z"
+        fill="rgba(255,255,255,0.04)"
+        stroke={faint}
+        strokeWidth="0.8"
+      />
+      {rows.map((_, i) => {
+        const flagged = i === 3 || i === 7;
+        const y = 34 + i * 5.6;
+        return (
+          <motion.g
+            key={i}
+            initial={still ? false : { opacity: 0, x: -6 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 + i * 0.055, ease: EASE }}
+          >
+            <line
+              x1="36"
+              y1={y}
+              x2={flagged ? 66 : 78}
+              y2={y}
+              stroke={flagged ? ink : dim}
+              strokeWidth={flagged ? "1.6" : "1.2"}
+              strokeLinecap="round"
+            />
+            {flagged ? <circle cx="84" cy={y} r="2.4" fill="#ffffff" /> : null}
+          </motion.g>
+        );
+      })}
+      <text
+        x="30"
+        y="97"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        148 · 2 FLAGGED
+      </text>
+    </>
+  );
+}
+
+/** 003 — three drafted, none of them sent. */
+function Marketing({ still }: DrawProps) {
+  return (
+    <>
+      {[0, 1, 2].map((i) => (
+        <motion.g
+          key={i}
+          initial={still ? false : { opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.12 + i * 0.11, ease: EASE }}
+        >
+          <rect
+            x={26 + i * 9}
+            y={24 + i * 13}
+            width="52"
+            height="36"
+            rx="5"
+            fill="rgba(255,255,255,0.05)"
+            stroke={i === 2 ? ink : faint}
+            strokeWidth="0.9"
+          />
+          <line x1={33 + i * 9} y1={34 + i * 13} x2={61 + i * 9} y2={34 + i * 13} stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+          <line x1={33 + i * 9} y1={40 + i * 13} x2={53 + i * 9} y2={40 + i * 13} stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+        </motion.g>
+      ))}
+      {/* the queue, stopped */}
+      <circle cx="88" cy="86" r="5.5" fill="#ffffff" />
+      <text
+        x="26"
+        y="104"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        3 QUEUED · 0 SENT
+      </text>
+    </>
+  );
+}
+
+/** 004 — the phone, answered through service. */
+function Reception({ still }: DrawProps) {
+  const bars = [6, 12, 20, 14, 24, 10, 17, 8, 13];
+  return (
+    <>
+      <path
+        d="M40 30c0 24 12 38 34 44l6-9-11-8-6 5c-7-5-12-11-14-19l7-4-4-13-8 1c-2 1-4 2-4 3Z"
+        fill="rgba(255,255,255,0.08)"
+        stroke={ink}
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <g>
+        {bars.map((h, i) => (
+          <motion.line
+            key={i}
+            x1={22 + i * 8.5}
+            y1={92 - h / 2}
+            x2={22 + i * 8.5}
+            y2={92 + h / 2}
+            stroke={i === 4 ? "#ffffff" : faint}
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            initial={still ? false : { scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            style={{ originY: "92px" }}
+            transition={{ duration: 0.45, delay: 0.15 + i * 0.05, ease: EASE }}
+          />
+        ))}
+      </g>
+      <text
+        x="22"
+        y="108"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        23 ANSWERED · 0 MISSED
+      </text>
+    </>
+  );
+}
+
+/** 005 — the site and the listing, kept from the same place. */
+function Web({ still }: DrawProps) {
+  return (
+    <>
+      <rect x="20" y="24" width="62" height="44" rx="4" fill="rgba(255,255,255,0.05)" stroke={faint} strokeWidth="0.9" />
+      <line x1="20" y1="33" x2="82" y2="33" stroke={faint} strokeWidth="0.9" />
+      {[0, 1, 2].map((i) => (
+        <circle key={i} cx={26 + i * 5} cy="28.5" r="1.3" fill={dim} />
+      ))}
+      <line x1="27" y1="43" x2="60" y2="43" stroke={dim} strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="27" y1="50" x2="72" y2="50" stroke={dim} strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="27" y1="57" x2="52" y2="57" stroke={dim} strokeWidth="1.6" strokeLinecap="round" />
+
+      {/* the listing pin, tied back to the same source */}
+      <motion.g
+        initial={still ? false : { opacity: 0, y: -8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+      >
+        <path
+          d="M90 52c0-7 5.4-12 12-12s12 5 12 12c0 9-12 22-12 22S90 61 90 52Z"
+          fill="rgba(255,255,255,0.08)"
+          stroke={ink}
+          strokeWidth="1.2"
+        />
+        <circle cx="102" cy="52" r="4" fill="#ffffff" />
+      </motion.g>
+      <path d="M82 52 L90 52" stroke={faint} strokeWidth="1" strokeDasharray="2 3" />
+
+      <text
+        x="20"
+        y="90"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        HOURS · HOLIDAYS · PHOTOS
+      </text>
+    </>
+  );
+}

@@ -46,3 +46,9 @@ next-env.d.ts
 /docs/research/compare/
 /docs/research/widths/
 /docs/research/platform-shots/
+
+# macOS
+.DS_Store
+
+# Regenerable review captures (node docs/research/shoot-tiles.mjs)
+docs/research/tiles/
