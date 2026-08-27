@@ -48,7 +48,7 @@ type Lead = {
   suburb: string;
   phone: string;
   email: string;
-  branches: string[];
+  departments: string[];
   detail: string;
 };
 
@@ -59,7 +59,7 @@ const summary = (lead: Lead) =>
   `Suburb:   ${lead.suburb}\n` +
   `Phone:    ${lead.phone}\n` +
   `Email:    ${lead.email}\n` +
-  `Branches: ${lead.branches.join(", ") || "—"}\n` +
+  `Departments: ${lead.departments.join(", ") || "none"}\n` +
   (lead.detail ? `\nNotes:\n${lead.detail}\n` : "");
 
 async function notifyTelegram(lead: Lead) {
@@ -108,7 +108,7 @@ async function notifyEmail(lead: Lead) {
         row("Suburb", lead.suburb) +
         row("Phone", lead.phone) +
         row("Email", lead.email) +
-        row("Branches", lead.branches.join(", ") || "—") +
+        row("Departments", lead.departments.join(", ") || "none") +
         `</p>` +
         (lead.detail ? `<p>${esc(lead.detail)}</p>` : ""),
     }),
@@ -138,8 +138,8 @@ export async function POST(request: Request) {
     suburb: clean(body.suburb, LIMITS.suburb),
     phone: clean(body.phone, LIMITS.phone),
     email: clean(body.email, LIMITS.email),
-    branches: Array.isArray(body.branches)
-      ? body.branches.map((b) => clean(b, 60)).filter(Boolean).slice(0, 12)
+    departments: Array.isArray(body.departments)
+      ? body.departments.map((d) => clean(d, 60)).filter(Boolean).slice(0, 12)
       : [],
     detail: clean(body.detail, LIMITS.detail),
   };

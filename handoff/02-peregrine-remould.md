@@ -14,16 +14,16 @@ unchanged. Everything else is new.
 
 | Slot | Was | Is |
 |---|---|---|
-| Nav | capsule + 5 template links + "Hire Team" | falcon lockup, Home / Platform / About Us / Sign in, **Join Waitlist** |
+| Nav | capsule + 5 template links + "Hire Team" | the real wordmark, Home / Platform / About Us / Sign in, **Join Waitlist** |
 | Hero card | "Digital Brain v4.0.2" over a rendered engine | **Test out our platform**, over a drawn nine-tile floor, linking to `/platform` |
 | Hero rail | five real health-insurer logos | neutral marks for the systems we work through |
 | Statement mosaic | invented $45M / 15,400 agents / 5x | a sourced market rate, the **nine agents**, the three states, the approval dial, a labelled worked example |
 | Works | five invented case studies | **The floors**: four real Melbourne businesses, marquee straight into the cards |
-| Capabilities | 3 panels of AI-agency copy | **External branches 001–005**, each with its own drawn object |
+| Capabilities | 3 panels of AI-agency copy | **External departments 001–005**, each with its own drawn object |
 | Vision | founder portrait + template line | Chapel Street, and a door to `/about` |
 | Neural grid | frontier model logos | **the stack**, four things true of all nine branches |
 | Film frame | still + inert play button | **cut**, see §6 |
-| Process | 4-step deployment cycle | **Internal branches 006–009** + the nine-row index plate |
+| Process | 4-step deployment cycle | **Internal departments 006–009** + the nine-row plate |
 | Team | 4 stock people with invented quotes | Kayden, Jason, Thomas, with what each does |
 | FAQ | 7 generic answers | 8 owner questions, sourced |
 | — | — | **`/about`**, **`/waitlist`** (+ API route), **`/sign-in`** |
@@ -71,20 +71,30 @@ and never by colour, the same rule `app/platform.css` already followed. They
 run through the statement mosaic, the hero card, `/platform` and the
 waitlist confirmation. `components/ui/state-mark.tsx` is the single source.
 
-**One index of nine.** External branches are 001–005 and internal are 006–009,
+**One set of nine.** External departments are 001–005 and internal are 006–009,
 numbered on rather than restarting, because the point is that they are one set
 split by where the work points. The plate in `components/internal.tsx` prints
-the whole index so the claim is visible rather than asserted, and the hero
-card's nine tiles are the same nine in the same order.
+all nine so the claim is visible rather than asserted, and the hero card's nine
+tiles are the same nine in the same order.
+
+They are **departments**, not branches. To a venue owner a branch is a second
+site, and "the index" is architecture language. `/platform` already said
+departments; the rest of the site now agrees with it. Component and type names
+(`BranchArt`, `BranchIndex`) still say branch and that is fine, but no rendered
+string should. "Operating layer" went the same way for the same reason.
 
 ---
 
 ## 3. New pieces worth knowing about
 
-- **`components/ui/mark.tsx`** now exports `Falcon` and `Logo`. The falcon is a
-  peregrine in a stoop, drawn hard-edged on a 0.2 grid because the smallest it
-  renders is 16px. It is deliberately the same shape as the existing `Mark()`
-  chevron.
+- **`components/ui/mark.tsx`** exports `Falcon` and `Logo`. `Logo` renders the
+  real artwork at `public/brand/wordmark.png`, stacked navy serif with a mint
+  pentagon over the "i", knocked out to white over a dark ground. It leads the
+  nav and it is the footer's oversized statement, replacing the live Inter text
+  that stood in before the artwork existed. The falcon is a drawn icon mark for
+  the places a wordmark cannot go: favicon, apple-icon, the watermarks on
+  `/about`, `/waitlist` and `/sign-in`, and both social cards. It is
+  deliberately the same chevron shape as the existing `Mark()`.
 - **`components/art/agent-avatars.tsx`** is the only colour on the site. Nine
   discs, one per branch, replacing the template's stock illustrated faces. Nine
   distinct hues make the row read as nine hands rather than one process.
@@ -134,7 +144,11 @@ always report overflow; they are wider than the viewport by design.
 6. **`/platform` copy.** The floor demo runs six departments where the site
    sells nine branches. The page says six and says why. Keep it that way, or
    build the other three into the demo.
-7. **The film slot is empty again.** It briefly held a scroll-linked overnight
+7. **The falcon is ours, not yours.** The wordmark is the real logo; the falcon
+   icon was drawn for this build to fill the favicon and watermark slots. If a
+   proper icon mark exists or gets designed, `Falcon` in
+   `components/ui/mark.tsx` is the only place it needs replacing.
+8. **The film slot is empty again.** It briefly held a scroll-linked overnight
    timeline, 23:40 to 06:04, and that was cut along with the roster's heading
    block: the home page was carrying two product demonstrations and `/platform`
    is the one that earns the room. If a real film ever lands, the slot sits

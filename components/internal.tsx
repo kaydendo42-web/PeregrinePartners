@@ -92,7 +92,7 @@ function BranchIndex() {
         className="font-mono uppercase"
         style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--paper-40)" }}
       >
-        The index
+        The nine
       </p>
 
       <ul className="flex flex-col gap-[2px]">

@@ -38,7 +38,7 @@ const jaini = Jaini({
 });
 
 const DESCRIPTION =
-  "Nine branches of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.";
+  "Nine departments of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

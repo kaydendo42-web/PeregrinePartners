@@ -15,10 +15,10 @@ type Status = "idle" | "sending" | "done" | "error";
  *
  * Two things it does that a default form would not.
  *
- * The branch picker is the same nine-item index the rest of the site is built
- * on, as toggles — so filling the form is the first time a reader handles the
- * product's actual shape, and what arrives on our end is already a shortlist
- * rather than a paragraph to interpret.
+ * The department picker is the same nine the rest of the site is built on, as
+ * toggles, so filling the form is the first time a reader handles the shape of
+ * the product. What arrives on our end is already a shortlist rather than a
+ * paragraph to interpret.
  *
  * And it never loses a lead. If the API answers 501 — nothing configured yet —
  * the submission is turned into a pre-filled email and the mail client opens.
@@ -29,10 +29,10 @@ export function WaitlistForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [fields, setFields] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
-  const [branches, setBranches] = useState<string[]>([]);
+  const [departments, setDepartments] = useState<string[]>([]);
 
-  const toggle = (b: string) =>
-    setBranches((cur) => (cur.includes(b) ? cur.filter((x) => x !== b) : [...cur, b]));
+  const toggle = (d: string) =>
+    setDepartments((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : [...cur, d]));
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,7 +48,7 @@ export function WaitlistForm() {
       email: String(form.get("email") ?? ""),
       detail: String(form.get("detail") ?? ""),
       website: String(form.get("website") ?? ""), // honeypot
-      branches,
+      departments,
     };
 
     setStatus("sending");
@@ -90,7 +90,7 @@ export function WaitlistForm() {
           `Suburb: ${payload.suburb}`,
           `Phone: ${payload.phone}`,
           `Email: ${payload.email}`,
-          `Branches: ${branches.join(", ") || "none picked"}`,
+          `Departments: ${departments.join(", ") || "none picked"}`,
           "",
           payload.detail,
         ].join("\n");
@@ -148,16 +148,16 @@ export function WaitlistForm() {
           className="font-mono uppercase"
           style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--ink-40)" }}
         >
-          {waitlist.branchesLabel}
+          {waitlist.departmentsLabel}
         </legend>
         <div className="flex flex-wrap gap-[8px]">
-          {waitlist.branches.map((b, i) => {
-            const on = branches.includes(b);
+          {waitlist.departments.map((d, i) => {
+            const on = departments.includes(d);
             return (
               <button
-                key={b}
+                key={d}
                 type="button"
-                onClick={() => toggle(b)}
+                onClick={() => toggle(d)}
                 aria-pressed={on}
                 className="flex items-center gap-[8px] transition-colors duration-300"
                 style={{
@@ -176,7 +176,7 @@ export function WaitlistForm() {
                 >
                   {String(i + 1).padStart(3, "0")}
                 </span>
-                {b}
+                {d}
               </button>
             );
           })}

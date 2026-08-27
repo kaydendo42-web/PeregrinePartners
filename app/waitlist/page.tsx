@@ -8,7 +8,7 @@ import { WaitlistForm } from "@/components/forms/waitlist-form";
 import { waitlist } from "@/lib/content";
 
 const DESCRIPTION =
-  "Bring one month of invoices. We will show you where you are paying twice, where the hours go, and which three branches are worth starting with.";
+  "Bring one month of invoices. We will show you where you are paying twice, where the hours go, and which three departments are worth starting with.";
 
 export const metadata: Metadata = {
   title: "Join Waitlist",

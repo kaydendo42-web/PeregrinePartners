@@ -35,7 +35,7 @@ export function Nav() {
         {/* left pill */}
         <nav
           className="pointer-events-auto flex w-full items-center justify-between bg-white md:w-auto md:justify-start"
-          style={{ borderRadius: 100, padding: "5px 26px 5px 5px", gap: 40 }}
+          style={{ borderRadius: 100, padding: "5px 26px 5px 18px", gap: 36 }}
         >
           <Link href="/" aria-label="Peregrine Partners, home">
             <Logo />

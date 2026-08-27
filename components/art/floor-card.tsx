@@ -54,7 +54,7 @@ export function FloorCard() {
       viewBox="0 0 320 220"
       className="h-full w-full"
       role="img"
-      aria-label="The platform floor: nine branches of a business, two of them waiting on a decision"
+      aria-label="The platform floor: nine departments of a venue, two of them waiting on a decision"
     >
       <rect width="320" height="220" fill="var(--dark)" />
 

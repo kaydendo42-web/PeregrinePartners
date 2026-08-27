@@ -114,19 +114,19 @@ export const states = [
 /* ------------------------------------------------------------------ *
  * The nine agents.
  *
- * One per branch, and the one place on the site that carries colour. The
+ * One per department, and the one place on the site that carries colour. The
  * template ran illustrated avatars here to make its agent count feel like
  * staff rather than software, which is the same job ours has to do: an owner
  * should look at this and see a team.
  *
- * The twist is that ours are not people. Each disc is a branch of the business
- * wearing its own colour, in the order the two branch sections number them,
- * and the glyph on it is the work that branch does.
+ * The twist is that ours are not people. Each disc is a department of the
+ * venue wearing its own colour, in the order the two department sections
+ * number them, and the glyph on it is the work that department does.
  * ------------------------------------------------------------------ */
 
 export const agents = {
   heading: "Nine agents on the floor.",
-  caption: "One per branch. They work the night and hand you the short list.",
+  caption: "One per department. They work the night and hand you the short list.",
   roster: [
     { n: "001", name: "Suppliers", glyph: "crate", colour: "#C1663A" },
     { n: "002", name: "The books", glyph: "ledger", colour: "#2E6B57" },
@@ -148,7 +148,7 @@ export const hero = {
   /** Line one sets the argument, line two lands it. Line one renders dim. */
   headlineDim: "Software sold you tools.",
   headlineLit: "We do the work.",
-  sub: "Nine branches of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.",
+  sub: "Nine departments of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.",
   cta: { label: "Join the waitlist", href: "/waitlist" },
   card: {
     title: "Test out our platform",
@@ -182,14 +182,14 @@ export const hero = {
  * Statement: the promise, and the evidence under it
  *
  * Owner economics, not market thesis. Every figure is a published Australian
- * market rate for the thing a branch takes over, so the comparison is one the
+ * market rate for the thing a department takes over, so the comparison is one the
  * reader can check against their own bills.
  * ------------------------------------------------------------------ */
 
 export const statement = {
   text:
     "The admin does not stop when the doors do. Peregrine works the gap between close and open, so your morning starts with a short list instead of a pile.",
-  sub: "Nine branches run on the systems you already pay for. By the time you unlock the door, the orders are drafted, the takings are reconciled, the roster is costed, and the only thing waiting is what needs your call.",
+  sub: "Nine departments run on the systems you already pay for. By the time you unlock the door, the orders are drafted, the takings are reconciled, the roster is costed, and the only thing waiting is what needs your call.",
 
   cost: {
     value: 749,
@@ -205,9 +205,9 @@ export const statement = {
   },
 
   approval: {
-    title: "Every branch waits",
+    title: "Every department waits",
     caption:
-      "Anthropic tells agent builders to grant autonomy in proportion to demonstrated reliability. Ours starts at none and earns it one branch at a time.",
+      "Anthropic tells agent builders to grant autonomy in proportion to demonstrated reliability. Ours starts at none and earns it one department at a time.",
     source: "anthropic" as SourceKey,
   },
 
@@ -229,7 +229,7 @@ export const ticker =
 /* ------------------------------------------------------------------ *
  * The floors it runs on
  *
- * Four real businesses, shown as the kinds of floor the branches are shaped
+ * Four real businesses, shown as the kinds of floor the departments are shaped
  * around rather than as a customer list. The trades are the point: a head spa
  * that seats one guest per room and an arts school that counts terms break
  * every per-cover product on the market, which is the argument for a booking
@@ -277,14 +277,14 @@ export const roster = {
 };
 
 /* ------------------------------------------------------------------ *
- * External branches, 001 to 005
+ * External departments, 001 to 005
  *
  * The parts of the business that face outward: the people you buy from, the
  * people who buy from you, and everyone entitled to a number off you.
  * ------------------------------------------------------------------ */
 
 export const external = {
-  label: "External Branches",
+  label: "External Departments",
   intro:
     "Everything that faces out of the building. The people you buy from, the people who find you, and everyone entitled to a number off you.",
   heading: "The outside of the venue, handled before you open.",
@@ -336,24 +336,24 @@ export const external = {
 };
 
 /* ------------------------------------------------------------------ *
- * Internal branches, 006 to 009
+ * Internal departments, 006 to 009
  *
- * Numbered on from the externals: nine branches, one index, one business. The
+ * Numbered on from the externals: nine departments, one business. The
  * split is where the work points, not who owns it.
  * ------------------------------------------------------------------ */
 
 export const internal = {
-  label: "Internal Branches",
+  label: "Internal Departments",
   heading: "And the inside of it, drafted and waiting on your desk.",
   note:
-    "Nine branches, one index. Most venues start with three and add the rest once they trust those three.",
+    "Nine departments. Most venues start with three and add the rest once they trust those three.",
   cta: { label: "See it running", href: "/platform" },
   steps: [
     {
       n: "006",
       tag: "Ours",
       title: "Bookings, and this one is ours",
-      body: "Owners resent bolting a third-party booking system onto the business, and the objection is the integration rather than the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours sits inside the operating layer instead, shaped around how your venue takes bookings. Flat-fee systems run $0 to $249 a month, and per-cover pricing is where volume hurts.",
+      body: "Owners resent bolting a third-party booking system onto the business, and the objection is the integration rather than the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours is part of Peregrine instead, shaped around how your venue takes bookings. Flat-fee systems run $0 to $249 a month, and per-cover pricing is where volume hurts.",
     },
     {
       n: "007",
@@ -365,13 +365,13 @@ export const internal = {
       n: "008",
       tag: "Admin",
       title: "Admin, compliance and the paper trail",
-      body: "Timesheets reconcile against the roster and the till. Certificates, permits and renewals get tracked before they lapse. Every action a branch took sits on the log with what triggered it, what it cost, and who approved it, so a question a year from now has an answer.",
+      body: "Timesheets reconcile against the roster and the till. Certificates, permits and renewals get tracked before they lapse. Every action a department took sits on the log with what triggered it, what it cost, and who approved it, so a question a year from now has an answer.",
     },
     {
       n: "009",
       tag: "Read only",
       title: "The till, read and never written to",
-      body: "Peregrine watches takings, terminal fees and what the card surcharge is costing you, and never writes back to the point of sale. It is the one branch with no approval queue, because it never asks you for anything.",
+      body: "Peregrine watches takings, terminal fees and what the card surcharge is costing you, and never writes back to the point of sale. It is the one department with no approval queue, because it never asks you for anything.",
     },
   ],
 };
@@ -385,7 +385,7 @@ export const vision = {
   text:
     "Venues never needed another app. They needed the work done, and they needed to stay in charge of what went out the door.",
   body:
-    "That is the whole design. Nine branches run overnight on the systems you already pay for, and each one stops and asks before it commits you to anything. Our About page covers the gap we are filling and why it is still open.",
+    "That is the whole design. Nine departments run overnight on the systems you already pay for, and each one stops and asks before it commits you to anything. Our About page covers the gap we are filling and why it is still open.",
   cta: { label: "Read our story", href: "/about" },
   scene: {
     photo: "/scene/chapel-st.jpg",
@@ -418,7 +418,7 @@ export const stack = {
     },
     {
       icon: "lang",
-      body: "Nine branches, one index. Take three, add the rest when you trust them.",
+      body: "Nine departments. Take three, add the rest when you trust them.",
     },
   ],
 };
@@ -426,7 +426,7 @@ export const stack = {
 /* ------------------------------------------------------------------ *
  * /platform: the floor
  *
- * The demo venue runs six of the nine branches, so the page says six and says
+ * The demo venue runs six of the nine departments, so the page says six and says
  * why. Rounding it up to nine to match the marketing would be the smallest
  * possible lie and exactly the kind this business cannot afford.
  * ------------------------------------------------------------------ */
@@ -461,7 +461,7 @@ export const platform = {
  * ------------------------------------------------------------------ */
 
 export const team = {
-  heading: "A partner sits on your floor before a single branch is switched on.",
+  heading: "A partner sits on your floor before a single department is switched on.",
   body:
     "No account managers and no delivery team between you and the people who build it. Whoever writes the rules for your Saturday roster has stood in your kitchen while it was full.",
   cta: { label: "Our story", href: "/about" },
@@ -509,7 +509,7 @@ export const faq = {
     },
     {
       q: "Can it act without me?",
-      a: "No. Every branch drafts and stops. Anthropic's guidance for building agents is to grant autonomy in proportion to demonstrated reliability, so ours starts at none and earns it one branch at a time. Nothing sends, pays, posts or rosters until you approve it, and what did go out sits on the log with what it cost. The exception is the till, which only reads.",
+      a: "No. Every department drafts and stops. Anthropic's guidance for building agents is to grant autonomy in proportion to demonstrated reliability, so ours starts at none and earns it one department at a time. Nothing sends, pays, posts or rosters until you approve it, and what did go out sits on the log with what it cost. The exception is the till, which only reads.",
       cite: ["anthropic"] as SourceKey[],
     },
     {
@@ -519,7 +519,7 @@ export const faq = {
     },
     {
       q: "Why is your booking system yours and not a plug-in?",
-      a: "Owners object to the integration, not the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours sits inside the operating layer and takes the shape of your venue. A room that seats one guest at a time is not a room that seats forty, and no per-cover product has cared about the difference.",
+      a: "Owners object to the integration, not the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours is part of Peregrine and takes the shape of your venue. A room that seats one guest at a time is not a room that seats forty, and no per-cover product has cared about the difference.",
       cite: [] as SourceKey[],
     },
     {
@@ -529,17 +529,17 @@ export const faq = {
     },
     {
       q: "Where does my data go, and who is liable?",
-      a: "Your systems stay yours. We hold credentials scoped to what each branch needs and nothing beyond it, and every action gets logged with what triggered it and who approved it. Under the Privacy Act, businesses over $3m turnover sit inside the Notifiable Data Breaches scheme, and the current penalty tiers reach $3.3m for corporations. We keep the audit trail because a question a year from now needs an answer.",
+      a: "Your systems stay yours. We hold credentials scoped to what each department needs and nothing beyond it, and every action gets logged with what triggered it and who approved it. Under the Privacy Act, businesses over $3m turnover sit inside the Notifiable Data Breaches scheme, and the current penalty tiers reach $3.3m for corporations. We keep the audit trail because a question a year from now needs an answer.",
       cite: ["oaic"] as SourceKey[],
     },
     {
       q: "How long before it is running?",
-      a: "The first session is a morning on your floor with one month of invoices, your roster and your till open in front of us. From there the first branches go live in weeks, not quarters, because they run on accounts you already hold. We turn on three at a time and leave the rest off until those three have earned their place.",
+      a: "The first session is a morning on your floor with one month of invoices, your roster and your till open in front of us. From there the first departments go live in weeks, not quarters, because they run on accounts you already hold. We turn on three at a time and leave the rest off until those three have earned their place.",
       cite: [] as SourceKey[],
     },
     {
       q: "What does it cost?",
-      a: "Per branch, priced against the thing that branch takes over, so the comparison is one you can already check on your own bills. A bookkeeper runs $249 to $749 a month on a package. A small social retainer runs $1,000 to $2,000, with ad spend on top. A booking system runs $0 to $249. We quote after the first session, when we have seen the actual shape of your month rather than an average of somebody else's.",
+      a: "Per department, priced against the thing that department takes over, so the comparison is one you can already check on your own bills. A bookkeeper runs $249 to $749 a month on a package. A small social retainer runs $1,000 to $2,000, with ad spend on top. A booking system runs $0 to $249. We quote after the first session, when we have seen the actual shape of your month rather than an average of somebody else's.",
       cite: ["bookkeeping", "agency", "bookingPricing"] as SourceKey[],
     },
   ],
@@ -555,7 +555,7 @@ export const about = {
   headlineLit: "Nobody delivered the work.",
   sub: "Peregrine Partners runs the after-close admin for Melbourne venues. This page carries the argument behind it: where the hours actually go, why nine good products still leave you working at eleven at night, and what we do about it.",
   stats: [
-    { value: "9", label: "Branches of a venue, one index" },
+    { value: "9", label: "Departments, running overnight" },
     { value: "06:04", label: "The brief lands before you open" },
     { value: "0", label: "New logins for your staff to learn" },
   ],
@@ -616,7 +616,7 @@ export const about = {
       {
         n: "03",
         title: "So we built the seam",
-        body: "Peregrine does the first half and hands you the second, in a form that takes seconds rather than an evening. Anthropic's guidance for agent builders is to expand autonomy only in proportion to demonstrated reliability. Ours starts at none. Every branch drafts, stops and waits, and the queue is short on purpose.",
+        body: "Peregrine does the first half and hands you the second, in a form that takes seconds rather than an evening. Anthropic's guidance for agent builders is to expand autonomy only in proportion to demonstrated reliability. Ours starts at none. Every department drafts, stops and waits, and the queue is short on purpose.",
         cite: "anthropic" as SourceKey,
       },
     ],
@@ -627,7 +627,7 @@ export const about = {
     photo: "/scene/counter.jpg",
     photoCaption: "A counter at open. The one deadline that has never moved.",
     heading: "The one part we refuse to integrate.",
-    body: "The same objection comes up in every first meeting, and it is never about features. Owners resent bolting a third-party booking system onto the business. Another login, another subscription, another system that half fits and talks to nothing. So ours sits inside the operating layer instead, curated per venue, with nothing extra for your staff to learn. Every other branch works through something you already pay for. That single difference is why a head spa seating one guest per room and an arts school counting terms can both run on the same platform, when neither of them fits a per-cover product at all.",
+    body: "The same objection comes up in every first meeting, and it is never about features. Owners resent bolting a third-party booking system onto the business. Another login, another subscription, another system that half fits and talks to nothing. So ours is part of Peregrine instead, built around your venue, with nothing extra for your staff to learn. Every other department works through something you already pay for. That single difference is why a head spa seating one guest per room and an arts school counting terms can both run on the same platform, when neither of them fits a per-cover product at all.",
   },
 
   refuse: {
@@ -636,15 +636,15 @@ export const about = {
     items: [
       {
         title: "Nothing sends without you",
-        body: "Every branch drafts and stops. No order, payrun, roster or post leaves the building until you have approved it, and the approval is one tap from the morning brief.",
+        body: "Every department drafts and stops. No order, payrun, roster or post leaves the building until you have approved it, and the approval is one tap from the morning brief.",
       },
       {
         title: "Every figure opens",
-        body: "Click a number and see the invoice line behind it. If a branch made a call, the log says what triggered it, what it cost and who signed off. There is no figure on your brief you cannot chase to its source.",
+        body: "Click a number and see the invoice line behind it. If a department made a call, the log says what triggered it, what it cost and who signed off. There is no figure on your brief you cannot chase to its source.",
       },
       {
         title: "Your accounts stay yours",
-        body: "We hold credentials scoped to what a branch needs and nothing beyond it. No data leaves your systems to train anything, and you can revoke a branch on your own without ringing us.",
+        body: "We hold credentials scoped to what a department needs and nothing beyond it. No data leaves your systems to train anything, and you can revoke a department on your own without ringing us.",
       },
       {
         title: "Numbers carry their source",
@@ -656,7 +656,7 @@ export const about = {
   people: {
     label: "The partners",
     heading: "The people who write your rules have worked a full room.",
-    body: "A partner runs the first session, sits through a service, and stays on the account. That is why the platform fits a brunch room, a head spa and a school on the same nine branches.",
+    body: "A partner runs the first session, sits through a service, and stays on the account. That is why the platform fits a brunch room, a head spa and a school on the same nine departments.",
   },
 
   now: {
@@ -674,9 +674,9 @@ export const about = {
 export const waitlist = {
   eyebrow: "Join Waitlist",
   heading: "Bring one month of invoices.",
-  sub: "We will run the same numbers on your venue that are modelled on this site, and show you where you are paying twice, where the hours go, and which three branches are worth starting with. Twenty minutes, no obligation, and no sales team to get past.",
-  branchesLabel: "Which branches interest you?",
-  branches: [
+  sub: "We will run the same numbers on your venue that are modelled on this site, and show you where you are paying twice, where the hours go, and which three departments are worth starting with. Twenty minutes, no obligation, and no sales team to get past.",
+  departmentsLabel: "Which departments interest you?",
+  departments: [
     "Suppliers & Ordering",
     "Accounting & The Books",
     "Marketing & Reputation",
@@ -718,9 +718,9 @@ export const signIn = {
 
 export const footer = {
   blurb:
-    "An operating layer for hospitality. Nine branches run overnight on the systems you already pay for, and nothing sends until you approve it.",
+    "The after-close admin, done. Nine departments run overnight on the systems you already pay for, and nothing sends until you approve it.",
   bg: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
-  subscribeNote: "One note a month on what the branches learned. No pitch.",
+  subscribeNote: "One note a month on what the departments learned. No pitch.",
   columns: [
     {
       title: "Site",
@@ -732,7 +732,7 @@ export const footer = {
       ],
     },
     {
-      title: "The branches",
+      title: "The departments",
       links: [
         { label: "External", href: "/#external" },
         { label: "Internal", href: "/#internal" },

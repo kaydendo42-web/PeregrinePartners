@@ -113,41 +113,29 @@ export function Falcon({ size = 22, className = "" }: { size?: number; className
 }
 
 /**
- * Nav and footer lockup: the falcon on a dark tile, then the name.
+ * The lockup: the real artwork, not a typed approximation.
  *
- * The company is unknown, so the mark alone would be doing brand work it has
- * not earned yet — the wordmark travels with it everywhere it is small enough
- * to fit. The stacked serif artwork in `public/brand` is the formal lockup and
- * only appears in the footer, where there is room to set it properly.
+ * `public/brand/wordmark.png` is the Peregrine Partners logo, a stacked serif
+ * wordmark with a mint pentagon over the "i", navy on transparent. Setting the
+ * name in Inter beside a drawn mark was a stand-in while there was no artwork;
+ * there is artwork, so the artwork goes in.
+ *
+ * Stacked rather than horizontal means it wants height more than width, which
+ * suits the nav pill: 34px of lockup inside 5px of padding is exactly the 44px
+ * the reference measured. Over a dark ground it is knocked out to white rather
+ * than kept as a second file to fall out of sync.
  */
-export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function Logo({ tone = "dark", height = 34 }: { tone?: "dark" | "light"; height?: number }) {
   const onDark = tone === "light";
   return (
-    <span className="flex shrink-0 items-center" style={{ gap: 10 }}>
-      <span
-        className="flex items-center justify-center"
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: 11,
-          background: onDark ? "#fff" : "var(--ink)",
-          color: onDark ? "var(--ink)" : "#fff",
-        }}
-      >
-        <Falcon size={20} />
-      </span>
-      <span
-        className="whitespace-nowrap"
-        style={{
-          fontSize: 15,
-          lineHeight: "20px",
-          fontWeight: 600,
-          letterSpacing: "-0.035em",
-          color: onDark ? "#fff" : "var(--ink)",
-        }}
-      >
-        Peregrine Partners
-      </span>
-    </span>
+    <img
+      src="/brand/wordmark.png"
+      alt="Peregrine Partners"
+      className="w-auto shrink-0 object-contain object-left"
+      style={{
+        height,
+        filter: onDark ? "brightness(0) invert(1)" : undefined,
+      }}
+    />
   );
 }

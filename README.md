@@ -33,18 +33,18 @@ npm run build   # production build
 | 3 | Scroll-inked promise + the metric mosaic | `components/statement.tsx` |
 | 4 | Announcement ticker | `components/ticker.tsx` |
 | 5 | The floors it runs on | `components/roster.tsx` |
-| 6 | External branches 001-005 | `components/external.tsx` |
+| 6 | External departments 001-005 | `components/external.tsx` |
 | 7 | Why we built it | `components/vision.tsx` |
 | 8 | The connected stack | `components/stack.tsx` |
-| 9 | Internal branches 006-009 + the index plate | `components/internal.tsx` |
+| 9 | Internal departments 006-009 + the plate of nine | `components/internal.tsx` |
 | 10 | The partners | `components/team.tsx` |
 | 11 | FAQ, sourced | `components/faq.tsx` |
 | 12 | Footer, sticky reveal, oversized wordmark | `components/footer.tsx` |
 
 Two devices carry the whole site. The **three states** (Needs you / Watching /
-Done) are told apart by weight and never by colour. The **index of nine** runs
-001 to 009 across the two branch sections without restarting, because they are
-one set split by where the work points.
+Done) are told apart by weight and never by colour. The **nine departments**
+run 001 to 009 across the two sections without restarting, because they are one
+set split by where the work points.
 
 ## Design tokens
 

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { Button } from "./ui/button";
-import { Falcon } from "./ui/mark";
 import { brand, footer } from "@/lib/content";
 
 const SOCIALS = ["x", "in", "yt", "ig"] as const;
@@ -34,33 +33,7 @@ export function Footer() {
         <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
-            {/* Horizontal, not stacked. The footer is 1140 tall against a
-                viewport that is usually shorter, and because it is sticky the
-                block is anchored to the floor — every pixel the lockup adds
-                pushes its own top further above the fold. Side by side it fits
-                in the height of the wordmark alone. */}
-            <div className="flex items-center gap-[18px]">
-              <span
-                className="flex shrink-0 items-center justify-center"
-                style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(255,255,255,0.12)", color: "#fff" }}
-                aria-hidden
-              >
-                <Falcon size={30} />
-              </span>
-              {/* The formal lockup, and the only place it appears at a size
-                  where a stacked serif wordmark can actually be read. It ships
-                  as navy on transparent, so it is knocked out to white here
-                  rather than kept as a second artwork file to fall out of
-                  sync. */}
-              <img
-                src={brand.wordmarkSrc}
-                alt={brand.full}
-                className="h-[58px] w-auto object-contain object-left"
-                style={{ filter: "brightness(0) invert(1)" }}
-              />
-            </div>
-
-            <p className="t-body-sm mt-[15px] text-white">{footer.blurb}</p>
+            <p className="t-body-sm text-white">{footer.blurb}</p>
 
             <form
               onSubmit={submit}
@@ -143,36 +116,32 @@ export function Footer() {
           </div>
         </div>
 
-        {/* oversized wordmark, cropped by the page edge */}
-        <div className="relative mt-[19px] h-[190px] overflow-hidden md:h-[398px]">
-          <motion.p
-            className="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap text-white"
-            style={{
-              fontSize: "min(26.3vw, 379px)",
-              lineHeight: 0.92,
-              fontWeight: 600,
-              letterSpacing: "-0.05em",
-              mixBlendMode: "screen",
-            }}
-            initial={{ y: 60, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {brand.name}
-          </motion.p>
+        {/*
+          The wordmark, set as large as the block allows.
 
-          {/* The legal line rides in the dead space under the cropped wordmark
-              rather than taking a row of its own. The footer is sticky and
-              bottom-anchored, so a row here costs its own height off the top of
-              the block — which is where the lockup lives. */}
-          <p
-            className="absolute inset-x-0 bottom-0 font-mono uppercase text-white/40"
-            style={{ fontSize: 11, lineHeight: "18px", letterSpacing: "0.06em" }}
-          >
-            {footer.legal}
-          </p>
-        </div>
+          It was live text in Inter, which was the right call while there was no
+          artwork and the wrong one now: the logo is a serif, and a sans
+          approximation of it at 379px is the largest possible place to get the
+          brand wrong. The artwork is knocked out to white rather than kept as a
+          second file to drift out of sync with the navy original.
+        */}
+        <motion.img
+          src={brand.wordmarkSrc}
+          alt={brand.full}
+          className="mt-[40px] h-[150px] w-auto object-contain object-left md:h-[300px]"
+          style={{ filter: "brightness(0) invert(1)" }}
+          initial={{ y: 40, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <p
+          className="mt-[28px] font-mono uppercase text-white/45"
+          style={{ fontSize: 11, lineHeight: "18px", letterSpacing: "0.06em" }}
+        >
+          {footer.legal}
+        </p>
       </div>
     </footer>
   );
