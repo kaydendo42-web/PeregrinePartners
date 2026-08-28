@@ -18,7 +18,7 @@ import { agents, statement, states } from "@/lib/content";
 export function Statement() {
   return (
     <section className="w-full bg-[color:var(--page)] px-[12px]">
-      <div className="section-card px-[24px] pb-[120px] pt-[120px] md:px-[40px] md:pb-[172px] md:pt-[208px]">
+      <div className="band section-card pb-[120px] pt-[120px] md:pb-[172px] md:pt-[208px]">
         {/*
           A measure, so the block has the same air on both sides.
           
@@ -29,7 +29,7 @@ export function Statement() {
           are ratios now and the whole section stops at the mosaic's own full
           width, centred. Nothing else on the home page carries a measure yet.
         */}
-        <div className="mx-auto w-full max-w-[1606px]">
+        <div className="measure">
           <ScrollHighlightText
             text={statement.text}
             className="t-statement max-w-[1030px]"
@@ -70,7 +70,7 @@ function CostCard() {
       >
         <div
           className="flex h-[60px] w-[60px] items-center justify-center"
-          style={{ background: "#fff", borderRadius: 16 }}
+          style={{ background: "#fff", borderRadius: "var(--r-btn-inner)" }}
         >
           <svg
             width="30"

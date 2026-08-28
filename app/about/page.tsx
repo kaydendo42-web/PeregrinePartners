@@ -50,11 +50,11 @@ export const metadata: Metadata = {
  * content left edge 12px every time the ground changed.
  */
 
-/** One band's padding, set once. Retyping it is how the site's four different
- *  inner paddings happened in the first place. */
-const BAND = "px-[24px] py-[140px] md:px-[56px] md:py-[190px]";
-const DARK_BAND = "px-[24px] py-[160px] md:px-[56px] md:py-[200px]";
-const MEASURE = "mx-auto w-full max-w-[1336px]";
+/** Vertical rhythm only. The horizontal padding and the content measure are
+ *  `band` and `measure` in `globals.css`, on the tokens, for the whole site. */
+const BAND = "band py-[140px] md:py-[190px]";
+const DARK_BAND = "band py-[160px] md:py-[200px]";
+const MEASURE = "measure";
 
 export default function About() {
   return (
@@ -65,7 +65,7 @@ export default function About() {
         {/* ── the opening, on dark ─────────────────────────────────── */}
         <section className="w-full bg-[color:var(--page)] p-[12px]">
           <div
-            className="relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden px-[24px] pb-[80px] pt-[150px] md:min-h-[720px] md:px-[56px] md:pb-[110px] md:pt-[210px]"
+            className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden pb-[80px] pt-[150px] md:min-h-[720px] md:pb-[110px] md:pt-[210px]"
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             {/* the mark, set once at a size it can carry */}
@@ -76,7 +76,7 @@ export default function About() {
               <Falcon size={340} />
             </span>
 
-            <div className="relative">
+            <div className="measure relative">
               <SectionLabel label={about.eyebrow} tone="dark" ruleWidth={300} />
 
               <h1 className="t-hero mt-[52px] max-w-[900px]">
@@ -194,8 +194,8 @@ export default function About() {
                     />
                   </div>
                   <figcaption
-                    className="mt-[18px] font-mono uppercase text-white/40"
-                    style={{ fontSize: 11, letterSpacing: "0.06em" }}
+                    className="t-mono-xs mt-[18px] font-mono uppercase text-white/40"
+                    
                   >
                     {about.origin.photoCaption}
                   </figcaption>
@@ -355,8 +355,8 @@ export default function About() {
                           {m.name}
                         </p>
                         <p
-                          className="font-mono uppercase"
-                          style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-50)" }}
+                          className="t-mono-xs font-mono uppercase"
+                          style={{ color: "var(--paper-50)" }}
                         >
                           {m.role} · {m.school}
                         </p>
@@ -372,7 +372,7 @@ export default function About() {
 
         {/* ── where we are, on light, and the door out ─────────────── */}
         <section id="now" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="section-card px-[24px] py-[140px] md:px-[56px] md:py-[180px]">
+          <div className="band section-card py-[140px] md:py-[180px]">
             <div className={`${MEASURE} flex flex-col justify-between gap-[50px] lg:flex-row lg:items-end`}>
               <div className="max-w-[640px]">
                 <SectionLabel label={about.now.label} ruleWidth={280} />

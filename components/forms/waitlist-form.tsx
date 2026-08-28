@@ -145,8 +145,8 @@ export function WaitlistForm() {
 
       <fieldset className="flex flex-col gap-[14px]">
         <legend
-          className="font-mono uppercase"
-          style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--ink-40)" }}
+          className="t-mono-xs font-mono uppercase"
+          style={{ color: "var(--ink-40)" }}
         >
           {waitlist.departmentsLabel}
         </legend>
@@ -251,8 +251,8 @@ function Field({
   return (
     <label htmlFor={name} className={`flex flex-col gap-[8px] ${textarea ? "col-span-full" : ""}`}>
       <span
-        className="font-mono uppercase"
-        style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--ink-40)" }}
+        className="t-mono-xs font-mono uppercase"
+        style={{ color: "var(--ink-40)" }}
       >
         {label}
         {required ? <span aria-hidden> *</span> : null}

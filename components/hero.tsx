@@ -27,11 +27,14 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function Hero() {
   return (
     <section id="top" className="w-full bg-[color:var(--page)] p-[12px]">
-      <div className="section-card relative flex min-h-[calc(100svh_-_24px)] flex-col justify-between px-[24px] pb-[40px] pt-[130px] md:min-h-[max(876px,calc(100svh_-_24px))] md:px-[40px] md:pt-[190px]">
+      <div className="band section-card relative flex min-h-[calc(100svh_-_24px)] flex-col justify-between pb-[40px] pt-[130px] md:min-h-[max(876px,calc(100svh_-_24px))] md:pt-[190px]">
         {/* Backdrop. The reference holds this dead still through the whole
             scroll — a parallax here is the one difference the eye catches
             first, because the horizon moves against the fixed nav. */}
-        <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 20 }}>
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ borderRadius: "var(--r-card)" }}
+        >
           <img
             src={hero.bgFront}
             alt=""
@@ -45,12 +48,15 @@ export function Hero() {
               so the photograph still reads as itself. */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%]"
-            style={{ background: "linear-gradient(to bottom, rgba(12,14,12,0) 0%, rgba(12,14,12,0.5) 100%)" }}
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(12,14,12,0) 0%, rgba(12,14,12,0.5) 100%)",
+            }}
           />
         </div>
 
         {/* headline row */}
-        <div className="relative flex w-full flex-1 flex-col items-start justify-between gap-[40px] lg:flex-row lg:gap-8">
+        <div className="measure relative flex flex-1 flex-col items-start justify-between gap-[40px] lg:flex-row lg:gap-8">
           <div className="w-full max-w-[660px]">
             <h1 className="t-hero">
               <span className="block overflow-hidden">
@@ -108,20 +114,36 @@ export function Hero() {
             <Link
               href={hero.card.href}
               className="group flex w-full flex-col overflow-hidden"
-              style={{ background: "var(--ink)", borderRadius: 18, padding: 5 }}
+              style={{
+                background: "var(--ink)",
+                borderRadius: "var(--r-btn)",
+                padding: 3,
+              }}
             >
               <div
                 className="h-[154px] w-full overflow-hidden"
-                style={{ borderRadius: 14, background: "var(--dark)" }}
+                style={{
+                  borderRadius: "var(--r-btn-inner)",
+                  background: "var(--dark)",
+                }}
               >
                 <FloorCard />
               </div>
               <div
                 className="mt-[5px] flex items-center justify-between gap-[8px] px-[12px] py-[11px]"
-                style={{ background: "#fff", borderRadius: 14 }}
+                style={{
+                  background: "#fff",
+                  borderRadius: "var(--r-btn-inner)",
+                }}
               >
                 <div className="min-w-0">
-                  <p style={{ color: "var(--ink)", fontSize: 13, lineHeight: "18px" }}>
+                  <p
+                    style={{
+                      color: "var(--ink)",
+                      fontSize: 13,
+                      lineHeight: "18px",
+                    }}
+                  >
                     {hero.card.title}
                   </p>
                   <p
@@ -137,7 +159,13 @@ export function Hero() {
                   </p>
                 </div>
                 <span className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-[color:var(--ink)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[4px]">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                  >
                     <path
                       d="M5 12h13M12 6l6 6-6 6"
                       stroke="currentColor"
@@ -153,31 +181,34 @@ export function Hero() {
         </div>
 
         {/* the floor line and the connection rail */}
+        {/* The rail is a marquee: it runs the full width of the card, so it
+            sits outside the measure while the lines above it stay inside it. */}
         <div className="relative">
-          <motion.p
-            className="t-label max-w-[420px] text-white"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
-          >
-            {hero.trust}
-          </motion.p>
+          <div className="measure">
+            <motion.p
+              className="t-label max-w-[420px] text-white"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
+            >
+              {hero.trust}
+            </motion.p>
 
-          <motion.p
-            className="mt-[16px] font-mono uppercase text-white/50"
-            style={{ fontSize: 11, lineHeight: "18px", letterSpacing: "0.08em" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
-          >
-            {hero.railLabel}
-          </motion.p>
+            <motion.p
+              className="t-mono-xs mt-[16px] font-mono uppercase text-white/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
+            >
+              {hero.railLabel}
+            </motion.p>
+          </div>
 
           {/* The products' own symbols, white on the photograph. They identify
               what Peregrine connects to; the label above them keeps the claim
               to what the reader already pays for rather than to a partnership
               none of these companies has agreed to. */}
-          <div className="mt-[10px] -mx-[24px] md:-mx-[40px]">
+          <div className="mt-[10px] -mx-[var(--pad-x-sm)] md:-mx-[var(--pad-x)]">
             <Marquee duration={44}>
               {hero.rail.map((name, i) => (
                 <div

@@ -62,26 +62,6 @@ export function Mark({ className = "", size = 30 }: { className?: string; size?:
 }
 
 /**
- * Capsule logo lockup used in the nav and the footer: a 6px ring, not a
- * filled pill — 60x34 outside, 48x22 inside.
- */
-export function LogoPill({ dark = true }: { dark?: boolean }) {
-  const ring = dark ? "var(--ink)" : "#ffffff";
-  return (
-    <div
-      className="flex shrink-0 items-center justify-center rounded-full"
-      style={{ width: 60, height: 34, background: ring }}
-      aria-label="Peregrine"
-    >
-      <span
-        className="block rounded-full"
-        style={{ width: 48, height: 22, background: dark ? "#fff" : "var(--dark)" }}
-      />
-    </div>
-  );
-}
-
-/**
  * The house glyph: a peregrine in a stoop.
  *
  * Chosen because `Mark()` above is already a chevron — read off the source's

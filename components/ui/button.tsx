@@ -46,7 +46,6 @@ export function Button({
   href = "#",
   variant = "primary",
   className = "",
-  icon,
   type,
   gap,
   minWidth,
@@ -55,7 +54,6 @@ export function Button({
   href?: string;
   variant?: Variant;
   className?: string;
-  icon?: ReactNode;
   /** Pass a type to render a real <button> instead of a link. */
   type?: "button" | "submit";
   /** Override the slot-to-label gap for one-off placements. */
@@ -78,10 +76,10 @@ export function Button({
       >
         <span className={`relative flex items-center justify-center overflow-hidden ${s.mark}`}>
           <span className="block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[130%]">
-            {icon ?? <Mark size={30} />}
+            <Mark size={30} />
           </span>
           <span className="absolute block -translate-x-[130%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0">
-            {icon ?? <Mark size={30} />}
+            <Mark size={30} />
           </span>
         </span>
       </span>

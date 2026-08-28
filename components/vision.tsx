@@ -22,9 +22,9 @@ export function Vision() {
   return (
     <section
       id="vision"
-      className="w-full bg-[color:var(--dark)] px-[24px] py-[140px] md:px-[40px] md:pb-[160px] md:pt-[250px]"
+      className="band-bleed w-full bg-[color:var(--dark)] py-[140px] md:pb-[160px] md:pt-[250px]"
     >
-      <div className="flex w-full flex-col gap-[64px] lg:flex-row lg:items-center lg:justify-between lg:gap-[80px]">
+      <div className="measure flex flex-col gap-[64px] lg:flex-row lg:items-center lg:justify-between lg:gap-[80px]">
         {/* statement */}
         <div className="w-full max-w-[560px]">
           <div className="flex items-center gap-[20px]">

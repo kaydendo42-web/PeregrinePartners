@@ -33,8 +33,7 @@ Typecheck, lint and `npm run build` all pass on the Mac. Nothing committed.
   whole page now starts at 68px, and each band's padding is one constant at the
   top of the file rather than six copies of `md:px-[56px]`.
 
-**Still open on that page:** it sits at 68px where the home page hero sits at
-52px. Whichever survives, `--pad-x` should carry it. See 2.2.
+**Since resolved:** the whole site is on one left edge. See below.
 
 **Done this session, on the home page:**
 
@@ -121,6 +120,57 @@ Typecheck, lint and `npm run build` all pass on the Mac. Nothing committed.
   both. Worth a decision rather than a quiet fix.
 
 ---
+
+**Done in a second pass, across the whole site:**
+
+- **One left edge, one content width, everywhere.** `globals.css` gains three
+  utilities and a token, and every section on `/` and `/about` is on them:
+  - `band` is the horizontal padding, on `--pad-x` / `--pad-x-sm`.
+  - `band-bleed` is the same for a section that runs edge to edge, and adds the
+    page gutter back so its content still lines up with the cards above and
+    below it. The dark run on the home page is deliberately full bleed; that is
+    what this is for.
+  - `measure` caps the content at `--measure` and centres it.
+  - `--measure: 1600px` is the reference's own measured content width at 1440,
+    which was 1336, plus the 20% this site was asked for.
+
+  Measured after: content runs 52..1388 at 1440, 200..1800 at 2000 and
+  480..2080 at 2560, identically for every section of both pages. It was six
+  different edges and five different measures. `docs/research/scratch/
+  measure-edges.mjs` is the check; run it after touching any section.
+- **`--inset` and `--pad-x` are wired up.** They were defined and referenced
+  nowhere, which is why the numbers diverged in the first place. `--block-gap`
+  is still not wired: every section types its own `py` and they range 120 to
+  250. That is the one piece of 2.3 left, and it is a good Codex job.
+- **The count claim is off the Departments eyebrow.** It said "Nine
+  Departments"; it says "The Back Office". `agents.heading` on the home page
+  still says "Nine agents on the floor", which is the same claim wearing a
+  different noun. Left alone deliberately: it is the one place the number is
+  doing work, and changing it is a copy decision rather than a rule fix.
+- **The wedge is no longer drawn.** `stack.tsx`'s last feature icon filled three
+  of nine dots, which is "start with three departments" as a picture. All nine
+  now, which is what the line beside it says.
+- **Stack's cluster carries the same real marks as the hero rail.** Four
+  products, one treatment, instead of initials two sections below their logos.
+- **Off-scale radii onto the tokens.** Hero card 18/5 and footer subscribe 17/6
+  are both `--r-btn` over 3px padding now, matching the button lockup; the
+  statement icon slot is `--r-btn-inner`; the department pills are `--r-chip`.
+- **11px mono is one size.** It was hardcoded ten times with two trackings;
+  `t-mono-xs` holds it. `cite.tsx` keeps its own 11px at 0.02em, which is a
+  different thing and reads as one.
+- **Dead code removed.** `hero.bgBack`, `roster.label`, `departments.note`, all
+  three `states[].note`; `Ticker`'s `tone`, `SectionLabel`'s `align` and
+  `Button`'s `icon`, none of which any caller ever passed; `LogoPill` and
+  `Parallax`, never imported; `components/team.tsx`, which nothing has rendered
+  since the team block came off the home page, and the `.t-team` rule that only
+  it used. Lint is down to five warnings, all `<img>` versus `next/image`.
+- `app/page.tsx`'s header comment claimed two handoffs to `/about` that no
+  longer exist. It now says so, and says the handover needs a deliberate home
+  rather than a sentence smuggled into a section body.
+
+**Not done, and deliberate:** `/platform` still has its own paddings and
+measures. It is being rebuilt against the art direction, so putting it on the
+tokens now is work that gets thrown away. Do it as part of 1.2.
 
 ## 1. Ship-blockers, in order
 

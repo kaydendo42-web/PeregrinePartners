@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { Reveal } from "./ui/motion-primitives";
 import { SectionLabel } from "./ui/section-label";
 import { BranchArt } from "./art/branch-art";
@@ -33,9 +32,9 @@ export function Departments() {
   return (
     <section
       id="departments"
-      className="w-full bg-[color:var(--dark)] px-[24px] pb-[120px] pt-[200px] md:px-[40px] md:pb-0 xl:pt-[250px]"
+      className="band-bleed w-full bg-[color:var(--dark)] pb-[120px] pt-[200px] md:pb-0 xl:pt-[250px]"
     >
-      <div className="mx-auto flex w-full max-w-[1360px] flex-col">
+      <div className="measure flex flex-col">
         <SectionLabel label={departments.label} tone="dark" ruleWidth={900} />
 
         {/* the claim, and what it covers, side by side above the rack */}
@@ -83,7 +82,7 @@ export function Departments() {
                     className="absolute top-[16px] z-20 flex items-center justify-center"
                     style={{
                       padding: "8px 12px",
-                      borderRadius: 10,
+                      borderRadius: "var(--r-chip)",
                       border: "1px solid var(--paper-20)",
                       right: isOpen ? 18 : "auto",
                     }}
@@ -193,7 +192,7 @@ export function Departments() {
                   <div className="flex items-center gap-[18px]">
                     <span
                       className="flex shrink-0 items-center justify-center"
-                      style={{ padding: "8px 16px", borderRadius: 10, border: "1px solid var(--paper-20)" }}
+                      style={{ padding: "8px 16px", borderRadius: "var(--r-chip)", border: "1px solid var(--paper-20)" }}
                     >
                       <span
                         className="font-mono uppercase"
@@ -284,8 +283,8 @@ function PanelFacts({ runsOn, waits }: { runsOn: string; waits: string }) {
       ].map(([k, v]) => (
         <div key={k} className="flex items-baseline justify-between gap-[16px]">
           <dt
-            className="font-mono uppercase"
-            style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-40)" }}
+            className="t-mono-xs font-mono uppercase"
+            style={{ color: "var(--paper-40)" }}
           >
             {k}
           </dt>

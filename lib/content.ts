@@ -102,9 +102,9 @@ export const nav = {
  * ------------------------------------------------------------------ */
 
 export const states = [
-  { key: "needs", label: "Needs you", note: "Drafted, waiting, will not send" },
-  { key: "watching", label: "Watching", note: "Checked overnight, nothing moved" },
-  { key: "done", label: "Done", note: "Handled, logged, with what it cost" },
+  { key: "needs", label: "Needs you" },
+  { key: "watching", label: "Watching" },
+  { key: "done", label: "Done" },
 ] as const;
 
 /* ------------------------------------------------------------------ *
@@ -162,7 +162,6 @@ export const hero = {
   trust:
     "Melbourne venues, studios and clinics. The work a head office does, without the head office.",
   bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.webp`,
-  bgBack: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
   /**
    * The connection rail. A name earns its place here by publishing an API as a
    * matter of record. See consilium's `docs/research/api-and-mcp-audit.md`.
@@ -260,7 +259,6 @@ export const ticker =
 
 export const roster = {
   marquee: "On The Floor",
-  label: "The Floors",
   clients: [
     {
       name: "The Peacock",
@@ -308,11 +306,10 @@ export const roster = {
  * ------------------------------------------------------------------ */
 
 export const departments = {
-  label: "Nine Departments",
+  label: "The Back Office",
   intro:
     "Everything the business runs on, inside the building and out.",
   heading: "Peregrine oversees your business 24/7.",
-  note: "",
   panelBgOpen: `${A}/qWpzthqQ4FGQWP39IeKgah1OP8.png`,
   panelBgClosed: `${A}/pEct5trUmjDYAblzuKYq2MpHaA.png`,
   panels: [

@@ -20,15 +20,12 @@
 
   --dark: #1a1a1a;         /* dark section fill */
   --dark-2: #242424;       /* raised dark surface */
-  --dark-3: #292828;
   --paper-80: rgba(255, 255, 255, 0.8);
   --paper-70: rgba(255, 255, 255, 0.7);
   --paper-50: rgba(255, 255, 255, 0.5);
   --paper-40: rgba(255, 255, 255, 0.4);
   --paper-20: rgba(255, 255, 255, 0.2);
   --paper-10: rgba(255, 255, 255, 0.1);
-  --paper-06: rgba(255, 255, 255, 0.06);
-  --paper-04: rgba(255, 255, 255, 0.04);
 
   --r-card: 20px;
   --r-btn: 16px;
@@ -38,7 +35,11 @@
 
   --inset: 12px;           /* page gutter around every section card */
   --pad-x: 40px;           /* horizontal padding inside a section card */
-  --block-gap: 180px;      /* vertical rhythm between blocks in a section */
+  --pad-x-sm: 24px;        /* the same, on a phone */
+  --measure: 1600px;       /* widest the content inside that padding gets */
+  --block-gap: 180px;      /* vertical rhythm. NOT WIRED UP: every section
+                              still types its own py, and they range 120 to
+                              250. See the audit in handoff/PICKUP.md. */
 }
 
 @theme inline {
@@ -48,7 +49,6 @@
   --color-ink: var(--ink);
   --color-dark: var(--dark);
   --color-dark-2: var(--dark-2);
-  --color-dark-3: var(--dark-3);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono-ui);
   --font-glyph: var(--font-jaini);
@@ -133,6 +133,14 @@ body {
   letter-spacing: 0.02em;
   font-weight: 400;
 }
+/* The small caption mono. It was hardcoded at 11px in ten places with two
+   different trackings; this is the one of them. Pairs with `font-mono
+   uppercase`, which the call sites already carry. */
+.t-mono-xs {
+  font-size: 11px;
+  line-height: 17px;
+  letter-spacing: 0.06em;
+}
 .t-mono {
   font-family: var(--font-mono-ui), ui-monospace, monospace;
   font-size: 12px;
@@ -175,6 +183,54 @@ body {
 }
 
 /* Utility ------------------------------------------------------- */
+
+/*
+  The two rules that decide where content starts.
+
+  Every section used to retype its own numbers, which is exactly how the site
+  ended up with four inner paddings (40, 48, 56, 60) and five measures (none,
+  1336, 1360, 1606, 1674) across nine sections of one page. A reader scrolling
+  the home page crossed six different left edges.
+
+  `band` is the horizontal padding inside a section. `measure` is how wide the
+  content inside it is allowed to get, centred, so a wide screen adds air on
+  both sides rather than piling it all on the right. Use them together: band on
+  the section or its card, measure on the content wrapper inside.
+
+  1600 is the reference's own measured content width at 1440, which was 1336,
+  plus the 20% this site was asked for.
+*/
+.band {
+  padding-inline: var(--pad-x-sm);
+}
+@media (min-width: 768px) {
+  .band {
+    padding-inline: var(--pad-x);
+  }
+}
+/*
+  The same left edge, for a section that runs edge to edge.
+
+  A carded section is already inset by the page gutter, so its content starts
+  at inset + pad. A full bleed one is not, so without this it starts 12px
+  further left and the reader crosses a step every time the ground changes.
+  The dark run on the home page is deliberately full bleed; its content should
+  still line up with the cards above and below it.
+*/
+.band-bleed {
+  padding-inline: calc(var(--inset) + var(--pad-x-sm));
+}
+@media (min-width: 768px) {
+  .band-bleed {
+    padding-inline: calc(var(--inset) + var(--pad-x));
+  }
+}
+.measure {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
 .section-card {
   border-radius: var(--r-card);
   background: var(--surface);
@@ -201,5 +257,4 @@ body {
   .t-statement { font-size: 56px; line-height: 60px; letter-spacing: -2px; }
   .t-display { font-size: 54px; line-height: 59.4px; letter-spacing: -2.16px; }
   .t-marquee { font-size: 200px; line-height: 220px; letter-spacing: -8px; }
-  .t-team { font-size: 100px; line-height: 100px; letter-spacing: -4px; }
 }

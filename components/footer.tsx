@@ -29,8 +29,8 @@ export function Footer() {
         <div className="absolute inset-0" style={{ background: "rgba(8,18,10,0.28)" }} />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-[24px] pb-[40px] md:px-[40px] md:pb-[113px]">
-        <div className="flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
+      <div className="band-bleed relative z-10 w-full pb-[40px] md:pb-[113px]">
+        <div className="measure flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
             <p className="t-body-sm text-white">{footer.blurb}</p>
@@ -38,7 +38,7 @@ export function Footer() {
             <form
               onSubmit={submit}
               className="mt-[20px] flex w-full max-w-[400px] items-center gap-[8px] backdrop-blur-[6px] focus-within:outline focus-within:outline-2 focus-within:outline-offset-[3px] focus-within:outline-white"
-              style={{ background: "rgba(255,255,255,0.2)", borderRadius: 17, padding: 6 }}
+              style={{ background: "rgba(255,255,255,0.2)", borderRadius: "var(--r-btn)", padding: 3 }}
             >
               <input
                 value={email}
@@ -55,8 +55,8 @@ export function Footer() {
             </form>
 
             <p
-              className="mt-[10px] font-mono uppercase text-white/50"
-              style={{ fontSize: 11, lineHeight: "17px", letterSpacing: "0.06em" }}
+              className="t-mono-xs mt-[10px] font-mono uppercase text-white/50"
+              
             >
               {footer.subscribeNote}
             </p>
@@ -138,7 +138,7 @@ export function Footer() {
 
         <p
           className="mt-[28px] font-mono uppercase text-white/45"
-          style={{ fontSize: 11, lineHeight: "18px", letterSpacing: "0.06em" }}
+          
         >
           {footer.legal}
         </p>

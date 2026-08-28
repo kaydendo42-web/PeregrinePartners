@@ -65,8 +65,8 @@ export default function Waitlist() {
                     style={{ borderTop: i === 0 ? "none" : "1px solid var(--paper-10)" }}
                   >
                     <dt
-                      className="font-mono uppercase"
-                      style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--paper-40)" }}
+                      className="t-mono-xs font-mono uppercase"
+                      style={{ color: "var(--paper-40)" }}
                     >
                       {a.k}
                     </dt>

@@ -53,8 +53,8 @@ export function SignInForm() {
     <form onSubmit={submit} className="flex flex-col items-start gap-[24px]">
       <label htmlFor="signin-email" className="flex w-full flex-col gap-[10px]">
         <span
-          className="font-mono uppercase"
-          style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--paper-40)" }}
+          className="t-mono-xs font-mono uppercase"
+          style={{ color: "var(--paper-40)" }}
         >
           Email address
         </span>

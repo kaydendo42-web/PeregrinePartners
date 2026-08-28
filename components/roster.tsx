@@ -41,12 +41,14 @@ export function Roster() {
         </div>
 
         {/* the four */}
-        <div className="mx-auto mt-[46px] grid w-full max-w-[1674px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-4">
-          {roster.clients.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 4) * 0.06}>
-              <ClientCard {...c} />
-            </Reveal>
-          ))}
+        <div className="band-bleed mt-[46px]">
+          <div className="measure grid grid-cols-1 gap-x-[52px] gap-y-[33px] md:grid-cols-2 xl:grid-cols-4">
+            {roster.clients.map((c, i) => (
+              <Reveal key={c.name} delay={(i % 4) * 0.06}>
+                <ClientCard {...c} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

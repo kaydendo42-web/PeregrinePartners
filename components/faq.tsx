@@ -15,8 +15,8 @@ export function Faq() {
 
   return (
     <section id="faq" className="w-full bg-[color:var(--page)] px-[12px]">
-      <div className="section-card px-[24px] py-[120px] md:px-[40px] md:py-[192px]">
-        <div className="mx-auto flex w-full max-w-[1336px] flex-col gap-[60px] lg:flex-row lg:gap-[68px]">
+      <div className="band section-card py-[120px] md:py-[192px]">
+        <div className="measure flex flex-col gap-[60px] lg:flex-row lg:gap-[68px]">
           {/* left rail */}
           <div className="flex w-full max-w-[600px] flex-col lg:min-h-[620px]">
             <SectionLabel label={faq.label} ruleWidth={323} />

@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Reveal } from "./ui/motion-primitives";
-import { Button } from "./ui/button";
+import { brandMarks } from "./ui/brand-marks";
 import { stack } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -17,8 +17,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  */
 export function Stack() {
   return (
-    <section id="stack" className="w-full bg-[color:var(--dark)] px-[24px] py-[120px] md:py-[180px] md:px-[40px]">
-      <div className="w-full">
+    <section id="stack" className="band-bleed w-full bg-[color:var(--dark)] py-[120px] md:py-[180px]">
+      <div className="measure">
         {/* top row */}
         <div className="flex flex-col items-start gap-[40px] lg:flex-row lg:items-center lg:justify-between">
           <Reveal>
@@ -65,42 +65,52 @@ export function Stack() {
 /**
  * The systems, as a stack of accounts.
  *
- * Set as initials rather than the real marks: these are systems we read and
- * write through, and reproducing someone's logo on our own page is a claim of
- * relationship we have not been given. The overlap is the point — they are one
- * pipeline from where the owner sits, not four subscriptions.
+ * The overlap is the point: from where the owner sits these are one pipeline,
+ * not four subscriptions. The marks are the products' own, the same set the
+ * hero rail carries, because two treatments of the same four names on one page
+ * is just an inconsistency the reader has to explain to themselves.
  */
 function SystemCluster() {
   return (
     <div className="flex items-center">
-      {stack.marks.map((name, i) => (
-        <motion.span
-          key={name}
-          className="flex h-[44px] w-[44px] items-center justify-center rounded-full bg-white"
-          style={{
-            marginLeft: i === 0 ? 0 : -14,
-            zIndex: i,
-            boxShadow: `rgba(0,0,0,${i === 0 ? 0.08 : 0.12}) -7px 0px 5px 1px`,
-          }}
-          initial={{ scale: 0.6, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.08, type: "spring", stiffness: 340, damping: 22 }}
-          whileHover={{ y: -4 }}
-          title={name}
-        >
-          <span
+      {stack.marks.map((name, i) => {
+        const mark = brandMarks[name];
+        return (
+          <motion.span
+            key={name}
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full bg-white"
             style={{
-              fontSize: 14,
-              fontWeight: 600,
-              letterSpacing: "-0.03em",
-              color: "var(--ink)",
+              marginLeft: i === 0 ? 0 : -14,
+              zIndex: i,
+              boxShadow: `rgba(0,0,0,${i === 0 ? 0.08 : 0.12}) -7px 0px 5px 1px`,
             }}
+            initial={{ scale: 0.6, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08, type: "spring", stiffness: 340, damping: 22 }}
+            whileHover={{ y: -4 }}
+            title={name}
           >
-            {name.slice(0, 2)}
-          </span>
-        </motion.span>
-      ))}
+            {mark ? (
+              <svg
+                height={19}
+                width={Math.round(19 * mark.ratio)}
+                viewBox={mark.viewBox}
+                fill="var(--ink)"
+                aria-hidden
+              >
+                <path d={mark.d} />
+              </svg>
+            ) : (
+              <span
+                style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.03em", color: "var(--ink)" }}
+              >
+                {name.slice(0, 2)}
+              </span>
+            )}
+          </motion.span>
+        );
+      })}
       <span className="sr-only">{`Runs on ${stack.marks.join(", ")} and others`}</span>
     </div>
   );
@@ -196,15 +206,14 @@ function NightIcon() {
   );
 }
 
-/** Nine branches; take three to start. */
+/** Every department, in one place, which is what the line beside it says. */
 function IndexIcon() {
   return (
     <svg width="44" height="44" viewBox="0 0 52 52" fill="none" aria-hidden>
       {Array.from({ length: 9 }).map((_, i) => {
         const cx = 8 + (i % 3) * 18;
         const cy = 8 + Math.floor(i / 3) * 18;
-        const taken = i < 3;
-        return taken ? (
+        return (
           <motion.circle
             key={i}
             cx={cx}
@@ -214,11 +223,9 @@ function IndexIcon() {
             initial={{ scale: 0.7, opacity: 0.4 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.15 + i * 0.1, type: "spring", stiffness: 320, damping: 20 }}
+            transition={{ delay: 0.1 + i * 0.05, type: "spring", stiffness: 320, damping: 20 }}
             style={{ transformOrigin: `${cx}px ${cy}px`, transformBox: "view-box" }}
           />
-        ) : (
-          <circle key={i} cx={cx} cy={cy} r="6" stroke="#fff" strokeWidth="1.2" opacity="0.32" />
         );
       })}
     </svg>
