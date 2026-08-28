@@ -1,262 +1,254 @@
-# PICKUP — Peregrine Partners site
+# PICKUP
 
-Read top to bottom before touching anything. Written for a session that
-starts cold.
+Say **"read the pickup file"** and start at the top. Written for a cold session.
 
----
+Positioning, copy budgets, design tokens and the Codex policy are in `CLAUDE.md`.
+Read that first. This file is only the queue.
 
-## 0. What this is
+**State:** homepage and About copy rewritten to the bridge narrative. Team section
+removed from home. Vision photo removed. Scattered CTAs removed. Nine spacing
+fixes applied. **About page restructured** (was 1.4, now done, see below).
+Typecheck, lint and `npm run build` all pass on the Mac. Nothing committed.
 
-A 1:1 rebuild of the **Spartan AI** Framer template as a real Next.js app,
-rebranded to **Peregrine Partners**, plus a `/platform` page carrying the
-agent-floor demo ported from the user's own `consilium` repo.
+**Done this session, on the About page:**
 
-- **Reference site:** https://spartanai.framer.website/
-- **Local:** `npm run dev` → http://localhost:3001
-- **Repo:** https://github.com/kaydendo42-web/PeregrinePartners (private)
-- **Live:** https://peregrine-partners-ten.vercel.app — note the `-ten`,
-  Vercel took it because `peregrine-partners.vercel.app` was already claimed.
-  `metadataBase` in `app/layout.tsx` points at it; override with
-  `NEXT_PUBLIC_SITE_URL` once there is a real domain.
-- **Vercel:** `kaydendo42-webs-projects/peregrine-partners`, deploys on push to `main`
-- **Stack:** Next.js 16 App Router, React 19, Tailwind v4, `motion` (Framer Motion v12 API)
+- Deleted the wedge band, the `$1 : $6` band, `components/about/dollar-split.tsx`
+  and the three-stat row. `about.six`, `about.wedge` and `about.stats` went with
+  them, and `sources.sequoia` with those, because nothing cites it now and the
+  thesis is not allowed on the page anyway.
+- Added the origin band on dark, in the slot the `$1 : $6` band held. It keeps
+  the page's one photograph, which moved across from the wedge: the caption
+  ("a counter at open") was already describing this story.
+- Rewrote `about.origin.body2`, which named Sequoia and argued the market. Same
+  conclusion, owner's words, 52 of the 60 allowed.
+- `about.people.body` said "the same nine departments". Now says "without being
+  rebuilt for each one".
+- Deleting the wedge left `why` and `refuse` as two light cards stacked with no
+  gap, which pinched a white notch at each end of the seam. They are one card
+  with two labelled blocks now, so the page alternates ground the whole way
+  down again: dark, light, dark, light, dark, light.
+- Both remaining dark bands sit inside the 12px gutter as real cards. They were
+  full bleed with a radius set on them, which is what put white notches in the
+  viewport corners and moved the content edge 12px on every ground change. The
+  whole page now starts at 68px, and each band's padding is one constant at the
+  top of the file rather than six copies of `md:px-[56px]`.
 
----
+**Still open on that page:** it sits at 68px where the home page hero sits at
+52px. Whichever survives, `--pad-x` should carry it. See 2.2.
 
-## 1. The measurement harness
+**Done this session, on the home page:**
 
-**Do not eyeball this rebuild.** Everything that ever got fixed came from
-numbers. Scripts live in `docs/research/`.
-
-```bash
-node docs/research/extract.mjs docs/research/raw      # measure the live reference
-node docs/research/extract-local.mjs docs/research/local   # measure our build
-python3 docs/research/diff.py                          # per-string x/w/type drift
-python3 docs/research/align.py [y0] [y1]               # vertical rhythm, the useful one
-python3 docs/research/pair.py <y0> <y1> <delta>        # ref and local side by side
-node docs/research/compare.mjs                         # matched screenshot pairs
-node docs/research/shoot-widths.mjs [path]             # 390 / 810 / 1100 strips
-node docs/research/shoot-platform.mjs                  # /platform full-page strip
-python3 docs/research/crop-ref.py <which> <y0> <y1> <out>   # band out of a design reference
-node docs/research/optimise-assets.mjs                 # cap assets at 2x their render
-node docs/research/og/shoot.mjs                        # re-render public/og.png
-node docs/research/og/shoot-platform-card.mjs          # re-render public/og-platform.png
-python3 docs/research/q.py  <y0> <y1>                  # reference y-range, full styles
-python3 docs/research/ql.py <y0> <y1>                  # same for local
-```
-
-### align.py is the tool that matters
-
-Our page drops sections the reference has, so absolute y no longer lines up.
-`align.py` joins on text and prints `ref_y − local_y` per string. **Inside a
-correctly built section the delta is constant**, and every place the delta
-steps is a rhythm error worth exactly the pixels it moved. Chase steps, not
-absolute values.
-
-### Two capture bugs already paid for — do not reintroduce
-
-1. The extract scripts walked the page with `document.body.scrollHeight` while
-   `scroll-behavior: smooth` was on. `scrollBy` animated, the loop read
-   `scrollY` back and saw no movement, and **capture stopped at y=779** — so
-   everything below was measured in its pre-reveal state. Both scripts now
-   force `scrollBehavior = 'auto'` and drive absolute offsets.
-2. `Reveal` used `whileInView`. IntersectionObserver reports at rendering
-   steps, so a block that enters and leaves between two of them is never seen
-   and **stays at opacity 0 forever**. `Reveal` now latches on the element's
-   rect through one shared clock-throttled sweep in
-   `components/ui/motion-primitives.tsx`. It is throttled on `Date.now()`, not
-   rAF, because a headless or backgrounded tab stops serving frames and a
-   dropped sweep would strand every remaining block.
-
-### Reading the diff — known false positives
-
-| Looks like | Actually |
-|---|---|
-| `font Inter Display->interDisplay` | next/font hashed name. Fine. |
-| `w 48->177` on short strings | our block `<p>` reports container width. Fine. |
-| `x` drift on marquee text | animation phase at capture. Fine. |
-| chars showing `rgba(26,26,26,0.1)` | scroll-highlight progress at capture. Fine. |
-| `y42 "Company"` Δ−20 | matches the mobile menu's copy, not the nav. Fine. |
-| `y198 "Build with AI."` Δ−81 | the reference wraps both hero lines in one animated span. Fine. |
-| `y10941 "Pricing"`, `y13085 "Insights"` | matching a nav link, not the cut section. Fine. |
-| nav `x` on Services/Insights/Company | we carry Platform where the reference carries Pricing, so the labels are different widths. Fine. |
-| footer Quick Links rows one place low | that column gained Platform. Fine. |
-| marquee `right=` overflow in shoot-widths | marquees are wider than the viewport by design. Fine. |
-
-Anything else is real. **Verify a fix by re-running extract-local + align, not
-by looking at a screenshot.**
-
----
-
-## 2. Where the build stands
-
-The whole home page sits within **±3px** of the reference, and the footer
-within 1px. `python3 docs/research/align.py` is the proof.
-
-| Section | File | Notes |
-|---|---|---|
-| Nav | `components/nav.tsx` | persistent (the reference never hides it); links are root-relative |
-| Hero | `components/hero.tsx` | trust line 10px above the logo line |
-| Statement | `components/statement.tsx` | 208px lead-in, 40px to the mosaic, 172px floor |
-| Ticker | `components/ticker.tsx` | 29px of air each side of the line |
-| Works | `components/works.tsx` | marquee gap 46, starburst 151 at 60px |
-| Capabilities | `components/capabilities.tsx` | 880 tall, no floor — the panels reach it |
-| Vision | `components/vision.tsx` | headline capped at 545px for the reference's six lines |
-| Neural grid | `components/neural-grid.tsx` | 55px icon block |
-| **Film frame** | `components/video-block.tsx` | 1440×855 still, no parallax |
-| **Process** | `components/process.tsx` | four-step accordion, collapsed bodies read off the live site |
-| Team | `components/team.tsx` | nests inside the dark run, 90px lead-in |
-| FAQ | `components/faq.tsx` | 234px rail gap |
-| Footer | `components/footer.tsx` | 1140 tall, stacked lockup, hanging dash markers |
-| **Platform** | `components/platform/agent-floor.tsx` + `app/platform.css` | ported and restyled |
-
-**Page order** (reference order minus the cut sections):
-`hero → statement → ticker → works → capabilities → vision → neural → ticker
-→ film → dark run (process + team) → ticker → faq → footer`
-
-### Deliberately cut
-
-The user removed **Pricing**, **Experiences** (testimonials) and **Insights**
-(blog) from the blueprint: all three are fake-content sections. Their
-reference measurements are still in `raw/measure-1440.json` at y10941, y6209
-and y13085 if they are ever wanted, and the assets are in `public/assets`.
-
----
-
-## 3. Things the numbers cannot see
-
-Framer draws borders on pseudo-elements, so **every outline in the reference
-is invisible to `extract.mjs`**. That cost a whole round. When a panel looks
-flat next to the reference, suspect a border before anything else. Already
-found and fixed: capability panels, their index pills, the process plate, the
-vision portrait frame, the team portrait capsules, the step rows.
-
-Other reference behaviour worth knowing:
-
-- **Works covers are hidden until hover.** The reference rests on the client's
-  logo on white and fades the photo in. We have no client marks, so the cover
-  is the content — flip `initial` to `opacity: 0` in `works.tsx` the moment
-  real artwork lands.
-- The **reference wordmark is a raster PNG** of the word "spartan". Ours is
-  live text; set `brand.wordmarkSrc` when real artwork exists.
-- **Framer accordions only mount collapsed content on expand.** Both the FAQ
-  and the process steps had to be clicked open in a headless browser
-  (`faq-extract.mjs`, `process-extract.mjs`). The same will be true of
-  anything else that collapses.
-- The **footer is `position: sticky`** and revealed by the page scrolling over
-  it, so the extract measures it at its scroll-0 position.
-- **Team row is 1362px inside a 1360px box** — the reference lets it bleed.
-- Reference cover images are **oversized and cropped** (440×330 in a 406×302
-  window). Fitting them exactly makes the design look flat.
-- **Never nest `<a>` inside `<button>`** — `Button` takes a `type` prop.
-- Any `Math.*` in render must be rounded (`toFixed(2)`) or server and client
-  disagree on floats.
-- Our cut of Inter Display sets **~6% wider** than the reference's at display
-  sizes, so matching a measured column width can cost a line of wrap. Set the
-  max-width to reproduce the reference's *break points*, not its pixel width.
+- **The Vision hole is filled** (was 1.2). `components/art/floor-vignette.tsx` is
+  an isometric vignette built to `handoff/art-direction.md`: the floor before
+  open, the work handled overnight drained back into the architecture, one block
+  standing proud of it with the only accent in the frame. It is the state system
+  argued spatially, and it is the first place on the site a reader meets the
+  Floor's world. All seven of the spec's section 11 acceptance checks pass
+  against the shot.
+  - It is SVG, not react-three-fiber. A still frame in a marketing block costs a
+    few hundred polygons and no runtime; the Floor itself rotates and is picked
+    from, so that one is still the r3f job.
+  - The plate is the seam. Site 20px radius outside it, the Floor's zero radii
+    and palette inside, and none of the Floor's type anywhere. Do not let either
+    language cross that edge.
+  - `OX`, `OY` and `K` in that file are derived from the scene's extreme
+    projected points, not eyeballed. Move anything tall, or anything at the
+    plinth edge, and they want recomputing or the model drifts off centre.
+  - **Open:** on a 390px screen the model lands about 186px wide. It reads, but
+    it is small. A second tighter `viewBox` for mobile would fix it and would
+    also be a rehearsal for the same question on `/platform`.
+- **The worked example is a product card now** (was 1.3).
+  `statement.worked` carries supplier lines rather than a sentence: item,
+  movement, action, state. Same two price moves it always had. The bread went
+  back on order overnight, the tomatoes did not, and the state marks carry the
+  difference, so the card argues the saving and the mechanic at once.
+- **The hero headline sets its own rag** and the sub is gone. It ran five lines
+  and the sub sat over the photograph's grass where it could not be read.
+  `hero.headlineDim` and `headlineLit` are arrays of lines now, held from `md`
+  up and left to reflow on a phone. Two constraints drove the break points: at
+  70px the gap between four lines and five is about five pixels of column, so a
+  box left to decide decides differently on a different machine; and the
+  photograph has a television at x 630, so any line past about 570px loses its
+  last word into it. Every line now stops short of it. **`hero.sub` is deleted**,
+  so the hero's only prose is the trust line at the foot of the plate.
+- **The metric mosaic is 20% larger and centred.** Its columns were fixed
+  pixels, right at the 1440 the design was measured at and wrong above it: the
+  cards stopped at 1338 and every extra pixel piled up on the right, so at
+  2000px the block sat 40px off the left edge and 550 off the right. Columns
+  are ratios now, cards are 20% taller, and the section stops at 1606 and
+  centres. **This is the only section on the home page with a measure.** Above
+  about 1650px everything else still runs the full width, so it will read as
+  inset until the rest follows. That is the same question as 2.1.
+- **The connection rail carries the products' real symbols.**
+  `components/ui/brand-marks.ts` holds eight monochrome paths drawn with
+  `currentColor`, each with the tight bounding box measured off `getBBox` so
+  they lay out from one optical height. Six came from simple-icons; Deputy's
+  pinwheel and Ordermentum's monogram were pulled out of their own site
+  artwork, symbol path only. MYOB publishes a wordmark rather than a symbol, so
+  that row carries no second copy of the name.
+  - **This reverses a rule that was written down twice.** `lib/content.ts` and
+    `components/hero.tsx` both said neutral marks, never the real logos. Kayden
+    asked for the change; both comments now say what the marks are and are not,
+    and the rail's own label keeps the claim to what the reader already pays
+    for. Nobody on that list has endorsed anything. Do not let these marks
+    migrate to a section that reads as a client list or a partner wall.
+  - `ClientMark` still falls through to the neutral glyph for any name with no
+    entry, which is what the roster's client venues use. A made up mark for a
+    real client is a different thing from a real mark for a real product.
+  - `components/stack.tsx` still draws Xero, Square, Deputy and Ordermentum as
+    initials in circles. Same four products, two treatments on one page now.
+- **The client cards lost their two product claims** and are 20% larger. This
+  settles question 3 below: it was the `0 / Logins added` and `Every action /
+  Waits for you` cells, not the card note. What is left is where the floor is
+  and that its bookings are ours, which are facts about the business rather
+  than claims about us, and the statement section already makes both claims
+  properly. Same sizing method as the mosaic: the cap moves with the cards
+  (1440 to 1674) while the gutters and page padding stay, because scaling those
+  too would have made the cards *smaller* at 1440, where the cap does not bind.
+- **The marquee loop had a hole in it, at every width.** It rendered the
+  children twice and slid the track half its own width, which is only seamless
+  while one copy is at least as wide as the viewport. The rail's copy measured
+  1331px, so from 1440 up the track ran out of content once per cycle. The copy
+  count is measured now: enough to cover the container plus one sliding in
+  behind it, with the shift written as a share of the whole track, so the speed
+  does not change with the count. It remeasures on resize and again after
+  `document.fonts.ready`, because web fonts change the copy's width after first
+  paint. This fixes all four marquees, `/platform`'s included.
+- `vision.body` claimed nine departments and ran 42 words against a 28 word
+  budget. Now 26 words and no count. **It lost the sentence pointing at
+  `/about`**, so the home page hands over to that page through the nav only.
+  `app/page.tsx`'s header comment still claims two handoffs and is now wrong on
+  both. Worth a decision rather than a quiet fix.
 
 ---
 
-## 3b. Responsive
+## 1. Ship-blockers, in order
 
-The three full-page captures in `docs/research/design-references/` are the
-reference at 1440, 834 and 390 (all at 2x). **Only their first 8192px tile
-carries trustworthy offsets** — the tablet and phone ones are stitched and
-repeat after that. `crop-ref.py` pulls a band out of any of them.
+### 1.1 Look at the pages
+`npm run dev` and walk `/platform` and `/waitlist`. Two sections there still have
+holes from an earlier pass (departments lost its note line, roster lost the card
+note). The markup typechecks; nobody has looked at those two pages.
 
-Checked and matched: the hero keeps its product card at every width (it drops
-under the copy), the nav runs full width on a phone with a 16px gutter, the
-display marquee holds near 130px there, the capability rows lead with the
-index pill and a mono label, and vision reads copy before portrait.
+`/` and `/about` have both been walked at 1440 and 390 and shot to
+`docs/research/tiles/`. No console errors, no failed requests, and the only
+overflow is the ticker's own marquee track.
 
-One thing the phone capture settles: **the reference's works cards do show
-their cover on a phone.** Hiding it until hover is a desktop affordance, so
-showing it where there is no hover is the reference's own behaviour.
+`docs/research/scratch/shot-el.mjs <selector> <out.png> <scale>` shoots one
+element rather than a page. It is how the vignette below was iterated.
 
-`node docs/research/shoot-widths.mjs [path]` walks 390/810/1100 and reports
-console errors and horizontal overflow. Marquees always report overflow —
-they are wider than the viewport by design.
+### 1.2 The Floor rebuild
+This is the big one. `handoff/art-direction.md` plus its six references is the
+spec. Current `components/platform/agent-floor.tsx` is 1707 lines of hand-built
+isometric and will be replaced.
 
----
+Decisions already made:
+- **No preamble.** The demo is on screen at load. No heading, intro, stat tiles
+  or marquee above it. The page's own context moves below the floor or goes.
+- **Transition, not a loading screen.** White screen, the existing "The Floor"
+  marquee moving across, then a smooth game-style hand-off into the demo. The
+  earlier overnight-clock idea is dropped: the demo does the selling and the
+  intro did not earn its place.
+- **The spec is for one department.** It is written around bookings (tables,
+  available/booked, time slots). The camera, materials, palette, fog, ornament
+  and UI chrome rules generalise to all departments. The state semantics do not.
+  Each department needs its own mapping onto the same depth trick: whatever is
+  handled recedes, whatever needs a person advances. Decide that mapping per
+  department before building it, or they will drift apart.
+- **Codex is a good fit here.** Long, spec-following, with pass/fail acceptance
+  checks in section 11 of the art direction.
 
-## 3c. Weight
+**Open: mobile.** An isometric diorama on a 390px screen is a real problem.
+Three options, in my order of preference:
 
-The source project's CDN resized on the way out; a plain `/public` does not,
-so every asset shipped at full resolution and the home page was **25.5MB**.
-`node docs/research/optimise-assets.mjs` reads the render sizes out of the
-local capture and caps each file at twice its largest measured box. The
-footer photograph was a fully opaque PNG and is now a JPEG; the hero
-backdrop carries real alpha and is now WebP. **Home page is 2.63MB.**
-
-If you add an asset, run the script. If you change what size something
-renders at, re-run the local capture first so the script sees it.
-
----
-
-## 4. Design system (measured, in `app/globals.css`)
-
-```
-Surfaces   #ffffff page · #f0f0f0 light card · #1a1a1a dark · #242424 raised
-Shell      12px gutter · 20px card radius · 40px inner padding · 180px rhythm
-Type       70/77 hero (ls −2.8) · 56/60 statement (−2) · 54/59.4 display (−2.16)
-           200/220 marquee (−8, w700) · 100/100 team (−4)
-           20/28 card title (−0.4) · 16/24 body w300 · 15/22.5 small · 14/19.6 label
-           12/19.2 mono uppercase · 13/20.8 Plex name plates
-Buttons    16px radius · 3px shell pad · 65×59 slot at 14px radius · justify-start
-           slot→label gap per instance: 26 hero · 30 team/FAQ · 43 process · 14 nav
-           `minWidth` for the few the reference sets to a fixed width
-Marks      Mark() is a chevron on a 10×5 pixel grid, 3px pitch, 2 corner accents
-           LogoPill is a 6px ring: 60×34 outside, 48×22 inside
-Eyebrow    SectionLabel: capsule · rule · label, 20px gaps, either alignment
-Fonts      Inter Display (local, public/fonts, official OFL release)
-           Geist Mono · IBM Plex Mono · Jaini (next/font/google)
-```
+1. **Phones get the brief, not the floor.** On a phone, serve the morning brief
+   view: the short list of what happened overnight and what needs a decision.
+   That is what the owner actually opens at 6am, so it is the honest mobile
+   product rather than a degraded desktop one. Cheapest to build, best story.
+2. **Static isometric plate.** One rendered image of the floor plus the task list
+   under it. Keeps the visual, loses the interaction.
+3. **Portrait-locked simplified floor.** Fewer objects, tap to zoom. Most work,
+   most risk of feeling cramped.
 
 ---
 
-## 5. `/platform`
+## 2. Spacing and formatting audit
 
-`app/platform/page.tsx` wraps `components/platform/agent-floor.tsx` (1709
-lines, ported whole from `consilium`). Behaviour is unchanged from the
-original: department zoom, step-inside-the-venue with its running clock, the
-two approvals with their burst particles, and the stacked list below 810px.
+Full audit was run this session. Nine fixes applied:
 
-The restyle is almost entirely the token block at the top of
-`app/platform.css` — the scene was already token-driven, so the sage/teal/cere
-system collapses onto our monochrome ramp. **The three task states are told
-apart by weight, not hue**: solid mark = needs you, ring = watching, soft mark
-= done (overrides at the foot of the file). The venue block keeps a spread
-fill ramp so its three facets stay separable without colour.
+- `components/stack.tsx` `md:px-[60px]` → `40px`. It was indenting 20px deeper
+  than the two sections above it *inside one continuous dark panel*.
+- `components/stack.tsx`, `components/roster.tsx`, `app/platform/page.tsx` closing
+  band: all carried full desktop vertical padding at 390px. Roster was 370px of
+  padding on a phone. All three now step down.
+- `components/statement.tsx` `R = 30` → `20`. The four metric cards were 30px
+  radius sitting inside a 20px card, directly under the hero.
+- `app/page.tsx` ticker wrappers unified (they rendered at 56, 58 and 80px on one
+  page with identical content).
+- `app/page.tsx` a `borderRadius` set white-on-white with no visible effect, removed.
+- `app/platform/page.tsx` two content max-widths on one page (1336 / 1360) unified.
 
-If the floor ever needs work, `node docs/research/shoot-platform.mjs` gives a
-full-page strip and reports console errors.
+### Still outstanding, ranked by visibility
+
+1. **The home page has no single left edge.** Content starts at 52, 56, 40, 40,
+   40, 52px as you scroll. Hero and Statement sit at 52 (12px gutter + 40px pad);
+   Departments, Vision, Stack are full-bleed at 40; Roster is 56; Faq is 52. Pick
+   one and enforce it.
+2. **`--inset`, `--pad-x`, `--block-gap` are defined and never used.** Zero
+   references anywhere. That is *why* the numbers diverged. Wiring these up is the
+   single highest-leverage cleanup and it is a good Codex job: 40 / 48 / 56 / 60
+   all collapse to `var(--pad-x)`.
+3. **Vertical rhythm ranges 172 to 250px** where the system says 180. The two
+   joins inside the home page's dark run are 250px and 340px, 90px apart, inside
+   one panel. `components/departments.tsx` `md:pb-0` + `components/vision.tsx`
+   `md:pt-[250px]`.
+4. ~~`/about` alternates 68px and 56px content-left, and its dark bands notch
+   white at the viewport corners.~~ Fixed. Every band on that page is now a card
+   in the gutter at a single 68px content edge. The same pattern is worth
+   checking on `/platform`.
+5. **`.t-team` at `app/globals.css:202` is dead CSS.** Defined only inside
+   `@media (min-width: 1440px)` with no base rule, and `components/team.tsx`
+   overrides it with an inline clamp that always wins. The heading renders at up
+   to 100px, larger than the 70px hero and off the scale entirely.
+6. **Three stat-card families, three sizes, three trackings** (43/-2 sans,
+   40/-1.6 mono, 34/-1 mono, 34/-1.4 sans). Two of them are on `/about` two
+   sections apart. Card gaps disagree too (22 / 20 / 24).
+7. **11px mono is a de facto second size** hardcoded 14 times against a 12px
+   `t-mono` token, with tracking varying between 0.06em and 0.08em.
+8. **Roster grid gutter is `gap-x-[52px] gap-y-[33px]`** where every other card
+   row on the site uses `gap-[10px]`.
+9. **Off-scale radii:** hero card 18/5 (button lockup is 16/3), footer subscribe
+   17/6, vision photo 12 vs the same treatment at 20 on `/about`, departments
+   index pills 10 where `--r-chip` is 12, roster card `19px 19px 10px 10px`,
+   statement icon square 16 where the icon slot is 14.
+10. ~~`app/about/page.tsx` engages `md:grid-cols-[80px_320px_1fr]` at 768px,
+    leaving the third column 172px wide.~~ Fixed, it waits for `lg:` now.
+
+### Dead code found, safe to delete
+
+`hero.bgBack`, `roster.label`, all three `states[].note`, `brand.name`,
+`brand.city`, `signIn.sending`, `platform.cta.href` (hardcoded at the call site).
+Unreachable props: `Ticker`'s `tone`, `SectionLabel`'s `align`, `Button`'s `icon`.
+Never imported: `LogoPill` (`components/ui/mark.tsx`), `Parallax`
+(`components/ui/motion-primitives.tsx`). Unreferenced tokens: `--dark-3`,
+`--paper-06`, `--paper-04`.
 
 ---
 
-## 6. Open decisions for the user
+## 3. Open questions for Kayden
 
-1. **Client logos.** `public/assets` holds the marks of Cigna, Aetna, CVS,
-   UnitedHealthcare and Anthem — real companies the template uses as filler.
-   They render as neutral placeholders behind `useDemoClientLogos` in
-   `lib/content.ts`. Flip to `true` only if they are real clients. This also
-   decides the Works card treatment (see §3).
-2. **Wordmark artwork** for the footer and nav lockup.
-3. **Copy.** Everything is still the template's AI-agency text, on the user's
-   instruction, so the harness can diff on it. The `/platform` copy is the
-   only Peregrine-specific writing on the site.
-
----
-
-## 7. Definition of done
-
-- Every kept reference section present, in reference order ✅
-- `align.py` shows no step outside the §1 false-positive list ✅
-- `/platform` exists, linked from nav and footer, functionally identical to
-  consilium's `AgentFloor`, visually part of this site ✅
-- `npm run build` clean, no console errors, no lint errors ✅
-- 390 / 810 / 1100 all check out against the design references ✅
-- Focus styles on every control, reduced motion honoured ✅
-- Social cards and icon in place ✅
-- Home page 2.63MB, no failed requests, no console errors — checked on the
-  deployed site, not just locally ✅
-- Work committed and pushed; Vercel deploys on push ✅
+1. **Audience width.** The hero now says "business"; the departments still say
+   covers, service and the till. Clients already include an arts school and a head
+   spa. My call is hero wide, departments concrete, because concreteness is what
+   convinces an owner you have stood in a room like theirs. Not yet decided.
+2. **The $749 bookkeeper figure** is still the largest number on the homepage. It
+   is a sourced credibility asset, but it is also price-forward, which is the
+   thing we just took off the department cards. Keep, move to the FAQ, or cut.
+3. ~~**Section 05.** "Remove the 0 logins and every action section".~~ Settled.
+   It was the two stat cells on the client cards, and they are gone. The card
+   note dropped in the earlier reading has not come back; say if it should.
+4. **The FAQ.** Kayden offered to cut it. Recommendation: keep it. It is the only
+   place that handles objections and it carries every citation on the homepage
+   (Fair Work, OAIC, Xero share). Cutting it removes every source from the page,
+   which contradicts content rule 1. Trim to 45 words an answer instead.
+5. **Losing the partner story from home** removes the strongest credibility device
+   a four-client firm has. Correct for the long-term goal, a cost right now.

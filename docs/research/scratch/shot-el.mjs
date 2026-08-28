@@ -1,0 +1,14 @@
+import puppeteer from 'puppeteer-core';
+const [,, sel, out, scale] = process.argv;
+const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 900, deviceScaleFactor: Number(scale || 2) });
+await p.goto('http://localhost:3001/', { waitUntil: 'networkidle2' });
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+await new Promise(r => setTimeout(r, 1200));
+await p.evaluate(() => window.scrollTo(0, 0));
+await new Promise(r => setTimeout(r, 600));
+const el = await p.$(sel);
+await el.screenshot({ path: out });
+console.log('shot', out);
+await b.close();
