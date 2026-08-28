@@ -3,17 +3,16 @@ import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { Ticker } from "@/components/ticker";
 import { Roster } from "@/components/roster";
-import { External } from "@/components/external";
+import { Departments } from "@/components/departments";
 import { Vision } from "@/components/vision";
 import { Stack } from "@/components/stack";
-import { Internal } from "@/components/internal";
 import { Team } from "@/components/team";
 import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 
 /**
  * The home page sells the result: what it is like to run a business with the
- * nine branches on. The argument for why it should exist at all lives on
+ * nine departments on. The argument for why it should exist at all lives on
  * `/about`, and the page hands over to it twice — once at the vision block and
  * once under the team.
  *
@@ -38,12 +37,12 @@ export default function Home() {
 
         <Roster />
 
-        {/* the dark run: external branches → why → the stack it runs on */}
+        {/* the dark run: the nine departments → why → the stack it runs on */}
         <div
           className="bg-[color:var(--dark)]"
           style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
         >
-          <External />
+          <Departments />
           <Vision />
           <Stack />
         </div>
@@ -55,13 +54,12 @@ export default function Home() {
           <Ticker />
         </div>
 
-        {/* the second dark run: internal branches → the three of us */}
+        {/* the second dark run: the three of us */}
         <section
           className="w-full bg-[color:var(--dark)]"
           style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
         >
-          <div className="flex flex-col items-start gap-[160px] px-[24px] py-[140px] md:px-[40px] xl:pt-[250px] xl:pb-[200px]">
-            <Internal />
+          <div className="flex flex-col items-start px-[24px] py-[140px] md:px-[40px] xl:pb-[200px] xl:pt-[200px]">
             <Team />
           </div>
         </section>

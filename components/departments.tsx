@@ -6,60 +6,70 @@ import { Button } from "./ui/button";
 import { Reveal } from "./ui/motion-primitives";
 import { SectionLabel } from "./ui/section-label";
 import { BranchArt } from "./art/branch-art";
-import { external } from "@/lib/content";
+import { departments } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * External branches — 001 to 005.
+ * The nine departments — 001 to 009, in one rack.
  *
- * The horizontal accordion is the reference's, but its geometry was hard-coded
- * for exactly three panels (480 open, 90 closed, 680 total). There are five
- * here, so the widths are derived from the count against a fixed total
- * instead: adding a sixth branch later re-fits the row rather than pushing it
- * off the grid. The rail beside it gives up 80px to pay for the extra columns.
+ * This was two sections: an "external" accordion of five and an "internal"
+ * accordion of four. The split was vocabulary rather than substance, so the
+ * rack now carries all nine and the second section is gone.
+ *
+ * Nine tabs will not fit the reference's fixed 760px row, so the geometry is
+ * no longer pixels. Closed tabs hold a fixed basis and the open one takes
+ * whatever is left with `flexGrow`, which means the row fits its container at
+ * any width and a tenth department would still fit. Below xl the rack is too
+ * narrow to read at all, so the stacked list takes over there rather than at
+ * the phone breakpoint.
  */
-const TOTAL = 760;
-const CLOSED = 72;
-const GAP = 10;
+const CLOSED = 64;
+const GAP = 8;
 
-export function External() {
+export function Departments() {
   const [active, setActive] = useState(0);
-  const n = external.panels.length;
-  const open = TOTAL - (n - 1) * (CLOSED + GAP);
 
   return (
     <section
-      id="external"
-      className="w-full bg-[color:var(--dark)] px-[24px] pb-[120px] pt-[250px] md:px-[40px] md:pb-0"
+      id="departments"
+      className="w-full bg-[color:var(--dark)] px-[24px] pb-[120px] pt-[200px] md:px-[40px] md:pb-0 xl:pt-[250px]"
     >
-      <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-[60px] lg:flex-row lg:justify-between">
-        {/* left rail */}
-        <div className="flex w-full max-w-[560px] flex-col">
-          <SectionLabel label={external.label} tone="dark" ruleWidth={280} />
+      <div className="mx-auto flex w-full max-w-[1360px] flex-col">
+        <SectionLabel label={departments.label} tone="dark" ruleWidth={900} />
 
-          <Reveal delay={0.05}>
-            <p className="t-body mt-[52px] max-w-[480px] text-white">{external.intro}</p>
+        {/* the claim, and what it covers, side by side above the rack */}
+        <div className="mt-[52px] flex flex-col gap-[40px] lg:flex-row lg:items-end lg:justify-between lg:gap-[80px]">
+          <Reveal delay={0.04} className="lg:max-w-[720px]">
+            <h2 className="t-display text-white">{departments.heading}</h2>
+            {/* how many of the nine a venue actually starts with */}
+            <p
+              className="mt-[28px] max-w-[520px] uppercase text-white"
+              style={{
+                fontFamily: "var(--font-mono-ui), ui-monospace, monospace",
+                fontSize: 12,
+                lineHeight: "20.4px",
+                fontWeight: 200,
+              }}
+            >
+              {departments.note}
+            </p>
           </Reveal>
 
-          <div className="mt-[220px] max-w-[540px]">
-            <Reveal delay={0.05}>
-              <h2 className="t-display text-white">{external.heading}</h2>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <div className="mt-[40px]">
-                <Button href={external.cta.href} variant="secondary" gap={32}>
-                  {external.cta.label}
-                </Button>
-              </div>
-            </Reveal>
-          </div>
+          <Reveal delay={0.1} className="lg:max-w-[420px] lg:shrink-0">
+            <p className="t-body text-white">{departments.intro}</p>
+            <div className="mt-[32px]">
+              <Button href={departments.cta.href} variant="secondary" gap={32}>
+                {departments.cta.label}
+              </Button>
+            </div>
+          </Reveal>
         </div>
 
-        {/* accordion */}
-        <Reveal delay={0.1} className="w-full lg:w-[760px] lg:shrink-0">
-          <div className="hidden h-[630px] shrink-0 lg:flex" style={{ width: TOTAL, gap: GAP }}>
-            {external.panels.map((p, i) => {
+        {/* the rack */}
+        <Reveal delay={0.1} className="mt-[70px] w-full">
+          <div className="hidden h-[600px] w-full xl:flex" style={{ gap: GAP }}>
+            {departments.panels.map((p, i) => {
               const isOpen = i === active;
               return (
                 <motion.button
@@ -70,10 +80,15 @@ export function External() {
                   onMouseEnter={() => setActive(i)}
                   onFocus={() => setActive(i)}
                   onClick={() => setActive(i)}
-                  className="relative flex cursor-pointer flex-col items-center overflow-hidden text-left"
-                  style={{ borderRadius: 20, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
+                  className="relative flex min-w-0 cursor-pointer flex-col items-center overflow-hidden text-left"
+                  style={{
+                    flexShrink: 0,
+                    flexBasis: CLOSED,
+                    borderRadius: 20,
+                    boxShadow: "inset 0 0 0 1px var(--paper-10)",
+                  }}
                   animate={{
-                    width: isOpen ? open : CLOSED,
+                    flexGrow: isOpen ? 1 : 0,
                     backgroundColor: isOpen ? "rgba(255,255,255,0)" : "rgba(255,255,255,0.04)",
                   }}
                   transition={{ duration: 0.7, ease: EASE }}
@@ -84,7 +99,7 @@ export function External() {
                   <span
                     className="absolute top-[16px] z-20 flex items-center justify-center"
                     style={{
-                      padding: "8px 14px",
+                      padding: "8px 12px",
                       borderRadius: 10,
                       border: "1px solid var(--paper-20)",
                       right: isOpen ? 18 : "auto",
@@ -113,8 +128,9 @@ export function External() {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.45, ease: EASE, delay: 0.12 }}
                       >
+                        {"tag" in p && p.tag ? <Tag>{p.tag}</Tag> : null}
                         <h3
-                          className="max-w-[300px] text-white"
+                          className="max-w-[420px] text-white"
                           style={{
                             fontSize: 26,
                             lineHeight: "33px",
@@ -125,7 +141,7 @@ export function External() {
                           {p.title}
                         </h3>
                         <p
-                          className="mt-[16px] max-w-[350px] text-white"
+                          className="mt-[16px] max-w-[440px] text-white"
                           style={{
                             fontSize: 14,
                             lineHeight: "21px",
@@ -169,9 +185,9 @@ export function External() {
           </div>
         </Reveal>
 
-        {/* narrow screens: the same panels, stacked and expandable */}
-        <div className="flex w-full flex-col gap-[10px] lg:hidden">
-          {external.panels.map((p, i) => {
+        {/* narrow screens: the same nine, stacked and expandable */}
+        <div className="mt-[50px] flex w-full flex-col gap-[10px] xl:hidden">
+          {departments.panels.map((p, i) => {
             const isOpen = i === active;
             return (
               <motion.div
@@ -209,6 +225,11 @@ export function External() {
                     >
                       {p.title}
                     </h3>
+                    {"tag" in p && p.tag ? (
+                      <span className="ml-auto hidden sm:block">
+                        <Tag inline>{p.tag}</Tag>
+                      </span>
+                    ) : null}
                   </div>
 
                   <AnimatePresence initial={false}>
@@ -243,7 +264,31 @@ export function External() {
   );
 }
 
-/** What the branch works through, and what it always stops for. */
+/** The one-word claim a department carries when it needs one: ours, read only. */
+function Tag({ children, inline = false }: { children: string; inline?: boolean }) {
+  return (
+    <span
+      className={`${inline ? "flex" : "mb-[14px] flex w-fit"} items-center bg-white`}
+      style={{ borderRadius: 100, padding: "4px 12px" }}
+    >
+      <span
+        className="uppercase"
+        style={{
+          fontFamily: "var(--font-mono-ui), ui-monospace, monospace",
+          fontSize: 10,
+          lineHeight: "16px",
+          fontWeight: 400,
+          color: "var(--ink)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
+/** What the department works through, and what it always stops for. */
 function PanelFacts({ runsOn, waits }: { runsOn: string; waits: string }) {
   return (
     <dl
@@ -273,14 +318,14 @@ function PanelFacts({ runsOn, waits }: { runsOn: string; waits: string }) {
   );
 }
 
-/** Panel backdrop: the plate, with the branch's own object drawn on top. */
+/** Panel backdrop: the plate, with the department's own object drawn on top. */
 function PanelArt({
   open,
   art,
   height = 400,
 }: {
   open: boolean;
-  art: (typeof external.panels)[number]["art"];
+  art: (typeof departments.panels)[number]["art"];
   height?: number;
 }) {
   const tall = height >= 300;
@@ -290,7 +335,7 @@ function PanelArt({
       style={{ height }}
     >
       <motion.img
-        src={open ? external.panelBgOpen : external.panelBgClosed}
+        src={open ? departments.panelBgOpen : departments.panelBgClosed}
         alt=""
         aria-hidden
         className="absolute inset-0 h-full w-full object-cover"

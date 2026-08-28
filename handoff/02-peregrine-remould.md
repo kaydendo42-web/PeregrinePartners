@@ -15,15 +15,15 @@ unchanged. Everything else is new.
 | Slot | Was | Is |
 |---|---|---|
 | Nav | capsule + 5 template links + "Hire Team" | the real wordmark, Home / Platform / About Us / Sign in, **Join Waitlist** |
-| Hero card | "Digital Brain v4.0.2" over a rendered engine | **Test out our platform**, over a drawn nine-tile floor, linking to `/platform` |
+| Hero card | "Digital Brain v4.0.2" over a rendered engine | **Test out our platform**, over the nine departments drawn as one night's run sheet, linking to `/platform` |
 | Hero rail | five real health-insurer logos | neutral marks for the systems we work through |
 | Statement mosaic | invented $45M / 15,400 agents / 5x | a sourced market rate, the **nine agents**, the three states, the approval dial, a labelled worked example |
 | Works | five invented case studies | **The floors**: four real Melbourne businesses, marquee straight into the cards |
-| Capabilities | 3 panels of AI-agency copy | **External departments 001–005**, each with its own drawn object |
+| Capabilities | 3 panels of AI-agency copy | **The nine departments 001–009**, each with its own drawn object |
 | Vision | founder portrait + template line | Chapel Street, and a door to `/about` |
 | Neural grid | frontier model logos | **the stack**, four things true of all nine branches |
 | Film frame | still + inert play button | **cut**, see §6 |
-| Process | 4-step deployment cycle | **Internal departments 006–009** + the nine-row plate |
+| Process | 4-step deployment cycle | cut — 006–009 moved into the one department rack |
 | Team | 4 stock people with invented quotes | Kayden, Jason, Thomas, with what each does |
 | FAQ | 7 generic answers | 8 owner questions, sourced |
 | — | — | **`/about`**, **`/waitlist`** (+ API route), **`/sign-in`** |
@@ -71,11 +71,12 @@ and never by colour, the same rule `app/platform.css` already followed. They
 run through the statement mosaic, the hero card, `/platform` and the
 waitlist confirmation. `components/ui/state-mark.tsx` is the single source.
 
-**One set of nine.** External departments are 001–005 and internal are 006–009,
-numbered on rather than restarting, because the point is that they are one set
-split by where the work points. The plate in `components/internal.tsx` prints
-all nine so the claim is visible rather than asserted, and the hero card's nine
-tiles are the same nine in the same order.
+**One set of nine.** Departments run 001–009 in a single index. This started as
+two blocks — "external" 001–005 and "internal" 006–009, numbered on rather than
+restarting — but the split was vocabulary rather than substance and has since
+been merged: `components/departments.tsx` carries all nine in one rack, and
+`components/internal.tsx` is gone. The hero card's nine lanes are the same nine
+in the same order.
 
 They are **departments**, not branches. To a venue owner a branch is a second
 site, and "the index" is architecture language. `/platform` already said

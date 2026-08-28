@@ -152,7 +152,7 @@ export const hero = {
   cta: { label: "Join the waitlist", href: "/waitlist" },
   card: {
     title: "Test out our platform",
-    meta: "// The office it keeps overnight",
+    meta: "// The overnight office",
     href: "/platform",
   },
   trust:
@@ -277,17 +277,26 @@ export const roster = {
 };
 
 /* ------------------------------------------------------------------ *
- * External departments, 001 to 005
+ * The nine departments, 001 to 009
  *
- * The parts of the business that face outward: the people you buy from, the
- * people who buy from you, and everyone entitled to a number off you.
+ * One index, one section. The old split — five "external" departments in
+ * one block and four "internal" ones in another — was a distinction the
+ * reader had to be taught before it paid anything back: an owner does not
+ * think of the roster and the supplier order as two product lines. They are
+ * nine jobs in one building, so they are nine tabs in one rack.
+ *
+ * The order still runs outward-facing first and inward-facing after, which
+ * is the only part of the old split worth keeping: it reads as a walk from
+ * the loading dock to the office.
  * ------------------------------------------------------------------ */
 
-export const external = {
-  label: "External Departments",
+export const departments = {
+  label: "Nine Departments",
   intro:
-    "Everything that faces out of the building. The people you buy from, the people who find you, and everyone entitled to a number off you.",
-  heading: "The outside of the venue, handled before you open.",
+    "Everything a venue runs on, inside the building and out. The people you buy from, the people who find you, the roster, the books, and the till.",
+  heading: "The whole venue, handled before you open.",
+  note:
+    "Nine departments. Most venues start with three and add the rest once they trust those three.",
   cta: { label: "See the platform", href: "/platform" },
   panelBgOpen: `${A}/qWpzthqQ4FGQWP39IeKgah1OP8.png`,
   panelBgClosed: `${A}/pEct5trUmjDYAblzuKYq2MpHaA.png`,
@@ -332,46 +341,39 @@ export const external = {
       runsOn: "Built by us · Google Business",
       waits: "Anything public",
     },
-  ],
-};
-
-/* ------------------------------------------------------------------ *
- * Internal departments, 006 to 009
- *
- * Numbered on from the externals: nine departments, one business. The
- * split is where the work points, not who owns it.
- * ------------------------------------------------------------------ */
-
-export const internal = {
-  label: "Internal Departments",
-  heading: "And the inside of it, drafted and waiting on your desk.",
-  note:
-    "Nine departments. Most venues start with three and add the rest once they trust those three.",
-  cta: { label: "See it running", href: "/platform" },
-  steps: [
     {
       n: "006",
+      art: "bookings" as const,
       tag: "Ours",
-      title: "Bookings, and this one is ours",
+      title: "Bookings",
       body: "Owners resent bolting a third-party booking system onto the business, and the objection is the integration rather than the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours is part of Peregrine instead, shaped around how your venue takes bookings. Flat-fee systems run $0 to $249 a month, and per-cover pricing is where volume hurts.",
+      runsOn: "Ours, inside Peregrine",
+      waits: "Anything that moves a table",
     },
     {
       n: "007",
-      tag: "Roster",
-      title: "The roster, drafted against the forecast",
+      art: "roster" as const,
+      title: "The Roster",
       body: "Drafted against forecast covers, availability and award rates, with labour shown as a share of what the day should take. It waits for you every week, because a roster is a promise to people. Hospitality sits among the Fair Work Ombudsman's highest-risk industries, and a roster you approved against rules you set is a record you can produce.",
+      runsOn: "The forecast · availability · award rates",
+      waits: "Every week",
     },
     {
       n: "008",
-      tag: "Admin",
-      title: "Admin, compliance and the paper trail",
+      art: "admin" as const,
+      title: "Admin & Compliance",
       body: "Timesheets reconcile against the roster and the till. Certificates, permits and renewals get tracked before they lapse. Every action a department took sits on the log with what triggered it, what it cost, and who approved it, so a question a year from now has an answer.",
+      runsOn: "Timesheets · permits · the log",
+      waits: "Anything that renews",
     },
     {
       n: "009",
+      art: "till" as const,
       tag: "Read only",
-      title: "The till, read and never written to",
+      title: "The Till",
       body: "Peregrine watches takings, terminal fees and what the card surcharge is costing you, and never writes back to the point of sale. It is the one department with no approval queue, because it never asks you for anything.",
+      runsOn: "Your POS · the terminal feed",
+      waits: "Nothing. It never asks",
     },
   ],
 };
@@ -734,8 +736,7 @@ export const footer = {
     {
       title: "The departments",
       links: [
-        { label: "External", href: "/#external" },
-        { label: "Internal", href: "/#internal" },
+        { label: "The nine", href: "/#departments" },
         { label: "Straight answers", href: "/#faq" },
       ],
     },

@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 
 /**
- * One drawn object per external branch.
+ * One drawn object per department.
  *
  * The template shipped a single rendered PNG and reused it behind all three
  * capability panels; with five panels that reads as five copies of nothing.
@@ -17,7 +17,16 @@ import { motion, useReducedMotion } from "motion/react";
  * diagrams of behaviour.
  */
 
-export type BranchArtKey = "supply" | "books" | "marketing" | "reception" | "web";
+export type BranchArtKey =
+  | "supply"
+  | "books"
+  | "marketing"
+  | "reception"
+  | "web"
+  | "bookings"
+  | "roster"
+  | "admin"
+  | "till";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -62,6 +71,10 @@ export function BranchArt({ kind, className = "" }: { kind: BranchArtKey; classN
       {kind === "marketing" ? <Marketing draw={draw} still={still} /> : null}
       {kind === "reception" ? <Reception draw={draw} still={still} /> : null}
       {kind === "web" ? <Web draw={draw} still={still} /> : null}
+      {kind === "bookings" ? <Bookings draw={draw} still={still} /> : null}
+      {kind === "roster" ? <Roster draw={draw} still={still} /> : null}
+      {kind === "admin" ? <Admin draw={draw} still={still} /> : null}
+      {kind === "till" ? <Till draw={draw} still={still} /> : null}
     </svg>
   );
 }
@@ -294,6 +307,314 @@ function Web({ still }: DrawProps) {
         style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
       >
         HOURS · HOLIDAYS · PHOTOS
+      </text>
+    </>
+  );
+}
+
+/** A table on the floor plan, drawn flat on the ground tile. */
+const plan = (gx: number, gy: number): [number, number] => [
+  60 + (gx - gy) * 18,
+  75 + (gx + gy) * 9,
+];
+
+/** 006 — the floor plan, with one table held rather than sold twice. */
+function Bookings({ still }: DrawProps) {
+  const tables: Array<[number, number, boolean]> = [
+    [-0.75, -0.75, false],
+    [0.75, -0.75, true],
+    [-0.75, 0.75, false],
+    [0.75, 0.75, false],
+  ];
+  const [hx, hy] = plan(0.75, -0.75);
+
+  return (
+    <>
+      {tables.map(([gx, gy, held], i) => {
+        const [x, y] = plan(gx, gy);
+        return (
+          <motion.g
+            key={i}
+            initial={still ? false : { opacity: 0, y: -6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.12 + i * 0.08, ease: EASE }}
+          >
+            {/* four covers, set around the top */}
+            {[-1, 1].map((s) => (
+              <g key={s}>
+                <ellipse cx={x + s * 15} cy={y} rx="3" ry="1.6" fill="none" stroke={faint} strokeWidth="0.8" />
+                <ellipse cx={x} cy={y + s * 7.5} rx="3" ry="1.6" fill="none" stroke={faint} strokeWidth="0.8" />
+              </g>
+            ))}
+            <ellipse
+              cx={x}
+              cy={y}
+              rx="10"
+              ry="5"
+              fill={held ? "#ffffff" : "rgba(255,255,255,0.05)"}
+              stroke={held ? "none" : faint}
+              strokeWidth="0.9"
+            />
+            {held ? <ellipse cx={x} cy={y} rx="2.6" ry="1.3" fill="var(--dark)" /> : null}
+          </motion.g>
+        );
+      })}
+
+      {/* the enquiry arriving, and the table it lands on */}
+      <motion.path
+        d={`M12 34 C 34 26, ${hx - 16} 26, ${hx} ${hy - 16}`}
+        stroke={faint}
+        strokeWidth="1"
+        strokeDasharray="2 3"
+        fill="none"
+        initial={still ? false : { pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE, delay: 0.3 }}
+      />
+      <line x1={hx} y1={hy - 16} x2={hx} y2={hy - 6} stroke={ink} strokeWidth="1.2" strokeLinecap="round" />
+      <motion.g
+        initial={still ? false : { opacity: 0, y: -6 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
+      >
+        <rect x={hx - 17} y={hy - 30} width="34" height="14" rx="7" fill="#ffffff" />
+        <text
+          x={hx}
+          y={hy - 20}
+          textAnchor="middle"
+          fill="var(--dark)"
+          fontSize="8"
+          style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+        >
+          19:30
+        </text>
+      </motion.g>
+
+      <text
+        x="8"
+        y="112"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        4 COVERS · HELD
+      </text>
+    </>
+  );
+}
+
+/** 007 — a week of shifts, drafted against the line the day should carry. */
+function Roster({ still }: DrawProps) {
+  /** Each day is its shifts, not one bar: the stack is the roster's shape. */
+  const week: number[][] = [
+    [10, 8],
+    [12, 7],
+    [14, 9],
+    [12, 11],
+    [16, 13],
+    [18, 15, 14],
+    [12, 10],
+  ];
+  const base = 86;
+  const line = 42;
+
+  return (
+    <>
+      {/* what the day should carry */}
+      <line x1="12" y1={line} x2="108" y2={line} stroke={faint} strokeWidth="1" strokeDasharray="3 3" />
+      <text
+        x="12"
+        y={line - 5}
+        fill={faint}
+        fontSize="7"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        FORECAST
+      </text>
+
+      {week.map((shifts, i) => {
+        const x = 16 + i * 13.5;
+        const over = shifts.reduce((a, b) => a + b, 0) > base - line;
+        let cursor = base;
+        return (
+          <motion.g
+            key={i}
+            initial={still ? false : { opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.12 + i * 0.07, ease: EASE }}
+          >
+            {shifts.map((h, j) => {
+              const y = cursor - h;
+              cursor = y - 2.5;
+              return (
+                <rect
+                  key={j}
+                  x={x}
+                  y={y}
+                  width="8"
+                  height={h}
+                  rx="2"
+                  fill={over ? "#ffffff" : "rgba(255,255,255,0.10)"}
+                  stroke={over ? "none" : faint}
+                  strokeWidth="0.8"
+                />
+              );
+            })}
+          </motion.g>
+        );
+      })}
+
+      <line x1="12" y1={base + 3} x2="108" y2={base + 3} stroke={dim} strokeWidth="1" />
+      <text
+        x="12"
+        y="104"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        7 DAYS · 1 OVER
+      </text>
+    </>
+  );
+}
+
+/** 008 — the paper trail, with the renewal that has not lapsed yet. */
+function Admin({ still }: DrawProps) {
+  return (
+    <>
+      {/* three certificates, stacked back to front */}
+      {[2, 1, 0].map((i) => (
+        <motion.g
+          key={i}
+          initial={still ? false : { opacity: 0, x: 6 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 + (2 - i) * 0.1, ease: EASE }}
+        >
+          <path
+            d={`M${28 + i * 7} ${20 + i * 6} h34 l8 8 v30 h-42 Z`}
+            fill="rgba(255,255,255,0.05)"
+            stroke={i === 0 ? ink : faint}
+            strokeWidth="0.9"
+            strokeLinejoin="round"
+          />
+          <path
+            d={`M${62 + i * 7} ${20 + i * 6} v8 h8`}
+            fill="none"
+            stroke={i === 0 ? ink : faint}
+            strokeWidth="0.9"
+            strokeLinejoin="round"
+          />
+        </motion.g>
+      ))}
+      {/* the front one carries its dates */}
+      <line x1="34" y1="38" x2="58" y2="38" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="34" y1="44" x2="50" y2="44" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+
+      {/* the run of dates ahead, and the one that comes due */}
+      <line x1="14" y1="76" x2="106" y2="76" stroke={dim} strokeWidth="1" />
+      {[0, 1, 2, 3, 4, 5].map((i) => {
+        const x = 18 + i * 17;
+        const due = i === 4;
+        return (
+          <motion.g
+            key={i}
+            initial={still ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.4 + i * 0.06 }}
+          >
+            <line
+              x1={x}
+              y1={due ? 68 : 72}
+              x2={x}
+              y2="80"
+              stroke={due ? "#ffffff" : faint}
+              strokeWidth={due ? "1.6" : "1"}
+              strokeLinecap="round"
+            />
+            {due ? <circle cx={x} cy="64" r="3" fill="#ffffff" /> : null}
+          </motion.g>
+        );
+      })}
+
+      <text
+        x="14"
+        y="98"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        1 RENEWS IN 14 DAYS
+      </text>
+    </>
+  );
+}
+
+/** 009 — read out of the till, and nothing written back into it. */
+function Till({ still }: DrawProps) {
+  return (
+    <>
+      {/* the terminal */}
+      <rect x="14" y="34" width="34" height="46" rx="6" fill="rgba(255,255,255,0.05)" stroke={ink} strokeWidth="1.1" />
+      <rect x="19" y="40" width="24" height="13" rx="2" fill="rgba(255,255,255,0.10)" stroke={faint} strokeWidth="0.8" />
+      {[0, 1, 2].map((r) =>
+        [0, 1, 2].map((c) => (
+          <circle key={`${r}${c}`} cx={22 + c * 9} cy={61 + r * 6.5} r="1.5" fill={dim} />
+        )),
+      )}
+
+      {/* the tape, read on its way out */}
+      <motion.path
+        d="M48 44 C 62 44, 66 34, 80 34"
+        stroke={faint}
+        strokeWidth="1.1"
+        fill="none"
+        initial={still ? false : { pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+      />
+      <rect x="80" y="22" width="26" height="34" rx="3" fill="rgba(255,255,255,0.06)" stroke={faint} strokeWidth="0.8" />
+      {[0, 1, 2, 3].map((i) => (
+        <line
+          key={i}
+          x1="85"
+          y1={30 + i * 7}
+          x2={i === 2 ? 96 : 101}
+          y2={30 + i * 7}
+          stroke={i === 2 ? "#ffffff" : dim}
+          strokeWidth="1.3"
+          strokeLinecap="round"
+        />
+      ))}
+
+      {/* and the way back, which is closed */}
+      <path d="M78 70 L54 70" stroke={faint} strokeWidth="1.1" strokeDasharray="3 3" />
+      <path d="M60 65 L54 70 L60 75" fill="none" stroke={faint} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+      <motion.g
+        initial={still ? false : { opacity: 0, scale: 0.7 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        style={{ originX: "66px", originY: "70px" }}
+        transition={{ duration: 0.4, delay: 0.75, ease: EASE }}
+      >
+        <circle cx="66" cy="70" r="7" fill="var(--dark)" stroke={ink} strokeWidth="1.1" />
+        <path d="M62.5 66.5 L69.5 73.5 M69.5 66.5 L62.5 73.5" stroke={ink} strokeWidth="1.2" strokeLinecap="round" />
+      </motion.g>
+
+      <text
+        x="14"
+        y="98"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        READ, NEVER WRITTEN
       </text>
     </>
   );

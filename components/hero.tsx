@@ -97,7 +97,7 @@ export function Hero() {
 
           {/* the platform card — the one thing on this page you can go and use */}
           <motion.div
-            className="w-full shrink-0 sm:w-[320px]"
+            className="w-full shrink-0 sm:w-[224px]"
             initial={{ opacity: 0, y: 26, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, ease: EASE, delay: 0.3 }}
@@ -105,27 +105,27 @@ export function Hero() {
             <Link
               href={hero.card.href}
               className="group flex w-full flex-col overflow-hidden"
-              style={{ background: "var(--ink)", borderRadius: 24, padding: 6 }}
+              style={{ background: "var(--ink)", borderRadius: 18, padding: 5 }}
             >
               <div
-                className="h-[220px] w-full overflow-hidden"
-                style={{ borderRadius: 20, background: "var(--dark)" }}
+                className="h-[154px] w-full overflow-hidden"
+                style={{ borderRadius: 14, background: "var(--dark)" }}
               >
                 <FloorCard />
               </div>
               <div
-                className="mt-[6px] flex items-center justify-between px-[14px] py-[14px]"
-                style={{ background: "#fff", borderRadius: 20 }}
+                className="mt-[5px] flex items-center justify-between gap-[8px] px-[12px] py-[11px]"
+                style={{ background: "#fff", borderRadius: 14 }}
               >
                 <div className="min-w-0">
-                  <p style={{ color: "var(--ink)", fontSize: 15, lineHeight: "21px" }}>
+                  <p style={{ color: "var(--ink)", fontSize: 13, lineHeight: "18px" }}>
                     {hero.card.title}
                   </p>
                   <p
                     style={{
                       color: "var(--ink-70)",
-                      fontSize: 12,
-                      lineHeight: "16.8px",
+                      fontSize: 10.5,
+                      lineHeight: "15px",
                       fontWeight: 300,
                       letterSpacing: "0.01em",
                     }}
@@ -133,8 +133,8 @@ export function Hero() {
                     {hero.card.meta}
                   </p>
                 </div>
-                <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center text-[color:var(--ink)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[4px]">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <span className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-[color:var(--ink)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[4px]">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path
                       d="M5 12h13M12 6l6 6-6 6"
                       stroke="currentColor"

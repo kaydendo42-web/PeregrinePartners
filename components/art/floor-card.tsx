@@ -1,115 +1,178 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { external, internal } from "@/lib/content";
+import { departments } from "@/lib/content";
 
 /**
- * The hero card's artwork: the platform floor, drawn small.
+ * The hero card's artwork: the night itself, drawn as a run sheet.
  *
- * A screenshot of `/platform` was the obvious answer and the wrong one — the
- * real floor is a 1440-wide isometric scene and shrinking it to 308px turns it
- * into grey mush. This is drawn for the size it renders at instead: nine tiles
- * on an isometric diamond, one per branch, in the same order the two branch
- * sections use. The count is the point, so the grid is 3x3 rather than a
- * decorative scatter.
+ * It used to be an isometric 3x3 of desks — nine tiles, two lit. The count was
+ * right and the picture was inert: nothing in it said the work happens while
+ * the venue is shut, which is the only claim the card is making.
  *
- * The two lit tiles are the two decisions the modelled night leaves behind —
- * the same two the overnight run block ends on, and the same two the chip
- * counts. Told apart by weight, never colour.
+ * So the nine become nine lanes across one night. Close is the left edge, open
+ * is the right, and each department's bar is the window it actually works in:
+ * the phone runs the whole night, the web listing takes ten minutes, the books
+ * run long. A sweep crosses once, and the two bars that end in a solid mark are
+ * the two decisions sitting on the desk at 06:04 — the same two the card counts
+ * in its chip and the same two the morning brief opens with.
+ *
+ * Drawn at its rendered size rather than scaled down to it, so the hairlines
+ * land on whole pixels.
  */
 
-const W = 23; // tile half-width
-const H = 11.5; // tile half-height (2:1 isometric)
-const D = 6; // extrusion depth
+const W = 224;
+const H = 154;
 
-const CX = 160;
-const CY = 120;
+const X0 = 12; // close
+const X1 = 212; // open
+const span = X1 - X0;
 
-/** The nine branches, in index order, laid on a 3x3 isometric diamond. */
-const CELLS = [...external.panels, ...internal.steps].map((b, i) => {
-  const gx = (i % 3) - 1;
-  const gy = Math.floor(i / 3) - 1;
-  return {
-    n: b.n,
-    title: b.title,
-    x: CX + (gx - gy) * W * 2,
-    y: CY + (gx + gy) * H * 2,
-    /** 002 and 006 are the two the modelled night hands back. */
-    needs: b.n === "002" || b.n === "006",
-    delay: (gx + gy + 2) * 0.09,
-  };
-});
+const LANE0 = 44;
+const STEP = 10.5;
 
-const face = (x: number, y: number) =>
-  `M${x - W} ${y} L${x} ${y - H} L${x + W} ${y} L${x} ${y + H} Z`;
+const at = (t: number) => X0 + t * span;
 
-const side = (x: number, y: number) =>
-  `M${x - W} ${y} L${x} ${y + H} L${x + W} ${y} L${x + W} ${y + D} L${x} ${y + H + D} L${x - W} ${y + D} Z`;
+/**
+ * When each department works, as a share of the night. These are the windows
+ * the product's own overnight run implies — the phone answered through the
+ * whole of it, the till read continuously, the listing touched once.
+ */
+const WINDOWS: Array<[number, number]> = [
+  [0.05, 0.3], // 001 suppliers
+  [0.1, 0.62], // 002 books
+  [0.34, 0.55], // 003 marketing
+  [0.0, 0.95], // 004 reception
+  [0.42, 0.52], // 005 web
+  [0.2, 0.78], // 006 bookings
+  [0.55, 0.72], // 007 roster
+  [0.66, 0.88], // 008 admin
+  [0.02, 0.99], // 009 till
+];
+
+/** 002 and 006 are the two the modelled night hands back. */
+const LANES = departments.panels.map((p, i) => ({
+  n: p.n,
+  title: p.title,
+  y: LANE0 + i * STEP,
+  from: at(WINDOWS[i][0]),
+  to: at(WINDOWS[i][1]),
+  needs: p.n === "002" || p.n === "006",
+  /** The till is read-only: its lane is outlined, never filled in. */
+  watching: p.n === "009",
+}));
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function FloorCard() {
   const still = useReducedMotion();
 
   return (
     <svg
-      viewBox="0 0 320 220"
+      viewBox={`0 0 ${W} ${H}`}
       className="h-full w-full"
       role="img"
-      aria-label="The platform floor: nine departments of a venue, two of them waiting on a decision"
+      aria-label="One night, nine departments: each works its own window between close and open, and two of them end on a decision waiting at 06:04"
     >
-      <rect width="320" height="220" fill="var(--dark)" />
+      <rect width={W} height={H} fill="var(--dark)" />
 
-      {CELLS.map((c) => (
+      {/* the hours, as three faint uprights */}
+      {[0.25, 0.5, 0.75].map((t) => (
+        <line
+          key={t}
+          x1={at(t)}
+          y1={LANE0 - 8}
+          x2={at(t)}
+          y2={LANE0 + 8 * STEP + 8}
+          stroke="rgba(255,255,255,0.05)"
+          strokeWidth="1"
+          strokeDasharray="2 4"
+        />
+      ))}
+
+      {LANES.map((l, i) => (
+        <g key={l.n}>
+          <title>{`${l.n} ${l.title}`}</title>
+
+          {/* the lane it runs in */}
+          <line x1={X0} y1={l.y} x2={X1} y2={l.y} stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          <line x1={X0} y1={l.y - 2.5} x2={X0} y2={l.y + 2.5} stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+
+          {/* the window it works in */}
+          <motion.rect
+            x={l.from}
+            y={l.y - 2}
+            width={Math.max(l.to - l.from, 5)}
+            height="4"
+            rx="2"
+            fill={
+              l.needs
+                ? "rgba(255,255,255,0.92)"
+                : l.watching
+                  ? "rgba(255,255,255,0.06)"
+                  : "rgba(255,255,255,0.22)"
+            }
+            stroke={l.watching ? "rgba(255,255,255,0.26)" : "none"}
+            strokeWidth={l.watching ? "0.8" : "0"}
+            initial={still ? false : { scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            style={{ originX: `${l.from}px`, transformBox: "view-box" }}
+            transition={{ duration: 0.8, delay: 0.25 + i * 0.07, ease: EASE }}
+          />
+
+          {/* and where it stops: a decision, or nothing at all */}
+          {l.needs ? (
+            <motion.g
+              initial={still ? false : { opacity: 0, scale: 0.4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              style={{ originX: `${l.to}px`, originY: `${l.y}px`, transformBox: "view-box" }}
+              transition={{ duration: 0.5, delay: 1.15 + i * 0.08, ease: EASE }}
+            >
+              <circle cx={l.to} cy={l.y} r="5" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+              <circle cx={l.to} cy={l.y} r="2.6" fill="#ffffff" />
+            </motion.g>
+          ) : null}
+        </g>
+      ))}
+
+      {/* the night crossing once, close to open */}
+      {still ? null : (
         <motion.g
-          key={c.n}
-          initial={still ? false : { opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 + c.delay, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: span, opacity: [0, 1, 1, 0] }}
+          transition={{ duration: 2.6, delay: 0.2, ease: "linear", times: [0, 0.06, 0.9, 1] }}
         >
-          <title>{`${c.n} ${c.title}`}</title>
-          <path d={side(c.x, c.y)} fill="rgba(255,255,255,0.06)" />
-          <path
-            d={face(c.x, c.y)}
-            fill={c.needs ? "#ffffff" : "rgba(255,255,255,0.04)"}
-            stroke={c.needs ? "none" : "var(--paper-20)"}
+          <line
+            x1={X0}
+            y1={LANE0 - 10}
+            x2={X0}
+            y2={LANE0 + 8 * STEP + 10}
+            stroke="rgba(255,255,255,0.55)"
             strokeWidth="1"
           />
-          {/* the desk mark: solid where a decision waits, a ring where it does not */}
-          {c.needs ? (
-            <ellipse cx={c.x} cy={c.y} rx="4.5" ry="2.4" fill="var(--dark)" />
-          ) : (
-            <ellipse
-              cx={c.x}
-              cy={c.y}
-              rx="4.5"
-              ry="2.4"
-              fill="none"
-              stroke="var(--paper-40)"
-              strokeWidth="1"
-            />
-          )}
         </motion.g>
-      ))}
+      )}
 
       {/* the standing count, in the language the whole product uses */}
       <motion.g
-        initial={still ? false : { opacity: 0, y: 8 }}
+        initial={still ? false : { opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.6, delay: 0.9, ease: EASE }}
       >
-        <rect x="20" y="16" width="130" height="26" rx="13" fill="rgba(255,255,255,0.1)" />
+        <rect x="12" y="12" width="90" height="21" rx="10.5" fill="rgba(255,255,255,0.1)" />
         <motion.circle
-          cx="35"
-          cy="29"
-          r="3.5"
+          cx="25"
+          cy="22.5"
+          r="3"
           fill="#fff"
           animate={still ? undefined : { opacity: [1, 0.35, 1] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
         />
         <text
-          x="46"
-          y="33"
+          x="34"
+          y="26"
           fill="#fff"
-          fontSize="11"
+          fontSize="9.5"
           letterSpacing="0.04em"
           style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
         >
@@ -117,16 +180,38 @@ export function FloorCard() {
         </text>
       </motion.g>
 
+      {/* the two ends of the night */}
       <text
-        x="300"
-        y="33"
+        x={X1}
+        y="26"
         textAnchor="end"
-        fill="var(--paper-40)"
-        fontSize="11"
+        fill="#fff"
+        fontSize="9.5"
         letterSpacing="0.04em"
         style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
       >
         06:04
+      </text>
+      <text
+        x={X0}
+        y={LANE0 + 8 * STEP + 18}
+        fill="var(--paper-40)"
+        fontSize="8.5"
+        letterSpacing="0.04em"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        CLOSE
+      </text>
+      <text
+        x={X1}
+        y={LANE0 + 8 * STEP + 18}
+        textAnchor="end"
+        fill="var(--paper-40)"
+        fontSize="8.5"
+        letterSpacing="0.04em"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        OPEN
       </text>
     </svg>
   );
