@@ -591,7 +591,7 @@ export const about = {
     heading: "It started with a number nobody could give us.",
     body: "We were in a cafe in South Yarra trying to count what the owner paid for software, and we lost track. Then we watched the manager step off the floor mid-service to check a booking, make two calls, and step back on. Nothing was broken. Every product worked. There was just nobody to run them.",
     body2: "The gap was never a missing feature. It is that no product can act on your behalf across the other eight, so a person has to stand in the middle and translate. In a small business that person is the owner, after close. We are building the thing that stands there instead.",
-    photo: "/scene/counter.jpg",
+    photo: "/scene/south-yarra-cafe.jpg",
     photoCaption: "A counter at open. The one deadline that has never moved.",
   },
 

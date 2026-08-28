@@ -80,23 +80,38 @@ the reference at 1440px, so do not eyeball changes.
 - Buttons: 16px radius, 3px shell padding, 65x59 icon slot at 14px radius
 - Fonts: Inter, Geist Mono, Jaini for the language ticker
 
-**Known drift.** `--inset`, `--pad-x` and `--block-gap` are defined and never
-referenced, so every section retypes the number and they have diverged (40, 48,
-56, 60px inner padding across the site; vertical rhythm ranges 172 to 250).
-There is a full audit and a fix list in `handoff/PICKUP.md`. When you touch a
-section, move it onto the token rather than adding another literal.
+**Known drift.** `--inset` and `--pad-x` are wired up and every section of `/`
+and `/about` is on them, through the `band`, `band-bleed` and `measure`
+utilities. `--block-gap` is not: every section still types its own `py` and they
+range 120 to 250. When you touch a section, move it onto the token rather than
+adding another literal. `docs/research/scratch/measure-edges.mjs` is the check.
 
 **Two devices carry the site.** The three states (Needs you / Watching / Done)
 are told apart by weight and never by colour. The departments run 001 upward
-across one rack.
+across one rack. On the Floor the same three states are told apart by depth
+instead, which is the same rule in that world's language: coral advances,
+drained recedes, and there is no legend anywhere on the screen.
 
 ## The Floor art direction
 
-`/platform` is being rebuilt to a separate, deliberate visual language: a
-Monument Valley style isometric diorama. The spec is authoritative and lives in
-`handoff/art-direction.md` with its six reference images. It is not a mood board.
-Read it before writing any Floor code, and run its section 11 acceptance checks
-against a screenshot before calling a screen done.
+`/platform` is built to a separate, deliberate visual language: a Monument
+Valley style isometric diorama in react-three-fiber, in
+`components/platform/floor/`. The spec is authoritative and lives in
+`handoff/art-direction.md` with its six reference images. It is not a mood
+board. Read it before writing any Floor code, and run
+`node docs/research/scratch/acceptance.mjs` before calling a screen done: it
+decides §11's checks 4 and 7 and every §0 prohibition, and prints the three
+that need a human looking at the pictures.
+
+Two deviations from the spec are deliberate and documented at the point they
+happen. The ground is the site's `--light` rather than §3's mint sky, on
+Kayden's call (`floor/palette.ts` says what still satisfies §3 and §6). The
+accent goes on a selected building's crown rather than its whole roof, because
+§4's rule is written for a table and a roof breaks check 4's 3% ceiling.
+
+`public/floor-plate.png` is what a phone gets instead of the scene, and it is a
+render of the scene. Re-run `docs/research/scratch/shoot-plate.mjs` after
+changing anything in the Floor, or the two drift.
 
 The clash with the site's design system is intentional. The Floor is a case you
 look into, not a page you read, and the frame is the seam. Do not propagate its
@@ -126,6 +141,8 @@ without a copy review against the budgets.
 npm run dev     # localhost:3000
 npm run build   # production
 node docs/research/shoot-tiles.mjs [path] [width]   # screenshot a page per screen
+node docs/research/scratch/shoot-states.mjs         # the Floor, in each of its states
+node docs/research/scratch/acceptance.mjs           # the Floor against art-direction §11
 ```
 
 `docs/research/align.py` is the tool that matters for rhythm: it joins reference

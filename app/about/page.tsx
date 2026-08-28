@@ -4,9 +4,10 @@ import { Ticker } from "@/components/ticker";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Cite } from "@/components/ui/cite";
-import { Falcon } from "@/components/ui/mark";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Reveal, ScrollHighlightText } from "@/components/ui/motion-primitives";
+import { AboutHeroArt } from "@/components/about/about-hero-art";
+import { OriginVisual } from "@/components/about/origin-visual";
 import { about, team } from "@/lib/content";
 
 const DESCRIPTION =
@@ -65,21 +66,27 @@ export default function About() {
         {/* ── the opening, on dark ─────────────────────────────────── */}
         <section className="w-full bg-[color:var(--page)] p-[12px]">
           <div
+            data-about-hero
             className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden pb-[80px] pt-[150px] md:min-h-[720px] md:pb-[110px] md:pt-[210px]"
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
-            {/* the mark, set once at a size it can carry */}
-            <span
-              className="pointer-events-none absolute -right-[40px] -top-[30px] text-white/[0.045] md:right-[40px] md:top-[60px]"
-              aria-hidden
-            >
-              <Falcon size={340} />
-            </span>
+            <AboutHeroArt />
 
-            <div className="measure relative">
+            {/* Keep the argument readable while the sculpture resolves behind
+                it. The falloff is darkest where the longest line lands. */}
+            <div
+              className="pointer-events-none absolute inset-0 z-[2]"
+              style={{
+                background:
+                  "linear-gradient(90deg, var(--dark) 0%, var(--dark) 42%, rgba(26,26,26,0.78) 61%, rgba(26,26,26,0.04) 100%)",
+              }}
+              aria-hidden="true"
+            />
+
+            <div data-about-hero-copy className="measure relative z-10">
               <SectionLabel label={about.eyebrow} tone="dark" ruleWidth={300} />
 
-              <h1 className="t-hero mt-[52px] max-w-[900px]">
+              <h1 className="t-hero mt-[52px] max-w-[830px]">
                 <Reveal>
                   <span className="block" style={{ color: "var(--paper-40)" }}>
                     {about.headlineDim}
@@ -160,47 +167,34 @@ export default function About() {
             <div className={MEASURE}>
               <SectionLabel label={about.origin.label} tone="dark" ruleWidth={300} />
 
-              <div className="mt-[52px] flex flex-col gap-[50px] lg:flex-row lg:justify-between lg:gap-[80px]">
-                <Reveal className="lg:max-w-[520px]">
-                  <h2 className="t-display text-white">{about.origin.heading}</h2>
-                </Reveal>
+              <div className="mt-[52px] grid grid-cols-1 gap-[56px] lg:grid-cols-[minmax(320px,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-[clamp(60px,7vw,110px)]">
+                <div className="flex h-full flex-col lg:min-h-[560px]">
+                  <Reveal>
+                    <h2 className="t-display max-w-[520px] text-white">
+                      {about.origin.heading}
+                    </h2>
+                  </Reveal>
 
-                <div className="lg:max-w-[620px]">
                   <Reveal delay={0.08}>
                     <p
-                      className="text-white"
+                      className="mt-[42px] max-w-[520px] text-white"
                       style={{ fontSize: 22, lineHeight: "32px", letterSpacing: "-0.3px" }}
                     >
                       {about.origin.body}
                     </p>
                   </Reveal>
                   <Reveal delay={0.14}>
-                    <p className="t-body mt-[28px] text-white/70">{about.origin.body2}</p>
+                    <p className="t-body mt-[28px] max-w-[520px] text-white/70">
+                      {about.origin.body2}
+                    </p>
                   </Reveal>
                 </div>
-              </div>
 
-              <Reveal delay={0.12}>
-                <figure className="mt-[70px]">
-                  <div
-                    className="relative w-full overflow-hidden"
-                    style={{ borderRadius: "var(--r-card)" }}
-                  >
-                    <img
-                      src={about.origin.photo}
-                      alt=""
-                      aria-hidden
-                      className="h-[280px] w-full object-cover md:h-[420px]"
-                    />
-                  </div>
-                  <figcaption
-                    className="t-mono-xs mt-[18px] font-mono uppercase text-white/40"
-                    
-                  >
-                    {about.origin.photoCaption}
-                  </figcaption>
-                </figure>
-              </Reveal>
+                <OriginVisual
+                  src={about.origin.photo}
+                  caption={about.origin.photoCaption}
+                />
+              </div>
             </div>
           </div>
         </section>

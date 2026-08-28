@@ -34,8 +34,8 @@
   --r-chip-inner: 10px;
 
   --inset: 12px;           /* page gutter around every section card */
-  --pad-x: 40px;           /* horizontal padding inside a section card */
-  --pad-x-sm: 24px;        /* the same, on a phone */
+  --pad-x: 20px;           /* horizontal padding inside a section card */
+  --pad-x-sm: 12px;        /* the same, on a phone */
   --measure: 1600px;       /* widest the content inside that padding gets */
   --block-gap: 180px;      /* vertical rhythm. NOT WIRED UP: every section
                               still types its own py, and they range 120 to

@@ -2,13 +2,25 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Ticker } from "@/components/ticker";
 import { Footer } from "@/components/footer";
-import { AgentFloor } from "@/components/platform/agent-floor";
+import { Floor } from "@/components/platform/floor";
 import { Button } from "@/components/ui/button";
-import { Marquee, Reveal } from "@/components/ui/motion-primitives";
-import { Starburst } from "@/components/ui/starburst";
-import { SectionLabel } from "@/components/ui/section-label";
+import { Reveal } from "@/components/ui/motion-primitives";
 import { platform } from "@/lib/content";
+import { jost, karla } from "./fonts";
 import "../platform.css";
+
+/**
+ * The Floor.
+ *
+ * The demo is on screen at load: no heading above it, no intro, no stat tiles,
+ * no marquee. Everything the page used to say first now sits underneath, where
+ * a reader arrives at it having already played with the thing it describes.
+ *
+ * The page runs in two languages and the seam is deliberate. Inside `<Floor />`
+ * it is `handoff/art-direction.md`: zero radii, no shadows, Jost and Karla,
+ * the mint and coral palette. Below it, the site's own system. Neither crosses
+ * the other (CLAUDE.md, "The Floor art direction").
+ */
 
 const DESCRIPTION =
   "A modelled morning on the floor: six departments, the venue at the centre, and only the decisions that need a person.";
@@ -37,33 +49,28 @@ export default function Platform() {
       <Nav />
 
       <main className="relative z-10 bg-[color:var(--page)]">
-        {/* opening band */}
+        {/* The demo, first thing, filling the screen it opens on. */}
+        <section id="floor" className={`${jost.variable} ${karla.variable}`}>
+          <Floor />
+        </section>
+
+        {/* Everything the page has to say, after the thing it describes. */}
         <section className="w-full bg-[color:var(--page)] px-[12px] pt-[12px]">
-          <div className="section-card px-[24px] pb-[80px] pt-[190px] md:px-[40px] md:pt-[220px]">
-            <div className="mx-auto w-full max-w-[1336px]">
-              <SectionLabel label={platform.label} ruleWidth={520} />
-
-              <Reveal delay={0.04}>
-                <h1 className="t-hero mt-[52px] max-w-[900px]">{platform.heading}</h1>
+          <div className="section-card band py-[120px] md:py-[180px]">
+            <div className="measure">
+              <Reveal>
+                <h2 className="t-display max-w-[820px]">{platform.heading}</h2>
               </Reveal>
-
-              <div className="mt-[50px] flex flex-col justify-between gap-[40px] lg:flex-row lg:items-end">
-                <Reveal delay={0.08}>
-                  <p className="t-body max-w-[520px]">{platform.intro}</p>
-                </Reveal>
-                <Reveal delay={0.14}>
-                  <Button href="#floor" gap={26}>
-                    {platform.cta.label}
-                  </Button>
-                </Reveal>
-              </div>
+              <Reveal delay={0.06}>
+                <p className="t-body mt-[40px] max-w-[560px]">{platform.intro}</p>
+              </Reveal>
 
               <div className="mt-[60px] grid grid-cols-1 gap-[10px] sm:grid-cols-2 xl:grid-cols-4">
                 {platform.facts.map((f, i) => (
                   <Reveal key={f.label} delay={0.06 + i * 0.05}>
                     <div
                       className="flex h-full flex-col justify-between gap-[24px] bg-white p-[24px]"
-                      style={{ borderRadius: 20 }}
+                      style={{ borderRadius: "var(--r-card)" }}
                     >
                       <p
                         className="font-mono"
@@ -82,42 +89,27 @@ export default function Platform() {
           </div>
         </section>
 
-        {/* display marquee, the same beat the works section opens on */}
-        <div className="bg-[color:var(--page)] py-[120px]">
-          <Marquee duration={34}>
-            <div className="flex shrink-0 items-center gap-[60px] pr-[60px]">
-              <h2 className="t-marquee whitespace-nowrap">{platform.marquee}</h2>
-              <Starburst />
-            </div>
-          </Marquee>
-        </div>
-
-        {/* the floor itself */}
-        <section id="floor" className="w-full bg-[color:var(--page)] px-[12px] pb-[120px]">
-          <div className="section-card px-[8px] py-[40px] md:px-[20px]">
-            <AgentFloor />
-          </div>
-        </section>
-
         <div className="bg-[color:var(--page)] py-[7px]">
           <Ticker />
         </div>
 
         {/* closing band */}
-        <section className="w-full bg-[color:var(--dark)] px-[24px] py-[120px] md:py-[180px] md:px-[40px]">
-          <div className="mx-auto w-full max-w-[1336px]">
-            <Reveal>
-              <h2 className="t-display max-w-[820px] text-white">{platform.close.heading}</h2>
-            </Reveal>
-            <div className="mt-[50px] flex flex-col justify-between gap-[40px] lg:flex-row lg:items-end">
-              <Reveal delay={0.06}>
-                <p className="t-body max-w-[520px] text-white">{platform.close.body}</p>
+        <section className="w-full bg-[color:var(--page)] px-[12px] pb-[12px]">
+          <div className="section-card band bg-[color:var(--dark)] py-[120px] md:py-[180px]">
+            <div className="measure">
+              <Reveal>
+                <h2 className="t-display max-w-[820px] text-white">{platform.close.heading}</h2>
               </Reveal>
-              <Reveal delay={0.12}>
-                <Button href={platform.close.cta.href} variant="secondary" gap={30} minWidth={232}>
-                  {platform.close.cta.label}
-                </Button>
-              </Reveal>
+              <div className="mt-[50px] flex flex-col justify-between gap-[40px] lg:flex-row lg:items-end">
+                <Reveal delay={0.06}>
+                  <p className="t-body max-w-[520px] text-white">{platform.close.body}</p>
+                </Reveal>
+                <Reveal delay={0.12}>
+                  <Button href={platform.close.cta.href} variant="secondary" gap={30} minWidth={232}>
+                    {platform.close.cta.label}
+                  </Button>
+                </Reveal>
+              </div>
             </div>
           </div>
         </section>
