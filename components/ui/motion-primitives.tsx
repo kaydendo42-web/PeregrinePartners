@@ -285,6 +285,21 @@ export function CountUp({
 }
 
 /** Seamless horizontal marquee. Children are duplicated once for the loop. */
+/**
+ * A loop with no seam, at any width.
+ *
+ * The old version rendered the children twice and slid the track half its own
+ * width. That is only seamless while one copy is at least as wide as the
+ * viewport: with eight rail items the copy measured 1331px, so on any screen
+ * wider than that the track ran out of content and a hole came round once per
+ * cycle. It was visible at 1440 and obvious above it.
+ *
+ * So the copy count is measured rather than assumed. `repeat` is however many
+ * copies it takes to cover the container plus one to slide in behind it, and
+ * the track slides exactly one copy's width, written as a percentage of the
+ * whole track. Speed does not change with the count, because the distance
+ * travelled per cycle is still one copy.
+ */
 export function Marquee({
   children,
   duration = 40,
@@ -298,18 +313,49 @@ export function Marquee({
   pauseOnHover?: boolean;
   className?: string;
 }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const unit = useRef<HTMLDivElement>(null);
+  const [repeat, setRepeat] = useState(2);
+
+  useEffect(() => {
+    const measure = () => {
+      const view = wrap.current?.offsetWidth ?? 0;
+      const copy = unit.current?.offsetWidth ?? 0;
+      if (!copy) return;
+      setRepeat(Math.max(2, Math.ceil(view / copy) + 1));
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (wrap.current) ro.observe(wrap.current);
+    if (unit.current) ro.observe(unit.current);
+    /* Web fonts land after first paint and change the copy's width, which
+       changes how many of them it takes to cover the screen. */
+    document.fonts?.ready.then(measure).catch(() => {});
+    return () => ro.disconnect();
+  }, [children]);
+
   return (
-    <div className={`marquee relative w-full overflow-hidden ${className}`}>
+    <div ref={wrap} className={`marquee relative w-full overflow-hidden ${className}`}>
       <div
         className="marquee-track"
         data-reverse={reverse}
         data-pause={pauseOnHover}
-        style={{ ["--marquee-duration" as string]: `${duration}s` }}
+        style={{
+          ["--marquee-duration" as string]: `${duration}s`,
+          ["--marquee-shift" as string]: `-${(100 / repeat).toFixed(4)}%`,
+        }}
       >
-        <div className="flex shrink-0 items-center">{children}</div>
-        <div className="flex shrink-0 items-center" aria-hidden>
-          {children}
-        </div>
+        {Array.from({ length: repeat }, (_, i) => (
+          <div
+            key={i}
+            ref={i === 0 ? unit : undefined}
+            className="flex shrink-0 items-center"
+            aria-hidden={i > 0}
+          >
+            {children}
+          </div>
+        ))}
       </div>
     </div>
   );

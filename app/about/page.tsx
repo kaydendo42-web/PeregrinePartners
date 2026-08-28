@@ -7,7 +7,6 @@ import { Cite } from "@/components/ui/cite";
 import { Falcon } from "@/components/ui/mark";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Reveal, ScrollHighlightText } from "@/components/ui/motion-primitives";
-import { DollarSplit } from "@/components/about/dollar-split";
 import { about, team } from "@/lib/content";
 
 const DESCRIPTION =
@@ -40,10 +39,23 @@ export const metadata: Metadata = {
  * here has already been sold to once, and the change of ground is the fastest
  * way to say this page is doing something else.
  *
- * Every band alternates ground from there, which also does the structural
- * work the template used numbered eyebrows for: you can tell where you are in
- * the argument by what colour you are standing on.
+ * The order is the argument: the gap, how we found it, why it is open now, the
+ * rules we hold to, who holds them, where we work. No product stats and no
+ * pricing band, because both of those are the home page's job and neither of
+ * them is what a reader came to this page for.
+ *
+ * Every band, dark or light, is a card inside the 12px page gutter. The dark
+ * ones used to run full bleed with a radius set on them, which rendered as
+ * white notches at the viewport corners rather than as a card, and moved the
+ * content left edge 12px every time the ground changed.
  */
+
+/** One band's padding, set once. Retyping it is how the site's four different
+ *  inner paddings happened in the first place. */
+const BAND = "px-[24px] py-[140px] md:px-[56px] md:py-[190px]";
+const DARK_BAND = "px-[24px] py-[160px] md:px-[56px] md:py-[200px]";
+const MEASURE = "mx-auto w-full max-w-[1336px]";
+
 export default function About() {
   return (
     <>
@@ -53,8 +65,8 @@ export default function About() {
         {/* ── the opening, on dark ─────────────────────────────────── */}
         <section className="w-full bg-[color:var(--page)] p-[12px]">
           <div
-            className="relative flex min-h-[calc(100svh-24px)] flex-col justify-between overflow-hidden px-[24px] pb-[48px] pt-[150px] md:min-h-[820px] md:px-[56px] md:pt-[210px]"
-            style={{ background: "var(--dark)", borderRadius: 20 }}
+            className="relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden px-[24px] pb-[80px] pt-[150px] md:min-h-[720px] md:px-[56px] md:pb-[110px] md:pt-[210px]"
+            style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             {/* the mark, set once at a size it can carry */}
             <span
@@ -82,32 +94,13 @@ export default function About() {
                 <p className="t-body mt-[28px] max-w-[560px] text-white">{about.sub}</p>
               </Reveal>
             </div>
-
-            <div className="relative mt-[60px] grid grid-cols-1 gap-[10px] sm:grid-cols-3">
-              {about.stats.map((s, i) => (
-                <Reveal key={s.label} delay={0.26 + i * 0.06}>
-                  <div
-                    className="flex h-full flex-col justify-between gap-[22px] p-[24px]"
-                    style={{ borderRadius: 20, boxShadow: "inset 0 0 0 1px var(--paper-10)" }}
-                  >
-                    <p
-                      className="font-mono text-white"
-                      style={{ fontSize: 40, lineHeight: "40px", letterSpacing: "-1.6px", fontWeight: 500 }}
-                    >
-                      {s.value}
-                    </p>
-                    <p className="t-label text-white/60">{s.label}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
 
         {/* ── the gap, on light ────────────────────────────────────── */}
         <section id="gap" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="section-card px-[24px] py-[140px] md:px-[56px] md:py-[190px]">
-            <div className="mx-auto w-full max-w-[1336px]">
+          <div className={`section-card ${BAND}`}>
+            <div className={MEASURE}>
               <SectionLabel label={about.gap.label} ruleWidth={300} />
 
               <ScrollHighlightText
@@ -126,7 +119,7 @@ export default function About() {
                   <Reveal key={f.figure} delay={0.06 + i * 0.06}>
                     <div
                       className="flex h-full flex-col justify-between gap-[20px] bg-white p-[24px]"
-                      style={{ borderRadius: 20 }}
+                      style={{ borderRadius: "var(--r-card)" }}
                     >
                       <p
                         style={{
@@ -152,46 +145,61 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── the six dollars, on dark ─────────────────────────────── */}
-        <section
-          id="six"
-          className="w-full bg-[color:var(--dark)] px-[24px] py-[160px] md:px-[56px] md:py-[200px]"
-          style={{ borderRadius: "20px 20px 20px 20px" }}
-        >
-          <div className="mx-auto w-full max-w-[1336px]">
-            <SectionLabel label={about.six.label} tone="dark" ruleWidth={300} />
+        {/* ── how we found it, on dark ─────────────────────────────── */}
+        {/*
+          The origin. It is the only place on the site where the argument is a
+          room rather than a figure, so it gets the page's one photograph and
+          the story is set larger than body copy. Everything above this band is
+          the shape of the problem; this is the morning we saw it.
+        */}
+        <section id="origin" className="w-full bg-[color:var(--page)] px-[12px]">
+          <div
+            className={DARK_BAND}
+            style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
+          >
+            <div className={MEASURE}>
+              <SectionLabel label={about.origin.label} tone="dark" ruleWidth={300} />
 
-            <div className="mt-[52px] flex flex-col gap-[70px] lg:flex-row lg:justify-between lg:gap-[80px]">
-              <div className="max-w-[600px]">
-                <Reveal>
-                  <h2 className="t-display text-white">{about.six.heading}</h2>
-                </Reveal>
-                <Reveal delay={0.06}>
-                  <p className="t-body mt-[32px] text-white/80">{about.six.body}</p>
-                  <Cite keys={about.six.bodyCite} tone="dark" className="mt-[14px]" />
+              <div className="mt-[52px] flex flex-col gap-[50px] lg:flex-row lg:justify-between lg:gap-[80px]">
+                <Reveal className="lg:max-w-[520px]">
+                  <h2 className="t-display text-white">{about.origin.heading}</h2>
                 </Reveal>
 
-                <Reveal delay={0.12}>
-                  <figure
-                    className="mt-[40px] p-[28px]"
-                    style={{ borderRadius: 20, background: "var(--dark-2)" }}
-                  >
-                    <blockquote
+                <div className="lg:max-w-[620px]">
+                  <Reveal delay={0.08}>
+                    <p
                       className="text-white"
-                      style={{ fontSize: 22, lineHeight: "30px", fontWeight: 400, letterSpacing: "-0.3px" }}
+                      style={{ fontSize: 22, lineHeight: "32px", letterSpacing: "-0.3px" }}
                     >
-                      &ldquo;{about.six.quote}&rdquo;
-                    </blockquote>
-                  </figure>
-                </Reveal>
-
-                <Reveal delay={0.16}>
-                  <p className="t-body mt-[36px] max-w-[520px] text-white">{about.six.after}</p>
-                </Reveal>
+                      {about.origin.body}
+                    </p>
+                  </Reveal>
+                  <Reveal delay={0.14}>
+                    <p className="t-body mt-[28px] text-white/70">{about.origin.body2}</p>
+                  </Reveal>
+                </div>
               </div>
 
-              <Reveal delay={0.1} className="w-full lg:max-w-[460px]">
-                <DollarSplit />
+              <Reveal delay={0.12}>
+                <figure className="mt-[70px]">
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ borderRadius: "var(--r-card)" }}
+                  >
+                    <img
+                      src={about.origin.photo}
+                      alt=""
+                      aria-hidden
+                      className="h-[280px] w-full object-cover md:h-[420px]"
+                    />
+                  </div>
+                  <figcaption
+                    className="mt-[18px] font-mono uppercase text-white/40"
+                    style={{ fontSize: 11, letterSpacing: "0.06em" }}
+                  >
+                    {about.origin.photoCaption}
+                  </figcaption>
+                </figure>
               </Reveal>
             </div>
           </div>
@@ -201,10 +209,15 @@ export default function About() {
           <Ticker />
         </div>
 
-        {/* ── why now, on light ────────────────────────────────────── */}
-        <section id="why" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="section-card px-[24px] py-[140px] md:px-[56px] md:py-[190px]">
-            <div className="mx-auto w-full max-w-[1336px]">
+        {/* ── why now, then the rules, on one light card ───────────── */}
+        {/*
+          Two blocks, one card. They are separate arguments with their own
+          labels, but the ground does not change between them, and stacking
+          two section cards would notch the seam white at both ends.
+        */}
+        <section className="w-full bg-[color:var(--page)] px-[12px]">
+          <div className={`section-card ${BAND}`}>
+            <div className={MEASURE} id="why">
               <SectionLabel label={about.why.label} ruleWidth={300} />
 
               <Reveal delay={0.04}>
@@ -216,12 +229,15 @@ export default function About() {
                 point only makes sense once the first is granted, and the third
                 is what follows from both. Nothing else on this page is
                 numbered for that reason.
+
+                The three-column split waits for lg. At md it left the third
+                column 172px wide, which is about twenty characters a line.
               */}
               <ol className="mt-[60px] flex flex-col">
                 {about.why.points.map((p, i) => (
                   <Reveal key={p.n} delay={0.04 + i * 0.06}>
                     <li
-                      className="grid gap-x-[30px] gap-y-[14px] py-[36px] md:grid-cols-[80px_320px_1fr]"
+                      className="grid gap-x-[30px] gap-y-[14px] py-[36px] lg:grid-cols-[80px_320px_1fr]"
                       style={{ borderTop: "1px solid var(--ink-10)" }}
                     >
                       <span
@@ -246,53 +262,9 @@ export default function About() {
                 ))}
               </ol>
             </div>
-          </div>
-        </section>
 
-        {/* ── the wedge, on dark ───────────────────────────────────── */}
-        <section
-          id="wedge"
-          className="w-full bg-[color:var(--dark)] px-[24px] py-[160px] md:px-[56px] md:py-[200px]"
-          style={{ borderRadius: 20 }}
-        >
-          <div className="mx-auto w-full max-w-[1336px]">
-            <SectionLabel label={about.wedge.label} tone="dark" ruleWidth={300} />
-            <div className="mt-[52px] flex flex-col gap-[50px] lg:flex-row lg:justify-between">
-              <Reveal className="lg:max-w-[520px]">
-                <h2 className="t-display text-white">{about.wedge.heading}</h2>
-              </Reveal>
-              <Reveal delay={0.08} className="lg:max-w-[640px]">
-                <p className="t-body text-white/80">{about.wedge.body}</p>
-              </Reveal>
-            </div>
-
-            {/* The one photograph on this page, and it is here because this is
-                the section arguing about a real floor rather than a market. */}
-            <Reveal delay={0.12}>
-              <figure className="mt-[70px]">
-                <div className="relative w-full overflow-hidden" style={{ borderRadius: 20 }}>
-                  <img
-                    src={about.wedge.photo}
-                    alt=""
-                    aria-hidden
-                    className="h-[280px] w-full object-cover md:h-[420px]"
-                  />
-                </div>
-                <figcaption
-                  className="mt-[18px] font-mono uppercase text-white/40"
-                  style={{ fontSize: 11, letterSpacing: "0.06em" }}
-                >
-                  {about.wedge.photoCaption}
-                </figcaption>
-              </figure>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── what we will not do, on light ────────────────────────── */}
-        <section id="refuse" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="section-card px-[24px] py-[140px] md:px-[56px] md:py-[190px]">
-            <div className="mx-auto w-full max-w-[1336px]">
+            {/* what we will not do */}
+            <div className={`${MEASURE} mt-[140px] md:mt-[190px]`} id="refuse">
               <SectionLabel label={about.refuse.label} ruleWidth={300} />
 
               <Reveal delay={0.04}>
@@ -304,7 +276,7 @@ export default function About() {
                   <Reveal key={it.title} delay={0.04 + i * 0.05}>
                     <div
                       className="flex h-full flex-col gap-[16px] bg-white p-[30px]"
-                      style={{ borderRadius: 20 }}
+                      style={{ borderRadius: "var(--r-card)" }}
                     >
                       <span
                         className="flex h-[30px] w-[30px] items-center justify-center rounded-full"
@@ -337,62 +309,63 @@ export default function About() {
         </section>
 
         {/* ── the three of us, on dark ─────────────────────────────── */}
-        <section
-          id="people"
-          className="w-full bg-[color:var(--dark)] px-[24px] py-[160px] md:px-[56px] md:py-[200px]"
-          style={{ borderRadius: 20 }}
-        >
-          <div className="mx-auto w-full max-w-[1336px]">
-            <SectionLabel label={about.people.label} tone="dark" ruleWidth={300} />
+        <section id="people" className="w-full bg-[color:var(--page)] px-[12px]">
+          <div
+            className={DARK_BAND}
+            style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
+          >
+            <div className={MEASURE}>
+              <SectionLabel label={about.people.label} tone="dark" ruleWidth={300} />
 
-            <div className="mt-[52px] flex flex-col gap-[50px] lg:flex-row lg:justify-between">
-              <Reveal className="lg:max-w-[560px]">
-                <h2 className="t-display text-white">{about.people.heading}</h2>
-              </Reveal>
-              <Reveal delay={0.08} className="lg:max-w-[480px]">
-                <p className="t-body text-white/80">{about.people.body}</p>
-              </Reveal>
-            </div>
-
-            {/* Everything on the card at rest — this is the page a reader came
-                to for depth, so nothing worth knowing hides behind a hover. */}
-            <div className="mt-[60px] grid grid-cols-1 gap-[14px] sm:grid-cols-2 xl:grid-cols-3">
-              {team.members.map((m, i) => (
-                <Reveal key={m.name} delay={0.05 + i * 0.07}>
-                  <figure className="flex h-full flex-col">
-                    <div
-                      className="relative w-full overflow-hidden"
-                      style={{ aspectRatio: "330 / 402", borderRadius: "0px 20px 20px 20px" }}
-                    >
-                      <img
-                        src={m.photo}
-                        alt={m.name}
-                        className="h-full w-full object-cover object-top"
-                      />
-                    </div>
-                    <figcaption className="mt-[24px] flex flex-1 flex-col gap-[10px]">
-                      <p
-                        className="uppercase text-white"
-                        style={{
-                          fontFamily: "var(--font-plex), monospace",
-                          fontSize: 14,
-                          lineHeight: "21px",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {m.name}
-                      </p>
-                      <p
-                        className="font-mono uppercase"
-                        style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-50)" }}
-                      >
-                        {m.role} · {m.school}
-                      </p>
-                      <p className="t-body-sm mt-[6px] text-white/80">{m.does}</p>
-                    </figcaption>
-                  </figure>
+              <div className="mt-[52px] flex flex-col gap-[50px] lg:flex-row lg:justify-between">
+                <Reveal className="lg:max-w-[560px]">
+                  <h2 className="t-display text-white">{about.people.heading}</h2>
                 </Reveal>
-              ))}
+                <Reveal delay={0.08} className="lg:max-w-[480px]">
+                  <p className="t-body text-white/80">{about.people.body}</p>
+                </Reveal>
+              </div>
+
+              {/* Everything on the card at rest — this is the page a reader came
+                  to for depth, so nothing worth knowing hides behind a hover. */}
+              <div className="mt-[60px] grid grid-cols-1 gap-[14px] sm:grid-cols-2 xl:grid-cols-3">
+                {team.members.map((m, i) => (
+                  <Reveal key={m.name} delay={0.05 + i * 0.07}>
+                    <figure className="flex h-full flex-col">
+                      <div
+                        className="relative w-full overflow-hidden"
+                        style={{ aspectRatio: "330 / 402", borderRadius: "0px 20px 20px 20px" }}
+                      >
+                        <img
+                          src={m.photo}
+                          alt={m.name}
+                          className="h-full w-full object-cover object-top"
+                        />
+                      </div>
+                      <figcaption className="mt-[24px] flex flex-1 flex-col gap-[10px]">
+                        <p
+                          className="uppercase text-white"
+                          style={{
+                            fontFamily: "var(--font-plex), monospace",
+                            fontSize: 14,
+                            lineHeight: "21px",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {m.name}
+                        </p>
+                        <p
+                          className="font-mono uppercase"
+                          style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--paper-50)" }}
+                        >
+                          {m.role} · {m.school}
+                        </p>
+                        <p className="t-body-sm mt-[6px] text-white/80">{m.does}</p>
+                      </figcaption>
+                    </figure>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -400,7 +373,7 @@ export default function About() {
         {/* ── where we are, on light, and the door out ─────────────── */}
         <section id="now" className="w-full bg-[color:var(--page)] px-[12px]">
           <div className="section-card px-[24px] py-[140px] md:px-[56px] md:py-[180px]">
-            <div className="mx-auto flex w-full max-w-[1336px] flex-col justify-between gap-[50px] lg:flex-row lg:items-end">
+            <div className={`${MEASURE} flex flex-col justify-between gap-[50px] lg:flex-row lg:items-end`}>
               <div className="max-w-[640px]">
                 <SectionLabel label={about.now.label} ruleWidth={280} />
                 <Reveal delay={0.04}>

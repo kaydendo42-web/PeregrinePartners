@@ -19,26 +19,38 @@ export function Statement() {
   return (
     <section className="w-full bg-[color:var(--page)] px-[12px]">
       <div className="section-card px-[24px] pb-[120px] pt-[120px] md:px-[40px] md:pb-[172px] md:pt-[208px]">
-        <ScrollHighlightText
-          text={statement.text}
-          className="t-statement max-w-[1030px]"
-          dim="var(--ink-10)"
-          lit="var(--ink)"
-        />
+        {/*
+          A measure, so the block has the same air on both sides.
+          
+          The mosaic columns were fixed pixels, which is right at the 1440 the
+          design was measured at and wrong above it: the cards stopped at 1338
+          and every extra pixel of a wide screen piled up on the right, so the
+          block sat 40px from the left edge and 550 from the right. The columns
+          are ratios now and the whole section stops at the mosaic's own full
+          width, centred. Nothing else on the home page carries a measure yet.
+        */}
+        <div className="mx-auto w-full max-w-[1606px]">
+          <ScrollHighlightText
+            text={statement.text}
+            className="t-statement max-w-[1030px]"
+            dim="var(--ink-10)"
+            lit="var(--ink)"
+          />
 
-        <Reveal delay={0.05}>
-          <p className="t-body mt-[34px] max-w-[600px]">{statement.sub}</p>
-        </Reveal>
+          <Reveal delay={0.05}>
+            <p className="t-body mt-[34px] max-w-[600px]">{statement.sub}</p>
+          </Reveal>
 
-        {/* metric mosaic */}
-        <div className="mt-[40px] grid grid-cols-1 gap-[10px] md:grid-cols-2 xl:grid-cols-[339px_291px_339px_339px]">
-          <CostCard />
-          <div className="flex flex-col gap-[10px]">
-            <AgentsCard />
-            <StatesCard />
+          {/* metric mosaic, at the reference's 339 / 291 / 339 / 339 proportions */}
+          <div className="mt-[40px] grid grid-cols-1 gap-[12px] md:grid-cols-2 xl:grid-cols-[339fr_291fr_339fr_339fr]">
+            <CostCard />
+            <div className="flex flex-col gap-[12px]">
+              <AgentsCard />
+              <StatesCard />
+            </div>
+            <ApprovalCard />
+            <WorkedCard />
           </div>
-          <ApprovalCard />
-          <WorkedCard />
         </div>
       </div>
     </section>
@@ -46,35 +58,71 @@ export function Statement() {
 }
 
 const CARD = "relative overflow-hidden";
-const R = 30;
+const R = 20;
 
 /** What the branch it replaces already costs, at a rate you can check. */
 function CostCard() {
   return (
     <Reveal className="h-full" delay={0.02}>
       <div
-        className={`${CARD} flex h-[315px] flex-col p-[24px]`}
+        className={`${CARD} flex h-[378px] flex-col p-[24px]`}
         style={{ background: "var(--ink)", borderRadius: R }}
       >
         <div
           className="flex h-[60px] w-[60px] items-center justify-center"
           style={{ background: "#fff", borderRadius: 16 }}
         >
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <rect x="2" y="6" width="20" height="12" rx="2.4" stroke="var(--ink)" strokeWidth="1.5" />
-            <circle cx="12" cy="12" r="3" stroke="var(--ink)" strokeWidth="1.5" />
-            <path d="M5.5 9.5v5M18.5 9.5v5" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round" />
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <rect
+              x="2"
+              y="6"
+              width="20"
+              height="12"
+              rx="2.4"
+              stroke="var(--ink)"
+              strokeWidth="1.5"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="3"
+              stroke="var(--ink)"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M5.5 9.5v5M18.5 9.5v5"
+              stroke="var(--ink)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
 
         <p
           className="mt-[14px] block h-[43px] text-white"
-          style={{ fontSize: 43, lineHeight: "43px", letterSpacing: "-2px", fontWeight: 400 }}
+          style={{
+            fontSize: 43,
+            lineHeight: "43px",
+            letterSpacing: "-2px",
+            fontWeight: 400,
+          }}
         >
-          <CountUp to={statement.cost.value} prefix={statement.cost.prefix} duration={1.8} />
+          <CountUp
+            to={statement.cost.value}
+            prefix={statement.cost.prefix}
+            duration={1.8}
+          />
         </p>
 
-        <p className="t-label mt-auto max-w-[291px] text-white">{statement.cost.caption}</p>
+        <p className="t-label mt-auto max-w-[349px] text-white">
+          {statement.cost.caption}
+        </p>
         <Cite keys={statement.cost.source} tone="dark" className="mt-[12px]" />
       </div>
     </Reveal>
@@ -92,10 +140,17 @@ function AgentsCard() {
   return (
     <Reveal delay={0.06}>
       <div
-        className={`${CARD} flex h-[210px] flex-col justify-between p-[24px]`}
+        className={`${CARD} flex h-[252px] flex-col justify-between p-[24px]`}
         style={{ background: "#fff", borderRadius: R }}
       >
-        <p style={{ fontSize: 20, lineHeight: "27px", fontWeight: 500, letterSpacing: "-0.4px" }}>
+        <p
+          style={{
+            fontSize: 20,
+            lineHeight: "27px",
+            fontWeight: 500,
+            letterSpacing: "-0.4px",
+          }}
+        >
           {agents.heading}
         </p>
 
@@ -120,10 +175,17 @@ function StatesCard() {
   return (
     <Reveal delay={0.1}>
       <div
-        className={`${CARD} flex h-[95px] flex-col justify-center gap-[12px] px-[24px]`}
+        className={`${CARD} flex h-[114px] flex-col justify-center gap-[12px] px-[24px]`}
         style={{ borderRadius: R, border: "1px dashed var(--ink-20)" }}
       >
-        <p style={{ fontSize: 15, lineHeight: "20px", fontWeight: 500, letterSpacing: "-0.2px" }}>
+        <p
+          style={{
+            fontSize: 15,
+            lineHeight: "20px",
+            fontWeight: 500,
+            letterSpacing: "-0.2px",
+          }}
+        >
           {statement.statesCard.heading}
         </p>
         <ul className="flex flex-wrap items-center gap-x-[16px] gap-y-[6px]">
@@ -134,11 +196,20 @@ function StatesCard() {
               initial={{ opacity: 0, x: -6 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.5,
+                delay: 0.1 + i * 0.09,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <StateMark state={st.key} tone="light" size="sm" />
               <span
-                style={{ fontSize: 12, lineHeight: "16px", fontWeight: 400, color: "var(--ink-60)" }}
+                style={{
+                  fontSize: 12,
+                  lineHeight: "16px",
+                  fontWeight: 400,
+                  color: "var(--ink-60)",
+                }}
               >
                 {st.label}
               </span>
@@ -156,7 +227,7 @@ function ApprovalCard() {
   return (
     <Reveal delay={0.14} className="h-full">
       <div
-        className={`${CARD} flex h-[315px] flex-col justify-between p-[24px]`}
+        className={`${CARD} flex h-[378px] flex-col justify-between p-[24px]`}
         style={{ background: "var(--ink-06)", borderRadius: R }}
       >
         {/*
@@ -166,7 +237,11 @@ function ApprovalCard() {
           say the opposite of what the card says.
         */}
         <div className="relative mx-auto mt-[2px] flex h-[140px] w-[149px] items-center justify-center">
-          <svg viewBox="0 0 160 160" className="absolute inset-0 h-full w-full" aria-hidden>
+          <svg
+            viewBox="0 0 160 160"
+            className="absolute inset-0 h-full w-full"
+            aria-hidden
+          >
             {ticks.map((_, i) => {
               const angle = (i / ticks.length) * Math.PI * 2 - Math.PI / 2;
               const inner = 48;
@@ -190,7 +265,11 @@ function ApprovalCard() {
                   initial={{ opacity: 0.1 }}
                   whileInView={{ opacity: stop ? 1 : [0.1, 0.6, 0.32] }}
                   viewport={{ once: true }}
-                  transition={{ duration: 1.3, delay: i * 0.014, ease: "easeOut" }}
+                  transition={{
+                    duration: 1.3,
+                    delay: i * 0.014,
+                    ease: "easeOut",
+                  }}
                 />
               );
             })}
@@ -204,10 +283,20 @@ function ApprovalCard() {
         </div>
 
         <div>
-          <h4 style={{ fontSize: 20, lineHeight: "28px", letterSpacing: "-0.4px", color: "var(--ink-80)" }}>
+          <h4
+            style={{
+              fontSize: 20,
+              lineHeight: "28px",
+              letterSpacing: "-0.4px",
+              color: "var(--ink-80)",
+            }}
+          >
             {statement.approval.title}
           </h4>
-          <p className="t-label mt-[8px] max-w-[291px]" style={{ color: "var(--ink-60)" }}>
+          <p
+            className="t-label mt-[8px] max-w-[349px]"
+            style={{ color: "var(--ink-60)" }}
+          >
             {statement.approval.caption}
           </p>
           <Cite keys={statement.approval.source} className="mt-[10px]" />
@@ -217,43 +306,92 @@ function ApprovalCard() {
   );
 }
 
-/** The worked example. Specific because it is arithmetic, not a testimonial. */
+/**
+ * The worked example, in the form it leaves the product in.
+ *
+ * This is the strongest evidence on the site, and it used to be a sentence.
+ * Set as supplier lines it makes the same argument twice over: the saving is
+ * the figure at the bottom, and the mechanic is right there in the two state
+ * marks, one routine move handled and one decision left standing. The card
+ * language is the site's, not the floor's. This is still the home page.
+ */
 function WorkedCard() {
+  const { label, lines, figure, attribution } = statement.worked;
   return (
     <Reveal delay={0.18} className="h-full">
       <div
-        className={`${CARD} flex h-[315px] flex-col justify-between p-[24px]`}
+        className={`${CARD} flex h-[378px] flex-col p-[24px]`}
         style={{ background: "#fff", borderRadius: R }}
       >
-        <div className="flex items-start justify-between">
-          <span
-            className="font-mono uppercase"
-            style={{ fontSize: 11, letterSpacing: "0.08em", color: "var(--ink-40)" }}
-          >
-            Worked example
+        <div className="flex items-center justify-between">
+          <span className="t-mono" style={{ color: "var(--ink-40)" }}>
+            {label}
           </span>
-          <StateMark state="done" size="lg" tone="light" />
+          {/* the brief: both states at once, which is what this card holds */}
+          <StateMark state="brief" size="md" tone="light" />
         </div>
 
-        <div>
-          <p style={{ fontSize: 18, lineHeight: "25.2px", color: "var(--ink-80)" }}>
-            {statement.worked.text}
+        <ul className="mt-[12px] flex flex-col">
+          {lines.map((l) => (
+            <li
+              key={l.item}
+              className="flex flex-col gap-[4px] py-[11px]"
+              style={{ borderTop: "1px solid var(--ink-10)" }}
+            >
+              <div className="flex items-baseline justify-between gap-[10px]">
+                <span
+                  style={{
+                    fontSize: 16,
+                    lineHeight: "22px",
+                    fontWeight: 500,
+                    letterSpacing: "-0.2px",
+                  }}
+                >
+                  {l.item}
+                </span>
+                <span
+                  className="font-mono shrink-0"
+                  style={{
+                    fontSize: 14,
+                    lineHeight: "20px",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {l.move}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-[10px]">
+                <span className="t-label" style={{ color: "var(--ink-60)" }}>
+                  {l.action}
+                </span>
+                <StateMark state={l.state} size="sm" tone="light" />
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto">
+          <p
+            style={{
+              fontSize: 21,
+              lineHeight: "27px",
+              fontWeight: 500,
+              letterSpacing: "-0.5px",
+            }}
+          >
+            {figure}
           </p>
           <p
-            className="mt-[14px]"
-            style={{ fontSize: 22, lineHeight: "28px", fontWeight: 500, letterSpacing: "-0.5px" }}
+            className="t-label mt-[8px] flex items-start gap-[8px]"
+            style={{ color: "var(--ink-60)" }}
           >
-            {statement.worked.figure}
+            <span
+              className="mt-[7px] inline-block h-[4px] w-[4px] shrink-0 rounded-full"
+              style={{ background: "var(--ink-40)" }}
+            />
+            {attribution}
           </p>
         </div>
-
-        <p className="t-label flex items-start gap-[8px]" style={{ color: "var(--ink-60)" }}>
-          <span
-            className="mt-[7px] inline-block h-[4px] w-[4px] shrink-0 rounded-full"
-            style={{ background: "var(--ink-40)" }}
-          />
-          {statement.worked.attribution}
-        </p>
       </div>
     </Reveal>
   );

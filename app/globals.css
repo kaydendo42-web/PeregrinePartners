@@ -154,7 +154,9 @@ body {
 /* Marquee ------------------------------------------------------- */
 @keyframes marquee-x {
   from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  /* One copy's width, as a share of the whole track. The Marquee component
+     counts the copies it needs to cover the viewport and sets the share. */
+  to { transform: translate3d(var(--marquee-shift, -50%), 0, 0); }
 }
 .marquee-track {
   display: flex;

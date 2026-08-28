@@ -51,7 +51,7 @@ export function Hero() {
 
         {/* headline row */}
         <div className="relative flex w-full flex-1 flex-col items-start justify-between gap-[40px] lg:flex-row lg:gap-8">
-          <div className="w-full max-w-[560px]">
+          <div className="w-full max-w-[660px]">
             <h1 className="t-hero">
               <span className="block overflow-hidden">
                 <motion.span
@@ -61,7 +61,11 @@ export function Hero() {
                   animate={{ y: 0 }}
                   transition={{ duration: 1, ease: EASE, delay: 0.05 }}
                 >
-                  {hero.headlineDim}
+                  {hero.headlineDim.map((line) => (
+                    <span key={line} className="inline md:block">
+                      {line}{" "}
+                    </span>
+                  ))}
                 </motion.span>
               </span>
               <span className="block overflow-hidden">
@@ -71,25 +75,24 @@ export function Hero() {
                   animate={{ y: 0 }}
                   transition={{ duration: 1, ease: EASE, delay: 0.16 }}
                 >
-                  {hero.headlineLit}
+                  {/* The rag in `content` is set for the desktop card, where a
+                      television in the photograph puts a hard ceiling on line
+                      width. A phone is narrower than any of those lines, so it
+                      reflows on its own rather than orphaning a word. */}
+                  {hero.headlineLit.map((line) => (
+                    <span key={line} className="inline md:block">
+                      {line}{" "}
+                    </span>
+                  ))}
                 </motion.span>
               </span>
             </h1>
 
-            <motion.p
-              className="t-body mt-[14px] max-w-[430px]"
-              initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.4 }}
-            >
-              {hero.sub}
-            </motion.p>
-
             <motion.div
-              className="mt-[26px]"
+              className="mt-[36px]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
             >
               <Button href={hero.cta.href}>{hero.cta.label}</Button>
             </motion.div>
@@ -170,9 +173,10 @@ export function Hero() {
             {hero.railLabel}
           </motion.p>
 
-          {/* Neutral marks by design. These are systems we read and write
-              through — not partners, not endorsements — so borrowing their
-              artwork would assert a relationship that does not exist. */}
+          {/* The products' own symbols, white on the photograph. They identify
+              what Peregrine connects to; the label above them keeps the claim
+              to what the reader already pays for rather than to a partnership
+              none of these companies has agreed to. */}
           <div className="mt-[10px] -mx-[24px] md:-mx-[40px]">
             <Marquee duration={44}>
               {hero.rail.map((name, i) => (

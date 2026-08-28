@@ -67,10 +67,6 @@ export const sources = {
     label: "Restaurant Booking System, AU pricing compared, 2026",
     href: "https://restaurantbookingsystem.com/compare/restaurant-booking-system-pricing/",
   },
-  sequoia: {
-    label: "Sequoia Capital, Services: The New Software",
-    href: "https://www.sequoiacap.com/article/services-the-new-software/",
-  },
 } as const;
 
 /* ------------------------------------------------------------------ *
@@ -91,11 +87,11 @@ export const brand = {
 export const nav = {
   links: [
     { label: "Home", href: "/" },
-    { label: "Platform", href: "/platform" },
+    { label: "The Floor", href: "/platform" },
     { label: "About Us", href: "/about" },
     { label: "Sign in", href: "/sign-in" },
   ],
-  cta: { label: "Join Waitlist", href: "/waitlist" },
+  cta: { label: "Book a session", href: "/waitlist" },
 };
 
 /* ------------------------------------------------------------------ *
@@ -145,25 +141,37 @@ export const agents = {
  * ------------------------------------------------------------------ */
 
 export const hero = {
-  /** Line one sets the argument, line two lands it. Line one renders dim. */
-  headlineDim: "Software sold you tools.",
-  headlineLit: "We do the work.",
-  sub: "Nine departments of your venue run between close and open. Suppliers, books, roster, marketing, bookings, the phone. Nothing sends until you approve it.",
-  cta: { label: "Join the waitlist", href: "/waitlist" },
+  /**
+   * Line one sets the argument, line two lands it. Line one renders dim.
+   *
+   * The rag is set here rather than left to the width of the box. Two reasons.
+   * At 70px the difference between four lines and five is about five pixels of
+   * column, so a box left to decide will decide differently on a different
+   * machine. And the photograph behind it has a television in the middle
+   * right: any line over about 570px runs into it and loses its last word.
+   * Every line here clears it.
+   */
+  headlineDim: ["Big companies never", "do their own admin."],
+  headlineLit: ["Now you don't", "either."],
+  cta: { label: "Book the first session", href: "/waitlist" },
   card: {
-    title: "Test out our platform",
-    meta: "// The overnight office",
+    title: "See a night run",
+    meta: "// 23:47 to 06:04, one venue",
     href: "/platform",
   },
   trust:
-    "Melbourne hospitality, retail and wellness. We run the after-close admin on the systems you already pay for.",
+    "Melbourne venues, studios and clinics. The work a head office does, without the head office.",
   bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.webp`,
   bgBack: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
   /**
-   * The connection rail. Neutral marks, never the real logos: these are
-   * systems we read and write through, not partners or endorsers. A name
-   * earns its place here by publishing an API as a matter of record. See
-   * consilium's `docs/research/api-and-mcp-audit.md`.
+   * The connection rail. A name earns its place here by publishing an API as a
+   * matter of record. See consilium's `docs/research/api-and-mcp-audit.md`.
+   *
+   * These carry the products' real symbols, in `components/ui/brand-marks.ts`.
+   * They are trademarks used to identify what we connect to, and the rail's
+   * label keeps the claim where it belongs: what you already pay for, not who
+   * endorses us. Nobody on this list has endorsed anything. Do not move these
+   * marks to a section that reads as a client list or a partner wall.
    */
   railLabel: "Runs on what you already pay for",
   rail: [
@@ -188,14 +196,14 @@ export const hero = {
 
 export const statement = {
   text:
-    "The admin does not stop when the doors do. Peregrine works the gap between close and open, so your morning starts with a short list instead of a pile.",
-  sub: "Nine departments run on the systems you already pay for. By the time you unlock the door, the orders are drafted, the takings are reconciled, the roster is costed, and the only thing waiting is what needs your call.",
+    "Everything runs itself. You still decide.",
+  sub: "The work happens between close and open. You arrive to a short list, not a pile.",
 
   cost: {
     value: 749,
     prefix: "$",
     caption:
-      "a month at the top of the range for a bookkeeper on a fixed package, before you have paid anyone to touch the roster, the socials or the phone.",
+      "a month for a bookkeeper on a fixed package. Before anyone has touched the roster, the socials or the phone.",
     source: "bookkeeping" as SourceKey,
   },
 
@@ -207,16 +215,29 @@ export const statement = {
   approval: {
     title: "Every department waits",
     caption:
-      "Anthropic tells agent builders to grant autonomy in proportion to demonstrated reliability. Ours starts at none and earns it one department at a time.",
+      "Autonomy in proportion to demonstrated reliability. Ours starts at none and earns it one department at a time.",
     source: "anthropic" as SourceKey,
   },
 
+  /**
+   * The worked example, in the form it leaves the product in.
+   *
+   * Same two price moves it has always carried, set as the supplier lines they
+   * would actually arrive as. The bread went back on order overnight because
+   * six percent is inside the tolerance. The tomatoes did not, because thirty
+   * four percent is a decision about a menu, and no department makes that one.
+   * The states carry that difference, so the card argues the mechanic and the
+   * saving at once without a sentence explaining either.
+   */
   worked: {
-    text:
-      "Sourdough up 6%. Tomatoes up 34%. We held the tomatoes, reordered the bread, and put the reason next to the number.",
+    label: "Worked example",
+    lines: [
+      { item: "Sourdough", move: "+6%", action: "Reordered overnight", state: "done" },
+      { item: "Tomatoes", move: "+34%", action: "Held for you", state: "needs" },
+    ],
     figure: "$614 and 9.5 hours in one month",
     attribution: "Modelled against a 40-cover Melbourne venue's July invoices.",
-  },
+  } as const,
 };
 
 /* ------------------------------------------------------------------ *
@@ -224,7 +245,7 @@ export const statement = {
  * ------------------------------------------------------------------ */
 
 export const ticker =
-  "Peregrine runs the after-close admin for Melbourne venues. Supplier prices watched and orders redrafted, takings reconciled to Xero, the roster costed against forecast covers, the phone answered through service, and a brief on the desk before you open.";
+  "Peregrine runs the overnight admin for Melbourne businesses. Orders redrafted, takings reconciled, roster costed, phone answered, brief on the desk before you open.";
 
 /* ------------------------------------------------------------------ *
  * The floors it runs on
@@ -247,7 +268,6 @@ export const roster = {
       href: "https://www.thepeacock.com.au/",
       trade: "Brunch room",
       where: "South Yarra",
-      note: "A 1930s weatherboard house on River Street, open seven days. Covers, walk-ins and a courtyard that fills the moment the sun does.",
     },
     {
       name: "Urban Provedore",
@@ -255,7 +275,6 @@ export const roster = {
       href: "https://www.instagram.com/urbanprovedore/",
       trade: "Cafe",
       where: "South Yarra",
-      note: "Coffee volume, a tight kitchen, and a supplier run where six per cent on a bread line is a real number by the end of the month.",
     },
     {
       name: "Mirror Arts Education",
@@ -263,7 +282,6 @@ export const roster = {
       href: "https://mirrorartsedu.com.au/",
       trade: "Performing arts school",
       where: "Surrey Hills",
-      note: "Drama, speech and music across two campuses, on a calendar that runs in terms rather than covers.",
     },
     {
       name: "Havenly Wellness & Head Spa",
@@ -271,7 +289,6 @@ export const roster = {
       href: "https://www.havenlywellnessheadspa.com.au/",
       trade: "Head spa & remedial",
       where: "Balwyn",
-      note: "One guest per room, one therapist at a time. A booking system that gets that wrong costs them the day.",
     },
   ],
 };
@@ -293,11 +310,9 @@ export const roster = {
 export const departments = {
   label: "Nine Departments",
   intro:
-    "Everything a venue runs on, inside the building and out. The people you buy from, the people who find you, the roster, the books, and the till.",
-  heading: "The whole venue, handled before you open.",
-  note:
-    "Nine departments. Most venues start with three and add the rest once they trust those three.",
-  cta: { label: "See the platform", href: "/platform" },
+    "Everything the business runs on, inside the building and out.",
+  heading: "Peregrine oversees your business 24/7.",
+  note: "",
   panelBgOpen: `${A}/qWpzthqQ4FGQWP39IeKgah1OP8.png`,
   panelBgClosed: `${A}/pEct5trUmjDYAblzuKYq2MpHaA.png`,
   panels: [
@@ -305,7 +320,7 @@ export const departments = {
       n: "001",
       art: "supply" as const,
       title: "Suppliers & Ordering",
-      body: "We watch prices across your suppliers every day. When a line moves, the order gets redrafted around it and the reason sits next to the number: tomatoes up 34%, hold or pay. Deliveries get checked against the invoice, and a short case gets chased before you notice it was short.",
+      body: "Prices watched daily. When a line moves, the order is redrafted and the reason sits next to the number.",
       runsOn: "Ordermentum · Fresho · your reps",
       waits: "Every order",
     },
@@ -313,7 +328,7 @@ export const departments = {
       n: "002",
       art: "books" as const,
       title: "Accounting & The Books",
-      body: "Card takings clear against Xero overnight. Invoices get chased, the payrun goes to STP, and what is left in the morning is the handful of lines that did not match. A bookkeeper on a fixed monthly package runs $249 to $749. Hourly in Melbourne is $65 to $90.",
+      body: "Card takings clear against Xero overnight. Invoices chased, payrun to STP, and whatever did not match flagged.",
       runsOn: "Xero · MYOB · the bank feed",
       waits: "Anything that pays",
     },
@@ -321,7 +336,7 @@ export const departments = {
       n: "003",
       art: "marketing" as const,
       title: "Marketing & Reputation",
-      body: "Posts, campaigns and review replies get written in your voice and queued. None of them send. You approve in one list instead of six apps, and what went out is logged with what it cost. A small social retainer in Australia runs $1,000 to $2,000 a month, with ad spend on top of that.",
+      body: "Posts, campaigns and review replies written in your voice and queued. You approve in one list, not six apps.",
       runsOn: "Instagram · Meta Ads · Google Business",
       waits: "Every post",
     },
@@ -329,7 +344,7 @@ export const departments = {
       n: "004",
       art: "reception" as const,
       title: "Reception & Enquiries",
-      body: "The phone gets answered through service, the inbox gets cleared overnight, and function quotes get drafted and held. Most calls are booking calls, which is the argument for reception sitting beside bookings rather than in a different product with a different login.",
+      body: "The phone answered through service, the inbox cleared overnight, enquiries and quotes drafted and held.",
       runsOn: "Your number · Gmail · the guest book",
       waits: "Anything unusual",
     },
@@ -337,7 +352,7 @@ export const departments = {
       n: "005",
       art: "web" as const,
       title: "Web & Business Profile",
-      body: "We build and host your site rather than renting it to you by the month, and your Google Business listing stays current from the same place: hours, holidays, photos, the public holiday you forgot to change. Those go stale without anyone noticing and cost you a Saturday.",
+      body: "We build and host your site. Your Google listing stays current from the same place, down to the public holiday you forgot.",
       runsOn: "Built by us · Google Business",
       waits: "Anything public",
     },
@@ -346,7 +361,7 @@ export const departments = {
       art: "bookings" as const,
       tag: "Ours",
       title: "Bookings",
-      body: "Owners resent bolting a third-party booking system onto the business, and the objection is the integration rather than the feature. Another login, another subscription, another system that half fits and talks to nothing. Ours is part of Peregrine instead, shaped around how your venue takes bookings. Flat-fee systems run $0 to $249 a month, and per-cover pricing is where volume hurts.",
+      body: "Part of Peregrine, shaped around how your business takes bookings. No extra login for anyone to learn.",
       runsOn: "Ours, inside Peregrine",
       waits: "Anything that moves a table",
     },
@@ -354,7 +369,7 @@ export const departments = {
       n: "007",
       art: "roster" as const,
       title: "The Roster",
-      body: "Drafted against forecast covers, availability and award rates, with labour shown as a share of what the day should take. It waits for you every week, because a roster is a promise to people. Hospitality sits among the Fair Work Ombudsman's highest-risk industries, and a roster you approved against rules you set is a record you can produce.",
+      body: "Drafted against forecast, availability and award rates, with labour shown as a share of the day.",
       runsOn: "The forecast · availability · award rates",
       waits: "Every week",
     },
@@ -362,7 +377,7 @@ export const departments = {
       n: "008",
       art: "admin" as const,
       title: "Admin & Compliance",
-      body: "Timesheets reconcile against the roster and the till. Certificates, permits and renewals get tracked before they lapse. Every action a department took sits on the log with what triggered it, what it cost, and who approved it, so a question a year from now has an answer.",
+      body: "Timesheets reconcile against the roster and the till. Permits and renewals tracked before they lapse.",
       runsOn: "Timesheets · permits · the log",
       waits: "Anything that renews",
     },
@@ -371,7 +386,7 @@ export const departments = {
       art: "till" as const,
       tag: "Read only",
       title: "The Till",
-      body: "Peregrine watches takings, terminal fees and what the card surcharge is costing you, and never writes back to the point of sale. It is the one department with no approval queue, because it never asks you for anything.",
+      body: "Watches takings, terminal fees and surcharges. Never writes back to the point of sale.",
       runsOn: "Your POS · the terminal feed",
       waits: "Nothing. It never asks",
     },
@@ -385,15 +400,11 @@ export const departments = {
 export const vision = {
   label: "Why we built it",
   text:
-    "Venues never needed another app. They needed the work done, and they needed to stay in charge of what went out the door.",
+    "Businesses never needed another app. They needed the work done, and they needed to stay in charge of what went out the door.",
   body:
-    "That is the whole design. Nine departments run overnight on the systems you already pay for, and each one stops and asks before it commits you to anything. Our About page covers the gap we are filling and why it is still open.",
-  cta: { label: "Read our story", href: "/about" },
-  scene: {
-    photo: "/scene/chapel-st.jpg",
-    caption: "Chapel Street, South Yarra",
-    sub: "Where the work starts",
-  },
+    "That is the whole design. Every department runs overnight on the systems you already pay for, and stops to ask before it commits you to anything.",
+  /** Under the vignette. Says what you are looking at, not what it means. */
+  caseCaption: "The floor before open. Handled work recedes. One thing has not.",
 };
 
 /* ------------------------------------------------------------------ *
@@ -402,8 +413,7 @@ export const vision = {
 
 export const stack = {
   mono:
-    "Peregrine runs on the systems your venue already pays for. Nothing gets ripped out and nothing gets migrated. The only thing we build from scratch is the one part nobody sells you properly.",
-  chip: { label: "See the platform", href: "/platform" },
+    "Peregrine integrates with the systems your business already runs on. One place for the work, however many places it comes from.",
   marks: ["Xero", "Square", "Deputy", "Ordermentum"],
   features: [
     {
@@ -420,7 +430,7 @@ export const stack = {
     },
     {
       icon: "lang",
-      body: "Nine departments. Take three, add the rest when you trust them.",
+      body: "Every department in one place. Nothing new for your staff to learn.",
     },
   ],
 };
@@ -447,10 +457,10 @@ export const platform = {
     { value: "06:04", label: "Brief on the desk before open" },
   ],
   close: {
-    heading: "Every step is on the log, with what it cost and why it ran.",
+    heading: "Every step is on the log, and every figure opens.",
     body:
       "Nothing here is a black box. Each department shows the systems it works through, the trail behind a decision, and the point where it stopped and asked.",
-    cta: { label: "Join the waitlist", href: "/waitlist" },
+    cta: { label: "Book the first session", href: "/waitlist" },
   },
 };
 
@@ -466,7 +476,6 @@ export const team = {
   heading: "A partner sits on your floor before a single department is switched on.",
   body:
     "No account managers and no delivery team between you and the people who build it. Whoever writes the rules for your Saturday roster has stood in your kitchen while it was full.",
-  cta: { label: "Our story", href: "/about" },
   panelTexture: `${A}/ssKw1Uch7OIVz4Suw9U15iwfys.jpg`,
   members: [
     {
@@ -474,21 +483,21 @@ export const team = {
       role: "Partner",
       photo: "/people/kayden.jpg",
       school: "Commerce, University of Melbourne",
-      does: "Sits with the owners, learns the floor, turns it into product.",
+      does: "Built and ran an ecommerce business to half a million in revenue. Marketing, margin, and the shape of a customer.",
     },
     {
       name: "Jason Ye",
       role: "Partner",
       photo: "/people/jason.jpg",
       school: "Mechanical Engineering (Hons) / Commerce, Monash",
-      does: "Builds the systems and keeps them honest.",
+      does: "Built the import side of a business supplying rising demand for Asian cultural goods. Builds the systems and keeps them honest.",
     },
     {
       name: "Thomas Dai",
       role: "Partner",
       photo: "/people/thomas.jpg",
       school: "Chemical Engineering, RMIT",
-      does: "Has taken a product to market before. Co-founded Iris, a B2B marketplace.",
+      does: "Took a product to market in the Netherlands. Before that, ran hospitality venues in China.",
     },
   ],
 };
@@ -502,7 +511,7 @@ export const faq = {
   intro:
     "The questions we get asked before anyone lets us near their books. Where an answer rests on a number, the number carries its source.",
   heading: "Everything an owner asks before they hand over the keys.",
-  cta: { label: "Join the waitlist", href: "/waitlist" },
+  cta: { label: "Book the first session", href: "/waitlist" },
   items: [
     {
       q: "What does it actually do in a normal week?",
@@ -553,20 +562,14 @@ export const faq = {
 
 export const about = {
   eyebrow: "About Us",
-  headlineDim: "Hospitality bought the software.",
-  headlineLit: "Nobody delivered the work.",
+  headlineDim: "More software was meant to mean less work.",
+  headlineLit: "It has never worked that way.",
   sub: "Peregrine Partners runs the after-close admin for Melbourne venues. This page carries the argument behind it: where the hours actually go, why nine good products still leave you working at eleven at night, and what we do about it.",
-  stats: [
-    { value: "9", label: "Departments, running overnight" },
-    { value: "06:04", label: "The brief lands before you open" },
-    { value: "0", label: "New logins for your staff to learn" },
-  ],
-
   gap: {
     label: "The gap",
     text:
       "A venue runs nine systems, nine logins and nine bills, and not one of them knows what the other eight did last night.",
-    body: "Ask an owner what they use and you will hear a list. A till, an accounting package, a rostering app, a booking system somebody sold them, a supplier portal per supplier, a Google listing, two social accounts and a bank feed. Every one of them is a good product. Together they are a full-time job nobody is paid to do, and it gets done at eleven at night by the person who can least afford the hour.",
+    body: "Big companies never touch their own admin. They have a floor of people, or a firm on retainer, and it is the reason they look organised from the outside. Everyone else buys the same software, hires a contractor for the parts they cannot face, and still finishes the job themselves after close.",
     facts: [
       {
         figure: "8–12 hrs",
@@ -586,19 +589,13 @@ export const about = {
     ],
   },
 
-  six: {
-    label: "Where the money goes",
-    heading: "The software is the small half of the bill.",
-    body: "Add up what a venue spends on the subscriptions and it is rarely the number that hurts. The number that hurts is what sits behind them: the bookkeeper, the agency and the ad spend on top of the agency, the hours an owner works after close because no product does the job end to end. Across the economy the ratio runs about six to one against software, and hospitality is worse than average because the margins are thinner and the compliance is heavier.",
-    quote:
-      "Every one of those nine products expects somebody in your building to drive it. That somebody is you, at eleven at night.",
-    bodyCite: "sequoia" as SourceKey,
-    split: [
-      { k: "$1", v: "The subscriptions", note: "Seats and licences. The tool you still have to drive." },
-      { k: "$6", v: "The work behind them", note: "The bookkeeper, the agency, the agency's ad spend, and the hours you do yourself after close." },
-    ],
-    after:
-      "Peregrine is priced against the second row, because that is the row it takes over. The subscriptions stay where they are.",
+  origin: {
+    label: "How we found it",
+    heading: "It started with a number nobody could give us.",
+    body: "We were in a cafe in South Yarra trying to count what the owner paid for software, and we lost track. Then we watched the manager step off the floor mid-service to check a booking, make two calls, and step back on. Nothing was broken. Every product worked. There was just nobody to run them.",
+    body2: "The gap was never a missing feature. It is that no product can act on your behalf across the other eight, so a person has to stand in the middle and translate. In a small business that person is the owner, after close. We are building the thing that stands there instead.",
+    photo: "/scene/counter.jpg",
+    photoCaption: "A counter at open. The one deadline that has never moved.",
   },
 
   why: {
@@ -622,14 +619,6 @@ export const about = {
         cite: "anthropic" as SourceKey,
       },
     ],
-  },
-
-  wedge: {
-    label: "The wedge",
-    photo: "/scene/counter.jpg",
-    photoCaption: "A counter at open. The one deadline that has never moved.",
-    heading: "The one part we refuse to integrate.",
-    body: "The same objection comes up in every first meeting, and it is never about features. Owners resent bolting a third-party booking system onto the business. Another login, another subscription, another system that half fits and talks to nothing. So ours is part of Peregrine instead, built around your venue, with nothing extra for your staff to learn. Every other department works through something you already pay for. That single difference is why a head spa seating one guest per room and an arts school counting terms can both run on the same platform, when neither of them fits a per-cover product at all.",
   },
 
   refuse: {
@@ -658,14 +647,14 @@ export const about = {
   people: {
     label: "The partners",
     heading: "The people who write your rules have worked a full room.",
-    body: "A partner runs the first session, sits through a service, and stays on the account. That is why the platform fits a brunch room, a head spa and a school on the same nine departments.",
+    body: "A partner runs the first session, sits through a service, and stays on the account. That is why the platform fits a brunch room, a head spa and a school without being rebuilt for each one.",
   },
 
   now: {
     label: "Where we work",
     heading: "Melbourne, and on your floor.",
     body: "The first session is a morning with your invoices, your roster and your till open in front of us. We take on new venues in small groups, because a partner sits on every floor we bring on and that is the part that makes it work.",
-    cta: { label: "Join the waitlist", href: "/waitlist" },
+    cta: { label: "Book the first session", href: "/waitlist" },
   },
 };
 
@@ -674,10 +663,10 @@ export const about = {
  * ------------------------------------------------------------------ */
 
 export const waitlist = {
-  eyebrow: "Join Waitlist",
-  heading: "Bring one month of invoices.",
-  sub: "We will run the same numbers on your venue that are modelled on this site, and show you where you are paying twice, where the hours go, and which three departments are worth starting with. Twenty minutes, no obligation, and no sales team to get past.",
-  departmentsLabel: "Which departments interest you?",
+  eyebrow: "The first session",
+  heading: "Bring one month of invoices. Leave with the number.",
+  sub: "We run the same numbers on your business that are modelled on this site, and show you where you are paying twice, where the hours go, and what a night of this would actually be worth. Twenty minutes, no cost, and no sales team to get past. You leave with the numbers whether or not you work with us.",
+  departmentsLabel: "Where does your week actually go?",
   departments: [
     "Suppliers & Ordering",
     "Accounting & The Books",
@@ -689,17 +678,17 @@ export const waitlist = {
     "Admin & Compliance",
     "Point of sale",
   ],
-  submit: "Join the waitlist",
+  submit: "Book the session",
   sending: "Sending",
   done: {
-    heading: "You're on the list.",
-    body: "A partner will be in touch, usually within a day or two. If it is urgent, the phone number in the footer is a real phone.",
+    heading: "We have got it.",
+    body: "A partner will be in touch to set a time, usually within a day or two. If it is urgent, the phone number in the footer is a real phone.",
   },
   error: "That did not send. Email us directly and we will pick it up from there.",
   aside: [
     { k: "Where", v: "Melbourne, and on your floor" },
     { k: "First session", v: "One morning, your invoices" },
-    { k: "Cost of the session", v: "Nothing" },
+    { k: "What it costs", v: "Nothing" },
   ],
 };
 
@@ -720,7 +709,7 @@ export const signIn = {
 
 export const footer = {
   blurb:
-    "The after-close admin, done. Nine departments run overnight on the systems you already pay for, and nothing sends until you approve it.",
+    "The work a head office does, without the head office. Nine departments run overnight on the systems you already pay for, and nothing sends until you approve it.",
   bg: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
   subscribeNote: "One note a month on what the departments learned. No pitch.",
   columns: [
@@ -728,7 +717,7 @@ export const footer = {
       title: "Site",
       links: [
         { label: "Home", href: "/" },
-        { label: "Platform", href: "/platform" },
+        { label: "The Floor", href: "/platform" },
         { label: "About Us", href: "/about" },
         { label: "Sign in", href: "/sign-in" },
       ],
@@ -743,7 +732,7 @@ export const footer = {
     {
       title: "Talk to us",
       links: [
-        { label: "Join the waitlist", href: "/waitlist" },
+        { label: "Book the first session", href: "/waitlist" },
         { label: brand.email, href: `mailto:${brand.email}` },
         { label: brand.phone, href: `tel:${brand.phone.replace(/\s/g, "")}` },
       ],

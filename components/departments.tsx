@@ -42,27 +42,10 @@ export function Departments() {
         <div className="mt-[52px] flex flex-col gap-[40px] lg:flex-row lg:items-end lg:justify-between lg:gap-[80px]">
           <Reveal delay={0.04} className="lg:max-w-[720px]">
             <h2 className="t-display text-white">{departments.heading}</h2>
-            {/* how many of the nine a venue actually starts with */}
-            <p
-              className="mt-[28px] max-w-[520px] uppercase text-white"
-              style={{
-                fontFamily: "var(--font-mono-ui), ui-monospace, monospace",
-                fontSize: 12,
-                lineHeight: "20.4px",
-                fontWeight: 200,
-              }}
-            >
-              {departments.note}
-            </p>
           </Reveal>
 
           <Reveal delay={0.1} className="lg:max-w-[420px] lg:shrink-0">
             <p className="t-body text-white">{departments.intro}</p>
-            <div className="mt-[32px]">
-              <Button href={departments.cta.href} variant="secondary" gap={32}>
-                {departments.cta.label}
-              </Button>
-            </div>
           </Reveal>
         </div>
 

@@ -45,13 +45,6 @@ export function Team() {
         <Reveal delay={0.06}>
           <p className="t-body max-w-[420px] text-white">{team.body}</p>
         </Reveal>
-        <Reveal delay={0.12}>
-          <div className="mt-[40px]">
-            <Button href={team.cta.href} variant="secondary" gap={30} minWidth={202}>
-              {team.cta.label}
-            </Button>
-          </div>
-        </Reveal>
       </div>
 
       <div className="mt-[50px] grid grid-cols-1 gap-[14px] sm:grid-cols-2 xl:grid-cols-3">

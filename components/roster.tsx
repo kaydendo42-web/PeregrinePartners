@@ -25,11 +25,11 @@ export function Roster() {
   return (
     <section id="roster" className="relative w-full bg-[color:var(--dark)]">
       <div
-        className="w-full bg-[color:var(--page)] pb-[196px]"
+        className="w-full bg-[color:var(--page)] pb-[120px] md:pb-[196px]"
         style={{ borderRadius: "0 0 20px 20px" }}
       >
         {/* display marquee */}
-        <div className="pt-[174px]">
+        <div className="pt-[110px] md:pt-[174px]">
           <Marquee duration={30}>
             <div className="flex shrink-0 items-center gap-[60px] pr-[60px]">
               <h2 className="t-marquee whitespace-nowrap" style={{ letterSpacing: "-0.04em" }}>
@@ -41,7 +41,7 @@ export function Roster() {
         </div>
 
         {/* the four */}
-        <div className="mx-auto mt-[46px] grid w-full max-w-[1440px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-4">
+        <div className="mx-auto mt-[46px] grid w-full max-w-[1674px] grid-cols-1 gap-x-[52px] gap-y-[33px] px-[24px] md:grid-cols-2 md:px-[56px] xl:grid-cols-4">
           {roster.clients.map((c, i) => (
             <Reveal key={c.name} delay={(i % 4) * 0.06}>
               <ClientCard {...c} />
@@ -59,23 +59,22 @@ function ClientCard({
   href,
   trade,
   where,
-  note,
 }: {
   name: string;
   logo: string | null;
   href: string;
   trade: string;
   where: string;
-  note: string;
 }) {
-  /* Four facts that hold for every floor. Branch counts and start dates would
-     say more, and they would also turn this row into a customer ledger, which
-     is not what it is. */
+  /* Two facts that hold for every floor: where it is, and that its bookings
+     are ours rather than bolted on. Branch counts and start dates would say
+     more, and they would also turn this row into a customer ledger, which is
+     not what it is. The two that used to sit under these, no logins added and
+     every action waits for you, are product claims rather than facts about a
+     floor, and the statement section above already makes both. */
   const stats = [
     { v: where, l: "Where" },
     { v: "Native", l: "Bookings" },
-    { v: "0", l: "Logins added" },
-    { v: "Every action", l: "Waits for you" },
   ];
 
   return (
@@ -91,7 +90,7 @@ function ClientCard({
     >
       {/* mark, resting on white */}
       <div
-        className="relative flex h-[302px] w-full items-start overflow-hidden p-[10px]"
+        className="relative flex h-[362px] w-full items-start overflow-hidden p-[10px]"
         style={{ background: "#fff", borderRadius: "19px 19px 10px 10px" }}
       >
         <span
@@ -115,7 +114,7 @@ function ClientCard({
             <motion.img
               src={logo}
               alt={name}
-              className="max-h-[110px] w-full max-w-[210px] object-contain"
+              className="max-h-[132px] w-full max-w-[252px] object-contain"
               variants={{ hover: { scale: 1.03 } }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             />
@@ -139,12 +138,6 @@ function ClientCard({
           >
             {name}
           </p>
-          <p
-            className="text-white/70"
-            style={{ fontSize: 13, lineHeight: "19px", fontWeight: 300 }}
-          >
-            {note}
-          </p>
         </motion.div>
       </div>
 
@@ -157,9 +150,9 @@ function ClientCard({
             style={{
               background: "#fff",
               borderRadius: 10,
-              padding: "14px 11px 15px 15px",
+              padding: "17px 13px 18px 18px",
               gap: 4,
-              minHeight: 72,
+              minHeight: 86,
             }}
           >
             <p

@@ -6,7 +6,6 @@ import { Roster } from "@/components/roster";
 import { Departments } from "@/components/departments";
 import { Vision } from "@/components/vision";
 import { Stack } from "@/components/stack";
-import { Team } from "@/components/team";
 import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 
@@ -30,7 +29,7 @@ export default function Home() {
 
         {/* announcement band, still on the light card */}
         <div className="bg-[color:var(--page)] px-[12px]">
-          <div className="section-card py-[6px]">
+          <div className="section-card py-[7px]">
             <Ticker />
           </div>
         </div>
@@ -47,24 +46,7 @@ export default function Home() {
           <Stack />
         </div>
 
-        <div
-          className="relative z-10 bg-[color:var(--page)] py-[7px]"
-          style={{ borderRadius: "0 0 20px 20px" }}
-        >
-          <Ticker />
-        </div>
-
-        {/* the second dark run: the three of us */}
-        <section
-          className="w-full bg-[color:var(--dark)]"
-          style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
-        >
-          <div className="flex flex-col items-start px-[24px] py-[140px] md:px-[40px] xl:pb-[200px] xl:pt-[200px]">
-            <Team />
-          </div>
-        </section>
-
-        <div className="bg-[color:var(--page)] py-[18px]">
+        <div className="relative z-10 bg-[color:var(--page)] py-[7px]">
           <Ticker />
         </div>
 

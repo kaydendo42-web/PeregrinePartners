@@ -17,7 +17,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  */
 export function Stack() {
   return (
-    <section id="stack" className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[60px]">
+    <section id="stack" className="w-full bg-[color:var(--dark)] px-[24px] py-[120px] md:py-[180px] md:px-[40px]">
       <div className="w-full">
         {/* top row */}
         <div className="flex flex-col items-start gap-[40px] lg:flex-row lg:items-center lg:justify-between">
@@ -34,11 +34,6 @@ export function Stack() {
             <SystemCluster />
           </Reveal>
 
-          <Reveal delay={0.14}>
-            <Button href={stack.chip.href} variant="secondary">
-              {stack.chip.label}
-            </Button>
-          </Reveal>
         </div>
 
         {/* feature grid */}

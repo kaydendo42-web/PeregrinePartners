@@ -104,8 +104,8 @@ export default function Platform() {
         </div>
 
         {/* closing band */}
-        <section className="w-full bg-[color:var(--dark)] px-[24px] py-[180px] md:px-[40px]">
-          <div className="mx-auto w-full max-w-[1360px]">
+        <section className="w-full bg-[color:var(--dark)] px-[24px] py-[120px] md:py-[180px] md:px-[40px]">
+          <div className="mx-auto w-full max-w-[1336px]">
             <Reveal>
               <h2 className="t-display max-w-[820px] text-white">{platform.close.heading}</h2>
             </Reveal>
