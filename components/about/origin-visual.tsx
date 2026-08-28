@@ -16,7 +16,7 @@ export function OriginVisual({
 
   return (
     <motion.figure
-      className="min-w-0"
+      className="about-origin-motion min-w-0"
       initial={reducedMotion ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
@@ -28,7 +28,7 @@ export function OriginVisual({
     >
       <motion.div
         data-about-origin-visual
-        className="relative aspect-[16/10] min-h-[300px] w-full overflow-hidden lg:aspect-[4/3] lg:min-h-[560px]"
+        className="about-origin-motion relative aspect-[16/10] min-h-[300px] w-full overflow-hidden lg:aspect-[4/3] lg:min-h-[560px]"
         style={{ borderRadius: "0 var(--r-card) var(--r-card) var(--r-card)" }}
         initial={reducedMotion ? false : { clipPath: "inset(0 0 0 18%)" }}
         whileInView={{ clipPath: "inset(0 0 0 0%)" }}
@@ -40,7 +40,7 @@ export function OriginVisual({
         }
       >
         <motion.div
-          className="absolute inset-0"
+          className="about-origin-motion absolute inset-0"
           initial={reducedMotion ? false : { scale: 1.055 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, amount: 0.18 }}
@@ -54,7 +54,7 @@ export function OriginVisual({
             src={src}
             alt=""
             fill
-            quality={88}
+            unoptimized
             sizes="100vw"
             className="object-cover object-center"
           />

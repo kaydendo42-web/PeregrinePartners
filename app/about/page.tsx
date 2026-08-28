@@ -161,7 +161,7 @@ export default function About() {
         */}
         <section id="origin" className="w-full bg-[color:var(--page)] px-[12px]">
           <div
-            className={DARK_BAND}
+            className="band py-[var(--block-gap)]"
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             <div className={MEASURE}>
@@ -366,8 +366,11 @@ export default function About() {
 
         {/* ── where we are, on light, and the door out ─────────────── */}
         <section id="now" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="band section-card py-[140px] md:py-[180px]">
-            <div className={`${MEASURE} flex flex-col justify-between gap-[50px] lg:flex-row lg:items-end`}>
+          <div className="band section-card py-[var(--block-gap)]">
+            <div
+              data-about-now
+              className={`${MEASURE} flex flex-col justify-between gap-[50px] lg:flex-row lg:items-end`}
+            >
               <div className="max-w-[640px]">
                 <SectionLabel label={about.now.label} ruleWidth={280} />
                 <Reveal delay={0.04}>

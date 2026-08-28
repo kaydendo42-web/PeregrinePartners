@@ -27,6 +27,7 @@ async function inspect(width, reducedMotion = false) {
     const origin = document.querySelector("[data-about-origin-visual]");
     const originImage = origin?.querySelector("img");
     const artPiece = art?.querySelector("[data-art-piece]");
+    const nowArt = document.querySelector("[data-about-now-art]");
     const all = [...document.querySelectorAll("body *")];
     const overflow = all
       .filter((element) => {
@@ -51,6 +52,7 @@ async function inspect(width, reducedMotion = false) {
       originReady: Boolean(
         originImage?.complete && (originImage.naturalWidth ?? 0) >= 1200,
       ),
+      nowArtFound: Boolean(nowArt),
       artOnRight:
         Boolean(hero && art) &&
         art.getBoundingClientRect().left >=
@@ -78,10 +80,12 @@ try {
   assert.equal(desktop.originFound, true, "the origin story must expose its editorial visual");
   assert.match(desktop.originSrc, /south-yarra-cafe/, "the origin story must use the new cafe image");
   assert.equal(desktop.originReady, true, "the origin image must load at editorial resolution");
+  assert.equal(desktop.nowArtFound, false, "the closing About block must not show the paper stack");
   assert.deepEqual(desktop.overflow, [], `desktop overflow: ${desktop.overflow.join(", ")}`);
 
   const mobile = await inspect(390);
   assert.equal(mobile.artFound, true, "the hero artwork must remain present on mobile");
+  assert.equal(mobile.nowArtFound, false, "the closing paper stack must stay removed on mobile");
   assert.equal(mobile.copyAboveArt, true, "mobile hero copy must stay above the art layer");
   assert.deepEqual(mobile.overflow, [], `mobile overflow: ${mobile.overflow.join(", ")}`);
 

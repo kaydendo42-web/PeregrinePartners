@@ -35,11 +35,11 @@ export function AboutHeroArt() {
   return (
     <div
       data-about-hero-art
-      className="pointer-events-none absolute bottom-[24px] left-[24%] right-[-18%] top-[30px] z-[1] opacity-[0.66] sm:left-[38%] sm:right-[-8%] md:bottom-[18px] md:left-[53%] md:right-[1%] md:top-[42px] md:opacity-95"
+      className="pointer-events-none absolute bottom-[24px] left-[24%] right-0 top-[30px] z-[1] opacity-[0.48] sm:left-[38%] md:bottom-[18px] md:left-[53%] md:right-[1%] md:top-[42px] md:opacity-95"
       aria-hidden="true"
     >
       <motion.div
-        className="absolute inset-[4%_7%_8%_5%] rounded-full border border-white/[0.07]"
+        className="about-motion-piece absolute inset-[4%_7%_8%_5%] rounded-full border border-white/[0.07]"
         initial={reducedMotion ? false : { opacity: 0, scale: 0.88 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={
@@ -53,7 +53,7 @@ export function AboutHeroArt() {
         <motion.div
           key={piece.clipPath}
           data-art-piece={index === 0 ? "" : undefined}
-          className="absolute inset-0"
+          className="about-motion-piece absolute inset-0"
           style={{ clipPath: piece.clipPath }}
           initial={
             reducedMotion
@@ -65,11 +65,7 @@ export function AboutHeroArt() {
                   rotate: piece.from.rotate,
                 }
           }
-          animate={
-            reducedMotion
-              ? { opacity: 1 }
-              : { opacity: 1, x: 0, y: 0, rotate: 0 }
-          }
+          animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
           transition={
             reducedMotion
               ? { duration: 0 }
@@ -89,7 +85,7 @@ export function AboutHeroArt() {
       ))}
 
       <motion.span
-        className="absolute bottom-[8%] right-[7%] top-[8%] w-px origin-top bg-white/[0.12]"
+        className="about-motion-piece absolute bottom-[8%] right-[7%] top-[8%] w-px origin-top bg-white/[0.12]"
         initial={reducedMotion ? false : { scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={

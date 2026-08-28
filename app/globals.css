@@ -180,6 +180,15 @@ body {
   html { scroll-behavior: auto; }
   .mark-chevron { animation: none; opacity: 0; }
   .mark-chevron[data-rest] { opacity: 1; }
+  .about-motion-piece,
+  .about-origin-motion {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  [data-about-origin-visual] {
+    clip-path: inset(0) !important;
+  }
 }
 
 /* Utility ------------------------------------------------------- */
