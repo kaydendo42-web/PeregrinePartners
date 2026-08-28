@@ -400,8 +400,8 @@ export const vision = {
     "Businesses never needed another app. They needed the work done, and they needed to stay in charge of what went out the door.",
   body:
     "That is the whole design. Every department runs overnight on the systems you already pay for, and stops to ask before it commits you to anything.",
-  /** Under the vignette. Says what you are looking at, not what it means. */
-  caseCaption: "The floor before open. Handled work recedes. One thing has not.",
+  /** Under the vignette. Names the picture and who is minding it. */
+  caseCaption: "Peregrine oversees the floor. The admin is done. One thing still needs you.",
 };
 
 /* ------------------------------------------------------------------ *
