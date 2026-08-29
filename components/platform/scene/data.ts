@@ -18,19 +18,67 @@ export type Task = {
   doneTime?: string;
 };
 
+/** What can stand on an island. Each has a component in scene/props.tsx. */
+export type PropKind =
+  | "desk" | "plant"
+  | "crate" | "pallet"
+  | "ledger" | "safe"
+  | "counter" | "pigeonhole" | "printer"
+  | "easel" | "lightstand" | "panel"
+  | "pegwall" | "clockpost"
+  | "hoststand" | "top";
+
+/** One object on an island, positioned relative to the island's centre. */
+export type Placement = {
+  kind: PropKind;
+  du: number;
+  dv: number;
+  label?: string;
+  own?: boolean;
+  /** Takes the department's hue on its top face. One or two per island. */
+  lit?: boolean;
+};
+
+/** The one tall thing each island is allowed. Named `VerticalSpec` because
+    `Vertical` is the component that draws it, in scene/props.tsx. */
+export type VerticalSpec = {
+  kind: "tower" | "arch";
+  du: number;
+  dv: number;
+  /** Height in px above the island top. */
+  h: number;
+};
+
+/** Which of the six 28px marks in scene/glyphs.tsx this department wears. */
+export type GlyphKey =
+  | "supply" | "books" | "marketing" | "reception" | "bookings" | "roster";
+
 export type Dept = {
   id: string;
   name: string;
+  /** The rack number this department carries on the home page. */
+  n: string;
+  glyph: GlyphKey;
+  /** Hue in degrees. Saturation is a CSS variable, never a per-dept value. */
+  hue: number;
   /** Which side the island's caption hangs off. Defaults to the front-left. */
   labelSide?: "e";
   /** Where the island sits, in grid units. */
   u: number;
   v: number;
-  /** Half-extent of the island top. */
-  size: number;
+  /** Half-extents of the island top. Islands are no longer square. */
+  w: number;
+  d: number;
+  /** Plinth height in px. There is no shared default. */
+  lift: number;
+  /** Which face the stair climbs. */
+  stair: "n" | "e" | "s" | "w";
+  vertical: VerticalSpec;
   own?: boolean;
+  /** The roster: what the panel and the phone cards count. */
   desks: { label: string; own?: boolean }[];
-  /** The systems this department works through, shown in the panel. */
+  /** What is drawn on the island. Not the same list as `desks`. */
+  layout: Placement[];
   stack: { label: string; own?: boolean }[];
   metrics: [string, string][];
   tasks: Task[];
@@ -183,9 +231,10 @@ export const DEPTS: Dept[] = [
   {
     id: "bookings",
     name: "Bookings",
-    u: 6.4,
-    v: 6.4,
-    size: 2.9,
+    n: "006", glyph: "bookings", hue: 12,
+    u: 6.1, v: 6.9, w: 3.2, d: 2.6, lift: 26,
+    stair: "n", vertical: { kind: "arch", du: -2.1, dv: -1.5, h: 34 },
+    layout: [],
     own: true,
     desks: [
       { label: "Enquiries", own: true },
@@ -263,10 +312,11 @@ export const DEPTS: Dept[] = [
   {
     id: "suppliers",
     name: "Suppliers & stock",
+    n: "001", glyph: "supply", hue: 150,
     labelSide: "e",
-    u: 7.8,
-    v: -0.6,
-    size: 2.4,
+    u: 8.4, v: -0.9, w: 2.6, d: 2.2, lift: 22,
+    stair: "w", vertical: { kind: "tower", du: 1.6, dv: -1.2, h: 40 },
+    layout: [],
     desks: [{ label: "Ordermentum" }, { label: "Fresho" }, { label: "Par levels" }],
     stack: [{ label: "Ordermentum" }, { label: "Fresho" }, { label: "Bidfood" }],
     metrics: [
@@ -322,9 +372,10 @@ export const DEPTS: Dept[] = [
   {
     id: "books",
     name: "The books",
-    u: 0.6,
-    v: -7.8,
-    size: 2.4,
+    n: "002", glyph: "books", hue: 232,
+    u: 0.9, v: -7.1, w: 2.2, d: 2.6, lift: 30,
+    stair: "s", vertical: { kind: "tower", du: -1.2, dv: -1.6, h: 46 },
+    layout: [],
     desks: [{ label: "Xero" }, { label: "Square" }, { label: "Bank feed" }],
     stack: [{ label: "Xero" }, { label: "MYOB" }, { label: "Square" }],
     metrics: [
@@ -365,9 +416,10 @@ export const DEPTS: Dept[] = [
   {
     id: "admin",
     name: "Admin",
-    u: -7.2,
-    v: -7.2,
-    size: 2.4,
+    n: "004", glyph: "reception", hue: 42,
+    u: -7.2, v: -7.2, w: 2.4, d: 2.4, lift: 16,
+    stair: "s", vertical: { kind: "arch", du: 1.4, dv: -1.4, h: 30 },
+    layout: [],
     desks: [
       { label: "Website", own: true },
       { label: "Email" },
@@ -431,9 +483,10 @@ export const DEPTS: Dept[] = [
   {
     id: "marketing",
     name: "Marketing",
-    u: -0.6,
-    v: 7.8,
-    size: 2.4,
+    n: "003", glyph: "marketing", hue: 28,
+    u: -1.1, v: 8.3, w: 2.8, d: 2.0, lift: 20,
+    stair: "n", vertical: { kind: "tower", du: -1.9, dv: 1.1, h: 36 },
+    layout: [],
     desks: [
       { label: "Instagram" },
       { label: "Meta Ads" },
@@ -491,9 +544,10 @@ export const DEPTS: Dept[] = [
   {
     id: "roster",
     name: "Rostering",
-    u: -7.8,
-    v: 0.6,
-    size: 2.4,
+    n: "007", glyph: "roster", hue: 196,
+    u: -7.8, v: 0.6, w: 2.0, d: 2.0, lift: 18,
+    stair: "e", vertical: { kind: "tower", du: 1.1, dv: -1.1, h: 32 },
+    layout: [],
     desks: [{ label: "Deputy" }, { label: "Award rates" }],
     stack: [{ label: "Deputy" }, { label: "Tanda" }],
     metrics: [

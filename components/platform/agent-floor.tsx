@@ -410,7 +410,7 @@ export function AgentFloor() {
 
             {/* islands, back to front so overlap stacks correctly */}
             {[...DEPTS]
-              .sort((a, b) => a.u + a.v - (b.u + b.v))
+              .sort((a, b) => a.u + a.w + a.v + a.d - (b.u + b.w + b.v + b.d))
               .map((d) => (
                 <g key={d.id} onClick={() => select(d.id)}>
                   <Island

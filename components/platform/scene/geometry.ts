@@ -1,4 +1,4 @@
-import type { Dept } from "./data";
+import type { Dept, Placement } from "./data";
 
 /* ------------------------------------------------------------------ */
 /* Geometry                                                            */
@@ -38,48 +38,69 @@ export function sideFaces(u: number, v: number, a: number, b: number, h: number)
 /* ------------------------------------------------------------------ */
 
 export const HUB = { size: 2.6, lift: 12 };
-export const ISLE_LIFT = 18;
-export const VIEW = { x: -690, y: -480, w: 1380, h: 985 };
+export const VIEW = { x: -581, y: -508, w: 1158, h: 962 };
+
+/** Projected bounds of every island including its vertical, plus padding. */
+export function sceneBounds(depts: Dept[], pad = 40) {
+  const xs: number[] = [];
+  const ys: number[] = [];
+  for (const d of depts) {
+    for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]] as const) {
+      const c = px(d.u + su * d.w, d.v + sv * d.d);
+      xs.push(c.x);
+      ys.push(c.y, c.y - d.lift - d.vertical.h);
+    }
+  }
+  const [x0, x1] = [Math.min(...xs) - pad, Math.max(...xs) + pad];
+  const [y0, y1] = [Math.min(...ys) - pad, Math.max(...ys) + pad];
+  return { x: Math.round(x0), y: Math.round(y0), w: Math.round(x1 - x0), h: Math.round(y1 - y0) };
+}
 
 /** Walkway endpoints: from the hub's edge to each island's near corner. */
-export function walkway(d: Dept) {
-  const len = Math.hypot(d.u, d.v);
+export function walkway(dept: Dept) {
+  const len = Math.hypot(dept.u, dept.v);
   const inner = (HUB.size + 0.4) / len;
-  const outer = (len - d.size - 0.4) / len;
-  const a = px(d.u * inner, d.v * inner);
-  const b = px(d.u * outer, d.v * outer);
+  // How far the island reaches along the line back to the hub.
+  const ext =
+    Math.abs(dept.u / len) * dept.w + Math.abs(dept.v / len) * dept.d;
+  const outer = (len - ext - 0.4) / len;
+  const a = px(dept.u * inner, dept.v * inner);
+  const b = px(dept.u * outer, dept.v * outer);
   return `M ${a.x} ${a.y - 4} L ${b.x} ${b.y - 4}`;
 }
 
-/** Desk positions on an island top, a loose two-column grid. */
-export function deskSpots(d: Dept) {
-  const cols = 2;
-  const gap = d.size * 0.82;
-  return d.desks.map((_, i) => {
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    const rows = Math.ceil(d.desks.length / cols);
-    return {
-      u: d.u + (c - (cols - 1) / 2) * gap,
-      v: d.v + (r - (rows - 1) / 2) * gap,
-    };
-  });
+/**
+ * A placement resolved onto the island, clamped inside its footprint.
+ *
+ * The old deskSpots() put the last row at 0.82 of the half-extent and Desk then
+ * drew its sitter 0.72 units further toward the camera, which on Bookings put
+ * both desks of the last row at 3.098 against a 2.9 bound, hanging over the
+ * ground. Everything drawn on an island goes
+ * through here, so that cannot happen again.
+ */
+export function place(dept: Dept, p: Placement) {
+  const mu = Math.max(0, dept.w - 0.8);
+  const mv = Math.max(0, dept.d - 0.8);
+  return {
+    u: dept.u + Math.max(-mu, Math.min(mu, p.du)),
+    v: dept.v + Math.max(-mv, Math.min(mv, p.dv)),
+  };
 }
 
 /**
- * Where the camera pushes in when a department is opened.
+ * How far the camera pushes in on a department.
  *
- * A `transform-origin` percentage keeps its own point fixed, which centres
- * nothing: an island near the edge of the plan scales straight off the canvas,
- * and Admin lost its top row that way. This maps the island's centre onto the
- * middle of the viewBox instead, so every department arrives framed the same.
+ * The old constant 1.45 was tuned against uniform 2.4 islands; a 3.2-wide
+ * Bookings overflows at that scale, so the zoom comes from the footprint.
  */
-export const ZOOM = 1.45;
-
-export function zoomTransform(d: Dept) {
-  const c = px(d.u, d.v);
-  const tx = VIEW.x + VIEW.w / 2 - ZOOM * c.x;
-  const ty = VIEW.y + VIEW.h / 2 - ZOOM * (c.y - 24);
-  return `translate(${tx} ${ty}) scale(${ZOOM})`;
+export function zoomFor(dept: Dept) {
+  return Math.min(1.55, (VIEW.w * 0.52) / ((dept.w + dept.d) * 2 * KX));
 }
 
+export function zoomTransform(dept: Dept) {
+  const z = zoomFor(dept);
+  const c = px(dept.u, dept.v);
+  const tx = VIEW.x + VIEW.w / 2 - z * c.x;
+  const ty = VIEW.y + VIEW.h / 2 - z * (c.y - 24);
+  return `translate(${tx} ${ty}) scale(${z})`;
+}
