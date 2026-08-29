@@ -2,8 +2,10 @@
 
 # Peregrine Partners
 
-Next.js 16 App Router, React 19, Tailwind v4, `motion`. Read `handoff/PICKUP.md`
-before touching anything. Every word on the site lives in `lib/content.ts`.
+Next.js 16 App Router, React 19, Tailwind v4, `motion`. This file is the
+handoff; the `handoff/` notes it used to point at are gone, and only
+`handoff/art-reference/` survives. Every word on the site lives in
+`lib/content.ts`.
 
 ## The positioning, in one line
 
@@ -109,9 +111,10 @@ Kayden's call the whole thing came out on 2026-08-29 in favour of this original.
 Deleted with it: `components/platform/floor/`, `app/platform/fonts.ts`,
 `public/floor-plate.png`, the `shoot-states` / `shoot-plate` / `acceptance`
 scripts, and the `three` + `@react-three/*` dependencies. `handoff/art-direction.md`
-stays as the record of that build. **It no longer describes any code. Do not
-build against it.** Recover the r3f source from git at `938b4fc..378f6b5` if it
-is ever wanted back.
+described that build and has since been deleted too; read it from git at
+`378f6b5` if the reasoning is ever wanted. **Nothing in it describes any code
+now. Do not build against it.** Recover the r3f source from git at
+`938b4fc..378f6b5` if it is ever wanted back.
 
 The frame around the Floor is still a seam: it keeps its own type and its zero
 radii, and the site keeps its 20px radii and shadows. Do not propagate either way.
