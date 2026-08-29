@@ -22,15 +22,23 @@ export function Footer() {
   return (
     <footer
       id="footer"
-      className="sticky bottom-0 z-0 flex min-h-[760px] w-full flex-col justify-end overflow-hidden bg-[#0d1410] md:min-h-[1140px]"
+      className="relative bottom-0 z-0 flex min-h-[760px] w-full flex-col justify-end overflow-hidden bg-[#0d1410] pt-[100px] md:min-h-[1140px] md:pt-0 lg:sticky"
     >
       <div className="pointer-events-none absolute inset-0">
         <img src={footer.bg} alt="" aria-hidden className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(8,18,10,0.28)" }} />
       </div>
 
-      <div className="band-bleed relative z-10 w-full pb-[40px] md:pb-[113px]">
-        <div className="measure flex flex-col gap-[60px] lg:flex-row lg:justify-start lg:gap-[262px]">
+      {/*
+        This block sits flush to the footer's bottom edge, and the footer's
+        bottom edge is the viewport's, so its top always lands at the viewport
+        height minus its own height. Padding cannot move it down: the only way
+        to keep it clear of the fixed nav on a short screen is for it to be
+        shorter there. Hence the viewport-relative clamps below and on the
+        wordmark, which are the two places the block spends most of its height.
+      */}
+      <div className="band-bleed relative z-10 w-full pb-[clamp(28px,4svh,40px)] md:pb-[clamp(40px,9svh,113px)]">
+        <div className="measure flex flex-col gap-[clamp(32px,6svh,60px)] lg:flex-row lg:justify-start lg:gap-[262px]">
           {/* brand block */}
           <div className="w-full max-w-[400px]">
             <p className="t-body-sm text-white">{footer.blurb}</p>
@@ -128,7 +136,7 @@ export function Footer() {
         <motion.img
           src={brand.wordmarkSrc}
           alt={brand.full}
-          className="mt-[40px] h-[150px] w-auto object-contain object-left md:h-[300px]"
+          className="mt-[clamp(20px,4svh,40px)] h-[clamp(74px,15svh,150px)] w-auto object-contain object-left md:h-[clamp(120px,26svh,300px)]"
           style={{ filter: "brightness(0) invert(1)" }}
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}

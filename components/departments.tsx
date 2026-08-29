@@ -30,10 +30,18 @@ export function Departments() {
   const [active, setActive] = useState(0);
 
   return (
-    <section
-      id="departments"
-      className="band-bleed w-full bg-[color:var(--dark)] pb-[120px] pt-[200px] md:pb-0 xl:pt-[250px]"
-    >
+    /*
+      This used to open home's full-bleed dark run, so it carried a 250px top
+      and no bottom: the sections below it shared its ground. It sits on
+      `/platform` now, directly under the demo and on its own, so it is a card
+      inside the page gutter like every other dark band on the site, and its
+      rhythm is the site's `--block-gap` rather than a pair of literals.
+    */
+    <section id="departments" className="w-full bg-[color:var(--page)] px-[12px] pt-[12px]">
+      <div
+        className="band py-[var(--block-gap)]"
+        style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
+      >
       <div className="measure flex flex-col">
         <SectionLabel label={departments.label} tone="dark" ruleWidth={900} />
 
@@ -241,6 +249,7 @@ export function Departments() {
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );

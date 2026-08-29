@@ -7,6 +7,21 @@ paths:
 
 # ART DIRECTION — READ BEFORE WRITING ANY UI CODE
 
+> ## ⚠ Dead document. Kept as a record only.
+>
+> The Floor was built to this spec in react-three-fiber, taken back off it when
+> the Monument Valley reading made the product feel gamified, and then **the
+> whole r3f build was deleted on 2026-08-29** in favour of the original
+> isometric SVG floor, `components/platform/agent-floor.tsx`.
+>
+> **Nothing below describes any code in this repository.** There is no
+> `components/platform/floor/`, no `palette.ts`, no `kit.tsx`, and no
+> `acceptance.mjs` to enforce §0 or §11. Do not build against this file and do
+> not restore the mint, the case or the massing from it.
+>
+> `CLAUDE.md` and `handoff/PICKUP.md` carry the current position. The deleted
+> r3f source is in git at `938b4fc..378f6b5` if the look is ever revisited.
+
 Six reference images are attached. They are the specification, not inspiration. Where this document and your instincts disagree, this document wins. Where this document and the images disagree, the images win.
 
 Reference key:

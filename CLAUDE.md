@@ -66,8 +66,10 @@ page with a 60-word budget. If an asset has no reason to be on the page and no
 substitute suggests itself, delete it rather than forcing one in.
 
 **One CTA per screen, at most.** The nav button follows the reader down the page,
-so repeating "Book the first session" in every section is noise. Home carries it
-in the hero and again at the FAQ. Nowhere else.
+so repeating "Book the first session" in every section is noise. Home now carries
+it only at the FAQ: the hero's button came out on Kayden's call, along with the
+trust line under it, leaving the headline and the one card a reader can go and
+use. Nowhere else.
 
 ## Design system
 
@@ -75,48 +77,44 @@ in the hero and again at the FAQ. Nowhere else.
 the reference at 1440px, so do not eyeball changes.
 
 - Surfaces `#ffffff` page, `#f0f0f0` light card, `#1a1a1a` dark, `#242424` raised
-- Shell: 12px page gutter, 20px card radius, 40px inner padding, 180px block rhythm
+- Shell: 12px page gutter, 20px card radius, 20px inner padding, 120/190 block rhythm
 - Type: 70 hero / 56 statement / 54 display / 20 card title / 16 body / 15 small / 12 mono
 - Buttons: 16px radius, 3px shell padding, 65x59 icon slot at 14px radius
 - Fonts: Inter, Geist Mono, Jaini for the language ticker
 
 **Known drift.** `--inset` and `--pad-x` are wired up and every section of `/`
 and `/about` is on them, through the `band`, `band-bleed` and `measure`
-utilities. `--block-gap` is not: every section still types its own `py` and they
-range 120 to 250. When you touch a section, move it onto the token rather than
-adding another literal. `docs/research/scratch/measure-edges.mjs` is the check.
+utilities. `--block-gap` is wired now too, at 120 phone / 190 desktop, and
+`/about` and `/platform` are fully on it. **Home is not**: its sections still
+type their own `py`, including two deliberate 250 openings where the dark run
+starts. When you touch a section, move it onto the token rather than adding
+another literal. `docs/research/scratch/measure-edges.mjs` checks the left edge
+and `measure-rhythm.mjs` checks the vertical.
 
 **Two devices carry the site.** The three states (Needs you / Watching / Done)
 are told apart by weight and never by colour. The departments run 001 upward
-across one rack. On the Floor the same three states are told apart by depth
-instead, which is the same rule in that world's language: coral advances,
-drained recedes, and there is no legend anywhere on the screen.
+across one rack. On the Floor the same three states carry a
+legend of their own, in weight and never in colour, on the same rule.
 
-## The Floor art direction
+## The Floor
 
-`/platform` is built to a separate, deliberate visual language: a Monument
-Valley style isometric diorama in react-three-fiber, in
-`components/platform/floor/`. The spec is authoritative and lives in
-`handoff/art-direction.md` with its six reference images. It is not a mood
-board. Read it before writing any Floor code, and run
-`node docs/research/scratch/acceptance.mjs` before calling a screen done: it
-decides §11's checks 4 and 7 and every §0 prohibition, and prints the three
-that need a human looking at the pictures.
+`/platform` opens on the Floor, an isometric SVG model of a morning, in
+`components/platform/agent-floor.tsx`, with `app/platform.css` for its styles.
+Six departments as islands you click into, the venue as the hub in the middle
+that you step inside, and the morning brief down the right.
 
-Two deviations from the spec are deliberate and documented at the point they
-happen. The ground is the site's `--light` rather than §3's mint sky, on
-Kayden's call (`floor/palette.ts` says what still satisfies §3 and §6). The
-accent goes on a selected building's crown rather than its whole roof, because
-§4's rule is written for a table and a roof breaks check 4's 3% ceiling.
+**The react-three-fiber build is gone.** It was ported to r3f against
+`handoff/art-direction.md` as a Monument Valley diorama, then flattened, and on
+Kayden's call the whole thing came out on 2026-08-29 in favour of this original.
+Deleted with it: `components/platform/floor/`, `app/platform/fonts.ts`,
+`public/floor-plate.png`, the `shoot-states` / `shoot-plate` / `acceptance`
+scripts, and the `three` + `@react-three/*` dependencies. `handoff/art-direction.md`
+stays as the record of that build. **It no longer describes any code. Do not
+build against it.** Recover the r3f source from git at `938b4fc..378f6b5` if it
+is ever wanted back.
 
-`public/floor-plate.png` is what a phone gets instead of the scene, and it is a
-render of the scene. Re-run `docs/research/scratch/shoot-plate.mjs` after
-changing anything in the Floor, or the two drift.
-
-The clash with the site's design system is intentional. The Floor is a case you
-look into, not a page you read, and the frame is the seam. Do not propagate its
-palette, its type (Jost/Karla) or its zero radii into the rest of the site, and
-do not propagate the site's 20px radii and shadows into it.
+The frame around the Floor is still a seam: it keeps its own type and its zero
+radii, and the site keeps its 20px radii and shadows. Do not propagate either way.
 
 ## Using Codex
 
@@ -125,8 +123,6 @@ mechanical rather than judgement-heavy, and when a second opinion is cheap:
 
 - Bulk mechanical refactors, for example moving every hardcoded `px-[40px]` onto
   `var(--pad-x)` across 20 files. Give it the exact list from the audit.
-- Porting the Floor to react-three-fiber against `handoff/art-direction.md`,
-  which is a long spec-following job with pass/fail acceptance checks.
 - A second read on a bug that has survived two attempts here.
 
 Keep here: anything touching copy, positioning, or what goes on which page.
@@ -141,8 +137,6 @@ without a copy review against the budgets.
 npm run dev     # localhost:3000
 npm run build   # production
 node docs/research/shoot-tiles.mjs [path] [width]   # screenshot a page per screen
-node docs/research/scratch/shoot-states.mjs         # the Floor, in each of its states
-node docs/research/scratch/acceptance.mjs           # the Floor against art-direction §11
 ```
 
 `docs/research/align.py` is the tool that matters for rhythm: it joins reference

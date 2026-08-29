@@ -3,7 +3,6 @@ import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { Ticker } from "@/components/ticker";
 import { Roster } from "@/components/roster";
-import { Departments } from "@/components/departments";
 import { Vision } from "@/components/vision";
 import { Stack } from "@/components/stack";
 import { Faq } from "@/components/faq";
@@ -42,12 +41,16 @@ export default function Home() {
 
         <Roster />
 
-        {/* the dark run: the nine departments → why → the stack it runs on */}
+        {/* the dark run: why → the stack it runs on */}
+        {/*
+          The nine departments used to open this run. They are on `/platform`
+          now, under the demo that shows them working, because home sells the
+          promise and touring the product is the other page's job.
+        */}
         <div
           className="bg-[color:var(--dark)]"
           style={{ borderRadius: "0 0 20px 20px", overflow: "clip" }}
         >
-          <Departments />
           <Vision />
           <Stack />
         </div>

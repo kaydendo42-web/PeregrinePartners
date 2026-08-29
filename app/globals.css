@@ -37,9 +37,25 @@
   --pad-x: 20px;           /* horizontal padding inside a section card */
   --pad-x-sm: 12px;        /* the same, on a phone */
   --measure: 1600px;       /* widest the content inside that padding gets */
-  --block-gap: 180px;      /* vertical rhythm. NOT WIRED UP: every section
-                              still types its own py, and they range 120 to
-                              250. See the audit in handoff/PICKUP.md. */
+  /*
+    Vertical rhythm, measured off the home page rather than chosen. Home's
+    body sections land on 120 at phone width (statement, stack, faq, roster)
+    and cluster at 180/190/192/196 on desktop. So the token is 120/190 and a
+    section that types anything else is claiming an exception.
+
+    It has a breakpoint because a flat value cannot be the rhythm of a site
+    whose every other spacing step has one: 180px is right on a desktop and
+    the heaviest block on the site at 390px.
+
+    /about is fully on this. Home is not yet: its sections still type their
+    own py, including two deliberate 250 openings where the dark run starts.
+    See handoff/PICKUP.md.
+  */
+  --block-gap: 120px;
+}
+
+@media (min-width: 768px) {
+  :root { --block-gap: 190px; }
 }
 
 @theme inline {

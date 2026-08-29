@@ -153,14 +153,11 @@ export const hero = {
    */
   headlineDim: ["Big companies never", "do their own admin."],
   headlineLit: ["Now you don't", "either."],
-  cta: { label: "Book the first session", href: "/waitlist" },
   card: {
     title: "See a night run",
     meta: "// 23:47 to 06:04, one venue",
     href: "/platform",
   },
-  trust:
-    "Melbourne venues, studios and clinics. The work a head office does, without the head office.",
   bgFront: `${A}/PXNhr4LbXoJRWLAHfzNTYjvdR5Y.webp`,
   /**
    * The connection rail. A name earns its place here by publishing an API as a

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Button } from "./ui/button";
 import { Marquee } from "./ui/motion-primitives";
 import { ClientMark } from "./ui/client-mark";
 import { FloorCard } from "./art/floor-card";
@@ -23,6 +22,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * `svh` rather than `vh` because on a phone `vh` is the height with the
  * browser chrome retracted, so the rail sits under the address bar until the
  * reader scrolls.
+ *
+ * There is no button here. The nav's own follows the reader down the whole
+ * page and home asks again at the FAQ, so the hero states the argument and
+ * offers the one thing on the page a reader can go and use: the card.
  */
 export function Hero() {
   return (
@@ -93,15 +96,6 @@ export function Hero() {
                 </motion.span>
               </span>
             </h1>
-
-            <motion.div
-              className="mt-[36px]"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
-            >
-              <Button href={hero.cta.href}>{hero.cta.label}</Button>
-            </motion.div>
           </div>
 
           {/* the platform card — the one thing on this page you can go and use */}
@@ -186,19 +180,10 @@ export function Hero() {
         <div className="relative">
           <div className="measure">
             <motion.p
-              className="t-label max-w-[420px] text-white"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
-            >
-              {hero.trust}
-            </motion.p>
-
-            <motion.p
-              className="t-mono-xs mt-[16px] font-mono uppercase text-white/50"
+              className="t-mono-xs font-mono uppercase text-white/50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
             >
               {hero.railLabel}
             </motion.p>

@@ -89,7 +89,7 @@ export function Nav() {
 
         {/* right action */}
         <div className="pointer-events-auto hidden sm:block">
-          <Button href={nav.cta.href} variant="small">
+          <Button href={nav.cta.href} variant="small" slide>
             {nav.cta.label}
           </Button>
         </div>
@@ -117,7 +117,7 @@ export function Nav() {
             </li>
           ))}
           <li className="pt-[6px] sm:hidden">
-            <Button href={nav.cta.href} variant="small">
+            <Button href={nav.cta.href} variant="small" slide>
               {nav.cta.label}
             </Button>
           </li>

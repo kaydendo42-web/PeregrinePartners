@@ -5,106 +5,42 @@ Say **"read the pickup file"** and start at the top. Written for a cold session.
 Positioning, copy budgets, design tokens and the Codex policy are in `CLAUDE.md`.
 Read that first. This file is only the queue.
 
-**State:** `/platform` has been rebuilt to `handoff/art-direction.md`. The Floor
-is react-three-fiber now and lives in `components/platform/floor/`. Home, About
-and the site-wide edge work from the previous session are unchanged except that
-the horizontal padding was halved. Typecheck, lint (0 errors, 5 pre-existing
-`<img>` warnings) and `npm run build` all pass. Nothing committed.
+**State:** `/platform` is back on the original agent floor, the isometric SVG in
+`components/platform/agent-floor.tsx`. The react-three-fiber rebuild has been
+deleted entirely (2026-08-29, Kayden's call). Home, About and the site-wide edge
+work from the previous session are unchanged except that the horizontal padding
+was halved. Typecheck and `npm run build` pass.
 
 ---
 
-## The Floor, as built
+## The Floor
 
-`components/platform/agent-floor.tsx` is gone. What replaced it:
+`components/platform/agent-floor.tsx` is the whole thing, one file, with
+`app/platform.css` for its styles. Six departments drawn as isometric islands
+you click into, the venue as the hub at the centre that you step inside, and the
+morning brief docked down the right. Below 810px it becomes the department cards
+as a list, which is the same product at phone scale, not a fallback.
 
-| File | What it is |
-|---|---|
-| `floor/palette.ts` | §2 and §3. Every derived value is computed from the spec's hexes, never eyedropped. |
-| `floor/kit.tsx` | §5's parts, and `applyFaceValues`, which is the one idea to understand first. |
-| `floor/scene.tsx` | The world: case, venue, ring, camera, rotation, pan. |
-| `floor/index.tsx` | State, and the docked column of §8. |
-| `floor/chrome` → `floor.css` | §8's type, panels, buttons and layout, all scoped under `.mv`. |
-| `floor/data.ts` | The morning, lifted unchanged from the old floor. Change the art, not the facts. |
-| `floor/curtain.tsx` | The white-to-demo transition. |
-| `app/platform/fonts.ts` | Jost and Karla, loaded from the route so they cannot leak site-wide. |
+Its heading and sub ("Everything that ran while you were closed.") came out on
+Kayden's call; the live-demo badge and the three-state legend hold the top edge
+alone now.
 
-**`applyFaceValues` is the load-bearing idea.** There are no lights, so light is
-assigned: the function buckets every triangle of a geometry by which way it
-faces and rewrites the material groups, so any geometry at all takes
-`[top, left, right]` in three draw calls. That is what makes §2 hold across
-boxes, twelve-sided tables, extruded arches and domes rather than only across
-boxes. Rotations must be baked into the geometry, never set on the mesh, or the
-buckets describe the wrong faces. Every kit primitive takes `rotateY` for this.
-
-**What the reader can do.** Drag the room to turn it, and it snaps to the
-nearest quarter on release (§1 allows rotating the floor plan and forbids free
-orbit; this is the first). Arrow keys do the same from the keyboard. Click an
-island and the camera flies to its working edge, where the desks, the people at
-them and the system each one works through become visible. Click into the venue
-and the ring falls away while the camera comes in, and the service clock starts
-at 19:40, which is the hour the room says most.
-
-### Decisions taken, with the reasoning
-
-- **The case is around the venue, not around the world.** §10 says *"the room
-  sits inside a thin frame"*. The first pass read it as a tray under everything,
-  built a 23-unit stone plate, and lost the look: every surface was the same
-  pale value and the plate's two dead corners ate a third of the viewport.
-  Reference 4 has no ground plane at all.
-- **Three posts, not four.** A square case seen down this axis puts one corner
-  dead centre-front, and a post there stands through the middle of the room.
-- **The room turns inside a case that is held still.** Turning the world instead
-  swings the far lintels across the room, and changes the ring's silhouette by
-  three units so the camera has to be fitted for the worst quarter.
-- **The ring is on one radius, turned 20° off the layout's own bearings.** The
-  old layout put an island on each world diagonal, and the back diagonal
-  projects to dead centre behind the venue's tower, so Admin was never visible.
-- **The accent is on the crown, not the roof.** §4 says the selected object's
-  top face takes the accent, which is right for a table and wrong for a
-  building: a whole roof is 4–5% of the frame at focus zoom against check 4's
-  3% ceiling. It is on the crenellation and the dome, and measures 0.73%.
-- **The ground is the site's `--light`, not §3's mint.** Kayden's call. The
-  reasoning and what still satisfies §3 and §6 is written at the top of
-  `floor/palette.ts`. Do not put the gradient back without asking.
-- **A phone gets a still and the brief, not the diorama.** `public/floor-plate.png`
-  is a render of this same scene from
-  `docs/research/scratch/shoot-plate.mjs`. **Re-run that script after any change
-  to the scene**, or the two drift.
-
-### The tools
-
-```bash
-node docs/research/scratch/shoot-floor.mjs 1440 900 out.png   # one shot
-node docs/research/scratch/shoot-states.mjs                   # rest / selected / inside / turned
-node docs/research/scratch/shoot-plate.mjs                    # regenerate the mobile still
-node docs/research/scratch/acceptance.mjs                     # §11, the machine-checkable four
-```
-
-`acceptance.mjs` decides checks 4 and 7 and every §0 prohibition, and prints the
-three that need a human looking at the pictures. All four machine checks pass as
-of this session.
-
----
+**The react-three-fiber build is deleted.** `components/platform/floor/`,
+`app/platform/fonts.ts`, `public/floor-plate.png`, the `shoot-states` /
+`shoot-plate` / `acceptance` scripts, and the `three` + `@react-three/*`
+dependencies all came out with it. `handoff/art-direction.md` stays only as the
+record of that build: **it describes no code any more, so do not build against
+it.** The source is in git at `938b4fc..378f6b5` if it is ever wanted back.
 
 ## 1. What is left on the Floor
 
-1. **The venue's interior is thinner than the ring.** Tables, chairs, paving and
-   the phone log are there, but the room has no pass, no bar and no service
-   flow, and the banquettes read as planks. It is the screen a reader spends
-   longest on.
-2. **Only the venue's own state animates.** Approving a decision changes the
-   panel and resolves the enquiry, but the island does not visibly drain from
-   coral back into the architecture. That transition is the product's whole
-   claim made spatially and it is currently only made in the panel.
-3. **The other five departments have no state mapping of their own.** They
-   inherit "anything waiting makes the island advance", which is right but
-   generic. The old handoff's warning stands: decide the mapping per department
-   before building more of them, or they drift apart.
-4. **`STATE_LIFT` in `palette.ts` is defined and unused.** It was going to
-   reinforce the depth reading in geometry as well as in value. Either wire it
-   into the island rest height or delete it.
-5. **The desks are only drawn on the selected island.** Reasonable, but it means
-   the resting floor shows architecture with nobody in it.
+1. **The other five departments have no state mapping of their own.** They
+   inherit "anything waiting makes the card advance", which is right but
+   generic. Decide the mapping per department before building more of them, or
+   they drift apart.
+2. **Only the two waiting decisions animate on approval.** The brief resolves,
+   but nothing on the island itself visibly settles. That transition is the
+   product's whole claim made spatially and it is currently only made in the panel.
 
 ## 2. The rest of the site
 
@@ -113,8 +49,19 @@ of this session.
   for every section of `/` and `/about` (`docs/research/scratch/measure-edges.mjs`).
   Above about 1632px the inset is set by `--measure: 1600px` instead, so nothing
   moved there. Kayden was told; widening the cap is still open.
-- `--block-gap` is still not wired: every section types its own `py` and they
-  range 120 to 250. Good Codex job, and the last piece of the old 2.3.
+- **`--block-gap` is wired now, and it has a breakpoint: 120 phone / 190
+  desktop.** Measured off home rather than chosen: home's body sections land on
+  120 at 390 and cluster at 180/190/192/196 at 1440. `/about` and `/platform`
+  are fully on it, so every band on both pages is one rhythm. **Home is not.**
+  Its sections still type their own `py`, including two deliberate 250 openings
+  where the dark run starts, and moving them is the last piece of the old 2.3.
+  `docs/research/scratch/measure-rhythm.mjs` prints per-band padding and the
+  measure edges for both pages; `measure-edges.mjs` is still the horizontal one.
+- **Watch `section-card` with a `bg-*` utility.** `.section-card` sets
+  `background: var(--surface)` in `globals.css` and, authored after the Tailwind
+  import at equal specificity, it beats the utility. `/platform`'s closing band
+  had shipped white type on `#f0f0f0` that way. Dark cards carry their fill as
+  an inline style everywhere else on the site; keep it that way.
 - `agents.heading` on the home page still says "Nine agents on the floor", which
   is the count claim wearing a different noun. Left alone deliberately: it is a
   copy decision, not a rule fix.

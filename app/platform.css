@@ -996,6 +996,10 @@
     padding: 24px 20px 12px;
   }
 
+  /* The heading and its sub came out, so the legend is on its own and holds
+     the right edge by itself. */
+  .floor__legendwrap { margin-left: auto; }
+
   .floor__scene svg { display: block; }
 
   .floor__zoomout { display: inline-flex; }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Ticker } from "@/components/ticker";
 import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
 import { Cite } from "@/components/ui/cite";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Reveal, ScrollHighlightText } from "@/components/ui/motion-primitives";
@@ -40,10 +39,14 @@ export const metadata: Metadata = {
  * here has already been sold to once, and the change of ground is the fastest
  * way to say this page is doing something else.
  *
- * The order is the argument: the gap, how we found it, why it is open now, the
- * rules we hold to, who holds them, where we work. No product stats and no
- * pricing band, because both of those are the home page's job and neither of
- * them is what a reader came to this page for.
+ * The order is the argument: the gap, how we found it, the rules we hold to,
+ * and who holds them. No product stats and no pricing band, because both are
+ * the home page's job and neither is what a reader came to this page for.
+ *
+ * Two beats came out on Kayden's call: "why now", which argued the market, and
+ * "where we work", which was the closing door. The page ends on the three of us
+ * now, and the only way on is the nav's own button, which follows the reader
+ * the whole way down.
  *
  * Every band, dark or light, is a card inside the 12px page gutter. The dark
  * ones used to run full bleed with a radius set on them, which rendered as
@@ -52,9 +55,13 @@ export const metadata: Metadata = {
  */
 
 /** Vertical rhythm only. The horizontal padding and the content measure are
- *  `band` and `measure` in `globals.css`, on the tokens, for the whole site. */
-const BAND = "band py-[140px] md:py-[190px]";
-const DARK_BAND = "band py-[160px] md:py-[200px]";
+ *  `band` and `measure` in `globals.css`, on the tokens, for the whole site.
+ *
+ *  There used to be two of these, a lighter one and a heavier one for the dark
+ *  bands. Nothing on the site earns that distinction: home's dark Stack is
+ *  lighter than its light Faq. Ground is not a reason to change the rhythm, so
+ *  every band here is one band on `--block-gap`. */
+const BAND = "band py-[var(--block-gap)]";
 const MEASURE = "measure";
 
 export default function About() {
@@ -67,7 +74,7 @@ export default function About() {
         <section className="w-full bg-[color:var(--page)] p-[12px]">
           <div
             data-about-hero
-            className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden pb-[80px] pt-[150px] md:min-h-[720px] md:pb-[110px] md:pt-[210px]"
+            className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden pb-[80px] pt-[130px] md:min-h-[720px] md:pb-[110px] md:pt-[190px]"
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             <AboutHeroArt />
@@ -161,7 +168,7 @@ export default function About() {
         */}
         <section id="origin" className="w-full bg-[color:var(--page)] px-[12px]">
           <div
-            className="band py-[var(--block-gap)]"
+            className={BAND}
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             <div className={MEASURE}>
@@ -203,62 +210,10 @@ export default function About() {
           <Ticker />
         </div>
 
-        {/* ── why now, then the rules, on one light card ───────────── */}
-        {/*
-          Two blocks, one card. They are separate arguments with their own
-          labels, but the ground does not change between them, and stacking
-          two section cards would notch the seam white at both ends.
-        */}
+        {/* ── the rules we hold to, on light ───────────────────────── */}
         <section className="w-full bg-[color:var(--page)] px-[12px]">
           <div className={`section-card ${BAND}`}>
-            <div className={MEASURE} id="why">
-              <SectionLabel label={about.why.label} ruleWidth={300} />
-
-              <Reveal delay={0.04}>
-                <h2 className="t-display mt-[52px] max-w-[760px]">{about.why.heading}</h2>
-              </Reveal>
-
-              {/*
-                Numbered, because this one genuinely is a sequence: the second
-                point only makes sense once the first is granted, and the third
-                is what follows from both. Nothing else on this page is
-                numbered for that reason.
-
-                The three-column split waits for lg. At md it left the third
-                column 172px wide, which is about twenty characters a line.
-              */}
-              <ol className="mt-[60px] flex flex-col">
-                {about.why.points.map((p, i) => (
-                  <Reveal key={p.n} delay={0.04 + i * 0.06}>
-                    <li
-                      className="grid gap-x-[30px] gap-y-[14px] py-[36px] lg:grid-cols-[80px_320px_1fr]"
-                      style={{ borderTop: "1px solid var(--ink-10)" }}
-                    >
-                      <span
-                        className="font-mono"
-                        style={{ fontSize: 13, lineHeight: "24px", color: "var(--ink-40)" }}
-                      >
-                        {`// ${p.n}`}
-                      </span>
-                      <h3
-                        style={{ fontSize: 20, lineHeight: "27px", fontWeight: 500, letterSpacing: "-0.4px" }}
-                      >
-                        {p.title}
-                      </h3>
-                      <div>
-                        <p className="t-body max-w-[560px]" style={{ color: "var(--ink-70)" }}>
-                          {p.body}
-                        </p>
-                        {"cite" in p && p.cite ? <Cite keys={p.cite} className="mt-[12px]" /> : null}
-                      </div>
-                    </li>
-                  </Reveal>
-                ))}
-              </ol>
-            </div>
-
-            {/* what we will not do */}
-            <div className={`${MEASURE} mt-[140px] md:mt-[190px]`} id="refuse">
+            <div className={MEASURE} id="refuse">
               <SectionLabel label={about.refuse.label} ruleWidth={300} />
 
               <Reveal delay={0.04}>
@@ -305,7 +260,7 @@ export default function About() {
         {/* ── the three of us, on dark ─────────────────────────────── */}
         <section id="people" className="w-full bg-[color:var(--page)] px-[12px]">
           <div
-            className={DARK_BAND}
+            className={BAND}
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             <div className={MEASURE}>
@@ -360,31 +315,6 @@ export default function About() {
                   </Reveal>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── where we are, on light, and the door out ─────────────── */}
-        <section id="now" className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className="band section-card py-[var(--block-gap)]">
-            <div
-              data-about-now
-              className={`${MEASURE} flex flex-col justify-between gap-[50px] lg:flex-row lg:items-end`}
-            >
-              <div className="max-w-[640px]">
-                <SectionLabel label={about.now.label} ruleWidth={280} />
-                <Reveal delay={0.04}>
-                  <h2 className="t-display mt-[52px]">{about.now.heading}</h2>
-                </Reveal>
-                <Reveal delay={0.08}>
-                  <p className="t-body mt-[28px] max-w-[560px]">{about.now.body}</p>
-                </Reveal>
-              </div>
-              <Reveal delay={0.12} className="shrink-0">
-                <Button href={about.now.cta.href} gap={30}>
-                  {about.now.cta.label}
-                </Button>
-              </Reveal>
             </div>
           </div>
         </section>
