@@ -239,7 +239,12 @@
 }
 
 .floor__isle[data-own] .floor__isle-top { fill: var(--blush); }
-.floor__isle[data-selected] .floor__isle-top { stroke: var(--accent); stroke-width: 1.75; }
+/* The open island is already the only one holding colour, so its outline does
+   not need to shout in black as well. It takes the same hue, darkened. */
+.floor__isle[data-selected] .floor__isle-top {
+  stroke: hsl(var(--hue, 0) calc(var(--isle-sat) * 1.2) 48%);
+  stroke-width: 1.25;
+}
 .floor__isle[data-selected] { filter: drop-shadow(0 12px 18px rgb(20 30 40 / 0.14)); }
 
 .floor__isle-side { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
@@ -360,7 +365,14 @@
 .floor__vert-top    { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
 .floor__vert-side   { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
 .floor__vert-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
-.floor__vert-hole   { fill: var(--paper); stroke: var(--rule); stroke-width: 0.7; }
+/* An opening, not a panel. --paper against a --surface slab is a six percent
+   difference and both arches read as plain slabs; this is the shadow you would
+   actually see through a cut in a wall, so it takes the department's hue dark
+   rather than a flat grey. */
+.floor__vert-hole   {
+  fill: hsl(var(--hue, 0) calc(var(--isle-sat) * 1.6) 62%);
+  stroke: none;
+}
 
 .floor__crate-seam,
 .floor__ledger-row { stroke: var(--faint); stroke-width: 0.8; }
