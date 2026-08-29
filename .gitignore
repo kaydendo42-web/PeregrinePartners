@@ -52,3 +52,6 @@ next-env.d.ts
 
 # Regenerable review captures (node docs/research/shoot-tiles.mjs)
 docs/research/tiles/
+
+# Floor check harness output (node docs/research/scratch/floor-check.mjs)
+docs/research/scratch/floor-shots/
