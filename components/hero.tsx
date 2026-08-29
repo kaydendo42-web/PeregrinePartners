@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Marquee } from "./ui/motion-primitives";
 import { ClientMark } from "./ui/client-mark";
 import { FloorCard } from "./art/floor-card";
+import { ScreenFace } from "./art/screen-face";
 import { hero } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -44,6 +45,7 @@ export function Hero() {
             aria-hidden
             className="h-full w-full object-cover"
           />
+          <ScreenFace />
           {/* The plate's own dark grass is what the white trust line and the
               rail sit on. Now that the card grows with the viewport, the crop
               shifts and that ground slides up out from under them. This puts a

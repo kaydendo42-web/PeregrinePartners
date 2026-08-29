@@ -3,6 +3,7 @@ import { Nav } from "@/components/nav";
 import { Ticker } from "@/components/ticker";
 import { Footer } from "@/components/footer";
 import { AgentFloor } from "@/components/platform/agent-floor";
+import { FloorBoot } from "@/components/platform/floor-boot";
 import { Departments } from "@/components/departments";
 import "../platform.css";
 
@@ -57,7 +58,9 @@ export default function Platform() {
             pushing the demo itself down the screen.
           */}
           <div className="band section-card pt-[40px] pb-[calc(var(--block-gap)/2)]">
-            <AgentFloor />
+            <FloorBoot>
+              <AgentFloor />
+            </FloorBoot>
           </div>
         </section>
 
