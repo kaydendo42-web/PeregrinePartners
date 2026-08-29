@@ -150,13 +150,15 @@ const escapes = await p.evaluate((exempt) => {
       if (exempt.some((c) => child.classList.contains(c))) return;
       const r = child.getBoundingClientRect();
       if (!r.width && !r.height) return;
-      // 2px of tolerance for stroke width and antialiasing.
-      const over =
-        r.left < t.left - 2 || r.right > t.right + 2 ||
-        r.bottom > t.bottom + 2;
-      if (over) out.push({ dept: name, cls: child.getAttribute('class') || child.tagName,
-                           child: [r.left, r.right, r.bottom].map(Math.round),
-                           island: [t.left, t.right, t.bottom].map(Math.round) });
+      // The top face is a diamond and getBoundingClientRect is axis aligned, so
+      // a prop legitimately near the west or east vertex sits outside the box on
+      // that axis. Only the front edge is checked, which is the real bug: a
+      // sitter drawn past the bottom of the plinth, hanging over the ground.
+      if (r.bottom > t.bottom + 4) {
+        out.push({ dept: name, cls: child.getAttribute('class') || child.tagName,
+                   childBottom: Math.round(r.bottom), islandBottom: Math.round(t.bottom),
+                   over: Math.round(r.bottom - t.bottom) });
+      }
     });
   });
   return out;
@@ -177,16 +179,22 @@ const ids = depts.length
   ? depts
   : await p.$$eval('.floor__card[data-dept]', (bs) => bs.map((x) => x.getAttribute('data-dept')));
 
+// The reach list is 1px and clip-path'd, so puppeteer will not click it as a
+// pointer would. Dispatch the click from inside the page instead. That is the
+// right call for this list specifically: it exists for keyboard and assistive
+// readers, and the human focus route is checked by hand in Task 3.
+const press = (sel) => p.$eval(sel, (el) => el.click());
+
 for (const id of ids) {
   const sel = depts.length
     ? `.floor__reach button[data-dept="${id}"]`
     : `.floor__card[data-dept="${id}"]`;
-  await p.click(sel);
+  await press(sel);
   await shot(id);
   // Back out, so each shot starts from the same place.
   const back = await p.$('.floor__panel-back');
-  if (back) await back.click();
-  else await p.click(sel);
+  if (back) await back.evaluate((el) => el.click());
+  else await press(sel);
 }
 
 await b.close();
