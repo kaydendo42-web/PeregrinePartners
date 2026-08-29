@@ -33,6 +33,30 @@ export function sideFaces(u: number, v: number, a: number, b: number, h: number)
   };
 }
 
+/**
+ * Treads climbing one plinth face, ground to island top.
+ *
+ * The stair is the strongest cue in the reference and the cheapest to draw:
+ * boxes of falling height stepping outward from the face the walkway lands on.
+ */
+export function stairTreads(dept: Dept, n = 4) {
+  const dirU = dept.stair === "w" ? -1 : dept.stair === "e" ? 1 : 0;
+  const dirV = dept.stair === "n" ? -1 : dept.stair === "s" ? 1 : 0;
+  const edgeU = dept.u + dirU * dept.w;
+  const edgeV = dept.v + dirV * dept.d;
+  const step = 0.42; // tread depth, grid units
+  return Array.from({ length: n }, (_, i) => {
+    const k = i + 1; // 1 is the tread nearest the ground
+    return {
+      u: edgeU + dirU * step * k,
+      v: edgeV + dirV * step * k,
+      a: dirU ? step / 2 : 0.8,
+      b: dirV ? step / 2 : 0.8,
+      h: (dept.lift * (n - k + 1)) / (n + 1),
+    };
+  });
+}
+
 /* ------------------------------------------------------------------ */
 /* Scene constants                                                     */
 /* ------------------------------------------------------------------ */

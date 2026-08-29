@@ -339,6 +339,15 @@
 .floor__box-side  { fill: var(--surface-2); }
 .floor__box-side--l { fill: var(--rule); }
 
+.floor__tread-top   { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+.floor__tread-side  { fill: var(--surface-2); }
+.floor__tread-side--l { fill: var(--rule); }
+
+.floor__vert-top    { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
+.floor__vert-side   { fill: var(--surface-2); }
+.floor__vert-side--l { fill: var(--rule); }
+.floor__vert-hole   { fill: var(--paper); stroke: var(--rule); stroke-width: 0.7; }
+
 .floor__crate-seam,
 .floor__ledger-row { stroke: var(--faint); stroke-width: 0.8; }
 .floor__ledger-row[data-off] { stroke: var(--ink); stroke-width: 1.1; }

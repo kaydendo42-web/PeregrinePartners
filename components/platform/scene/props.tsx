@@ -1,5 +1,5 @@
-import type { PropKind } from "./data";
-import { px, topFace, sideFaces, HUB } from "./geometry";
+import type { Dept, PropKind } from "./data";
+import { px, topFace, sideFaces, stairTreads, HUB } from "./geometry";
 
 /** One iso box: the two visible sides, then the top over them. `lit` puts the
     department's hue on the top face, which is the only place a prop takes it. */
@@ -13,6 +13,46 @@ function Box({ u, v, a, b, h, lift = 0, lit, cls = "" }: {
       <path className="floor__box-side" d={s.right} />
       <path className="floor__box-side floor__box-side--l" d={s.left} />
       <path className="floor__box-top" d={topFace(u, v, a, b, lift + h)} />
+    </g>
+  );
+}
+
+export function Stair({ dept }: { dept: Dept }) {
+  return (
+    <g className="floor__stair" aria-hidden="true">
+      {stairTreads(dept).map((t, i) => (
+        <g key={i} className="floor__tread">
+          <path className="floor__tread-side" d={sideFaces(t.u, t.v, t.a, t.b, t.h).right} />
+          <path className="floor__tread-side floor__tread-side--l" d={sideFaces(t.u, t.v, t.a, t.b, t.h).left} />
+          <path className="floor__tread-top" d={topFace(t.u, t.v, t.a, t.b, t.h)} />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/** The one tall thing an island is allowed. A slab, or a slab with a hole. */
+export function Vertical({ dept }: { dept: Dept }) {
+  const { du, dv, h, kind } = dept.vertical;
+  const u = dept.u + du;
+  const v = dept.v + dv;
+  const c = px(u, v);
+  const a = kind === "arch" ? 0.72 : 0.46;
+  const s = sideFaces(u, v, a, 0.3, dept.lift + h);
+  return (
+    <g className="floor__vert" data-kind={kind} aria-hidden="true">
+      <path className="floor__vert-side" d={s.right} />
+      <path className="floor__vert-side floor__vert-side--l" d={s.left} />
+      <path className="floor__vert-top" d={topFace(u, v, a, 0.3, dept.lift + h)} />
+      {kind === "arch" ? (
+        <path
+          className="floor__vert-hole"
+          d={`M ${c.x - 7} ${c.y - dept.lift - 6}
+              L ${c.x - 7} ${c.y - dept.lift - h * 0.52}
+              Q ${c.x} ${c.y - dept.lift - h * 0.78} ${c.x + 7} ${c.y - dept.lift - h * 0.52}
+              L ${c.x + 7} ${c.y - dept.lift - 6} Z`}
+        />
+      ) : null}
     </g>
   );
 }
