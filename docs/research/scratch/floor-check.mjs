@@ -94,7 +94,11 @@ if (!scene) { console.log('FAIL: no .floor__stage'); process.exit(1); }
  * signal), reduced to that box's bottom-centre point. The label and the
  * waiting flag hang off the island on purpose and are exempt outright.
  */
-const EXEMPT = ['floor__isle-label', 'floor__isle-flag'];
+/* These hang off the island on purpose. The name plate is the island's caption:
+   it sits past the front edge so it reads as a label on the object rather than
+   as a panel over it, and its underline rule is a <line>, which the ground
+   contact test would otherwise measure. */
+const EXEMPT = ['floor__isle-label', 'floor__isle-plate', 'floor__isle-flag'];
 const TOLERANCE = 2; // px, in the polygon's favour
 const escapes = await p.evaluate((exempt, tol) => {
   const out = [];

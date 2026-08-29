@@ -182,6 +182,38 @@
 .floor__burst { fill: var(--accent); }
 .floor__brain { fill: var(--accent); }
 
+/* The scene's keyboard and assistive route. Visible to a screen reader,
+   never to the eye. Not display:none where the scene exists, which would take
+   it out of the accessibility tree along with the tab order.
+
+   Below 810px it IS display:none, because there is no scene to reach: the
+   cards are on screen and are already the controls. Leaving it on would give a
+   keyboard reader every department twice. */
+.floor__reach {
+  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.floor__reach button:focus-visible {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: auto;
+  height: auto;
+  clip-path: none;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  font-size: 13px;
+  z-index: 20;
+}
+
 .floor__isle { cursor: pointer; transition: transform 0.35s var(--ease-out-soft); }
 .floor__isle:hover { transform: translateY(-3px); }
 
@@ -208,6 +240,32 @@
 }
 
 .floor__isle[data-own] .floor__isle-label { fill: var(--accent); }
+
+.floor__isle-desks,
+.floor__isle-rule {
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-in-out);
+}
+
+.floor__isle-desks {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  fill: var(--faint);
+}
+
+.floor__isle-rule {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.floor__isle[data-hover] .floor__isle-label,
+.floor__isle[data-selected] .floor__isle-label { fill: var(--ink); }
+
+.floor__isle[data-hover] .floor__isle-desks,
+.floor__isle[data-hover] .floor__isle-rule,
+.floor__isle[data-selected] .floor__isle-desks,
+.floor__isle[data-selected] .floor__isle-rule { opacity: 1; }
 
 .floor__isle-flag circle { fill: var(--accent-lift); }
 .floor__isle-flag { animation: floor-flag 2.4s var(--ease-in-out) infinite; }
@@ -1007,18 +1065,11 @@
   .floor__clock { display: flex; }
   .floor__status { display: flex; }
 
-  .floor__scene[data-zoomed] .floor__cards {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .floor__cards { transition: opacity 0.4s var(--ease-in-out); }
-
-  .floor__scene[data-view="venue"] .floor__card {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s var(--ease-in-out);
-  }
+  /* Above 810px the islands are the interface. The cards are the phone's
+     morning brief and stay exactly as they are below this width, and the reach
+     list takes over the job they were doing for keyboard and assistive readers. */
+  .floor__cards { display: none; }
+  .floor__reach { display: block; }
 
   .floor__cards { grid-template-columns: repeat(3, 1fr); }
 
@@ -1041,24 +1092,6 @@
     min-height: 560px;
   }
 
-  /* The cards float in the diamond's corner pockets, reference style. */
-  .floor__cards {
-    display: block;
-  }
-
-  .floor__card {
-    position: absolute;
-    width: 200px;
-    box-shadow: 0 10px 30px rgb(20 30 40 / 0.07);
-  }
-
-  .floor__card[data-dept="roster"] { left: 0; top: 0; }
-  .floor__card[data-dept="books"] { right: 0; top: 0; }
-  .floor__card[data-dept="suppliers"] { right: 0; top: 195px; }
-  .floor__card[data-dept="marketing"] { left: 0; top: 47%; }
-  .floor__card[data-dept="bookings"] { left: 0; bottom: 0; }
-  .floor__card[data-dept="admin"] { right: 0; bottom: 0; }
-  .floor__card[data-dept="venue"] { left: 0; top: 23%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

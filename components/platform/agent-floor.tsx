@@ -112,6 +112,7 @@ function StackRow({ dept }: { dept: Dept }) {
 
 export function AgentFloor() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [hover, setHover] = useState<string | null>(null);
   const [view, setView] = useState<"floor" | "venue">("floor");
   // Reduced motion parks the service mid-shift rather than running it, so the
   // room still shows a seated table, a countdown and a free one at once. That
@@ -335,6 +336,40 @@ export function AgentFloor() {
 
       <div className="floor__stage">
         <div className="floor__scene" data-zoomed={selected ? "" : undefined} data-view={view}>
+          {/* The scene is one image to a screen reader, so the departments get real
+              buttons of their own. Focusing one lights the same name plate a pointer
+              hover does, so the two paths show the same thing. */}
+          <ul className="floor__reach">
+            {DEPTS.map((d) => {
+              const waiting = waitingByDept[d.id];
+              return (
+                <li key={d.id}>
+                  <button
+                    type="button"
+                    data-dept={d.id}
+                    onClick={() => select(selected === d.id ? null : d.id)}
+                    onFocus={() => setHover(d.id)}
+                    onBlur={() => setHover((h) => (h === d.id ? null : h))}
+                    aria-expanded={selected === d.id}
+                  >
+                    {`Open ${d.name}. ${d.desks.length} desks. ${
+                      waiting ? `${waiting} waiting for you.` : "Nothing waiting."
+                    }`}
+                  </button>
+                </li>
+              );
+            })}
+            <li>
+              <button
+                type="button"
+                data-dept="venue"
+                onClick={() => (view === "venue" ? select(null) : enterVenue())}
+                aria-expanded={view === "venue"}
+              >
+                Step inside the venue.
+              </button>
+            </li>
+          </ul>
           <svg
             viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
             role="img"
@@ -378,7 +413,14 @@ export function AgentFloor() {
               .sort((a, b) => a.u + a.v - (b.u + b.v))
               .map((d) => (
                 <g key={d.id} onClick={() => select(d.id)}>
-                  <Island dept={d} waiting={waitingByDept[d.id]} selected={selected === d.id} />
+                  <Island
+                    dept={d}
+                    waiting={waitingByDept[d.id]}
+                    selected={selected === d.id}
+                    hovered={hover === d.id}
+                    onEnter={() => setHover(d.id)}
+                    onLeave={() => setHover((h) => (h === d.id ? null : h))}
+                  />
                 </g>
               ))}
 

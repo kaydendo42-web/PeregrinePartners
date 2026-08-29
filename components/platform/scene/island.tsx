@@ -2,7 +2,16 @@ import type { Dept } from "./data";
 import { px, topFace, sideFaces, deskSpots, ISLE_LIFT } from "./geometry";
 import { Desk, Plant } from "./props";
 
-export function Island({ dept, waiting, selected }: { dept: Dept; waiting: number; selected: boolean }) {
+export function Island({
+  dept, waiting, selected, hovered, onEnter, onLeave,
+}: {
+  dept: Dept;
+  waiting: number;
+  selected: boolean;
+  hovered: boolean;
+  onEnter: () => void;
+  onLeave: () => void;
+}) {
   const { u, v, size } = dept;
   const sides = sideFaces(u, v, size, size, ISLE_LIFT);
   const spots = deskSpots(dept);
@@ -14,8 +23,12 @@ export function Island({ dept, waiting, selected }: { dept: Dept; waiting: numbe
   return (
     <g
       className="floor__isle"
+      data-dept={dept.id}
       data-own={dept.own || undefined}
       data-selected={selected || undefined}
+      data-hover={hovered || undefined}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
       aria-hidden="true"
     >
       <path className="floor__isle-top" d={topFace(u, v, size, size, ISLE_LIFT)} />
@@ -26,10 +39,20 @@ export function Island({ dept, waiting, selected }: { dept: Dept; waiting: numbe
       {spots.map((s, i) => (
         <Desk key={i} u={s.u} v={s.v} own={dept.desks[i].own} label={dept.desks[i].label} i={i} />
       ))}
-      <text className="floor__isle-label" x={label.x} y={label.y - ISLE_LIFT + 26}>
-        {dept.name.toUpperCase()}
-        {dept.own ? " · OURS" : ""}
-      </text>
+      <g className="floor__isle-plate">
+        <text className="floor__isle-label" x={label.x} y={label.y - ISLE_LIFT + 26}>
+          {dept.name.toUpperCase()}
+          {dept.own ? " · OURS" : ""}
+        </text>
+        <text className="floor__isle-desks" x={label.x} y={label.y - ISLE_LIFT + 40}>
+          {dept.desks.length} desks
+        </text>
+        <line
+          className="floor__isle-rule"
+          x1={label.x} y1={label.y - ISLE_LIFT + 31}
+          x2={label.x + 78} y2={label.y - ISLE_LIFT + 31}
+        />
+      </g>
       {waiting > 0 ? (
         <g className="floor__isle-flag">
           <circle cx={flag.x} cy={flag.y - ISLE_LIFT - 12} r={8} />
