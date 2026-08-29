@@ -36,6 +36,20 @@
   --sage: rgba(26, 26, 26, 0.42);
   --sage-lift: rgba(255, 255, 255, 0.62);
 
+  /* Colour is a tenth of the reference's, and it is department identity: which
+     island this is. It is never task state. Needs you, Watching and Done stay
+     told apart by weight and fill, here and on the phone.
+
+     88.6 and 80.7 are measured, not chosen: getComputedStyle on the plinth
+     faces before the hue arrived gave rgb(226,226,226) for the right face and
+     rgba(26,26,26,0.16) over --paper for the left, which composites to 205.8.
+     The hue therefore lands without moving the scene's value structure. */
+  --isle-sat: 10%;
+  /* The hsl() lives in each rule rather than in a shared --face-* token: a custom
+     property declared here resolves its own var() references here and inherits the
+     answer, so a token would bake in 10% and the per-island override would never
+     land. */
+
   --font-plex-mono: var(--font-plex);
   --pd: 40px;
 
@@ -228,8 +242,8 @@
 .floor__isle[data-selected] .floor__isle-top { stroke: var(--accent); stroke-width: 1.75; }
 .floor__isle[data-selected] { filter: drop-shadow(0 12px 18px rgb(20 30 40 / 0.14)); }
 
-.floor__isle-side { fill: var(--surface-2); }
-.floor__isle-side--l { fill: var(--rule); }
+.floor__isle-side { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__isle-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
 
 .floor__isle-label {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
@@ -336,16 +350,16 @@
 .floor__isle[data-selected] .floor__desk-label { opacity: 1; }
 
 .floor__box-top   { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
-.floor__box-side  { fill: var(--surface-2); }
-.floor__box-side--l { fill: var(--rule); }
+.floor__box-side  { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__box-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
 
-.floor__tread-top   { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
-.floor__tread-side  { fill: var(--surface-2); }
-.floor__tread-side--l { fill: var(--rule); }
+.floor__tread-top   { fill: hsl(var(--hue, 0) var(--isle-sat) 93%); stroke: var(--rule); stroke-width: 0.6; }
+.floor__tread-side  { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__tread-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
 
 .floor__vert-top    { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
-.floor__vert-side   { fill: var(--surface-2); }
-.floor__vert-side--l { fill: var(--rule); }
+.floor__vert-side   { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__vert-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
 .floor__vert-hole   { fill: var(--paper); stroke: var(--rule); stroke-width: 0.7; }
 
 .floor__crate-seam,
@@ -355,6 +369,24 @@
 .floor__safe-dial { fill: none; stroke: var(--muted); stroke-width: 1.1; }
 .floor__hole,
 .floor__peg-block { fill: var(--surface-2); stroke: var(--rule); stroke-width: 0.5; }
+
+/* The one or two faces an island is allowed to hold its own colour on. This is
+   the department's signature object, so it is what the eye lands on first. */
+.floor__box[data-lit] .floor__box-top,
+.floor__easel-face[data-lit],
+.floor__peg-block[data-lit] {
+  fill: hsl(var(--hue, 0) calc(var(--isle-sat) * 2.4) 90%);
+}
+
+/* Open a department and it is the only one holding colour. Two rules, one
+   variable. Everything outside an island falls back to hue 0 at whatever
+   saturation is in scope, which is the grey it already was. */
+.floor__office[data-open] .floor__isle                { --isle-sat: 0%; }
+.floor__office[data-open] .floor__isle[data-selected] { --isle-sat: 34%; }
+
+.floor__isle path,
+.floor__isle rect,
+.floor__isle ellipse { transition: fill 0.35s var(--ease-in-out); }
 .floor__printer-sheet { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
 
 .floor__easel-leg,

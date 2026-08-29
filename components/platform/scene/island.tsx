@@ -23,6 +23,7 @@ export function Island({
     <g
       className="floor__isle"
       data-dept={dept.id}
+      style={{ "--hue": String(dept.hue) } as React.CSSProperties}
       data-own={dept.own || undefined}
       data-selected={selected || undefined}
       data-hover={hovered || undefined}

@@ -382,7 +382,7 @@ export function AgentFloor() {
             {view === "venue" ? (
               <VenueScene now={now} />
             ) : (
-            <g key="office" className="floor__office" transform={camera}>
+            <g key="office" className="floor__office" data-open={selected || undefined} transform={camera}>
             {/* walkways first, so everything sits on top of them */}
             {DEPTS.map((d, i) => (
               <path
