@@ -896,10 +896,29 @@
 /* -- the panel ----------------------------------------------------------- */
 
 .floor__panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--rule);
   padding-top: 22px;
+  transition: background 0.35s var(--ease-in-out);
+}
+
+/* Open a department and the panel takes its colour, its number and its mark,
+   so stepping into a department is visible on both sides of the screen. */
+.floor__panel[data-dept] {
+  background: hsl(var(--hue) 34% 96%);
+  border-radius: 12px;
+  padding-left: 20px;
+}
+
+.floor__panel[data-dept]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+  background: hsl(var(--hue) 34% 62%);
 }
 
 .floor__panel-time {
@@ -938,10 +957,18 @@
 }
 
 .floor__panel-dept {
-  font-size: 15px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.09em;
   color: var(--ink);
 }
+
+.floor__glyph { color: hsl(var(--hue) 34% 40%); flex: none; }
+.floor__panel-n { color: hsl(var(--hue) 34% 40%); }
+.floor__panel-sep { color: var(--faint); }
 
 .floor__panel-back {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
@@ -1010,6 +1037,11 @@
 .floor__syschip[data-own] .floor__syschip-tile {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
+}
+
+.floor__panel[data-dept] .floor__syschip-tile {
+  background: hsl(var(--hue) 34% 88%);
+  color: hsl(var(--hue) 40% 28%);
 }
 
 .floor__tasks {
@@ -1166,6 +1198,8 @@
   .floor__isle:hover,
   .floor__card,
   .floor__card:hover,
+  .floor__panel,
+  .floor__glyph,
   .floor__scene svg {
     transition: none;
     transform: none;

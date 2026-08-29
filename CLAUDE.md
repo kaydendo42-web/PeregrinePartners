@@ -98,12 +98,50 @@ are told apart by weight and never by colour. The departments run 001 upward
 across one rack. On the Floor the same three states carry a
 legend of their own, in weight and never in colour, on the same rule.
 
+**On the Floor, hue is department identity.** Each of the six carries one hue from
+the Monument Valley reference at about a tenth of its saturation, on the plinth
+sides, the stair treads and one lit face. Opening a department lifts its island to
+a third and greys the other five, and the side panel takes the same hue, number and
+mark. Lightness is held at the measured 88.6 and 80.7 the plinth faces already had,
+so the hue arrives without moving the scene's value structure.
+
+Hue never carries task state, on either device. That rule is not reopened and is
+checked by a grep in the Floor's own commits. The other line, that islands stay
+neutral and are told apart by their labels, was reopened on Kayden's call on
+2026-08-29; see `docs/superpowers/specs/2026-08-29-floor-redesign-design.md`.
+
+Write the `hsl()` in the rule that uses it, never in a shared `--face-*` token. A
+custom property declared on `.floor` resolves its own `var()` references there and
+inherits the answer, so a token bakes in the default saturation and the per-island
+override never lands.
+
 ## The Floor
 
-`/platform` opens on the Floor, an isometric SVG model of a morning, in
-`components/platform/agent-floor.tsx`, with `app/platform.css` for its styles.
-Six departments as islands you click into, the venue as the hub in the middle
-that you step inside, and the morning brief down the right.
+`/platform` opens on the Floor, an isometric SVG model of a morning. The scene
+lives in `components/platform/scene/` (`geometry`, `data`, `props`, `island`,
+`glyphs`, `venue`) and `components/platform/agent-floor.tsx` orchestrates it:
+state, the panel, and the animation loop. `app/platform.css` holds every style.
+Departments as islands you click into, the venue as the hub in the middle that you
+step inside, and the morning brief down the right.
+
+Each department declares its own footprint (`w`, `d`), plinth height (`lift`),
+stair face, one vertical, a hue, a rack number and a `layout` of the objects that
+stand on it. There is no shared island size and no shared height. **Everything
+drawn on an island goes through `place()`**, which clamps it inside the footprint:
+before that, two sitters on Bookings were drawn past the plinth edge and hung over
+the ground. `VIEW` comes from `sceneBounds()`, not from the eye.
+
+Above 810px there are no floating cards. The islands are the interface, each
+carrying its own name plate, and a visually hidden `.floor__reach` button list
+carries keyboard and assistive access because the svg is one image to a screen
+reader. Below 810px there is no scene: the cards are the morning brief and are the
+controls, and `.floor__reach` is `display:none` there so nobody gets every
+department twice.
+
+`docs/research/scratch/floor-check.mjs` is the gate. It shoots every state and
+asserts nothing drawn on an island falls outside it, testing each prop's ground
+contact against the top face as a real quadrilateral rather than a bounding box.
+Run it before and after any change to the scene.
 
 **The react-three-fiber build is gone.** It was ported to r3f against
 `handoff/art-direction.md` as a Monument Valley diorama, then flattened, and on
