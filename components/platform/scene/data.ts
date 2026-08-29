@@ -234,7 +234,16 @@ export const DEPTS: Dept[] = [
     n: "006", glyph: "bookings", hue: 12,
     u: 6.1, v: 6.9, w: 3.2, d: 2.6, lift: 26,
     stair: "n", vertical: { kind: "arch", du: -2.1, dv: -1.5, h: 34 },
-    layout: [],
+    layout: [
+      { kind: "hoststand", du: -2.2, dv: -1.4 },
+      { kind: "top", du: -1.1, dv: -1.1 },
+      { kind: "top", du: 0.5, dv: -1.1 },
+      { kind: "top", du: 2.0, dv: -0.9 },
+      { kind: "top", du: -1.1, dv: 0.6, lit: true },
+      { kind: "top", du: 0.6, dv: 0.7 },
+      { kind: "top", du: 2.0, dv: 0.9 },
+      { kind: "desk", du: -2.1, dv: 1.2, label: "Enquiries", own: true },
+    ],
     own: true,
     desks: [
       { label: "Enquiries", own: true },
@@ -316,7 +325,15 @@ export const DEPTS: Dept[] = [
     labelSide: "e",
     u: 8.4, v: -0.9, w: 2.6, d: 2.2, lift: 22,
     stair: "w", vertical: { kind: "tower", du: 1.6, dv: -1.2, h: 40 },
-    layout: [],
+    layout: [
+      { kind: "pallet", du: -1.4, dv: 1.0 },
+      { kind: "crate", du: -1.4, dv: 1.0 },
+      { kind: "crate", du: -0.5, dv: 1.0 },
+      { kind: "crate", du: -0.5, dv: 0.2, lit: true },
+      { kind: "crate", du: 0.4, dv: 1.0 },
+      { kind: "desk", du: 1.2, dv: -0.8, label: "Ordermentum" },
+      { kind: "plant", du: -1.6, dv: -1.2 },
+    ],
     desks: [{ label: "Ordermentum" }, { label: "Fresho" }, { label: "Par levels" }],
     stack: [{ label: "Ordermentum" }, { label: "Fresho" }, { label: "Bidfood" }],
     metrics: [
@@ -375,7 +392,12 @@ export const DEPTS: Dept[] = [
     n: "002", glyph: "books", hue: 232,
     u: 0.9, v: -7.1, w: 2.2, d: 2.6, lift: 30,
     stair: "s", vertical: { kind: "tower", du: -1.2, dv: -1.6, h: 46 },
-    layout: [],
+    layout: [
+      { kind: "ledger", du: -0.9, dv: -0.6 },
+      { kind: "ledger", du: 0.2, dv: -0.6 },
+      { kind: "safe", du: 1.1, dv: 1.2, lit: true },
+      { kind: "desk", du: -0.5, dv: 1.3, label: "Xero" },
+    ],
     desks: [{ label: "Xero" }, { label: "Square" }, { label: "Bank feed" }],
     stack: [{ label: "Xero" }, { label: "MYOB" }, { label: "Square" }],
     metrics: [
@@ -419,7 +441,13 @@ export const DEPTS: Dept[] = [
     n: "004", glyph: "reception", hue: 42,
     u: -7.2, v: -7.2, w: 2.4, d: 2.4, lift: 16,
     stair: "s", vertical: { kind: "arch", du: 1.4, dv: -1.4, h: 30 },
-    layout: [],
+    layout: [
+      { kind: "pigeonhole", du: 0, dv: -1.4 },
+      { kind: "counter", du: 0, dv: 0.1 },
+      { kind: "printer", du: 1.4, dv: 1.0 },
+      { kind: "desk", du: -1.2, dv: 1.2, label: "Phone", own: true },
+      { kind: "plant", du: 1.5, dv: -0.6 },
+    ],
     desks: [
       { label: "Website", own: true },
       { label: "Email" },
@@ -486,7 +514,14 @@ export const DEPTS: Dept[] = [
     n: "003", glyph: "marketing", hue: 28,
     u: -1.1, v: 8.3, w: 2.8, d: 2.0, lift: 20,
     stair: "n", vertical: { kind: "tower", du: -1.9, dv: 1.1, h: 36 },
-    layout: [],
+    layout: [
+      { kind: "easel", du: 0.2, dv: -0.6, lit: true },
+      { kind: "panel", du: -1.6, dv: 0.6 },
+      { kind: "panel", du: -1.0, dv: 0.7 },
+      { kind: "panel", du: -0.4, dv: 0.8 },
+      { kind: "lightstand", du: 1.7, dv: -0.4 },
+      { kind: "desk", du: 1.5, dv: 0.9, label: "Guest CRM", own: true },
+    ],
     desks: [
       { label: "Instagram" },
       { label: "Meta Ads" },
@@ -547,7 +582,11 @@ export const DEPTS: Dept[] = [
     n: "007", glyph: "roster", hue: 196,
     u: -7.8, v: 0.6, w: 2.0, d: 2.0, lift: 18,
     stair: "e", vertical: { kind: "tower", du: 1.1, dv: -1.1, h: 32 },
-    layout: [],
+    layout: [
+      { kind: "pegwall", du: 0, dv: -1.1, lit: true },
+      { kind: "clockpost", du: 1.0, dv: 0.9 },
+      { kind: "desk", du: -0.7, dv: 0.8, label: "Deputy" },
+    ],
     desks: [{ label: "Deputy" }, { label: "Award rates" }],
     stack: [{ label: "Deputy" }, { label: "Tanda" }],
     metrics: [

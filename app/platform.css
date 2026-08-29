@@ -335,6 +335,32 @@
 .floor__isle:hover .floor__desk-label,
 .floor__isle[data-selected] .floor__desk-label { opacity: 1; }
 
+.floor__box-top   { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+.floor__box-side  { fill: var(--surface-2); }
+.floor__box-side--l { fill: var(--rule); }
+
+.floor__crate-seam,
+.floor__ledger-row { stroke: var(--faint); stroke-width: 0.8; }
+.floor__ledger-row[data-off] { stroke: var(--ink); stroke-width: 1.1; }
+
+.floor__safe-dial { fill: none; stroke: var(--muted); stroke-width: 1.1; }
+.floor__hole,
+.floor__peg-block { fill: var(--surface-2); stroke: var(--rule); stroke-width: 0.5; }
+.floor__printer-sheet { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+
+.floor__easel-leg,
+.floor__light-post { stroke: var(--muted); stroke-width: 1.2; }
+.floor__easel-face { fill: var(--surface); stroke: var(--rule); stroke-width: 0.8; }
+.floor__panelboard { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
+.floor__light-head { fill: var(--surface-2); stroke: var(--rule); stroke-width: 0.7; }
+
+.floor__clock-face { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
+.floor__clock-hand { stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; }
+
+.floor__top-stem { stroke: var(--muted); stroke-width: 1.4; }
+.floor__top-face { fill: var(--surface); stroke: var(--rule); stroke-width: 0.8; }
+.floor__top-ring { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; }
+
 .floor__plant-pot { fill: var(--muted); opacity: 0.75; }
 .floor__plant-leaf { fill: var(--sage); opacity: 0.9; }
 

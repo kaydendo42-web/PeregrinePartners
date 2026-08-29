@@ -1,4 +1,21 @@
+import type { PropKind } from "./data";
 import { px, topFace, sideFaces, HUB } from "./geometry";
+
+/** One iso box: the two visible sides, then the top over them. `lit` puts the
+    department's hue on the top face, which is the only place a prop takes it. */
+function Box({ u, v, a, b, h, lift = 0, lit, cls = "" }: {
+  u: number; v: number; a: number; b: number; h: number;
+  lift?: number; lit?: boolean; cls?: string;
+}) {
+  const s = sideFaces(u, v, a, b, lift + h);
+  return (
+    <g className={`floor__box ${cls}`} data-lit={lit || undefined}>
+      <path className="floor__box-side" d={s.right} />
+      <path className="floor__box-side floor__box-side--l" d={s.left} />
+      <path className="floor__box-top" d={topFace(u, v, a, b, lift + h)} />
+    </g>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Furniture                                                           */
@@ -85,6 +102,198 @@ export function Plant({ u, v }: { u: number; v: number }) {
       <circle cx={c.x} cy={c.y - 12.6} r={3.6} className="floor__plant-leaf" />
     </g>
   );
+}
+
+/** 001 · a crate, stacked or single, with a lid seam. */
+function Crate({ u, v, lit }: { u: number; v: number; lit?: boolean }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__crate">
+      <Box u={u} v={v} a={0.42} b={0.42} h={11} lit={lit} />
+      <line className="floor__crate-seam" x1={c.x - 8} y1={c.y - 11} x2={c.x + 8} y2={c.y - 11} />
+    </g>
+  );
+}
+
+/** 001 · the loading edge: a low ramp off the plinth. */
+function Pallet({ u, v }: { u: number; v: number }) {
+  return <Box u={u} v={v} a={0.7} b={0.5} h={3} cls="floor__pallet" />;
+}
+
+/** 002 · a run of ledger rows, two of them pushed out of line. */
+function Ledger({ u, v }: { u: number; v: number }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__ledger">
+      <Box u={u} v={v} a={0.5} b={0.62} h={9} />
+      {Array.from({ length: 7 }, (_, k) => (
+        <line
+          key={k}
+          className="floor__ledger-row"
+          data-off={k === 2 || k === 5 || undefined}
+          x1={c.x - 7 + (k === 2 || k === 5 ? 3 : 0)}
+          y1={c.y - 9 - k * 1.5}
+          x2={c.x + 7}
+          y2={c.y - 9 - k * 1.5}
+        />
+      ))}
+    </g>
+  );
+}
+
+/** 002 · the safe: one heavy cube with a dial. */
+function Safe({ u, v, lit }: { u: number; v: number; lit?: boolean }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__safe">
+      <Box u={u} v={v} a={0.46} b={0.46} h={14} lit={lit} />
+      <circle className="floor__safe-dial" cx={c.x + 5} cy={c.y - 7} r={2.4} />
+    </g>
+  );
+}
+
+/** 004 · the counter someone stands behind. */
+function Counter({ u, v }: { u: number; v: number }) {
+  return <Box u={u} v={v} a={1.1} b={0.32} h={10} cls="floor__counter" />;
+}
+
+/** 004 · the pigeonhole wall behind it. */
+function Pigeonhole({ u, v }: { u: number; v: number }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__holes">
+      <Box u={u} v={v} a={0.9} b={0.16} h={20} />
+      {Array.from({ length: 8 }, (_, k) => (
+        <rect
+          key={k}
+          className="floor__hole"
+          x={c.x - 12 + (k % 4) * 6.4}
+          y={c.y - 19 + Math.floor(k / 4) * 6}
+          width={4.6}
+          height={4.4}
+          rx={0.6}
+        />
+      ))}
+    </g>
+  );
+}
+
+/** 004 · the printer, with one sheet in the tray. */
+function Printer({ u, v }: { u: number; v: number }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__printer">
+      <Box u={u} v={v} a={0.4} b={0.34} h={7} />
+      <rect className="floor__printer-sheet" x={c.x - 3} y={c.y - 10} width={6} height={4} rx={0.6} />
+    </g>
+  );
+}
+
+/** 003 · the easel the work goes up on. */
+function Easel({ u, v, lit }: { u: number; v: number; lit?: boolean }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__easel">
+      <line className="floor__easel-leg" x1={c.x - 5} y1={c.y} x2={c.x - 3} y2={c.y - 22} />
+      <line className="floor__easel-leg" x1={c.x + 5} y1={c.y} x2={c.x + 3} y2={c.y - 22} />
+      <rect className="floor__easel-face" data-lit={lit || undefined}
+            x={c.x - 9} y={c.y - 34} width={18} height={14} rx={1} />
+    </g>
+  );
+}
+
+/** 003 · one of the three queued panels, leaning. */
+function Panel({ u, v, i }: { u: number; v: number; i: number }) {
+  const c = px(u, v);
+  return (
+    <rect className="floor__panelboard" x={c.x - 6} y={c.y - 15} width={12} height={15} rx={1}
+          transform={`rotate(${-6 + i * 5} ${c.x} ${c.y})`} />
+  );
+}
+
+/** 003 · the light on its stand. */
+function LightStand({ u, v }: { u: number; v: number }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__light">
+      <line className="floor__light-post" x1={c.x} y1={c.y} x2={c.x} y2={c.y - 26} />
+      <circle className="floor__light-head" cx={c.x} cy={c.y - 29} r={4} />
+    </g>
+  );
+}
+
+/** 007 · the shift wall: a grid of pegged blocks, one column short. */
+function PegWall({ u, v, lit }: { u: number; v: number; lit?: boolean }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__peg">
+      <Box u={u} v={v} a={1.0} b={0.16} h={22} />
+      {Array.from({ length: 14 }, (_, k) => {
+        const col = k % 5;
+        const row = Math.floor(k / 5);
+        if (col === 4 && row === 2) return null;
+        return (
+          <rect key={k} className="floor__peg-block" data-lit={lit && k === 7 ? "" : undefined}
+                x={c.x - 13 + col * 5.4} y={c.y - 20 + row * 5.2}
+                width={4} height={3.8} rx={0.6} />
+        );
+      })}
+    </g>
+  );
+}
+
+/** 007 · the clock the roster is drafted against. */
+function ClockPost({ u, v }: { u: number; v: number }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__clockpost">
+      <line className="floor__light-post" x1={c.x} y1={c.y} x2={c.x} y2={c.y - 24} />
+      <circle className="floor__clock-face" cx={c.x} cy={c.y - 28} r={5} />
+      <line className="floor__clock-hand" x1={c.x} y1={c.y - 28} x2={c.x} y2={c.y - 31.5} />
+      <line className="floor__clock-hand" x1={c.x} y1={c.y - 28} x2={c.x + 2.6} y2={c.y - 28} />
+    </g>
+  );
+}
+
+/** 006 · a round top in the room. `lit` is the one being held. */
+function Top({ u, v, lit }: { u: number; v: number; lit?: boolean }) {
+  const c = px(u, v);
+  return (
+    <g className="floor__top" data-lit={lit || undefined}>
+      <line className="floor__top-stem" x1={c.x} y1={c.y} x2={c.x} y2={c.y - 8} />
+      <ellipse className="floor__top-face" cx={c.x} cy={c.y - 9} rx={9} ry={5} />
+      {lit ? <ellipse className="floor__top-ring" cx={c.x} cy={c.y - 9} rx={13} ry={7.4} /> : null}
+    </g>
+  );
+}
+
+/** 006 · the host stand at the door. */
+function HostStand({ u, v }: { u: number; v: number }) {
+  return <Box u={u} v={v} a={0.34} b={0.28} h={13} cls="floor__host" />;
+}
+
+export function Prop({ kind, u, v, label, own, lit, i }: {
+  kind: PropKind; u: number; v: number;
+  label?: string; own?: boolean; lit?: boolean; i: number;
+}): React.ReactElement | null {
+  switch (kind) {
+    case "desk":       return <Desk u={u} v={v} own={own} label={label ?? ""} i={i} />;
+    case "plant":      return <Plant u={u} v={v} />;
+    case "crate":      return <Crate u={u} v={v} lit={lit} />;
+    case "pallet":     return <Pallet u={u} v={v} />;
+    case "ledger":     return <Ledger u={u} v={v} />;
+    case "safe":       return <Safe u={u} v={v} lit={lit} />;
+    case "counter":    return <Counter u={u} v={v} />;
+    case "pigeonhole": return <Pigeonhole u={u} v={v} />;
+    case "printer":    return <Printer u={u} v={v} />;
+    case "easel":      return <Easel u={u} v={v} lit={lit} />;
+    case "panel":      return <Panel u={u} v={v} i={i} />;
+    case "lightstand": return <LightStand u={u} v={v} />;
+    case "pegwall":    return <PegWall u={u} v={v} lit={lit} />;
+    case "clockpost":  return <ClockPost u={u} v={v} />;
+    case "hoststand":  return <HostStand u={u} v={v} />;
+    case "top":        return <Top u={u} v={v} lit={lit} />;
+  }
 }
 
 /**
