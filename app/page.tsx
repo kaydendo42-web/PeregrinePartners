@@ -5,6 +5,7 @@ import { Ticker } from "@/components/ticker";
 import { Roster } from "@/components/roster";
 import { Vision } from "@/components/vision";
 import { Stack } from "@/components/stack";
+import { FaqMarquee } from "@/components/faq-marquee";
 import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 
@@ -55,9 +56,11 @@ export default function Home() {
           <Stack />
         </div>
 
-        <div className="relative z-10 bg-[color:var(--page)] py-[7px]">
-          <Ticker />
-        </div>
+        {/*
+          The thin ticker used to sit here. The FAQ's own display band took
+          the slot, so the run into the FAQ carries one moving line, not two.
+        */}
+        <FaqMarquee />
 
         <Faq />
       </main>

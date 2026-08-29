@@ -270,7 +270,7 @@ export const ticker =
  * ------------------------------------------------------------------ */
 
 export const roster = {
-  marquee: "On The Floor",
+  marquee: "On The Platform",
   clients: [
     {
       name: "The Peacock",
@@ -407,13 +407,15 @@ export const departments = {
  * ------------------------------------------------------------------ */
 
 export const vision = {
-  label: "Why we built it",
+  /*
+    No label and no caption any more. The block is the sentence at hero size
+    and the aside under it, so the eyebrow that used to sit over it and the
+    caption that named the vignette both came out with the picture.
+  */
   text:
     "Businesses never needed another app. They needed the work done, and they needed to stay in charge of what went out the door.",
   body:
     "That is the whole design. Every department runs overnight on the systems you already pay for, and stops to ask before it commits you to anything.",
-  /** Under the vignette. Names the picture and who is minding it. */
-  caseCaption: "Peregrine oversees the floor. The admin is done. One thing still needs you.",
 };
 
 /* ------------------------------------------------------------------ *
@@ -517,6 +519,13 @@ export const team = {
 
 export const faq = {
   label: "Straight answers",
+  /*
+    The display band above the card. It names the section and nothing else.
+    The reference this came from carried a caption under the word; ours does
+    not, because `intro` sits 300px below it and was saying the same thing in
+    the same breath. The band is the name, the card is the argument.
+  */
+  marquee: "FAQ",
   intro:
     "The questions we get asked before anyone lets us near their books. Where an answer rests on a number, the number carries its source.",
   heading: "Everything an owner asks before they hand over the keys.",

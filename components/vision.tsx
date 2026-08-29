@@ -1,22 +1,24 @@
 "use client";
 
 import { Reveal, ScrollHighlightText } from "./ui/motion-primitives";
-import { FloorVignette } from "./art/floor-vignette";
 import { vision } from "@/lib/content";
 
 /**
- * Why, in one breath, next to the thing itself.
+ * Why, at the size of the claim.
  *
- * The template put a founder's portrait in the plate on the left, and this
- * block held a street after it. Both were pictures of the company. What sits
- * here now is a picture of the product: the floor before open, with the work
- * that ran overnight drained back into the architecture and one block standing
- * proud of it. The copy claims the design stops and asks. The model shows it.
+ * This block used to be a column of type beside a picture of the floor, under
+ * the standard eyebrow. Both came off on Kayden's call: the eyebrow because a
+ * sentence this size does not need a label telling the reader it is important,
+ * and the vignette because the argument is the sentence. The reader's first
+ * meeting with the Floor's world is now `/platform`, which is the page built
+ * to hold it, rather than a thumbnail two sections early.
  *
- * It is also the first place on the site a reader meets the Floor's world, two
- * sections before `/platform` opens on it. The plate is the seam: the site's
- * radius on the outside, the Floor's language and none of its type on the
- * inside. See `handoff/art-direction.md`, and the header of the vignette.
+ * So the statement takes the hero ramp and the whole measure, and the body
+ * drops to the bottom right as the aside it always was. Nothing else is in
+ * here. The 250 opening is the deliberate one that starts the dark run.
+ *
+ * `components/art/floor-vignette.tsx` is unused as of this change. It is kept
+ * because it is the only drawing of the floor outside `/platform` itself.
  */
 export function Vision() {
   return (
@@ -24,41 +26,22 @@ export function Vision() {
       id="vision"
       className="band-bleed w-full bg-[color:var(--dark)] py-[140px] md:pb-[160px] md:pt-[250px]"
     >
-      <div className="measure flex flex-col gap-[64px] lg:flex-row lg:items-center lg:justify-between lg:gap-[80px]">
-        {/* statement */}
-        <div className="w-full max-w-[560px]">
-          <div className="flex items-center gap-[20px]">
-            <span className="t-mono shrink-0 text-white">{vision.label}</span>
-            <span className="h-[1px] w-full max-w-[240px]" style={{ background: "var(--paper-10)" }} />
-            <span
-              className="block shrink-0 rounded-full"
-              style={{ width: 36, height: 18, border: "2px solid #fff" }}
-            />
-          </div>
+      <div className="measure">
+        <ScrollHighlightText
+          text={vision.text}
+          className="t-hero text-white"
+          dim="rgba(255,255,255,0.16)"
+          lit="#ffffff"
+        />
 
-          <ScrollHighlightText
-            text={vision.text}
-            className="t-statement mt-[46px] text-white"
-            dim="rgba(255,255,255,0.16)"
-            lit="#ffffff"
-          />
-
+        {/* the aside, sitting under the tail of the statement */}
+        <div className="mt-[56px] flex justify-end md:mt-[72px]">
           <Reveal delay={0.08}>
-            <p className="t-body mt-[44px] max-w-[500px] text-white">{vision.body}</p>
+            <p className="t-body-sm max-w-[440px]" style={{ color: "var(--paper-70)" }}>
+              {vision.body}
+            </p>
           </Reveal>
         </div>
-
-        {/* the case */}
-        <Reveal delay={0.12} className="w-full lg:max-w-[540px]">
-          <figure>
-            <div className="overflow-hidden" style={{ borderRadius: "var(--r-card)" }}>
-              <FloorVignette className="block h-auto w-full" />
-            </div>
-            <figcaption className="t-mono mt-[18px]" style={{ color: "var(--paper-50)" }}>
-              {vision.caseCaption}
-            </figcaption>
-          </figure>
-        </Reveal>
       </div>
     </section>
   );
