@@ -87,7 +87,7 @@ export const brand = {
 export const nav = {
   links: [
     { label: "Home", href: "/" },
-    { label: "The Floor", href: "/platform" },
+    { label: "Platform", href: "/platform" },
     { label: "About Us", href: "/about" },
     { label: "Sign in", href: "/sign-in" },
   ],
@@ -281,7 +281,7 @@ export const roster = {
     },
     {
       name: "Urban Provedore",
-      logo: null as string | null, // TODO(kayden): drop a file in public/brand/clients/
+      logo: "/brand/clients/urban-provedore.png" as string | null,
       href: "https://www.instagram.com/urbanprovedore/",
       trade: "Cafe",
       where: "South Yarra",
@@ -435,7 +435,7 @@ export const stack = {
     },
     {
       icon: "faders",
-      body: "Runs between close and open, so nothing it does competes with service.",
+      body: "Runs 24/7 in the background, so it never competes with service.",
     },
     {
       icon: "lang",
@@ -726,7 +726,7 @@ export const footer = {
       title: "Site",
       links: [
         { label: "Home", href: "/" },
-        { label: "The Floor", href: "/platform" },
+        { label: "Platform", href: "/platform" },
         { label: "About Us", href: "/about" },
         { label: "Sign in", href: "/sign-in" },
       ],
