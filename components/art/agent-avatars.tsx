@@ -1,59 +1,112 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useState } from "react";
 import { agents } from "@/lib/content";
 
 /**
- * The nine agents, as a row of discs.
+ * The departments, as a row of discs.
  *
  * The template ran a stack of illustrated faces here under a headline count of
  * active agents. The mechanic is worth keeping: an overlapping row of people
  * reads as staff, where a list of automations reads as a settings page. What
  * is not worth keeping is the faces, which were stock illustrations of nobody.
  *
- * So each disc is a branch instead, wearing its own colour and carrying the
- * glyph for the work it does, in the order the two branch sections number
- * them. This is the only colour on the site, and it is doing a job: nine
- * distinct hues make the row read as nine separate hands rather than one
- * process, which is the whole point of counting them.
+ * So each disc is a department instead, wearing its own colour and carrying
+ * the glyph for the work it does, in the order the two department sections
+ * number them. This is the only colour on the site, and it is doing a job:
+ * distinct hues make the row read as separate hands rather than one process.
  *
- * They overlap left to right and lift on hover, so a reader can pick one out.
+ * Pointing at a disc lifts it, drains the others, and names it in the line
+ * below. The name goes below rather than in a floating tooltip because the
+ * card is 252px tall inside a mosaic: a tooltip would either clip on the card
+ * or sit on top of the card next to it. A reserved line cannot do either, and
+ * it holds its height whether or not anything is named, so nothing under the
+ * row moves when the pointer crosses it.
  */
 export function AgentAvatars({ size = 36, overlap = 11 }: { size?: number; overlap?: number }) {
   const still = useReducedMotion();
+  const [active, setActive] = useState<string | null>(null);
+
+  const current = agents.roster.find((a) => a.n === active) ?? null;
 
   return (
-    <ul className="flex items-center">
-      {agents.roster.map((a, i) => (
-        <motion.li
-          key={a.n}
-          className="relative flex shrink-0 items-center justify-center rounded-full"
-          style={{
-            width: size,
-            height: size,
-            marginLeft: i === 0 ? 0 : -overlap,
-            zIndex: agents.roster.length - i,
-            background: a.colour,
-            boxShadow: "0 0 0 3px var(--surface)",
-          }}
-          initial={still ? false : { scale: 0.6, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.08 + i * 0.055, type: "spring", stiffness: 340, damping: 22 }}
-          whileHover={{ y: -5, zIndex: 20 }}
-          title={`${a.n} ${a.name}`}
-        >
-          <AgentGlyph kind={a.glyph} size={Math.round(size * 0.5)} />
-          <span className="sr-only">{`${a.n} ${a.name}`}</span>
-        </motion.li>
-      ))}
-    </ul>
+    <div>
+      <ul className="flex items-center" onMouseLeave={() => setActive(null)}>
+        {agents.roster.map((a, i) => {
+          const dim = active !== null && active !== a.n;
+          return (
+            <motion.li
+              key={a.n}
+              className="relative flex shrink-0 items-center justify-center rounded-full"
+              style={{
+                width: size,
+                height: size,
+                marginLeft: i === 0 ? 0 : -overlap,
+                zIndex: active === a.n ? 20 : agents.roster.length - i,
+                background: a.colour,
+                boxShadow: "0 0 0 3px var(--surface)",
+              }}
+              initial={still ? false : { scale: 0.6, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 + i * 0.055, type: "spring", stiffness: 340, damping: 22 }}
+              onMouseEnter={() => setActive(a.n)}
+              onFocus={() => setActive(a.n)}
+              onBlur={() => setActive(null)}
+              tabIndex={0}
+              /* The lift and the drain are animated, never the mount state:
+                 `animate` here would fight the whileInView entrance above. */
+              animate={
+                still
+                  ? undefined
+                  : { y: active === a.n ? -6 : 0, filter: dim ? "saturate(0.15)" : "saturate(1)" }
+              }
+            >
+              <AgentGlyph kind={a.glyph} size={Math.round(size * 0.5)} />
+              <span className="sr-only">{`${a.n} ${a.name}`}</span>
+            </motion.li>
+          );
+        })}
+      </ul>
+
+      {/* The reserved line. Fixed height, so the row above never shifts. */}
+      <div className="mt-[12px] flex h-[18px] items-center" aria-live="polite">
+        <AnimatePresence mode="wait" initial={false}>
+          {current ? (
+            <motion.p
+              key={current.n}
+              className="t-mono flex items-center gap-[8px] whitespace-nowrap"
+              initial={still ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={still ? undefined : { opacity: 0, y: -4 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span style={{ color: current.colour }}>{current.n}</span>
+              <span style={{ color: "var(--ink)" }}>{current.name}</span>
+            </motion.p>
+          ) : (
+            <motion.p
+              key="rest"
+              className="t-mono whitespace-nowrap"
+              style={{ color: "var(--ink-40)" }}
+              initial={still ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={still ? undefined : { opacity: 0 }}
+              transition={{ duration: 0.18 }}
+            >
+              {agents.rowHint}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }
 
 /**
- * One glyph per branch, drawn on a 24 grid at a single stroke weight so nine
- * of them read as one set at 20px rather than nine borrowed icons.
+ * One glyph per department, drawn on a 24 grid at a single stroke weight so
+ * the set reads as one family at 20px rather than nine borrowed icons.
  */
 function AgentGlyph({ kind, size }: { kind: string; size: number }) {
   const p = {

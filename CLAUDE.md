@@ -77,7 +77,7 @@ use. Nowhere else.
 the reference at 1440px, so do not eyeball changes.
 
 - Surfaces `#ffffff` page, `#f0f0f0` light card, `#1a1a1a` dark, `#242424` raised
-- Shell: 12px page gutter, 20px card radius, 20px inner padding, 120/190 block rhythm
+- Shell: 12px page gutter, 20px card radius, 40px inner padding (24 phone), 120/190 block rhythm
 - Type: 70 hero / 56 statement / 54 display / 20 card title / 16 body / 15 small / 12 mono
 - Buttons: 16px radius, 3px shell padding, 65x59 icon slot at 14px radius
 - Fonts: Inter, Geist Mono, Jaini for the language ticker

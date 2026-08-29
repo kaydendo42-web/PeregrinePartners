@@ -9,7 +9,7 @@ Read that first. This file is only the queue.
 `components/platform/agent-floor.tsx`. The react-three-fiber rebuild has been
 deleted entirely (2026-08-29, Kayden's call). Home, About and the site-wide edge
 work from the previous session are unchanged except that the horizontal padding
-was halved. Typecheck and `npm run build` pass.
+was halved and then put back. Typecheck and `npm run build` pass.
 
 ---
 
@@ -44,11 +44,18 @@ it.** The source is in git at `938b4fc..378f6b5` if it is ever wanted back.
 
 ## 2. The rest of the site
 
-- **Horizontal padding was halved this session** at Kayden's request: `--pad-x`
-  40 → 20, `--pad-x-sm` 24 → 12. Content now runs 32..1408 at 1440, identically
-  for every section of `/` and `/about` (`docs/research/scratch/measure-edges.mjs`).
-  Above about 1632px the inset is set by `--measure: 1600px` instead, so nothing
-  moved there. Kayden was told; widening the cap is still open.
+- **Horizontal padding went 40 → 20 and then back to 40.** It was halved one
+  session and restored the next, both on Kayden's call: at 20 the content sat
+  32px off the page edge at 1440 and read as flush. `--pad-x` is 40 and
+  `--pad-x-sm` is 24 again, so content runs 52..1388 at 1440, identically for
+  every section of `/`, `/about` and `/platform`
+  (`docs/research/scratch/measure-edges.mjs`). Above about 1632px the inset is
+  set by `--measure: 1600px` instead, so nothing moved there. Widening that cap
+  is still open.
+- **The Floor's own card is on `band` now too.** It used to type `px-[8px]
+  md:px-[20px]`, which was invisible while `--pad-x` was 20 and a 20px step the
+  moment it went to 40. The Floor keeps its own type and radii; it does not get
+  its own left edge.
 - **`--block-gap` is wired now, and it has a breakpoint: 120 phone / 190
   desktop.** Measured off home rather than chosen: home's body sections land on
   120 at 390 and cluster at 180/190/192/196 at 1440. `/about` and `/platform`

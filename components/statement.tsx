@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { CountUp, Reveal, ScrollHighlightText } from "./ui/motion-primitives";
 import { StateMark } from "./ui/state-mark";
 import { Cite } from "./ui/cite";
@@ -221,21 +221,38 @@ function StatesCard() {
   );
 }
 
-/** Approval, not autonomy — argued with someone else's guidance, not ours. */
+/**
+ * How the agents are built, argued with someone else's guidance, not ours.
+ *
+ * The dial runs rather than resolves. Forty-eight ticks go round and a sweep
+ * travels them, over and over, and every pass halts dead at the one tick that
+ * needs a person. It never reaches the ticks past it. That is the card's
+ * sentence drawn instead of written: the work runs on its own until it meets
+ * the thing it is not allowed to decide, and then it waits, and then it goes
+ * again. A dial that filled would say the opposite.
+ *
+ * It loops because the departments do. A once-on-scroll animation said this
+ * happened one night; a loop says it happens every night.
+ */
 function ApprovalCard() {
+  const still = useReducedMotion();
   const ticks = Array.from({ length: 48 });
+
+  /* One pass, in seconds: the sweep out to the stop, then a hold on it. Every
+     tick shares the cycle length and is offset by its own delay, so the
+     stagger is what makes the sweep travel rather than the timing. */
+  const STOP = 34;
+  const STEP = 0.045;
+  const FLASH = 0.5;
+  const HOLD = 1.4;
+  const CYCLE = STOP * STEP + FLASH + HOLD;
+
   return (
     <Reveal delay={0.14} className="h-full">
       <div
         className={`${CARD} flex h-[378px] flex-col justify-between p-[24px]`}
         style={{ background: "var(--ink-06)", borderRadius: R }}
       >
-        {/*
-          A dial that never completes. Forty-eight ticks go round and the
-          needle stops at the one that needs a person — the block is an
-          instrument for watching, not a progress bar, and finishing it would
-          say the opposite of what the card says.
-        */}
         <div className="relative mx-auto mt-[2px] flex h-[140px] w-[149px] items-center justify-center">
           <svg
             viewBox="0 0 160 160"
@@ -245,13 +262,18 @@ function ApprovalCard() {
             {ticks.map((_, i) => {
               const angle = (i / ticks.length) * Math.PI * 2 - Math.PI / 2;
               const inner = 48;
-              const stop = i === 34;
+              const stop = i === STOP;
               const len = stop ? 26 : 13 + ((i * 5) % 9);
               const r2 = (n: number) => Number(n.toFixed(2));
               const x1 = r2(80 + Math.cos(angle) * inner);
               const y1 = r2(80 + Math.sin(angle) * inner);
               const x2 = r2(80 + Math.cos(angle) * (inner + len));
               const y2 = r2(80 + Math.sin(angle) * (inner + len));
+
+              /* Past the stop the sweep never arrives, so those ticks sit at
+                 the floor value and stay there. */
+              const swept = i < STOP;
+
               return (
                 <motion.line
                   key={i}
@@ -262,18 +284,55 @@ function ApprovalCard() {
                   stroke="var(--ink)"
                   strokeWidth={stop ? "2.4" : "1.1"}
                   strokeLinecap="round"
-                  initial={{ opacity: 0.1 }}
-                  whileInView={{ opacity: stop ? 1 : [0.1, 0.6, 0.32] }}
+                  initial={{ opacity: stop ? 1 : 0.14 }}
+                  whileInView={
+                    still || stop
+                      ? { opacity: stop ? 1 : 0.14 }
+                      : swept
+                        ? { opacity: [0.14, 0.72, 0.14] }
+                        : { opacity: 0.14 }
+                  }
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 1.3,
-                    delay: i * 0.014,
-                    ease: "easeOut",
-                  }}
+                  transition={
+                    still || !swept
+                      ? { duration: 0.3 }
+                      : {
+                          duration: FLASH,
+                          delay: i * STEP,
+                          repeat: Infinity,
+                          repeatDelay: CYCLE - FLASH,
+                          ease: "easeOut",
+                        }
+                  }
                 />
               );
             })}
+
+            {/* The ring the sweep throws off when it lands on the stop. It is
+                the only thing on the card that reads as an arrival. */}
+            {still ? null : (
+              <motion.circle
+                cx="80"
+                cy="80"
+                r="30"
+                fill="none"
+                stroke="var(--ink)"
+                strokeWidth="1"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: [0, 0.32, 0], scale: [0.8, 1.5, 1.5] }}
+                viewport={{ once: true }}
+                style={{ transformOrigin: "80px 80px" }}
+                transition={{
+                  duration: 1.1,
+                  delay: STOP * STEP,
+                  repeat: Infinity,
+                  repeatDelay: CYCLE - 1.1,
+                  ease: "easeOut",
+                }}
+              />
+            )}
           </svg>
+
           <div
             className="flex h-[56px] w-[56px] items-center justify-center rounded-full"
             style={{ background: "var(--ink)" }}

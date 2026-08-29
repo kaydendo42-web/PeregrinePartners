@@ -123,6 +123,10 @@ export const states = [
 export const agents = {
   heading: "Nine agents on the floor.",
   caption: "One per department. They work the night and hand you the short list.",
+  /* The line under the row. It carries the rack numbering at rest and the
+     department you are pointing at otherwise, so the same slot does both jobs
+     and no instruction ("hover to see") has to appear on the card. */
+  rowHint: "001 to 009",
   roster: [
     { n: "001", name: "Suppliers", glyph: "crate", colour: "#C1663A" },
     { n: "002", name: "The books", glyph: "ledger", colour: "#2E6B57" },
@@ -208,10 +212,21 @@ export const statement = {
     heading: "Three states.",
   },
 
+  /**
+   * How the agents are built, not what they do.
+   *
+   * The card used to say "Every department waits", which described the result
+   * and left the method unsaid. The method is the interesting part and it is
+   * someone else's argument, not ours: Anthropic's guidance for building
+   * agents is to grant autonomy in proportion to demonstrated reliability.
+   * Ours are built to that, one per department, all running the same night and
+   * all stopping in the same place. Saying so is worth more than saying they
+   * wait, and it is the one claim on the page we did not have to invent.
+   */
   approval: {
-    title: "Every department waits",
+    title: "Autonomy is earned, one department at a time",
     caption:
-      "Autonomy in proportion to demonstrated reliability. Ours starts at none and earns it one department at a time.",
+      "Anthropic's guidance is autonomy in proportion to demonstrated reliability. Ours starts at none, and every draft stops at you.",
     source: "anthropic" as SourceKey,
   },
 
@@ -702,10 +717,10 @@ export const signIn = {
  * ------------------------------------------------------------------ */
 
 export const footer = {
-  blurb:
-    "The work a head office does, without the head office. Nine departments run overnight on the systems you already pay for, and nothing sends until you approve it.",
+  /* The blurb, the subscribe form and its note came out on Kayden's call. The
+     footer is a masthead and a set of links now; the argument is made four
+     times above it and a newsletter was never a thing this business runs. */
   bg: `${A}/v2cZIMtgjEII7EpDnUDGGgCyuiQ.jpg`,
-  subscribeNote: "One note a month on what the departments learned. No pitch.",
   columns: [
     {
       title: "Site",

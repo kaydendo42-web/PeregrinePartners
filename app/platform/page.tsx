@@ -48,7 +48,15 @@ export default function Platform() {
       <main className="relative z-10 bg-[color:var(--page)]">
         {/* The demo, first thing, filling the screen it opens on. */}
         <section id="floor" className="w-full bg-[color:var(--page)] px-[12px] pt-[12px]">
-          <div className="section-card px-[8px] py-[40px] md:px-[20px]">
+          {/*
+            The demo opens tight at the top on purpose: it has to be on screen
+            at load. The bottom is a different problem. At 40px the scene ended
+            almost on the card edge and the next band opened on 190, so the
+            seam stepped 40 / 12 / 190 and read as crammed above and loose
+            below. Half the block gap under the demo closes that step without
+            pushing the demo itself down the screen.
+          */}
+          <div className="band section-card pt-[40px] pb-[calc(var(--block-gap)/2)]">
             <AgentFloor />
           </div>
         </section>
