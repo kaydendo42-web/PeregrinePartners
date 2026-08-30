@@ -39,20 +39,27 @@ export function sideFaces(u: number, v: number, a: number, b: number, h: number)
  * The stair is the strongest cue in the reference and the cheapest to draw:
  * boxes of falling height stepping outward from the face the walkway lands on.
  */
-export function stairTreads(dept: Dept, n = 4) {
+export function stairTreads(dept: Dept, n = 5) {
   const dirU = dept.stair === "w" ? -1 : dept.stair === "e" ? 1 : 0;
   const dirV = dept.stair === "n" ? -1 : dept.stair === "s" ? 1 : 0;
   const edgeU = dept.u + dirU * dept.w;
   const edgeV = dept.v + dirV * dept.d;
-  const step = 0.42; // tread depth, grid units
+  const step = 0.5; // tread depth, grid units
+  const run = 0.62; // half-width across the run
+
+  /* k = 1 is the tread against the plinth, and it is the island's full height,
+     so the stair arrives flush at the top instead of stopping a step short and
+     reading as a slab parked beside the island. The centre offset is
+     (k - 0.5) rather than k so tread 1 spans the edge itself: at k the first
+     tread started half a step out and left a gap under it. */
   return Array.from({ length: n }, (_, i) => {
-    const k = i + 1; // 1 is the tread nearest the ground
+    const k = i + 1;
     return {
-      u: edgeU + dirU * step * k,
-      v: edgeV + dirV * step * k,
-      a: dirU ? step / 2 : 0.8,
-      b: dirV ? step / 2 : 0.8,
-      h: (dept.lift * (n - k + 1)) / (n + 1),
+      u: edgeU + dirU * step * (k - 0.5),
+      v: edgeV + dirV * step * (k - 0.5),
+      a: dirU ? step / 2 : run,
+      b: dirV ? step / 2 : run,
+      h: (dept.lift * (n - k + 1)) / n,
     };
   });
 }
