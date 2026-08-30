@@ -15,8 +15,8 @@ Three problems, one cause.
    square at the same height carrying the same two-column grid of identical
    desks. Only a caption tells them apart, so the scene proves that six
    departments exist without showing what any of them does.
-3. **Furniture escapes the island.** On Bookings and Marketing the sitters on
-   the last row are drawn past the plinth edge and float over the ground.
+3. **Furniture escapes the island.** On Bookings the two sitters on the last row
+   are drawn past the plinth edge and float over the ground.
 
 The cause is that the scene is generated rather than composed: one geometry
 function, one size, one desk grid, applied six times.
@@ -82,7 +82,14 @@ button list. Neither path is a second-class one.
 `deskSpots()` places row `r` at `(r - (rows-1)/2) * size * 0.82` from the
 island centre. With six desks that is three rows, so the last row sits at
 `0.82 × size`. `Desk` then draws its sitter a further `0.72` units toward the
-camera. On a 2.4 island the sitter lands at `2.69` units, past the `2.4` edge.
+camera.
+
+Measured against today's data rather than assumed: Bookings is `size` 2.9 with
+six desks, so its last row lands at `2.9 × 0.82 + 0.72 = 3.098`, past its own
+2.9 bound by 0.198 units. It is the only department that escapes. Marketing has
+four desks, not six, so its last row lands at 1.704 and clears by 0.696. An
+earlier draft of this spec named both; that was algebra on a uniform 2.4 island
+with six desks, which describes no department that exists.
 
 The fix is not a nudge. `deskSpots()` is deleted. Each department declares an
 explicit `layout` array of typed placements, and every placement is clamped

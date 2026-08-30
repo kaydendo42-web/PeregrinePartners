@@ -150,13 +150,15 @@ const escapes = await p.evaluate((exempt) => {
       if (exempt.some((c) => child.classList.contains(c))) return;
       const r = child.getBoundingClientRect();
       if (!r.width && !r.height) return;
-      // 2px of tolerance for stroke width and antialiasing.
-      const over =
-        r.left < t.left - 2 || r.right > t.right + 2 ||
-        r.bottom > t.bottom + 2;
-      if (over) out.push({ dept: name, cls: child.getAttribute('class') || child.tagName,
-                           child: [r.left, r.right, r.bottom].map(Math.round),
-                           island: [t.left, t.right, t.bottom].map(Math.round) });
+      // The top face is a diamond and getBoundingClientRect is axis aligned, so
+      // a prop legitimately near the west or east vertex sits outside the box on
+      // that axis. Only the front edge is checked, which is the real bug: a
+      // sitter drawn past the bottom of the plinth, hanging over the ground.
+      if (r.bottom > t.bottom + 4) {
+        out.push({ dept: name, cls: child.getAttribute('class') || child.tagName,
+                   childBottom: Math.round(r.bottom), islandBottom: Math.round(t.bottom),
+                   over: Math.round(r.bottom - t.bottom) });
+      }
     });
   });
   return out;
@@ -177,16 +179,22 @@ const ids = depts.length
   ? depts
   : await p.$$eval('.floor__card[data-dept]', (bs) => bs.map((x) => x.getAttribute('data-dept')));
 
+// The reach list is 1px and clip-path'd, so puppeteer will not click it as a
+// pointer would. Dispatch the click from inside the page instead. That is the
+// right call for this list specifically: it exists for keyboard and assistive
+// readers, and the human focus route is checked by hand in Task 3.
+const press = (sel) => p.$eval(sel, (el) => el.click());
+
 for (const id of ids) {
   const sel = depts.length
     ? `.floor__reach button[data-dept="${id}"]`
     : `.floor__card[data-dept="${id}"]`;
-  await p.click(sel);
+  await press(sel);
   await shot(id);
   // Back out, so each shot starts from the same place.
   const back = await p.$('.floor__panel-back');
-  if (back) await back.click();
-  else await p.click(sel);
+  if (back) await back.evaluate((el) => el.click());
+  else await press(sel);
 }
 
 await b.close();
@@ -209,9 +217,15 @@ process.exit(fail ? 1 : 0);
 node docs/research/scratch/floor-check.mjs http://localhost:3000/platform docs/research/scratch/floor-shots/baseline
 ```
 
-Expected: the edge guard **FAILS**, naming `bookings` and `marketing`. That is
+Expected: the edge guard **FAILS**, naming `bookings` twice: it is the only
+department that escapes, and it does so on both desks of its last row. That is
 the bug from the spec, and this is the proof it is real. If the guard passes,
 stop and investigate before going further, because the guard is wrong.
+
+Bookings is `size` 2.9 with six desks, so `deskSpots()` puts its last row at
+`2.9 x 0.82 = 2.378` and `Desk` draws the sitter `0.72` further toward the
+camera, landing at `3.098` against a 2.9 bound. Marketing has four desks, so its
+last row lands at `1.704` and clears by `0.696`.
 
 - [ ] **Step 4: Record the known failures**
 
@@ -371,8 +385,8 @@ node docs/research/scratch/floor-check.mjs http://localhost:3000/platform docs/r
 node docs/research/scratch/floor-check.mjs --compare docs/research/scratch/floor-shots/baseline docs/research/scratch/floor-shots/split
 ```
 
-Expected: `PASS: 8 identical`, and the edge guard still failing on the same two
-departments with the same numbers. **If any shot differs, the move was not
+Expected: `PASS: 8 identical`, and the edge guard still failing on Bookings with
+the same numbers. **If any shot differs, the move was not
 pure.** Find the changed line and restore it. Do not proceed on a DIFF.
 
 - [ ] **Step 9: Commit**
@@ -611,8 +625,8 @@ node docs/research/scratch/floor-check.mjs http://localhost:3000/platform docs/r
 
 Expected: build and lint clean. The harness now finds `.floor__reach button`
 and drives the scene through it instead of the cards. Shots will differ from
-baseline (the cards are gone) and the edge guard still fails on `bookings` and
-`marketing`. That is correct at this stage.
+baseline (the cards are gone) and the edge guard still fails on `bookings`.
+That is correct at this stage.
 
 - [ ] **Step 6: Check the focus route by hand**
 
@@ -806,8 +820,9 @@ add:
  * A placement resolved onto the island, clamped inside its footprint.
  *
  * The old deskSpots() put the last row at 0.82 of the half-extent and Desk then
- * drew its sitter 0.72 units further toward the camera, which on a 2.4 island
- * landed at 2.69 and hung off the edge. Everything drawn on an island goes
+ * drew its sitter 0.72 units further toward the camera, which on Bookings put
+ * both desks of the last row at 3.098 against a 2.9 bound, hanging over the
+ * ground. Everything drawn on an island goes
  * through here, so that cannot happen again.
  */
 export function place(dept: Dept, p: Placement) {

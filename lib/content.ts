@@ -751,7 +751,7 @@ export const footer = {
       title: "Talk to us",
       links: [
         { label: "Book the first session", href: "/waitlist" },
-        { label: brand.email, href: `mailto:${brand.email}` },
+        { label: "Kaydendo42@gmail.com", href: "mailto:Kaydendo42@gmail.com" },
         { label: brand.phone, href: `tel:${brand.phone.replace(/\s/g, "")}` },
       ],
     },

@@ -36,6 +36,20 @@
   --sage: rgba(26, 26, 26, 0.42);
   --sage-lift: rgba(255, 255, 255, 0.62);
 
+  /* Colour is a tenth of the reference's, and it is department identity: which
+     island this is. It is never task state. Needs you, Watching and Done stay
+     told apart by weight and fill, here and on the phone.
+
+     88.6 and 80.7 are measured, not chosen: getComputedStyle on the plinth
+     faces before the hue arrived gave rgb(226,226,226) for the right face and
+     rgba(26,26,26,0.16) over --paper for the left, which composites to 205.8.
+     The hue therefore lands without moving the scene's value structure. */
+  --isle-sat: 10%;
+  /* The hsl() lives in each rule rather than in a shared --face-* token: a custom
+     property declared here resolves its own var() references here and inherits the
+     answer, so a token would bake in 10% and the per-island override would never
+     land. */
+
   --font-plex-mono: var(--font-plex);
   --pd: 40px;
 
@@ -182,6 +196,38 @@
 .floor__burst { fill: var(--accent); }
 .floor__brain { fill: var(--accent); }
 
+/* The scene's keyboard and assistive route. Visible to a screen reader,
+   never to the eye. Not display:none where the scene exists, which would take
+   it out of the accessibility tree along with the tab order.
+
+   Below 810px it IS display:none, because there is no scene to reach: the
+   cards are on screen and are already the controls. Leaving it on would give a
+   keyboard reader every department twice. */
+.floor__reach {
+  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.floor__reach button:focus-visible {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: auto;
+  height: auto;
+  clip-path: none;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  font-size: 13px;
+  z-index: 20;
+}
+
 .floor__isle { cursor: pointer; transition: transform 0.35s var(--ease-out-soft); }
 .floor__isle:hover { transform: translateY(-3px); }
 
@@ -193,11 +239,16 @@
 }
 
 .floor__isle[data-own] .floor__isle-top { fill: var(--blush); }
-.floor__isle[data-selected] .floor__isle-top { stroke: var(--accent); stroke-width: 1.75; }
+/* The open island is already the only one holding colour, so its outline does
+   not need to shout in black as well. It takes the same hue, darkened. */
+.floor__isle[data-selected] .floor__isle-top {
+  stroke: hsl(var(--hue, 0) calc(var(--isle-sat) * 1.2) 48%);
+  stroke-width: 1.25;
+}
 .floor__isle[data-selected] { filter: drop-shadow(0 12px 18px rgb(20 30 40 / 0.14)); }
 
-.floor__isle-side { fill: var(--surface-2); }
-.floor__isle-side--l { fill: var(--rule); }
+.floor__isle-side { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__isle-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
 
 .floor__isle-label {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
@@ -208,6 +259,32 @@
 }
 
 .floor__isle[data-own] .floor__isle-label { fill: var(--accent); }
+
+.floor__isle-desks,
+.floor__isle-rule {
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-in-out);
+}
+
+.floor__isle-desks {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  fill: var(--faint);
+}
+
+.floor__isle-rule {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.floor__isle[data-hover] .floor__isle-label,
+.floor__isle[data-selected] .floor__isle-label { fill: var(--ink); }
+
+.floor__isle[data-hover] .floor__isle-desks,
+.floor__isle[data-hover] .floor__isle-rule,
+.floor__isle[data-selected] .floor__isle-desks,
+.floor__isle[data-selected] .floor__isle-rule { opacity: 1; }
 
 .floor__isle-flag circle { fill: var(--accent-lift); }
 .floor__isle-flag { animation: floor-flag 2.4s var(--ease-in-out) infinite; }
@@ -276,6 +353,66 @@
 
 .floor__isle:hover .floor__desk-label,
 .floor__isle[data-selected] .floor__desk-label { opacity: 1; }
+
+.floor__box-top   { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+.floor__box-side  { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__box-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
+
+.floor__tread-top   { fill: hsl(var(--hue, 0) var(--isle-sat) 93%); stroke: var(--rule); stroke-width: 0.6; }
+.floor__tread-side  { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__tread-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
+
+.floor__vert-top    { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
+.floor__vert-side   { fill: hsl(var(--hue, 0) var(--isle-sat) 88.6%); }
+.floor__vert-side--l { fill: hsl(var(--hue, 0) var(--isle-sat) 80.7%); }
+/* An opening, not a panel. --paper against a --surface slab is a six percent
+   difference and both arches read as plain slabs; this is the shadow you would
+   actually see through a cut in a wall, so it takes the department's hue dark
+   rather than a flat grey. */
+.floor__vert-hole   {
+  fill: hsl(var(--hue, 0) calc(var(--isle-sat) * 1.6) 62%);
+  stroke: none;
+}
+
+.floor__crate-seam,
+.floor__ledger-row { stroke: var(--faint); stroke-width: 0.8; }
+.floor__ledger-row[data-off] { stroke: var(--ink); stroke-width: 1.1; }
+
+.floor__safe-dial { fill: none; stroke: var(--muted); stroke-width: 1.1; }
+.floor__hole,
+.floor__peg-block { fill: var(--surface-2); stroke: var(--rule); stroke-width: 0.5; }
+
+/* The one or two faces an island is allowed to hold its own colour on. This is
+   the department's signature object, so it is what the eye lands on first. */
+.floor__box[data-lit] .floor__box-top,
+.floor__easel-face[data-lit],
+.floor__peg-block[data-lit] {
+  fill: hsl(var(--hue, 0) calc(var(--isle-sat) * 2.4) 90%);
+}
+
+/* Open a department and it is the only one holding colour. Two rules, one
+   variable. Everything outside an island falls back to hue 0 at whatever
+   saturation is in scope, which is the grey it already was. */
+.floor__office[data-open] .floor__isle                { --isle-sat: 0%; }
+.floor__office[data-open] .floor__isle[data-selected] { --isle-sat: 34%; }
+
+.floor__isle path,
+.floor__isle rect,
+.floor__isle ellipse { transition: fill 0.35s var(--ease-in-out); }
+.floor__printer-sheet { fill: var(--surface); stroke: var(--rule); stroke-width: 0.6; }
+
+.floor__easel-leg,
+.floor__light-post { stroke: var(--muted); stroke-width: 1.2; }
+.floor__easel-face { fill: var(--surface); stroke: var(--rule); stroke-width: 0.8; }
+.floor__panelboard { fill: var(--surface); stroke: var(--rule); stroke-width: 0.7; }
+.floor__light-head { fill: var(--surface-2); stroke: var(--rule); stroke-width: 0.7; }
+
+.floor__clock-face { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
+.floor__clock-hand { stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; }
+
+.floor__top-stem { stroke: var(--muted); stroke-width: 1.4; }
+.floor__top-face { fill: var(--surface); stroke: var(--rule); stroke-width: 0.8; }
+.floor__top-ring { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; }
 
 .floor__plant-pot { fill: var(--muted); opacity: 0.75; }
 .floor__plant-leaf { fill: var(--sage); opacity: 0.9; }
@@ -771,10 +908,29 @@
 /* -- the panel ----------------------------------------------------------- */
 
 .floor__panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--rule);
   padding-top: 22px;
+  transition: background 0.35s var(--ease-in-out);
+}
+
+/* Open a department and the panel takes its colour, its number and its mark,
+   so stepping into a department is visible on both sides of the screen. */
+.floor__panel[data-dept] {
+  background: hsl(var(--hue) 34% 96%);
+  border-radius: 12px;
+  padding-left: 20px;
+}
+
+.floor__panel[data-dept]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+  background: hsl(var(--hue) 34% 62%);
 }
 
 .floor__panel-time {
@@ -813,10 +969,18 @@
 }
 
 .floor__panel-dept {
-  font-size: 15px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.09em;
   color: var(--ink);
 }
+
+.floor__glyph { color: hsl(var(--hue) 34% 40%); flex: none; }
+.floor__panel-n { color: hsl(var(--hue) 34% 40%); }
+.floor__panel-sep { color: var(--faint); }
 
 .floor__panel-back {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
@@ -885,6 +1049,11 @@
 .floor__syschip[data-own] .floor__syschip-tile {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
+}
+
+.floor__panel[data-dept] .floor__syschip-tile {
+  background: hsl(var(--hue) 34% 88%);
+  color: hsl(var(--hue) 40% 28%);
 }
 
 .floor__tasks {
@@ -1007,18 +1176,11 @@
   .floor__clock { display: flex; }
   .floor__status { display: flex; }
 
-  .floor__scene[data-zoomed] .floor__cards {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .floor__cards { transition: opacity 0.4s var(--ease-in-out); }
-
-  .floor__scene[data-view="venue"] .floor__card {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s var(--ease-in-out);
-  }
+  /* Above 810px the islands are the interface. The cards are the phone's
+     morning brief and stay exactly as they are below this width, and the reach
+     list takes over the job they were doing for keyboard and assistive readers. */
+  .floor__cards { display: none; }
+  .floor__reach { display: block; }
 
   .floor__cards { grid-template-columns: repeat(3, 1fr); }
 
@@ -1041,24 +1203,6 @@
     min-height: 560px;
   }
 
-  /* The cards float in the diamond's corner pockets, reference style. */
-  .floor__cards {
-    display: block;
-  }
-
-  .floor__card {
-    position: absolute;
-    width: 200px;
-    box-shadow: 0 10px 30px rgb(20 30 40 / 0.07);
-  }
-
-  .floor__card[data-dept="roster"] { left: 0; top: 0; }
-  .floor__card[data-dept="books"] { right: 0; top: 0; }
-  .floor__card[data-dept="suppliers"] { right: 0; top: 195px; }
-  .floor__card[data-dept="marketing"] { left: 0; top: 47%; }
-  .floor__card[data-dept="bookings"] { left: 0; bottom: 0; }
-  .floor__card[data-dept="admin"] { right: 0; bottom: 0; }
-  .floor__card[data-dept="venue"] { left: 0; top: 23%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1066,6 +1210,8 @@
   .floor__isle:hover,
   .floor__card,
   .floor__card:hover,
+  .floor__panel,
+  .floor__glyph,
   .floor__scene svg {
     transition: none;
     transform: none;
