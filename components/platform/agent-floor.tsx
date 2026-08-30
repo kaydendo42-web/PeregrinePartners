@@ -381,7 +381,7 @@ export function AgentFloor() {
             aria-label={
               view === "venue"
                 ? "Inside the restaurant: the dining room with the coming days' bookings laid over it"
-                : "An isometric floor plan of the venue's six departments, connected to the restaurant and Peregrine at the centre"
+                : "An isometric floor plan of the venue's departments, each connected to the restaurant and Peregrine at the centre"
             }
           >
             {view === "venue" ? (
