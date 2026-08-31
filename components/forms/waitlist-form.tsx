@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Button } from "../ui/button";
+import { BookNowButton } from "../ui/button";
 import { StateMark } from "../ui/state-mark";
 import { brand, waitlist } from "@/lib/content";
 
@@ -202,9 +202,9 @@ export function WaitlistForm() {
       </AnimatePresence>
 
       <div className="flex flex-wrap items-center gap-[20px]">
-        <Button type="submit" gap={30}>
+        <BookNowButton>
           {status === "sending" ? waitlist.sending : waitlist.submit}
-        </Button>
+        </BookNowButton>
         <p className="t-label" style={{ color: "var(--ink-40)" }}>
           Or call {brand.phone}.
         </p>

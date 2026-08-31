@@ -144,6 +144,77 @@ export function Button({
 }
 
 /**
+ * The booking form's bilateral action.
+ *
+ * The two arrows face the label and close toward it on hover/focus. It stays a
+ * normal submit button: the movement signals action without turning the
+ * control into a gesture or making the user drag anything.
+ */
+export function BookNowButton({
+  children,
+  className = "",
+  type = "submit",
+}: {
+  children: ReactNode;
+  className?: string;
+  type?: "button" | "submit";
+}) {
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.button
+      type={type}
+      className={`book-now-button group inline-grid cursor-pointer grid-cols-[54px_minmax(92px,1fr)_54px] items-center gap-[3px] overflow-hidden bg-[color:var(--ink)] p-[3px] ${className}`}
+      whileHover={reduced ? undefined : { y: -2 }}
+      whileTap={reduced ? undefined : { scale: 0.985 }}
+      transition={{ type: "spring", stiffness: 400, damping: 28 }}
+    >
+      <span className="book-now-button__slot flex h-[59px] items-center justify-center bg-white" aria-hidden>
+        <span
+          className="book-now-button__arrow book-now-button__arrow--left flex items-center justify-center text-[color:var(--ink)]"
+          data-book-now-arrow="left"
+        >
+          <InwardArrow direction="right" />
+        </span>
+      </span>
+
+      <span
+        className="whitespace-nowrap px-[12px] text-center text-white"
+        data-book-now-label
+        style={{ fontSize: 16, lineHeight: "24px", fontWeight: 400 }}
+      >
+        {children}
+      </span>
+
+      <span className="book-now-button__slot flex h-[59px] items-center justify-center bg-white" aria-hidden>
+        <span
+          className="book-now-button__arrow book-now-button__arrow--right flex items-center justify-center text-[color:var(--ink)]"
+          data-book-now-arrow="right"
+        >
+          <InwardArrow direction="left" />
+        </span>
+      </span>
+    </motion.button>
+  );
+}
+
+function InwardArrow({ direction }: { direction: "left" | "right" }) {
+  const pointsRight = direction === "right";
+
+  return (
+    <svg width="25" height="18" viewBox="0 0 25 18" fill="none" aria-hidden>
+      <path
+        d={pointsRight ? "M2 9H22M16 3L22 9L16 15" : "M23 9H3M9 3L3 9L9 15"}
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/**
  * Slide to confirm.
  *
  * The mark is dragged from its slot to the far end of the pill and the link is

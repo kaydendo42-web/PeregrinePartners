@@ -175,6 +175,34 @@ body {
   animation: mark-march 2.4s linear infinite;
 }
 
+/* Book a Session CTA: two quiet arrow chambers close toward the action. */
+.book-now-button {
+  min-width: 228px;
+  min-height: 65px;
+  border-radius: var(--r-btn);
+  box-shadow: 0 10px 24px rgba(26, 26, 26, 0.12);
+  transition: box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.book-now-button:hover,
+.book-now-button:focus-visible {
+  box-shadow: 0 16px 34px rgba(26, 26, 26, 0.2);
+}
+.book-now-button__slot {
+  border-radius: var(--r-btn-inner);
+}
+.book-now-button__arrow {
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.book-now-button:hover .book-now-button__arrow--left,
+.book-now-button:focus-visible .book-now-button__arrow--left {
+  transform: translateX(6px);
+}
+.book-now-button:hover .book-now-button__arrow--right,
+.book-now-button:focus-visible .book-now-button__arrow--right {
+  transform: translateX(-6px);
+}
+
 /* Marquee ------------------------------------------------------- */
 @keyframes marquee-x {
   from { transform: translate3d(0, 0, 0); }
@@ -196,6 +224,14 @@ body {
   html { scroll-behavior: auto; }
   .mark-chevron { animation: none; opacity: 0; }
   .mark-chevron[data-rest] { opacity: 1; }
+  .book-now-button,
+  .book-now-button__arrow {
+    transition: none;
+  }
+  .book-now-button:hover .book-now-button__arrow,
+  .book-now-button:focus-visible .book-now-button__arrow {
+    transform: none;
+  }
   .about-motion-piece,
   .about-origin-motion {
     opacity: 1 !important;

@@ -696,7 +696,7 @@ export const waitlist = {
     "Admin & Compliance",
     "Point of sale",
   ],
-  submit: "Book the session",
+  submit: "Book Now",
   sending: "Sending",
   done: {
     heading: "We have got it.",
