@@ -609,9 +609,9 @@ export const about = {
 
   origin: {
     label: "How we found it",
-    heading: "It started with a number nobody could give us.",
+    heading: "It started with a bill nobody could add up.",
     body: "We were in a cafe in South Yarra trying to count what the owner paid for software, and we lost track. Then we watched the manager step off the floor mid-service to check a booking, make two calls, and step back on. Nothing was broken. Every product worked. There was just nobody to run them.",
-    body2: "The gap was never a missing feature. It is that no product can act on your behalf across the other eight, so a person has to stand in the middle and translate. In a small business that person is the owner, after close. We are building the thing that stands there instead.",
+    body2: "The gap was never a missing feature. It is that no product can act on your behalf across everything else you pay for, so a person has to stand in the middle and translate. In a small business that person is the owner, after close. We are building what stands there instead.",
     photo: "/scene/south-yarra-cafe.jpg",
     photoCaption: "A counter at open. The one deadline that has never moved.",
   },
@@ -635,29 +635,6 @@ export const about = {
         title: "So we built the seam",
         body: "Peregrine does the first half and hands you the second, in a form that takes seconds rather than an evening. Anthropic's guidance for agent builders is to expand autonomy only in proportion to demonstrated reliability. Ours starts at none. Every department drafts, stops and waits, and the queue is short on purpose.",
         cite: "anthropic" as SourceKey,
-      },
-    ],
-  },
-
-  refuse: {
-    label: "How we work",
-    heading: "Four rules we hold to, whether or not anyone is checking.",
-    items: [
-      {
-        title: "Nothing sends without you",
-        body: "Every department drafts and stops. No order, payrun, roster or post leaves the building until you have approved it, and the approval is one tap from the morning brief.",
-      },
-      {
-        title: "Every figure opens",
-        body: "Click a number and see the invoice line behind it. If a department made a call, the log says what triggered it, what it cost and who signed off. There is no figure on your brief you cannot chase to its source.",
-      },
-      {
-        title: "Your accounts stay yours",
-        body: "We hold credentials scoped to what a department needs and nothing beyond it. No data leaves your systems to train anything, and you can revoke a department on your own without ringing us.",
-      },
-      {
-        title: "Numbers carry their source",
-        body: "Every figure on this site is either a published market rate with the source next to it, or arithmetic modelled on a real venue's invoices and labelled as modelled. We would rather a thinner page than one you can catch us on.",
       },
     ],
   },

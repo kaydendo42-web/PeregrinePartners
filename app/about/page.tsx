@@ -72,9 +72,14 @@ export default function About() {
       <main className="relative z-10 bg-[color:var(--page)]">
         {/* ── the opening, on dark ─────────────────────────────────── */}
         <section className="w-full bg-[color:var(--page)] p-[12px]">
+          {/* The copy is centred in the card, not parked on its floor. It used
+              to be justify-end with 190 above and 110 below, which read as a
+              caption under the sculpture rather than the page's opening. The
+              padding is symmetric so the centring is the real centre, and 150
+              is still enough to clear the nav on a short viewport. */}
           <div
             data-about-hero
-            className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-end overflow-hidden pb-[80px] pt-[130px] md:min-h-[720px] md:pb-[110px] md:pt-[190px]"
+            className="band relative flex min-h-[calc(100svh-24px)] flex-col justify-center overflow-hidden py-[110px] md:min-h-[720px] md:py-[150px]"
             style={{ background: "var(--dark)", borderRadius: "var(--r-card)" }}
           >
             <AboutHeroArt />
@@ -209,53 +214,6 @@ export default function About() {
         <div className="bg-[color:var(--page)] py-[10px]">
           <Ticker />
         </div>
-
-        {/* ── the rules we hold to, on light ───────────────────────── */}
-        <section className="w-full bg-[color:var(--page)] px-[12px]">
-          <div className={`section-card ${BAND}`}>
-            <div className={MEASURE} id="refuse">
-              <SectionLabel label={about.refuse.label} ruleWidth={300} />
-
-              <Reveal delay={0.04}>
-                <h2 className="t-display mt-[52px] max-w-[720px]">{about.refuse.heading}</h2>
-              </Reveal>
-
-              <div className="mt-[60px] grid grid-cols-1 gap-[10px] md:grid-cols-2">
-                {about.refuse.items.map((it, i) => (
-                  <Reveal key={it.title} delay={0.04 + i * 0.05}>
-                    <div
-                      className="flex h-full flex-col gap-[16px] bg-white p-[30px]"
-                      style={{ borderRadius: "var(--r-card)" }}
-                    >
-                      <span
-                        className="flex h-[30px] w-[30px] items-center justify-center rounded-full"
-                        style={{ background: "var(--ink)" }}
-                        aria-hidden
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                          <path
-                            d="M6 6l12 12M18 6L6 18"
-                            stroke="#fff"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </span>
-                      <h3
-                        style={{ fontSize: 19, lineHeight: "26px", fontWeight: 500, letterSpacing: "-0.35px" }}
-                      >
-                        {it.title}
-                      </h3>
-                      <p className="t-body-sm" style={{ color: "var(--ink-70)" }}>
-                        {it.body}
-                      </p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── the three of us, on dark ─────────────────────────────── */}
         <section id="people" className="w-full bg-[color:var(--page)] px-[12px]">

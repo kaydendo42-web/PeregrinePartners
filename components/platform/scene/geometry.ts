@@ -69,7 +69,27 @@ export function stairTreads(dept: Dept, n = 5) {
 /* ------------------------------------------------------------------ */
 
 export const HUB = { size: 2.6, lift: 12 };
-export const VIEW = { x: -581, y: -508, w: 1158, h: 962 };
+
+/**
+ * How much air sits around the measured bounds when the floor first lands.
+ *
+ * The bounds below are sceneBounds() of the six islands and fit them exactly,
+ * which filled the viewport edge to edge on arrival. Widening the window by
+ * 1/EASE holds the same centre and draws everything a tenth smaller. The
+ * department zoom divides by the same number, so opening an island frames it
+ * exactly as before.
+ */
+const EASE = 0.9;
+
+/** sceneBounds(DEPTS) at pad 40, before the ease. */
+const FIT = { x: -581, y: -508, w: 1158, h: 962 };
+
+export const VIEW = {
+  x: Math.round(FIT.x + FIT.w / 2 - FIT.w / EASE / 2),
+  y: Math.round(FIT.y + FIT.h / 2 - FIT.h / EASE / 2),
+  w: Math.round(FIT.w / EASE),
+  h: Math.round(FIT.h / EASE),
+};
 
 /** Projected bounds of every island including its vertical, plus padding. */
 export function sceneBounds(depts: Dept[], pad = 40) {
@@ -125,7 +145,7 @@ export function place(dept: Dept, p: Placement) {
  * Bookings overflows at that scale, so the zoom comes from the footprint.
  */
 export function zoomFor(dept: Dept) {
-  return Math.min(1.55, (VIEW.w * 0.52) / ((dept.w + dept.d) * 2 * KX));
+  return Math.min(1.55 / EASE, (VIEW.w * 0.52) / ((dept.w + dept.d) * 2 * KX));
 }
 
 export function zoomTransform(dept: Dept) {
