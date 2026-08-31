@@ -1,4 +1,4 @@
-import type { Dept, Placement } from "./data";
+import type { Dept } from "./data";
 
 /* ------------------------------------------------------------------ */
 /* Geometry                                                            */
@@ -33,125 +33,67 @@ export function sideFaces(u: number, v: number, a: number, b: number, h: number)
   };
 }
 
-/**
- * Treads climbing one plinth face, ground to island top.
- *
- * The stair is the strongest cue in the reference and the cheapest to draw:
- * boxes of falling height stepping outward from the face the walkway lands on.
- */
-export function stairTreads(dept: Dept, n = 5) {
-  const dirU = dept.stair === "w" ? -1 : dept.stair === "e" ? 1 : 0;
-  const dirV = dept.stair === "n" ? -1 : dept.stair === "s" ? 1 : 0;
-  const edgeU = dept.u + dirU * dept.w;
-  const edgeV = dept.v + dirV * dept.d;
-  const step = 0.5; // tread depth, grid units
-  const run = 0.62; // half-width across the run
-
-  /* k = 1 is the tread against the plinth, and it is the island's full height,
-     so the stair arrives flush at the top instead of stopping a step short and
-     reading as a slab parked beside the island. The centre offset is
-     (k - 0.5) rather than k so tread 1 spans the edge itself: at k the first
-     tread started half a step out and left a gap under it. */
-  return Array.from({ length: n }, (_, i) => {
-    const k = i + 1;
-    return {
-      u: edgeU + dirU * step * (k - 0.5),
-      v: edgeV + dirV * step * (k - 0.5),
-      a: dirU ? step / 2 : run,
-      b: dirV ? step / 2 : run,
-      h: (dept.lift * (n - k + 1)) / n,
-    };
-  });
-}
-
 /* ------------------------------------------------------------------ */
 /* Scene constants                                                     */
 /* ------------------------------------------------------------------ */
 
 export const HUB = { size: 2.6, lift: 12 };
-
-/**
- * How much air sits around the measured bounds when the floor first lands.
- *
- * The bounds below are sceneBounds() of the six islands and fit them exactly,
- * which filled the viewport edge to edge on arrival. Widening the window by
- * 1/EASE holds the same centre and draws everything a tenth smaller. The
- * department zoom divides by the same number, so opening an island frames it
- * exactly as before.
- */
-const EASE = 0.9;
-
-/** sceneBounds(DEPTS) at pad 40, before the ease. */
-const FIT = { x: -581, y: -508, w: 1158, h: 962 };
-
-export const VIEW = {
-  x: Math.round(FIT.x + FIT.w / 2 - FIT.w / EASE / 2),
-  y: Math.round(FIT.y + FIT.h / 2 - FIT.h / EASE / 2),
-  w: Math.round(FIT.w / EASE),
-  h: Math.round(FIT.h / EASE),
-};
-
-/** Projected bounds of every island including its vertical, plus padding. */
-export function sceneBounds(depts: Dept[], pad = 40) {
-  const xs: number[] = [];
-  const ys: number[] = [];
-  for (const d of depts) {
-    for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]] as const) {
-      const c = px(d.u + su * d.w, d.v + sv * d.d);
-      xs.push(c.x);
-      ys.push(c.y, c.y - d.lift - d.vertical.h);
-    }
-  }
-  const [x0, x1] = [Math.min(...xs) - pad, Math.max(...xs) + pad];
-  const [y0, y1] = [Math.min(...ys) - pad, Math.max(...ys) + pad];
-  return { x: Math.round(x0), y: Math.round(y0), w: Math.round(x1 - x0), h: Math.round(y1 - y0) };
-}
+export const ISLE_LIFT = 18;
+export const VIEW = { x: -690, y: -480, w: 1380, h: 985 };
 
 /** Walkway endpoints: from the hub's edge to each island's near corner. */
-export function walkway(dept: Dept) {
-  const len = Math.hypot(dept.u, dept.v);
+export function walkway(d: Dept) {
+  const len = Math.hypot(d.u, d.v);
   const inner = (HUB.size + 0.4) / len;
-  // How far the island reaches along the line back to the hub.
-  const ext =
-    Math.abs(dept.u / len) * dept.w + Math.abs(dept.v / len) * dept.d;
-  const outer = (len - ext - 0.4) / len;
-  const a = px(dept.u * inner, dept.v * inner);
-  const b = px(dept.u * outer, dept.v * outer);
+  const outer = (len - d.size - 0.4) / len;
+  const a = px(d.u * inner, d.v * inner);
+  const b = px(d.u * outer, d.v * outer);
   return `M ${a.x} ${a.y - 4} L ${b.x} ${b.y - 4}`;
 }
 
 /**
- * A placement resolved onto the island, clamped inside its footprint.
+ * Desk positions on an island top, a loose two-column grid, clamped inside it.
  *
- * The old deskSpots() put the last row at 0.82 of the half-extent and Desk then
- * drew its sitter 0.72 units further toward the camera, which on Bookings put
- * both desks of the last row at 3.098 against a 2.9 bound, hanging over the
- * ground. Everything drawn on an island goes
- * through here, so that cannot happen again.
+ * The gap alone is not enough. Desk draws its sitter 0.72 units further toward
+ * the camera than the desk's own centre, so on Bookings, which is six desks and
+ * therefore three rows, the last row landed at 2.378 + 0.72 = 3.098 against a
+ * 2.9 half-extent and both sitters hung over the ground. Every spot goes
+ * through the clamp, which reserves that reach on the near side.
  */
-export function place(dept: Dept, p: Placement) {
-  const mu = Math.max(0, dept.w - 0.8);
-  const mv = Math.max(0, dept.d - 0.8);
-  return {
-    u: dept.u + Math.max(-mu, Math.min(mu, p.du)),
-    v: dept.v + Math.max(-mv, Math.min(mv, p.dv)),
-  };
+const SITTER_REACH = 0.72;
+
+export function deskSpots(d: Dept) {
+  const cols = 2;
+  const gap = d.size * 0.82;
+  const mu = Math.max(0, d.size - 0.8);
+  const mv = Math.max(0, d.size - 0.8 - SITTER_REACH);
+  return d.desks.map((_, i) => {
+    const c = i % cols;
+    const r = Math.floor(i / cols);
+    const rows = Math.ceil(d.desks.length / cols);
+    const du = (c - (cols - 1) / 2) * gap;
+    const dv = (r - (rows - 1) / 2) * gap;
+    return {
+      u: d.u + Math.max(-mu, Math.min(mu, du)),
+      v: d.v + Math.max(-mv, Math.min(mv, dv)),
+    };
+  });
 }
 
 /**
- * How far the camera pushes in on a department.
+ * Where the camera pushes in when a department is opened.
  *
- * The old constant 1.45 was tuned against uniform 2.4 islands; a 3.2-wide
- * Bookings overflows at that scale, so the zoom comes from the footprint.
+ * A `transform-origin` percentage keeps its own point fixed, which centres
+ * nothing: an island near the edge of the plan scales straight off the canvas,
+ * and Admin lost its top row that way. This maps the island's centre onto the
+ * middle of the viewBox instead, so every department arrives framed the same.
  */
-export function zoomFor(dept: Dept) {
-  return Math.min(1.55 / EASE, (VIEW.w * 0.52) / ((dept.w + dept.d) * 2 * KX));
+export const ZOOM = 1.45;
+
+export function zoomTransform(d: Dept) {
+  const c = px(d.u, d.v);
+  const tx = VIEW.x + VIEW.w / 2 - ZOOM * c.x;
+  const ty = VIEW.y + VIEW.h / 2 - ZOOM * (c.y - 24);
+  return `translate(${tx} ${ty}) scale(${ZOOM})`;
 }
 
-export function zoomTransform(dept: Dept) {
-  const z = zoomFor(dept);
-  const c = px(dept.u, dept.v);
-  const tx = VIEW.x + VIEW.w / 2 - z * c.x;
-  const ty = VIEW.y + VIEW.h / 2 - z * (c.y - 24);
-  return `translate(${tx} ${ty}) scale(${z})`;
-}

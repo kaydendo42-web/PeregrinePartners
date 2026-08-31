@@ -1,6 +1,6 @@
 import type { Dept } from "./data";
-import { px, topFace, sideFaces, place } from "./geometry";
-import { Prop, Stair, Vertical } from "./props";
+import { px, topFace, sideFaces, deskSpots, ISLE_LIFT } from "./geometry";
+import { Desk, Plant } from "./props";
 
 export function Island({
   dept, waiting, selected, hovered, onEnter, onLeave,
@@ -12,18 +12,18 @@ export function Island({
   onEnter: () => void;
   onLeave: () => void;
 }) {
-  const { u, v, w, d, lift } = dept;
-  const sides = sideFaces(u, v, w, d, lift);
+  const { u, v, size } = dept;
+  const sides = sideFaces(u, v, size, size, ISLE_LIFT);
+  const spots = deskSpots(dept);
   const label =
     dept.labelSide === "e"
-      ? px(u + w * 1.28, v + d * 0.1)
-      : px(u + w * 0.1, v + d * 1.28);
-  const flag = px(u, v - d);
+      ? px(u + size * 1.28, v + size * 0.1)
+      : px(u + size * 0.1, v + size * 1.28);
+  const flag = px(u, v - size);
   return (
     <g
       className="floor__isle"
       data-dept={dept.id}
-      style={{ "--hue": String(dept.hue) } as React.CSSProperties}
       data-own={dept.own || undefined}
       data-selected={selected || undefined}
       data-hover={hovered || undefined}
@@ -31,34 +31,32 @@ export function Island({
       onMouseLeave={onLeave}
       aria-hidden="true"
     >
-      <Stair dept={dept} />
-      <path className="floor__isle-top" d={topFace(u, v, w, d, lift)} />
+      <path className="floor__isle-top" d={topFace(u, v, size, size, ISLE_LIFT)} />
       <path className="floor__isle-side" d={sides.right} />
       <path className="floor__isle-side floor__isle-side--l" d={sides.left} />
-      {dept.layout.map((p, i) => {
-        const at = place(dept, p);
-        return <Prop key={i} kind={p.kind} u={at.u} v={at.v} label={p.label}
-                     own={p.own} lit={p.lit} i={i} />;
-      })}
-      <Vertical dept={dept} />
+      <Plant u={u - size + 0.55} v={v - size + 0.55} />
+      <Plant u={u + size - 0.55} v={v + size - 0.55} />
+      {spots.map((s, i) => (
+        <Desk key={i} u={s.u} v={s.v} own={dept.desks[i].own} label={dept.desks[i].label} i={i} />
+      ))}
       <g className="floor__isle-plate">
-        <text className="floor__isle-label" x={label.x} y={label.y - lift + 26}>
+        <text className="floor__isle-label" x={label.x} y={label.y - ISLE_LIFT + 26}>
           {dept.name.toUpperCase()}
           {dept.own ? " · OURS" : ""}
         </text>
-        <text className="floor__isle-desks" x={label.x} y={label.y - lift + 40}>
+        <text className="floor__isle-desks" x={label.x} y={label.y - ISLE_LIFT + 40}>
           {dept.desks.length} desks
         </text>
         <line
           className="floor__isle-rule"
-          x1={label.x} y1={label.y - lift + 31}
-          x2={label.x + 78} y2={label.y - lift + 31}
+          x1={label.x} y1={label.y - ISLE_LIFT + 31}
+          x2={label.x + 78} y2={label.y - ISLE_LIFT + 31}
         />
       </g>
       {waiting > 0 ? (
         <g className="floor__isle-flag">
-          <circle cx={flag.x} cy={flag.y - lift - 12} r={8} />
-          <text x={flag.x} y={flag.y - lift - 8.6}>
+          <circle cx={flag.x} cy={flag.y - ISLE_LIFT - 12} r={8} />
+          <text x={flag.x} y={flag.y - ISLE_LIFT - 8.6}>
             {waiting}
           </text>
         </g>

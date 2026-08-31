@@ -23,8 +23,7 @@ import { VenueScene } from "./scene/venue";
 
 /**
  * The floor: a modelled morning at a 40-cover Melbourne bistro, drawn as the
- * office Peregrine kept overnight. The departments are isometric islands, each
- * with its own footprint, plinth height, stair and objects, the
+ * office Peregrine kept overnight. Six departments as isometric islands, the
  * restaurant itself at the centre with the brain working above its roof, and
  * two things waiting for the owner, both genuinely tappable.
  *
@@ -33,14 +32,11 @@ import { VenueScene } from "./scene/venue";
  * morning brief, the same product at phone scale, and the two share their
  * three states and their wording exactly.
  *
- * Colour discipline. Each department carries one hue from the Monument Valley
- * reference at about a tenth of its saturation, on its plinth sides, its stair
- * treads and one lit face. Open a department and it lifts to a third while the
- * other five go to zero, and the panel takes the same hue, number and mark.
- *
- * Hue says which department this is. It never says what a task needs: the three
- * states are told apart by weight and fill, here and on the phone, and no rule
- * in platform.css puts a hue on a state, a legend mark or a waiting chip.
+ * Colour discipline is the palette's own law. Islands stay neutral and are
+ * told apart by their labels, not their hue. The warm cere pair appears on
+ * the two waiting items and nowhere else. Watching wears the accent, done
+ * wears sage, and Bookings sits on the blush tint because it is the one
+ * island we built rather than connected to.
  */
 
 /* ------------------------------------------------------------------ */
@@ -387,7 +383,7 @@ export function AgentFloor() {
             {view === "venue" ? (
               <VenueScene now={now} />
             ) : (
-            <g key="office" className="floor__office" data-open={selected || undefined} transform={camera}>
+            <g key="office" className="floor__office" transform={camera}>
             {/* walkways first, so everything sits on top of them */}
             {DEPTS.map((d, i) => (
               <path
@@ -415,7 +411,7 @@ export function AgentFloor() {
 
             {/* islands, back to front so overlap stacks correctly */}
             {[...DEPTS]
-              .sort((a, b) => a.u + a.w + a.v + a.d - (b.u + b.w + b.v + b.d))
+              .sort((a, b) => a.u + a.v - (b.u + b.v))
               .map((d) => (
                 <g key={d.id} onClick={() => select(d.id)}>
                   <Island
@@ -549,12 +545,7 @@ export function AgentFloor() {
           </div>
         </div>
 
-        <aside
-          ref={panelRef}
-          className="floor__panel"
-          data-dept={dept?.id}
-          style={dept ? ({ "--hue": String(dept.hue) } as React.CSSProperties) : undefined}
-        >
+        <aside ref={panelRef} className="floor__panel" data-dept={dept?.id}>
           <p className="floor__panel-time">06:04 · The morning brief</p>
           <p className="floor__panel-headline" data-clear={needsCount === 0 || undefined}>
             {headline}
