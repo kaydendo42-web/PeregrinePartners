@@ -42,7 +42,6 @@ export function Island({
       <g className="floor__isle-plate">
         <text className="floor__isle-label" x={label.x} y={label.y - ISLE_LIFT + 26}>
           {dept.name.toUpperCase()}
-          {dept.own ? " · OURS" : ""}
         </text>
         <text className="floor__isle-desks" x={label.x} y={label.y - ISLE_LIFT + 40}>
           {dept.desks.length} desks

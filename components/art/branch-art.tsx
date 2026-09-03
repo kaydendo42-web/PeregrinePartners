@@ -24,8 +24,8 @@ export type BranchArtKey =
   | "reception"
   | "web"
   | "bookings"
+  | "crm"
   | "roster"
-  | "admin"
   | "till";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -72,8 +72,8 @@ export function BranchArt({ kind, className = "" }: { kind: BranchArtKey; classN
       {kind === "reception" ? <Reception draw={draw} still={still} /> : null}
       {kind === "web" ? <Web draw={draw} still={still} /> : null}
       {kind === "bookings" ? <Bookings draw={draw} still={still} /> : null}
+      {kind === "crm" ? <Crm draw={draw} still={still} /> : null}
       {kind === "roster" ? <Roster draw={draw} still={still} /> : null}
-      {kind === "admin" ? <Admin draw={draw} still={still} /> : null}
       {kind === "till" ? <Till draw={draw} still={still} /> : null}
     </svg>
   );
@@ -406,7 +406,93 @@ function Bookings({ still }: DrawProps) {
   );
 }
 
-/** 007 — a week of shifts, drafted against the line the day should carry. */
+/** 007 — the guest on file, the card on its tenth punch, the follow-up out. */
+function Crm({ still }: DrawProps) {
+  /** Ten visits, nine of them behind this guest. */
+  const punches = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  return (
+    <>
+      {/* the record, two older ones behind it */}
+      {[2, 1].map((i) => (
+        <rect
+          key={i}
+          x={16 + i * 4}
+          y={22 - i * 4}
+          width="58"
+          height="40"
+          rx="4"
+          fill="rgba(255,255,255,0.04)"
+          stroke={dim}
+          strokeWidth="0.8"
+        />
+      ))}
+      <motion.g
+        initial={still ? false : { opacity: 0, y: 6 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
+      >
+        <rect x="16" y="26" width="58" height="40" rx="4" fill="rgba(255,255,255,0.06)" stroke={ink} strokeWidth="1.1" />
+        <circle cx="27" cy="38" r="5.5" fill="none" stroke={faint} strokeWidth="1" />
+        <line x1="37" y1="35" x2="66" y2="35" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="37" y1="41" x2="57" y2="41" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
+
+        {/* the loyalty strip: one row, nine punched and the tenth still open */}
+        <line x1="22" y1="48" x2="68" y2="48" stroke={dim} strokeWidth="0.8" />
+        {punches.map((i) => {
+          const last = i === 9;
+          return (
+            <circle
+              key={i}
+              cx={22.5 + i * 5.1}
+              cy={57}
+              r={last ? "3" : "2"}
+              fill={last ? "none" : "rgba(255,255,255,0.5)"}
+              stroke={last ? "#ffffff" : "none"}
+              strokeWidth="1.2"
+            />
+          );
+        })}
+      </motion.g>
+
+      {/* the follow-up leaving, and landing */}
+      <motion.path
+        d="M74 40 C 86 40, 90 30, 100 30"
+        stroke={faint}
+        strokeWidth="1.1"
+        fill="none"
+        strokeDasharray="3 3"
+        initial={still ? false : { pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
+      />
+      <motion.g
+        initial={still ? false : { opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        style={{ originX: "100px", originY: "30px" }}
+        transition={{ duration: 0.4, delay: 0.9, ease: EASE }}
+      >
+        <rect x="88" y="20" width="22" height="15" rx="2" fill="var(--dark)" stroke={ink} strokeWidth="1.1" />
+        <path d="M88 22.5 L99 29 L110 22.5" fill="none" stroke={ink} strokeWidth="1" strokeLinejoin="round" />
+      </motion.g>
+
+      <text
+        x="14"
+        y="98"
+        fill={faint}
+        fontSize="8"
+        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
+      >
+        9 OF 10 · REWARD DUE
+      </text>
+    </>
+  );
+}
+
+/** 008 — a week of shifts, drafted against the line the day should carry. */
 function Roster({ still }: DrawProps) {
   /** Each day is its shifts, not one bar: the stack is the roster's shape. */
   const week: number[][] = [
@@ -477,79 +563,6 @@ function Roster({ still }: DrawProps) {
         style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
       >
         7 DAYS · 1 OVER
-      </text>
-    </>
-  );
-}
-
-/** 008 — the paper trail, with the renewal that has not lapsed yet. */
-function Admin({ still }: DrawProps) {
-  return (
-    <>
-      {/* three certificates, stacked back to front */}
-      {[2, 1, 0].map((i) => (
-        <motion.g
-          key={i}
-          initial={still ? false : { opacity: 0, x: 6 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 + (2 - i) * 0.1, ease: EASE }}
-        >
-          <path
-            d={`M${28 + i * 7} ${20 + i * 6} h34 l8 8 v30 h-42 Z`}
-            fill="rgba(255,255,255,0.05)"
-            stroke={i === 0 ? ink : faint}
-            strokeWidth="0.9"
-            strokeLinejoin="round"
-          />
-          <path
-            d={`M${62 + i * 7} ${20 + i * 6} v8 h8`}
-            fill="none"
-            stroke={i === 0 ? ink : faint}
-            strokeWidth="0.9"
-            strokeLinejoin="round"
-          />
-        </motion.g>
-      ))}
-      {/* the front one carries its dates */}
-      <line x1="34" y1="38" x2="58" y2="38" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="34" y1="44" x2="50" y2="44" stroke={dim} strokeWidth="1.4" strokeLinecap="round" />
-
-      {/* the run of dates ahead, and the one that comes due */}
-      <line x1="14" y1="76" x2="106" y2="76" stroke={dim} strokeWidth="1" />
-      {[0, 1, 2, 3, 4, 5].map((i) => {
-        const x = 18 + i * 17;
-        const due = i === 4;
-        return (
-          <motion.g
-            key={i}
-            initial={still ? false : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35, delay: 0.4 + i * 0.06 }}
-          >
-            <line
-              x1={x}
-              y1={due ? 68 : 72}
-              x2={x}
-              y2="80"
-              stroke={due ? "#ffffff" : faint}
-              strokeWidth={due ? "1.6" : "1"}
-              strokeLinecap="round"
-            />
-            {due ? <circle cx={x} cy="64" r="3" fill="#ffffff" /> : null}
-          </motion.g>
-        );
-      })}
-
-      <text
-        x="14"
-        y="98"
-        fill={faint}
-        fontSize="8"
-        style={{ fontFamily: "var(--font-mono-ui), ui-monospace, monospace" }}
-      >
-        1 RENEWS IN 14 DAYS
       </text>
     </>
   );

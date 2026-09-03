@@ -155,10 +155,13 @@ function AgentGlyph({ kind, size }: { kind: string; size: number }) {
           <path d="M12 4v3.2M12 16.8V20M4 12h3.2M16.8 12H20" {...p} />
         </>
       ) : null}
-      {kind === "roster" ? (
+      {kind === "loyalty" ? (
         <>
-          <rect x="4" y="6" width="16" height="14" rx="2" {...p} />
-          <path d="M4 10h16M8 4v3M16 4v3M9 14h6" {...p} />
+          <rect x="3" y="8" width="18" height="12" rx="2" {...p} />
+          <path d="M3 12h18" {...p} />
+          <circle cx="8" cy="16" r="1.4" {...p} />
+          <circle cx="12" cy="16" r="1.4" {...p} />
+          <circle cx="16" cy="16" r="1.4" {...p} />
         </>
       ) : null}
       {kind === "file" ? (

@@ -2,7 +2,7 @@
  * One 28px mark per department, in the same isometric line grammar as the
  * floor and the home page's branch art. Small enough that each is a single
  * object rather than a scene: the crate, the ledger, the easel, the handset,
- * the table, the shift wall.
+ * the table, the loyalty card.
  */
 import type { GlyphKey } from "./data";
 
@@ -47,16 +47,16 @@ const MARKS: Record<GlyphKey, React.ReactElement> = {
       <ellipse {...P} cx="12" cy="11" rx="11" ry="6.6" strokeDasharray="2.5 2.5" />
     </>
   ),
-  // 007 · the shift wall, one column short
-  roster: (
+  // 007 · the loyalty card, on its ninth punch, and the guest coming back
+  crm: (
     <>
-      <rect {...P} x="4" y="5" width="4" height="4" />
-      <rect {...P} x="10" y="5" width="4" height="4" />
-      <rect {...P} x="16" y="5" width="4" height="4" />
-      <rect {...P} x="4" y="11" width="4" height="4" />
-      <rect {...P} x="10" y="11" width="4" height="4" />
-      <rect {...P} x="4" y="17" width="4" height="4" />
-      <rect {...P} x="10" y="17" width="4" height="4" />
+      <path {...P} d="M6 6 q6 -3.4 12 0" />
+      <path {...P} d="M15.4 4.8 L18 6 L17.2 8.6" />
+      <rect {...P} x="3" y="10" width="18" height="11" rx="1.5" />
+      <path {...P} d="M3 13.6 h18" />
+      <circle {...P} cx="7.5" cy="17.6" r="1.4" />
+      <circle {...P} cx="12" cy="17.6" r="1.4" />
+      <circle {...P} cx="16.5" cy="17.6" r="1.4" strokeDasharray="1.6 1.6" />
     </>
   ),
 };

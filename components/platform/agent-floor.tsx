@@ -35,8 +35,9 @@ import { VenueScene } from "./scene/venue";
  * Colour discipline is the palette's own law. Islands stay neutral and are
  * told apart by their labels, not their hue. The warm cere pair appears on
  * the two waiting items and nowhere else. Watching wears the accent, done
- * wears sage, and Bookings sits on the blush tint because it is the one
- * island we built rather than connected to.
+ * wears sage, and Bookings and CRM sit on the blush tint because they are the
+ * islands we built rather than connected to. The tint says "ours", so two of
+ * them carrying it is the rule holding rather than an exception to it.
  */
 
 /* ------------------------------------------------------------------ */

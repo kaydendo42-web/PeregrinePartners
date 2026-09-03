@@ -138,6 +138,14 @@ reader. Below 810px there is no scene: the cards are the morning brief and are t
 controls, and `.floor__reach` is `display:none` there so nobody gets every
 department twice.
 
+**Rostering is not a department.** On Kayden's call on 2026-09-03 it became work
+Admin does, on the Floor and in the rack, and the slot it left went to CRM: the
+guest record, follow-ups, loyalty cards and win-backs, ours the way Bookings is
+ours. So two islands now wear the blush "ours" tint, which is the tint doing its
+job rather than an exception to it. The Floor still runs six islands and the
+rack still runs nine tabs, because the till kept 009: read-only is its own
+claim. See `docs/superpowers/specs/2026-09-03-crm-island-design.md`.
+
 `docs/research/scratch/floor-check.mjs` is the gate. It shoots every state and
 asserts nothing drawn on an island falls outside it, testing each prop's ground
 contact against the top face as a real quadrilateral rather than a bounding box.

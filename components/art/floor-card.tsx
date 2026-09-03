@@ -45,8 +45,8 @@ const WINDOWS: Array<[number, number]> = [
   [0.0, 0.95], // 004 reception
   [0.42, 0.52], // 005 web
   [0.2, 0.78], // 006 bookings
-  [0.55, 0.72], // 007 roster
-  [0.66, 0.88], // 008 admin
+  [0.08, 0.5], // 007 crm, the follow-ups go out first thing after close
+  [0.55, 0.88], // 008 rostering & admin
   [0.02, 0.99], // 009 till
 ];
 

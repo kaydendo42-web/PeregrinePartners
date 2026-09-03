@@ -20,7 +20,7 @@ export type Task = {
 
 /** Which of the six 28px marks in scene/glyphs.tsx this department wears. */
 export type GlyphKey =
-  | "supply" | "books" | "marketing" | "reception" | "bookings" | "roster";
+  | "supply" | "books" | "marketing" | "reception" | "bookings" | "crm";
 
 export type Dept = {
   id: string;
@@ -379,21 +379,26 @@ export const DEPTS: Dept[] = [
     name: "Admin",
     u: -7.2,
     v: -7.2,
-    size: 2.4,
+    // Five desks is three rows, and a 2.4 half-extent clamps the third onto
+    // the second. Bookings sizes itself the same way for the same reason.
+    size: 2.9,
     desks: [
       { label: "Website", own: true },
       { label: "Email" },
       { label: "Phone", own: true },
+      { label: "Roster" },
+      { label: "Timesheets" },
     ],
     stack: [
       { label: "Website", own: true },
       { label: "Phone line", own: true },
       { label: "Gmail" },
+      { label: "Deputy" },
       { label: "Google Business" },
     ],
     metrics: [
       ["Calls answered", "4"],
-      ["Listing", "Current"],
+      ["Saturday roster", "28.1%"],
     ],
     tasks: [
       {
@@ -438,6 +443,27 @@ export const DEPTS: Dept[] = [
         system: "Phone",
         text: "One caller asked for you by name, held for the morning",
       },
+      {
+        id: "r1",
+        state: "watching",
+        time: "05:47",
+        system: "Deputy",
+        text: "Saturday's draft holds labour at 28.1% of forecast",
+      },
+      {
+        id: "r2",
+        state: "done",
+        time: "05:47",
+        system: "Deputy",
+        text: "Three shifts amended for availability",
+      },
+      {
+        id: "r3",
+        state: "done",
+        time: "05:23",
+        system: "Timesheets",
+        text: "Award rates checked against the winter roster",
+      },
     ],
   },
   {
@@ -447,14 +473,8 @@ export const DEPTS: Dept[] = [
     u: -0.6,
     v: 7.8,
     size: 2.4,
-    desks: [
-      { label: "Instagram" },
-      { label: "Meta Ads" },
-      { label: "Google" },
-      { label: "Guest CRM", own: true },
-    ],
+    desks: [{ label: "Instagram" }, { label: "Meta Ads" }, { label: "Google" }],
     stack: [
-      { label: "Guest CRM", own: true },
       { label: "Instagram" },
       { label: "Meta Ads" },
       { label: "Google Business" },
@@ -485,56 +505,73 @@ export const DEPTS: Dept[] = [
         system: "Google",
         text: "Six reviews answered in your voice, approved by you Friday",
       },
-      {
-        id: "m4",
-        state: "done",
-        time: "05:08",
-        system: "Guest CRM",
-        text: "Thank-you notes sent to Friday's eleven first-timers",
-      },
-      {
-        id: "m5",
-        state: "watching",
-        time: "05:50",
-        system: "Guest CRM",
-        text: "Fourteen regulars not seen in 60 days, a win-back drafted for your queue",
-      },
     ],
   },
   {
-    id: "roster",
-    n: "007", glyph: "roster",
-    name: "Rostering",
+    id: "crm",
+    n: "007", glyph: "crm",
+    name: "CRM",
     u: -7.8,
     v: 0.6,
-    size: 2.4,
-    desks: [{ label: "Deputy" }, { label: "Award rates" }],
-    stack: [{ label: "Deputy" }, { label: "Tanda" }],
+    // Six desks, so it takes Bookings' footprint rather than the 2.4 the
+    // connected departments run on.
+    size: 2.9,
+    own: true,
+    desks: [
+      { label: "Guest record", own: true },
+      { label: "Follow-ups", own: true },
+      { label: "Loyalty", own: true },
+      { label: "Email", own: true },
+      { label: "Messages", own: true },
+      { label: "Win-backs", own: true },
+    ],
+    stack: [{ label: "Peregrine native", own: true }],
     metrics: [
-      ["Saturday draft", "28.1%"],
-      ["Timesheets", "Approved"],
+      ["Guests on file", "1,142"],
+      ["Loyalty cards live", "218"],
     ],
     tasks: [
       {
-        id: "r1",
+        id: "c1",
         state: "watching",
-        time: "05:47",
-        system: "Deputy",
-        text: "Saturday's draft holds labour at 28.1% of forecast",
+        time: "05:52",
+        system: "Loyalty",
+        text: "Nine cards reach their tenth visit this week, the reward is ready at the door",
       },
       {
-        id: "r2",
-        state: "done",
-        time: "05:47",
-        system: "Deputy",
-        text: "Three shifts amended for availability",
+        id: "c2",
+        state: "watching",
+        time: "05:50",
+        system: "Win-backs",
+        text: "Fourteen regulars not seen in 60 days, a win-back drafted for your queue",
       },
       {
-        id: "r3",
+        id: "c3",
         state: "done",
-        time: "05:23",
-        system: "Award rates",
-        text: "Award rates checked against the winter roster",
+        time: "05:08",
+        system: "Follow-ups",
+        text: "Thank-you notes sent to Friday's eleven first-timers",
+      },
+      {
+        id: "c4",
+        state: "done",
+        time: "05:26",
+        system: "Guest record",
+        text: "Friday's covers matched to guests, nine new records opened",
+      },
+      {
+        id: "c5",
+        state: "done",
+        time: "05:34",
+        system: "Email",
+        text: "Birthday offers drafted for next month's twelve, sitting in your queue",
+      },
+      {
+        id: "c6",
+        state: "done",
+        time: "05:44",
+        system: "Messages",
+        text: "Six replies to Friday's follow-ups answered, two became bookings",
       },
     ],
   },
