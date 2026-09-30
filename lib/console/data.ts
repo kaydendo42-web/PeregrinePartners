@@ -80,7 +80,9 @@ export async function requireUser() {
 export async function myVenues(): Promise<Venue[]> {
   if (demoOn()) return [demoVenue];
   const { client } = await requireUser();
-  const { data } = await client.from("venues").select("*").order("name");
+  const { data, error } = await client.from("venues").select("*").order("name");
+  // A failed query must not pass for "not added to a venue yet".
+  if (error) throw new Error(`Could not load venues: ${error.message}`);
   return (data ?? []) as Venue[];
 }
 
