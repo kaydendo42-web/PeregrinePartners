@@ -690,9 +690,11 @@ export const waitlist = {
 
 export const signIn = {
   eyebrow: "Sign in",
-  heading: "The client dashboard.",
-  sub: "Use the email address your venue was onboarded with and we will send a link. If you are not on the system yet, the platform tour is open and needs no account at all.",
-  submit: "Send me a link",
+  heading: "Your venue's console.",
+  sub: "Sign in with the email your venue was set up under. Your bookings, floor plan and guests are waiting. Not on the system yet? The platform tour needs no account.",
+  submit: "Sign in",
+  signingIn: "Signing in",
+  submitLink: "Email me a link",
   sending: "Sending",
   /** Deliberately identical for every address. Never confirm who is a client. */
   done: "If that address is on an account, a sign-in link is on its way. Check your inbox.",

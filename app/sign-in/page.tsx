@@ -13,13 +13,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * The door to the client dashboard.
- *
- * The dashboard is not built yet and the page says so, because a sign-in that
- * silently fails is worse than one that tells you where you stand. What it
- * does do is answer identically for every address — see the form.
+ * The door to the client console. Signing in lands on /console, or wherever
+ * the proxy turned a signed-out visitor away from (`next`). `link=expired` is
+ * set by /auth/confirm when a one-time link has gone stale.
  */
-export default function SignIn() {
+export default async function SignIn({ searchParams }: PageProps<"/sign-in">) {
+  const { next, link } = await searchParams;
   return (
     <>
       <Nav />
@@ -43,7 +42,7 @@ export default function SignIn() {
               <p className="t-body mt-[22px] text-white/80">{signIn.sub}</p>
 
               <div className="mt-[40px]">
-                <SignInForm />
+                <SignInForm next={typeof next === "string" ? next : undefined} linkExpired={link === "expired"} />
               </div>
             </div>
           </div>
