@@ -1,6 +1,9 @@
 # Peregrine console: setup
 
-The console lives at `peregrinepartners.space/console`. A client signs in at
+The console lives at `www.peregrinepartners.space/console`, in this repo
+(`kaydendo42-web/PeregrinePartners`, Vercel project `peregrine-partners`).
+The bare `peregrinepartners.space` redirects to `www`, so every URL Supabase
+is given uses `www`. A client signs in at
 `/sign-in` and lands on their own venue's diary. One Supabase project holds
 every client; row-level security keeps each venue's rows to its own members.
 
@@ -37,7 +40,17 @@ Jenny ─▶ peregrinepartners.space/sign-in ─▶ /console/the-peacock (her se
    `NEXT_PUBLIC_`), `PEREGRINE_VENUE_ID=fb19b599-8b90-4576-b84a-1ff0f4eb1f7e`.
    Redeploy. From then on web bookings go to Supabase instead of Upstash.
 6. **Auth URLs**: Supabase → Authentication → URL configuration → Site URL
-   `https://peregrinepartners.space`, redirect `https://peregrinepartners.space/auth/confirm`.
+   `https://www.peregrinepartners.space`; redirect URLs
+   `https://www.peregrinepartners.space/auth/confirm`,
+   `https://*-kaydendo42-webs-projects.vercel.app/auth/confirm` (previews) and
+   `http://localhost:3000/auth/confirm`. Only email links need these;
+   password sign-in works without them.
+
+## Working on it locally
+
+`PEREGRINE_CONSOLE_DEMO=1 npm run dev`, then `/console/the-peacock`: the whole
+console on sample Peacock bookings, no database. Never set that variable on
+Vercel.
 
 ## Adding the next client
 
