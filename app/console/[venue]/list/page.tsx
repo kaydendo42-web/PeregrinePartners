@@ -2,6 +2,7 @@ import { bookingsBetween, floor, live, venueBySlug, type Booking } from "@/lib/c
 import { dayLabel, dayRange, isDateKey, timeLabel, todayKey } from "@/lib/console/time";
 import { setStatus } from "../actions";
 import { DayBar, StatusChip } from "../ui";
+import { StatusButton } from "../status-button";
 
 const SOURCE: Record<string, string> = {
   website: "Website",
@@ -102,13 +103,13 @@ function Actions({ slug, booking: b }: { slug: string; booking: Booking }) {
     return (
       <>
         <form action={act("seated")}>
-          <button className="console-btn console-btn--sm console-btn--primary">Seat</button>
+          <StatusButton label="Seat" primary />
         </form>
         <form action={act("no_show")}>
-          <button className="console-btn console-btn--sm">No-show</button>
+          <StatusButton label="No-show" confirm="No-show?" />
         </form>
         <form action={act("cancelled")}>
-          <button className="console-btn console-btn--sm">Cancel</button>
+          <StatusButton label="Cancel" confirm="Cancel?" />
         </form>
       </>
     );
@@ -116,13 +117,13 @@ function Actions({ slug, booking: b }: { slug: string; booking: Booking }) {
   if (b.status === "seated") {
     return (
       <form action={act("confirmed")}>
-        <button className="console-btn console-btn--sm">Unseat</button>
+        <StatusButton label="Unseat" />
       </form>
     );
   }
   return (
     <form action={act("confirmed")}>
-      <button className="console-btn console-btn--sm">Reinstate</button>
+      <StatusButton label="Reinstate" />
     </form>
   );
 }

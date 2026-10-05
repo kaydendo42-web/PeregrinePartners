@@ -69,7 +69,8 @@ export function NewBookingForm({ slug, date, groups }: { slug: string; date: str
           {state.error}
         </p>
       ) : null}
-      <button className="console-btn console-btn--primary" disabled={pending}>
+      <button className="console-btn console-btn--primary" disabled={pending} aria-busy={pending || undefined}>
+        {pending ? <span className="console-spin" aria-hidden /> : null}
         {pending ? "Saving" : "Save booking"}
       </button>
     </form>
