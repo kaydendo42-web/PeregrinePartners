@@ -12,7 +12,8 @@ export default async function NewBookingPage({
 }) {
   const [{ venue: slug }, { date }] = await Promise.all([params, searchParams]);
   const venue = await venueBySlug(slug);
-  const { sections, tables } = await floor(venue.id);
+  const { sections, tables, combinations } = await floor(venue.id);
+  const labelOf = (id: string) => tables.find((t) => t.id === id)?.label ?? id;
   return (
     <div className="console-page">
       <h2 className="console-h2">New booking</h2>
@@ -22,6 +23,12 @@ export default async function NewBookingPage({
         groups={sections.map((s) => ({
           name: s.name,
           tables: tables.filter((t) => t.section_id === s.id).map((t) => ({ id: t.id, label: t.label, seats: t.seats })),
+        }))}
+        joined={combinations.map((c) => ({
+          value: c.table_ids.join(","),
+          label: c.table_ids.map(labelOf).join(" + "),
+          min: c.seats_min,
+          max: c.seats_max,
         }))}
       />
     </div>

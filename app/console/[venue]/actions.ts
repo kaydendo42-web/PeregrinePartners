@@ -35,6 +35,14 @@ export async function setStatus(slug: string, id: string, status: BookingStatus)
 
 export type NewBookingState = { error?: string };
 
+/** "t14" or "t2,t3,t4" from a table picker; empty means no table yet. */
+function parseTables(value: FormDataEntryValue | null): string[] {
+  return String(value ?? "")
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
+
 /** A booking taken over the phone or at the door. */
 export async function createBooking(slug: string, _: NewBookingState, form: FormData): Promise<NewBookingState> {
   if (demoOn()) return { error: "Demo mode: nothing is saved until Supabase is connected." };
@@ -44,7 +52,7 @@ export async function createBooking(slug: string, _: NewBookingState, form: Form
   const date = String(form.get("date") ?? "");
   const time = String(form.get("time") ?? "");
   const party = Number(form.get("party"));
-  const tableId = String(form.get("table") ?? "") || null;
+  const tableIds = parseTables(form.get("table"));
   const name = String(form.get("name") ?? "").trim();
   const source = String(form.get("source") ?? "phone");
 
@@ -56,12 +64,13 @@ export async function createBooking(slug: string, _: NewBookingState, form: Form
   const duration = sittingFor(party);
   const end = new Date(start.getTime() + (duration + TURNAROUND) * 60_000);
 
-  if (tableId) {
+  // A single table has to fit the party; a joined set is Jenny's call.
+  if (tableIds.length === 1) {
     const { data: table } = await client
       .from("venue_tables")
       .select("label,seats")
       .eq("venue_id", venue.id)
-      .eq("id", tableId)
+      .eq("id", tableIds[0])
       .maybeSingle();
     if (!table) return { error: "That table isn't on the floor plan." };
     if (table.seats < party) return { error: `Table ${table.label} seats ${table.seats}.` };
@@ -70,7 +79,8 @@ export async function createBooking(slug: string, _: NewBookingState, form: Form
   const { error } = await client.from("bookings").insert({
     id: reference(),
     venue_id: venue.id,
-    table_id: tableId,
+    table_id: tableIds[0] ?? null,
+    table_ids: tableIds,
     starts_at: start.toISOString(),
     ends_at: end.toISOString(),
     duration_min: duration,
@@ -115,4 +125,32 @@ export async function saveNotifications(slug: string, _: NotifyState, form: Form
 
   revalidatePath(`/console/${slug}/settings`);
   return { saved: true };
+}
+
+export type TableState = { error?: string };
+
+/**
+ * Put a booking on a table, move it, or take it off one. Imported and phone
+ * bookings often arrive without a table; until they have one the website
+ * treats that table as free. The database refuses a table someone else holds.
+ */
+export async function setTable(slug: string, id: string, _: TableState, form: FormData): Promise<TableState> {
+  if (demoOn()) return { error: "Demo mode: nothing is saved." };
+  const venue = await venueBySlug(slug);
+  const { client } = await requireUser();
+  // One table ("t14") or a joined set ("t2,t3,t4"); the database keeps
+  // table_id in step and checks every table in the set for a clash.
+  const tableIds = parseTables(form.get("table"));
+
+  const { data, error } = await client
+    .from("bookings")
+    .update({ table_ids: tableIds })
+    .eq("id", id)
+    .eq("venue_id", venue.id)
+    .select("id");
+  if (error?.code === "23P01") return { error: "That table is booked for part of this time." };
+  if (error || !data?.length) return { error: "That didn't save. Try again." };
+
+  revalidatePath(`/console/${slug}`, "layout");
+  return {};
 }

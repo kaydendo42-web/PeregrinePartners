@@ -1,8 +1,9 @@
-import { bookingsBetween, floor, live, venueBySlug, type Booking } from "@/lib/console/data";
+import { bookingsBetween, floor, heldTables, live, venueBySlug, type Booking } from "@/lib/console/data";
 import { dayLabel, dayRange, isDateKey, timeLabel, todayKey } from "@/lib/console/time";
 import { setStatus } from "../actions";
 import { DayBar, StatusChip } from "../ui";
 import { StatusButton } from "../status-button";
+import { TablePicker, type Joined } from "./table-picker";
 
 const SOURCE: Record<string, string> = {
   website: "Website",
@@ -25,17 +26,38 @@ export default async function ListPage({
   const tz = venue.timezone;
   const date = isDateKey(asked) ? asked : todayKey(tz);
   const [from, to] = dayRange(date, tz);
-  const [bookings, { tables, sections }] = await Promise.all([bookingsBetween(venue.id, from, to), floor(venue.id)]);
+  const [bookings, { tables, sections, combinations }] = await Promise.all([
+    bookingsBetween(venue.id, from, to),
+    floor(venue.id),
+  ]);
 
   const table = (id: string | null) => tables.find((t) => t.id === id);
   const section = (id?: string) => sections.find((s) => s.id === id)?.name ?? "";
   const held = bookings.filter(live);
   const base = `/console/${slug}/list`;
+  const groups = sections.map((s) => ({
+    name: s.name,
+    tables: tables.filter((t) => t.section_id === s.id).map((t) => ({ id: t.id, label: t.label, seats: t.seats })),
+  }));
+  const labelOf = (id: string) => tables.find((t) => t.id === id)?.label ?? id;
+  const joined: Joined[] = combinations.map((c) => ({
+    value: c.table_ids.join(","),
+    label: c.table_ids.map(labelOf).join(" + "),
+    min: c.seats_min,
+    max: c.seats_max,
+  }));
+  const unassigned = held.filter((b) => !heldTables(b).length).length;
 
   return (
     <div className="console-page">
       <DayBar base={base} date={date} />
       {problem ? <p className="console-problem">{problem}</p> : null}
+      {unassigned ? (
+        <p className="console-problem">
+          {unassigned === 1 ? "1 booking has" : `${unassigned} bookings have`} no table yet. Until {unassigned === 1 ? "it has" : "they have"} one,
+          the website will offer that table to other guests.
+        </p>
+      ) : null}
       <p className="console-muted console-summary">
         {held.length} {held.length === 1 ? "booking" : "bookings"} · {held.reduce((n, b) => n + b.party_size, 0)} guests
       </p>
@@ -56,7 +78,8 @@ export default async function ListPage({
           </thead>
           <tbody>
             {bookings.map((b) => {
-              const t = table(b.table_id);
+              const ids = heldTables(b);
+              const t = ids.length === 1 ? table(ids[0]) : undefined;
               return (
                 <tr key={b.id} id={b.id} className={live(b) ? "" : "is-released"}>
                   <td data-label="Time" className="console-strong">
@@ -70,7 +93,22 @@ export default async function ListPage({
                   </td>
                   <td data-label="Party">{b.party_size}</td>
                   <td data-label="Table">
-                    {t ? `${t.label} · ${section(t.section_id)}` : <span className="console-muted">Unassigned</span>}
+                    {live(b) ? (
+                      <TablePicker
+                        slug={slug}
+                        bookingId={b.id}
+                        current={ids.length ? ids.join(",") : null}
+                        party={b.party_size}
+                        groups={groups}
+                        joined={joined}
+                      />
+                    ) : ids.length > 1 ? (
+                      ids.map(labelOf).join(" + ")
+                    ) : t ? (
+                      `${t.label} · ${section(t.section_id)}`
+                    ) : (
+                      <span className="console-muted">No table</span>
+                    )}
                   </td>
                   <td data-label="Contact">
                     {b.phone ? <a href={`tel:${b.phone.replace(/\s/g, "")}`}>{b.phone}</a> : null}

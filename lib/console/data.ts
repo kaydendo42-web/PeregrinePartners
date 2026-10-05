@@ -29,6 +29,9 @@ export type VenueTable = {
   label: string;
   section_id: string;
   seats: number;
+  /** Fewest it's offered for online, and Jenny's priority (Resos's numbers). */
+  seats_min?: number;
+  priority?: number;
   shape: "rect" | "round" | "diamond";
   x: number;
   y: number;
@@ -37,11 +40,17 @@ export type VenueTable = {
   rot: number;
 };
 
+/** Tables Jenny pushes together for bigger groups, e.g. Courtyard 2 + 3 + 4. */
+export type Combination = { id: string; table_ids: string[]; seats_min: number; seats_max: number; priority: number };
+
 export type BookingStatus = "confirmed" | "seated" | "cancelled" | "no_show";
 
 export type Booking = {
   id: string;
+  /** The first table held; kept in step with table_ids by the database. */
   table_id: string | null;
+  /** Every table held: one, several (joined), or none yet. */
+  table_ids?: string[];
   starts_at: string;
   ends_at: string;
   duration_min: number;
@@ -102,16 +111,23 @@ export async function venueBySlug(slug: string): Promise<Venue> {
   return data as Venue;
 }
 
+/** The tables a booking holds, whether it predates table_ids or not. */
+export function heldTables(b: Pick<Booking, "table_id" | "table_ids">): string[] {
+  if (b.table_ids?.length) return b.table_ids;
+  return b.table_id ? [b.table_id] : [];
+}
+
 export async function floor(venueId: string) {
   if (demoOn()) return demoFloor();
   const client = await supabase();
-  const [sections, tables] = await Promise.all([
+  const [sections, tables, combos] = await Promise.all([
     client.from("sections").select("id,name,sort,indoor").eq("venue_id", venueId).order("sort"),
     client
       .from("venue_tables")
-      .select("id,label,section_id,seats,shape,x,y,w,d,rot")
+      .select("id,label,section_id,seats,seats_min,priority,shape,x,y,w,d,rot")
       .eq("venue_id", venueId)
       .eq("active", true),
+    client.from("table_combinations").select("id,table_ids,seats_min,seats_max,priority").eq("venue_id", venueId),
   ]);
   const byNumber = (a: VenueTable, b: VenueTable) =>
     a.label.localeCompare(b.label, "en", { numeric: true });
@@ -120,6 +136,7 @@ export async function floor(venueId: string) {
     tables: ((tables.data ?? []) as VenueTable[])
       .map((t) => ({ ...t, x: Number(t.x), y: Number(t.y), w: Number(t.w), d: Number(t.d) }))
       .sort(byNumber),
+    combinations: (combos.data ?? []) as Combination[],
   };
 }
 
@@ -130,7 +147,7 @@ export async function bookingsBetween(venueId: string, from: Date, to: Date): Pr
   const client = await supabase();
   const { data } = await client
     .from("bookings")
-    .select("id,table_id,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,status,source")
+    .select("id,table_id,table_ids,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,status,source")
     .eq("venue_id", venueId)
     .gte("starts_at", from.toISOString())
     .lt("starts_at", to.toISOString())

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { bookingsBetween, live, venueBySlug, floor } from "@/lib/console/data";
+import { bookingsBetween, heldTables, live, venueBySlug, floor } from "@/lib/console/data";
 import { addDays, dateKeyOf, dayRange, timeLabel, todayKey } from "@/lib/console/time";
 
 /** Resos's dashboard, same shape: today, the next seven days, the shortcuts. */
@@ -18,7 +18,8 @@ export default async function Dashboard({ params }: { params: Promise<{ venue: s
   // A Server Component renders once per request, so reading the clock here is safe.
   const now = Date.now(); // eslint-disable-line react-hooks/purity
   const upcoming = todays.filter((b) => new Date(b.ends_at).getTime() > now).slice(0, 6);
-  const label = (id: string | null) => tables.find((t) => t.id === id)?.label ?? "—";
+  const label = (b: (typeof held)[number]) =>
+    heldTables(b).map((id) => tables.find((t) => t.id === id)?.label ?? id).join(" + ") || "—";
 
   return (
     <div className="console-page">
@@ -58,7 +59,7 @@ export default async function Dashboard({ params }: { params: Promise<{ venue: s
                   <span className="console-upnext__time">{timeLabel(b.starts_at, tz)}</span>
                   <span>{b.guest_name}</span>
                   <span className="console-muted">
-                    {b.party_size} · table {label(b.table_id)}
+                    {b.party_size} · table {label(b)}
                   </span>
                 </li>
               ))}

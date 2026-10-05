@@ -1,4 +1,4 @@
-import { bookingsBetween, floor, live, venueBySlug, type Booking } from "@/lib/console/data";
+import { bookingsBetween, floor, live, venueBySlug, type Booking, heldTables } from "@/lib/console/data";
 import { dayRange, isDateKey, minutesOfDay, timeLabel, todayKey, zoned } from "@/lib/console/time";
 import { DayBar } from "../ui";
 
@@ -33,9 +33,9 @@ export default async function FloorPage({
 
   /** Who has the table at the moment, else who is next today. */
   const occupant = (id: string) =>
-    held.find((b) => b.table_id === id && new Date(b.starts_at).getTime() <= at && new Date(b.ends_at).getTime() > at);
+    held.find((b) => heldTables(b).includes(id) && new Date(b.starts_at).getTime() <= at && new Date(b.ends_at).getTime() > at);
   const next = (id: string) =>
-    held.find((b) => b.table_id === id && new Date(b.starts_at).getTime() > at);
+    held.find((b) => heldTables(b).includes(id) && new Date(b.starts_at).getTime() > at);
 
   const pad = 0.6;
   const maxX = Math.max(...tables.map((t) => t.x + t.w)) + pad;

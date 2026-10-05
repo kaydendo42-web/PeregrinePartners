@@ -1,4 +1,4 @@
-import { bookingsBetween, floor, live, venueBySlug } from "@/lib/console/data";
+import { bookingsBetween, floor, live, venueBySlug, heldTables } from "@/lib/console/data";
 import { dayRange, isDateKey, minutesOfDay, timeLabel, todayKey } from "@/lib/console/time";
 import { DayBar } from "../ui";
 
@@ -31,7 +31,7 @@ export default async function SchedulePage({
   const pct = (m: number) => `${((m - open) / span) * 100}%`;
 
   const nowMin = todayKey(tz) === date ? minutesOfDay(new Date(), tz) : null;
-  const unassigned = held.filter((b) => !b.table_id);
+  const unassigned = held.filter((b) => !heldTables(b).length);
 
   return (
     <div className="console-page">
@@ -65,7 +65,7 @@ export default async function SchedulePage({
                       <span className="console-schedule__now" style={{ left: pct(nowMin) }} aria-hidden="true" />
                     ) : null}
                     {held
-                      .filter((b) => b.table_id === t.id)
+                      .filter((b) => heldTables(b).includes(t.id))
                       .map((b) => {
                         const m = minutesOfDay(b.starts_at, tz);
                         return (

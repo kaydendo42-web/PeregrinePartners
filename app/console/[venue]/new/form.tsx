@@ -4,8 +4,19 @@ import { useActionState } from "react";
 import { createBooking, type NewBookingState } from "../actions";
 
 type Group = { name: string; tables: { id: string; label: string; seats: number }[] };
+type Joined = { value: string; label: string; min: number; max: number };
 
-export function NewBookingForm({ slug, date, groups }: { slug: string; date: string; groups: Group[] }) {
+export function NewBookingForm({
+  slug,
+  date,
+  groups,
+  joined,
+}: {
+  slug: string;
+  date: string;
+  groups: Group[];
+  joined: Joined[];
+}) {
   const [state, action, pending] = useActionState<NewBookingState, FormData>(createBooking.bind(null, slug), {});
   return (
     <form className="console-form" action={action}>
@@ -35,6 +46,15 @@ export function NewBookingForm({ slug, date, groups }: { slug: string; date: str
                 ))}
               </optgroup>
             ))}
+            {joined.length ? (
+              <optgroup label="Joined tables">
+                {joined.map((j) => (
+                  <option key={j.value} value={j.value}>
+                    {j.label} (seats {j.min}–{j.max})
+                  </option>
+                ))}
+              </optgroup>
+            ) : null}
           </select>
         </label>
       </div>
