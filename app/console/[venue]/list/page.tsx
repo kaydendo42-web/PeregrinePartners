@@ -3,6 +3,7 @@ import { dayLabel, dayRange, isDateKey, timeLabel, todayKey } from "@/lib/consol
 import { setStatus } from "../actions";
 import { DayBar, StatusChip } from "../ui";
 import { StatusButton } from "../status-button";
+import { TablePicker } from "./table-picker";
 
 const SOURCE: Record<string, string> = {
   website: "Website",
@@ -31,11 +32,22 @@ export default async function ListPage({
   const section = (id?: string) => sections.find((s) => s.id === id)?.name ?? "";
   const held = bookings.filter(live);
   const base = `/console/${slug}/list`;
+  const groups = sections.map((s) => ({
+    name: s.name,
+    tables: tables.filter((t) => t.section_id === s.id).map((t) => ({ id: t.id, label: t.label, seats: t.seats })),
+  }));
+  const unassigned = held.filter((b) => !b.table_id).length;
 
   return (
     <div className="console-page">
       <DayBar base={base} date={date} />
       {problem ? <p className="console-problem">{problem}</p> : null}
+      {unassigned ? (
+        <p className="console-problem">
+          {unassigned === 1 ? "1 booking has" : `${unassigned} bookings have`} no table yet. Until {unassigned === 1 ? "it has" : "they have"} one,
+          the website will offer that table to other guests.
+        </p>
+      ) : null}
       <p className="console-muted console-summary">
         {held.length} {held.length === 1 ? "booking" : "bookings"} · {held.reduce((n, b) => n + b.party_size, 0)} guests
       </p>
@@ -70,7 +82,13 @@ export default async function ListPage({
                   </td>
                   <td data-label="Party">{b.party_size}</td>
                   <td data-label="Table">
-                    {t ? `${t.label} · ${section(t.section_id)}` : <span className="console-muted">Unassigned</span>}
+                    {live(b) ? (
+                      <TablePicker slug={slug} bookingId={b.id} current={b.table_id} party={b.party_size} groups={groups} />
+                    ) : t ? (
+                      `${t.label} · ${section(t.section_id)}`
+                    ) : (
+                      <span className="console-muted">No table</span>
+                    )}
                   </td>
                   <td data-label="Contact">
                     {b.phone ? <a href={`tel:${b.phone.replace(/\s/g, "")}`}>{b.phone}</a> : null}
