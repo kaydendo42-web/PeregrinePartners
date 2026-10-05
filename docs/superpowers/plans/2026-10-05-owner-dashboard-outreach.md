@@ -611,7 +611,7 @@ on conflict(workspace_id,user_id) do update set display_name=excluded.display_na
 Tasks 1–7 are implemented and locally verified. Checked steps indicate completed
 implementation or local checks; combined acceptance steps remain open where they
 require the live Supabase project, separate owner sessions or the real CSV.
-Native suite: 29 tests passed. All seven CRM migrations and rollback SQL suites
+Native suite: 29 tests passed. All eight CRM migrations and rollback SQL suites
 passed in disposable PostgreSQL, including a 5,000-row import. Feature lint and
 TypeScript passed; the supported webpack production build passed. Repository
 lint still reports the two pre-existing public-site errors. Desktop/phone shell
@@ -620,7 +620,7 @@ they do not verify authenticated interactions. Browser form regressions addition
 verify delayed saves, contact source visibility, filtered follow-up draft retention
 and late authorization after sign-out/unmount. The independent review received
 one regression-tested fix pass. Supabase is connected and the Vercel integration
-identity matches; seven additive CRM migrations are applied. Live rollback RLS,
+identity matches; eight additive CRM migrations are applied. Live rollback RLS,
 MFA, membership revocation, actor/version, mutation retry and opt-out checks passed.
 The provider published 5,000 synthetic rows in 23.385 seconds and verified a safe
 retry; a new function-specific 45-second timeout addresses the default eight-second
@@ -629,7 +629,9 @@ two account creations, MFA, independent sessions, authenticated HTTP import,
 realtime timing, real CSV and deployed booking acceptance remain pending.
 The committed branch preview built successfully on Vercel. Its private `/owner`
 route returns a sign-in redirect and the sign-in form loads; authenticated
-acceptance remains pending. Draft PR #4 is created and attached to this task.
+acceptance remains pending. The browser shows Vercel sign-in; no preview protection
+was changed. Anonymous HTTP API denial was verified and the CRM helper advisor
+warning was fixed. Draft PR #4 is created and attached to this task.
 Task 8 and production readiness remain open.
 
 ## Coverage and execution handoff

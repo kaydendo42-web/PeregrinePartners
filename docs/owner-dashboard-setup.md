@@ -24,6 +24,7 @@ console; a venue `owner` role does not grant founder access.
    - `20261008003000_crm_realtime.sql`
    - `20261008004000_crm_import_performance.sql`
    - `20261008005000_crm_import_timeout.sql`
+   - `20261008005001_crm_conflict_search_path.sql`
 
 4. Resolve the three approved owner emails to real Supabase user UUIDs through
    the trusted account administration interface. If an account is missing, use
@@ -137,7 +138,7 @@ the server filter. Only the server responses use synthetic test fixtures; the
 actual form components run in Chrome.
 
 The existing Supabase resource was verified through Peregrine's Vercel integration.
-All seven founder migrations are applied and their history versions match these
+All eight founder migrations are applied and their history versions match these
 files. The older booking schema was already present with no recorded migration
 history; do not run a blanket `db push` against it without first reconciling that
 baseline. Its current tables include provider-side adjustments, so older migration
@@ -155,6 +156,31 @@ preview too; SQL verification does not replace that request path.
 One approved founder account existed and was privately granted access; the other
 two need real accounts and MFA before their memberships can be added. Independent
 sessions, live updates and authenticated preview interactions remain pending.
+
+Anonymous HTTP checks against the real Data API rejected business/member reads,
+owner-status execution and import publication with permission-denied responses.
+The browser preview has a separate Vercel sign-in before Peregrine sign-in.
+Preview protection remains enabled; no temporary share link was created.
+
+### Database advisor review
+
+The missing search path on the private conflict helper is fixed and the advisor
+finding cleared. The remaining CRM security notices describe intentional rules:
+the retry-receipt table has RLS with no browser policies, and authenticated callers
+can execute checked write functions. Those functions still require founder status,
+MFA and workspace membership. See the advisor explanations for
+[tables with no policies](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy)
+and [privileged function execution](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable).
+
+Informational foreign-key and unused-index notices remain for later measured
+tuning. Existing booking-function search paths/public execution, the public
+`btree_gist` extension, booking-policy performance and disabled leaked-password
+protection were recorded as baseline findings. No existing booking schema or
+provider setting was changed for these notices. Their remediation guides cover
+[function search paths](https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable),
+[public privileged functions](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable),
+[extension placement](https://supabase.com/docs/guides/database/database-linter?lint=0014_extension_in_public),
+and [password protection](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 Do not run the local fixture scripts unchanged against production: their test
 authentication schema and fixture users belong only to the disposable harness.
 Live verification must use approved accounts and reversible isolated test rows.
