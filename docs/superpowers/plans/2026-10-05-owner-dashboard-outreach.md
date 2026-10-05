@@ -53,10 +53,10 @@
 | `app/owner/clients/page.tsx`, `app/owner/clients/actions.ts`, `app/owner/clients/[client]/page.tsx`, `app/owner/clients/{client-form,client-tools,billing-form}.tsx` | Client registry and commercial records. |
 | `app/owner/{follow-ups,tools}/page.tsx`, `tools/actions.ts`, `tools/tool-form.tsx` | Follow-up work list and editable tool catalogue. |
 | `lib/owner/overview.ts`, `clients.ts`, `tools.ts`, `billing.ts` | Platform-only aggregates and commercial data reads. |
-| `supabase/migrations/20261007000000_owner_crm.sql` | Schema, indexed access helpers, RLS, read grants, and bootstrap workspace. |
-| `supabase/migrations/20261007001000_crm_mutations.sql` | Transactional mutations, attribution, conflict checks, conversion, billing. |
-| `supabase/migrations/20261007002000_crm_import.sql` | Staging, duplicate decisions, retry-safe atomic publishing. |
-| `supabase/migrations/20261007003000_crm_realtime.sql` | Publication of authorised insert/update events. |
+| `supabase/migrations/20261008000000_owner_crm.sql` | Schema, indexed access helpers, RLS, read grants, and bootstrap workspace. |
+| `supabase/migrations/20261008001000_crm_mutations.sql` | Transactional mutations, attribution, conflict checks, conversion, billing. |
+| `supabase/migrations/20261008002000_crm_import.sql` | Staging, duplicate decisions, retry-safe atomic publishing. |
+| `supabase/migrations/20261008003000_crm_realtime.sql` | Publication of authorised insert/update events. |
 | `tests/crm/*.test.ts`, `supabase/tests/owner_crm.sql`, `docs/owner-dashboard-setup.md` | Domain regression checks, rollback-only database checks, and verified setup. |
 
 Use the `crm_` prefix for new data tables, except `platform_owners`. Existing
@@ -87,7 +87,7 @@ from outreach metrics; converted prospects retain `origin=outreach` and Won.
 
 ## Task 1: Establish domain contracts and protected database storage
 
-**Files:** Create `lib/crm/types.ts`, `lib/crm/validation.ts`, `lib/auth/next.ts`, `tests/crm/access.test.ts`, `tests/crm/validation.test.ts`, `supabase/migrations/20261007000000_owner_crm.sql`, `supabase/tests/owner_crm.sql`. Modify `package.json`, `tsconfig.json`, `.gitignore`.
+**Files:** Create `lib/crm/types.ts`, `lib/crm/validation.ts`, `lib/auth/next.ts`, `tests/crm/access.test.ts`, `tests/crm/validation.test.ts`, `supabase/migrations/20261008000000_owner_crm.sql`, `supabase/tests/owner_crm.sql`. Modify `package.json`, `tsconfig.json`, `.gitignore`.
 
 **Interfaces:** Produce `UUID = string`, `Stage`, `Priority`, `Business`, `Contact`, `Activity`, `FollowUp`, `ClientAccount`, `ClientTool`, `BillingRecord`, `OwnerContext`, `PageResult<T>`, and `MutationResult<T>` in `types.ts`. `OwnerContext` contains `{userId, workspaceId, timezone, displayName}`. `Business` includes all business-table columns plus nullable last-contact/next-follow-up and updater display names. `PageResult<T>` is `{rows:T[],total:number,page:number,pageSize:50}`. Mutation results are `{ok:true,value:T}` or `{ok:false,kind:'validation'|'conflict'|'forbidden'|'unavailable',message:string,current?:T}`.
 
@@ -247,7 +247,7 @@ export default async function OwnerLayout({children}:{children:React.ReactNode})
 
 ## Task 3: Deliver working shared outreach records and follow-ups
 
-**Files:** Create `lib/crm/query.ts`, `lib/crm/mutations.ts`, `supabase/migrations/20261007001000_crm_mutations.sql`, all `components/crm` controls except import/live components, `app/owner/outreach/page.tsx`, `app/owner/outreach/actions.ts`, `app/owner/outreach/[business]/page.tsx`, `app/owner/follow-ups/page.tsx`, `tests/crm/outreach.test.ts`. Extend `supabase/tests/owner_crm.sql` and owner styles.
+**Files:** Create `lib/crm/query.ts`, `lib/crm/mutations.ts`, `supabase/migrations/20261008001000_crm_mutations.sql`, all `components/crm` controls except import/live components, `app/owner/outreach/page.tsx`, `app/owner/outreach/actions.ts`, `app/owner/outreach/[business]/page.tsx`, `app/owner/follow-ups/page.tsx`, `tests/crm/outreach.test.ts`. Extend `supabase/tests/owner_crm.sql` and owner styles.
 
 **Interfaces:** `BusinessQuery` is `{q?:string,stage?:Stage,owner?:UUID|'unassigned',location?:string,industry?:string,tag?:string,priority?:Priority,batch?:UUID,shortcut?:'mine'|'unassigned'|'replies'|'due'|'incomplete',sort:'name'|'last_contact'|'next_follow_up'|'updated',page:number,view:'table'|'board'}`. Query exports: `listBusinesses(context,query):Promise<PageResult<Business>>`, `getBusiness(context,id):Promise<{business:Business,contacts:Contact[],activities:Activity[],followUps:FollowUp[]}>`, `listFollowUps(context,filter):Promise<PageResult<FollowUp>>`, `listMembers(context):Promise<{userId:UUID,displayName:string}[]>`. Database RPCs: `crm_create_business(p_workspace,p_input,p_request_id)`, `crm_update_business(p_workspace,p_id,p_expected_version,p_patch,p_request_id)`, `crm_add_activity(p_workspace,p_business,p_input,p_request_id)`, `crm_save_follow_up(p_workspace,p_input,p_expected_version,p_request_id)`, `crm_bulk_businesses(p_workspace,p_items,p_patch,p_request_id)`. Mutations return typed `MutationResult` with the current record on conflict.
 
@@ -449,7 +449,7 @@ export function escapeCsvCell(value:string):string {
 
 ## Task 6: Publish CSV imports atomically with a usable import wizard
 
-**Files:** Create `supabase/migrations/20261007002000_crm_import.sql`, `components/crm/import/*`, `app/owner/outreach/import/page.tsx`, `app/owner/outreach/import/actions.ts`, `lib/crm/import/server.ts`, `lib/crm/import/controller.ts`, `tests/crm/import-state.test.ts`. Extend database tests and reusable query code.
+**Files:** Create `supabase/migrations/20261008002000_crm_import.sql`, `components/crm/import/*`, `app/owner/outreach/import/page.tsx`, `app/owner/outreach/import/actions.ts`, `lib/crm/import/server.ts`, `lib/crm/import/controller.ts`, `tests/crm/import-state.test.ts`. Extend database tests and reusable query code.
 
 **Interfaces:** Owner import actions are `beginImport(input):Promise<MutationResult<ImportBatch>>`, `stageImportChunk(input):Promise<MutationResult<ImportProgress>>`, `previewImport(batchId):Promise<ImportPreview>`, `setImportDecisions(batchId,decisions):Promise<MutationResult<ImportPreview>>`, `commitImport(batchId,requestId):Promise<MutationResult<ImportCounts>>`, `cancelImport(batchId):Promise<MutationResult<ImportBatch>>`, `getImport(batchId):Promise<ImportProgress>`. Input includes validated request IDs and logical row numbers. Counts partition source data rows into `businessesCreated`, `contactsLinked`, `exactDuplicatesSkipped`, `ownerSkipped`, and `rejected`; one row belongs to exactly one bucket. Preview distinguishes blocking errors from warnings.
 
@@ -533,7 +533,7 @@ perform pg_advisory_xact_lock(hashtextextended(p_workspace::text,0));
 
 ## Task 7: Synchronize owners without losing unsaved work
 
-**Files:** Create `supabase/migrations/20261007003000_crm_realtime.sql`, `components/crm/live-refresh.tsx`, `components/crm/draft-state.tsx`, `lib/crm/live-state.ts`, `lib/crm/draft.ts`, `tests/crm/live-state.test.ts`. Integrate live/draft provider into owner layout and reusable forms.
+**Files:** Create `supabase/migrations/20261008003000_crm_realtime.sql`, `components/crm/live-refresh.tsx`, `components/crm/draft-state.tsx`, `lib/crm/live-state.ts`, `lib/crm/draft.ts`, `tests/crm/live-state.test.ts`. Integrate live/draft provider into owner layout and reusable forms.
 
 **Interfaces:** `WorkspaceLiveRefresh({workspaceId,url,anonKey,onStatus}):JSX.Element`; `LiveStatus='live'|'reconnecting'|'disconnected'`; pure `reduceLiveState(state,event):LiveState` for subscribe/error/reconnect/focus/auth-expiry. `useRecordDraft<T>(key,serverRecord)` returns `{draft,setDraft,dirty,openedVersion,remoteVersion,discard,reapply,markSaved}`. `reapply` is explicit and requires reviewing newest values; it never auto-saves.
 
@@ -598,7 +598,7 @@ select id,$1,$2,true from public.crm_workspaces where slug='peregrine'
 on conflict(workspace_id,user_id) do update set display_name=excluded.display_name,active=true;
 ```
 
-- [ ] **Step 2: Apply and verify additive migrations through the connected Supabase project.** Identify the actual linked project first, inspect migration state (including the existing two-step and notifications migrations), and apply only missing migrations in timestamp order. Verify table/policy/function grants, actor/version behavior, and Realtime publication. Run rollback-only database checks and document actual outputs without secrets. Do not treat a locally written migration as live schema.
+- [x] **Step 2: Apply and verify additive migrations through the connected Supabase project.** Identify the actual linked project first, inspect migration state (including the existing two-step and notifications migrations), and apply only missing migrations in timestamp order. Verify table/policy/function grants, actor/version behavior, and Realtime publication. Run rollback-only database checks and document actual outputs without secrets. Do not treat a locally written migration as live schema.
 
 - [ ] **Step 3: Run the complete checks.** `npm test`, `npx tsc --noEmit`, `npm run lint`, `npm run build`; fix errors and repeat only affected checks. Verify original booking login/MFA/console actions/notifications, correct owner landing, list/filter/pagination, CSV source reconciliation, conversion, currency/time behavior, conflict protection, live update timing, session expiry, and no client access. Inspect build/committed output for private data and keys. Review desktop and phone widths, keyboard controls, loading/error/empty behavior; save screenshots for the owner dashboard and outreach flow.
 
@@ -611,13 +611,23 @@ on conflict(workspace_id,user_id) do update set display_name=excluded.display_na
 Tasks 1–7 are implemented and locally verified. Checked steps indicate completed
 implementation or local checks; combined acceptance steps remain open where they
 require the live Supabase project, separate owner sessions or the real CSV.
-Native suite: 24 tests passed. All five CRM migrations and rollback SQL suites
+Native suite: 29 tests passed. All seven CRM migrations and rollback SQL suites
 passed in disposable PostgreSQL, including a 5,000-row import. Feature lint and
 TypeScript passed; the supported webpack production build passed. Repository
 lint still reports the two pre-existing public-site errors. Desktop/phone shell
 and board captures use the real presentation components with synthetic fixtures;
-they do not verify authenticated interactions. See the founder setup guide for
-remaining launch checks. Task 8 and production readiness remain open.
+they do not verify authenticated interactions. Browser form regressions additionally
+verify delayed saves, contact source visibility, filtered follow-up draft retention
+and late authorization after sign-out/unmount. The independent review received
+one regression-tested fix pass. Supabase is connected and the Vercel integration
+identity matches; seven additive CRM migrations are applied. Live rollback RLS,
+MFA, membership revocation, actor/version, mutation retry and opt-out checks passed.
+The provider published 5,000 synthetic rows in 23.385 seconds and verified a safe
+retry; a new function-specific 45-second timeout addresses the default eight-second
+limit without changing other queries. One approved owner account is enabled;
+two account creations, MFA, independent sessions, authenticated HTTP import,
+realtime timing, real CSV and deployed booking acceptance remain pending.
+Task 8 and production readiness remain open.
 
 ## Coverage and execution handoff
 

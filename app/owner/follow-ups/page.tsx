@@ -4,7 +4,7 @@ import { listFollowUps, listMembers } from "@/lib/crm/query";
 import type { FollowUpFilter } from "@/lib/crm/query";
 import { dayBounds } from "@/lib/crm/time";
 import { parseVersion } from "@/lib/crm/validation";
-import { FollowUpForm } from "@/components/crm/follow-up-form";
+import { FollowUpList } from "@/components/crm/follow-up-list";
 export default async function FollowUps({
   searchParams,
 }: {
@@ -82,28 +82,14 @@ export default async function FollowUps({
           <h2>{result.total} follow-ups</h2>
         </div>
         <div className="owner-panel-body">
-          {result.rows.map((f) => (
-            <details className="owner-contact" key={f.id}>
-              <summary>
-                {f.business?.name} · {f.instruction}
-              </summary>
-              <Link
-                className="owner-link"
-                href={"/owner/outreach/" + f.business_id}
-              >
-                Open business →
-              </Link>
-              <FollowUpForm
-                followUp={f}
-                members={members}
-                timezone={context.timezone}
-                blocked={false}
-              />
-            </details>
-          ))}
+          <FollowUpList
+            rows={result.rows}
+            members={members}
+            timezone={context.timezone}
+          />
           {!result.rows.length ? (
             <div className="owner-empty">
-              <h2>You’re clear here.</h2>
+              <h2>No matching follow-ups.</h2>
               <p>No follow-ups match these filters.</p>
               <Link
                 className="owner-button owner-button-secondary"

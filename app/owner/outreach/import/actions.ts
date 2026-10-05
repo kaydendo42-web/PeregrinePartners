@@ -75,6 +75,8 @@ export async function setImportDecisions(
           targetContactId: d.targetContactId
             ? parseUuid(d.targetContactId)
             : null,
+          targetSourceRow:
+            d.targetSourceRow == null ? null : parseVersion(d.targetSourceRow),
         })),
       };
     },

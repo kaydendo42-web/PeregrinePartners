@@ -13,15 +13,17 @@ console; a venue `owner` role does not grant founder access.
    service-role keys into chat or Git.
 2. Verify the project identity against the existing deployment's Supabase URL.
    Inspect the live migration history before applying anything. The existing
-   bookings, two-step authentication and venue-notifications migrations must be
+   bookings, two-step authentication, venue-notifications and joined-table migrations must be
    accounted for first; do not rerun them blindly.
 3. Apply only the missing founder migrations, in this order:
 
-   - `20261007000000_owner_crm.sql`
-   - `20261007001000_crm_mutations.sql`
-   - `20261007001500_crm_commercial.sql`
-   - `20261007002000_crm_import.sql`
-   - `20261007003000_crm_realtime.sql`
+   - `20261008000000_owner_crm.sql`
+   - `20261008001000_crm_mutations.sql`
+   - `20261008001500_crm_commercial.sql`
+   - `20261008002000_crm_import.sql`
+   - `20261008003000_crm_realtime.sql`
+   - `20261008004000_crm_import_performance.sql`
+   - `20261008005000_crm_import_timeout.sql`
 
 4. Resolve the three approved owner emails to real Supabase user UUIDs through
    the trusted account administration interface. If an account is missing, use
@@ -72,6 +74,8 @@ write founder tables or grant themselves membership.
 - **Outreach:** switch between table and stage board, filter and assign records,
   add contacts, log conversations and replies, and set follow-ups. A do-not-contact
   or archived business cannot receive a new outreach entry or open follow-up.
+  Stopped businesses are excluded from active queues and can be found in the
+  explicit **Stopped outreach** view.
 - **Follow-ups:** deadlines use the workspace timezone, initially
   `Australia/Melbourne`. Repeated daylight-saving times require an explicit
   occurrence; nonexistent local times are rejected.
@@ -92,7 +96,9 @@ after using the team's existing communication and payment channels.
    live businesses or contacts. Invalid rows must be corrected in a new import
    or explicitly skipped before publication.
 4. Review potential duplicates. Shared domains alone do not merge branches.
-   Link an additional contact only to a reviewed business in this workspace.
+   Link an additional contact to a reviewed existing business in this workspace
+   or to an explicitly selected new business row in the same file. A skipped,
+   invalid or duplicate target row blocks publication until the link is corrected.
 5. Publish. The database commits the accepted rows and receipt together. The
    receipt reconciles created, linked, duplicate, skipped and rejected source
    rows to the total. Repeating the same source and mapping reuses the completed
@@ -123,9 +129,32 @@ Rollback-only SQL checks exercise policies, grants, versions, attribution,
 idempotence, conversion, manual billing and import publication in a disposable
 PostgreSQL engine. `supabase/tests/run-local.mjs` connects only to that disposable
 engine, never to the live project. A synthetic 5,000-row publication passed there;
-its initial measured publication took 29.537 seconds in the WASM test engine.
+its latest measured publication took 23.955 seconds in the WASM test engine.
 
-The actual Supabase timeout and concurrent sessions still need live verification.
+Browser form regressions also verify delayed-save input protection, imported
+contact source visibility, late authorization after sign-out/unmount, and retention of an edited follow-up after it leaves
+the server filter. Only the server responses use synthetic test fixtures; the
+actual form components run in Chrome.
+
+The existing Supabase resource was verified through Peregrine's Vercel integration.
+All seven founder migrations are applied and their history versions match these
+files. The older booking schema was already present with no recorded migration
+history; do not run a blanket `db push` against it without first reconciling that
+baseline. Its current tables include provider-side adjustments, so older migration
+files must not be blindly rerun or marked as identical to the live baseline.
+
+Live rollback checks passed for anonymous/non-owner denial, MFA, workspace
+isolation, revoked membership, direct-write denial, actor attribution, stale
+versions, mutation retries and opt-out. A synthetic 5,000-row publication on the
+provider took **23.385 seconds**, with receipt reconciliation and retry safety
+verified; all verification rows rolled back. The default eight-second role limit
+was insufficient, so only the commit RPC has a 45-second function limit. The role
+limit remains eight seconds. Check the actual authenticated HTTP import on the
+preview too; SQL verification does not replace that request path.
+
+One approved founder account existed and was privately granted access; the other
+two need real accounts and MFA before their memberships can be added. Independent
+sessions, live updates and authenticated preview interactions remain pending.
 Do not run the local fixture scripts unchanged against production: their test
 authentication schema and fixture users belong only to the disposable harness.
 Live verification must use approved accounts and reversible isolated test rows.
@@ -141,8 +170,8 @@ Before production, record results for:
 - desktop, phone, keyboard, empty, loading and error states on the preview.
 
 The implementation branch is not production-ready until these live checks pass.
-The real outreach CSV and service connection are separate inputs; a synthetic
-test file is not a substitute for checking the team's file.
+The real outreach CSV remains an outstanding input; a synthetic test file is not
+a substitute for checking the team's file.
 
 ## Development checks
 
@@ -166,6 +195,19 @@ To run the disposable SQL suite, install PGlite outside this repository and set
 CRM_TEST_ENGINE=/absolute/test-runtime/node_modules/@electric-sql/pglite/dist/index.js \
   node supabase/tests/run-local.mjs
 ```
+
+To run the browser form regressions, provide an external esbuild runtime and the
+installed Chrome executable (the default browser path is macOS Chrome):
+
+```sh
+CRM_UI_BUNDLER=/absolute/test-runtime/node_modules/esbuild/lib/main.js \
+CRM_UI_BROWSER=/absolute/path/to/chrome \
+  node tests/crm/browser/run.mjs
+```
+
+Known follow-up work: historical author names currently use active membership
+names, and some detail histories show only 100 entries without older-page
+navigation. Actor IDs and historical rows remain stored.
 
 ## Later client workspaces
 

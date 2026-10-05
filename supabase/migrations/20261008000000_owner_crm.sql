@@ -125,12 +125,14 @@ create index crm_billing_due on public.crm_billing_records(workspace_id,due_on);
 create table public.crm_import_rows (
  workspace_id uuid not null references public.crm_workspaces(id),batch_id uuid not null,row_number integer not null check(row_number between 1 and 5000),
  source jsonb not null check(jsonb_typeof(source)='array' and octet_length(source::text)<=131072),normalized jsonb not null default '{}',
- decision text not null default 'import' check(decision in ('import','skip','link_contact')),target_business_id uuid,target_contact_id uuid,
+ decision text not null default 'import' check(decision in ('import','skip','link_contact')),target_business_id uuid,target_contact_id uuid,target_source_row integer,
  row_fingerprint text not null,issues jsonb not null default '[]',published_at timestamptz,outcome text,
  primary key(workspace_id,batch_id,row_number),
  foreign key(workspace_id,batch_id) references public.crm_import_batches(workspace_id,id),
  foreign key(workspace_id,target_business_id) references public.crm_businesses(workspace_id,id),
  foreign key(workspace_id,target_contact_id) references public.crm_contacts(workspace_id,id)
+ ,foreign key(workspace_id,batch_id,target_source_row) references public.crm_import_rows(workspace_id,batch_id,row_number)
+ ,check(target_source_row is null or target_source_row<>row_number)
 );
 create unique index crm_accepted_source_row on public.crm_import_rows(workspace_id,row_fingerprint) where published_at is not null;
 create table public.crm_mutation_requests (

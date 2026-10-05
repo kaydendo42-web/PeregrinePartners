@@ -102,6 +102,7 @@ export function WorkspaceLiveRefresh({
           return false;
         }
         await client.realtime.setAuth(session.access_token);
+        if (!active || revoked) return false;
         if (!started) {
           started = true;
           channel.subscribe((status) => {

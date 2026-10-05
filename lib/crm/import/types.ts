@@ -37,6 +37,7 @@ export type NormalizedImportRow = {
   decision: ImportDecision;
   targetBusinessId: string | null;
   targetContactId: string | null;
+  targetSourceRow?: number | null;
 };
 export type DuplicateCandidate = {
   id: string | null;
@@ -45,6 +46,7 @@ export type DuplicateCandidate = {
   location: string;
   reasons: string[];
   exact: boolean;
+  linkable?: boolean;
 };
 export type ImportCounts = {
   created: number;

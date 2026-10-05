@@ -1,17 +1,21 @@
 import Link from "next/link";
 import type { Business, PageResult, Stage } from "@/lib/crm/types";
 import { stages, stageLabels } from "@/lib/crm/types";
+import { boardPageHref } from "@/lib/crm/queues";
 export function BusinessBoard({
   columns,
   url,
+  visibleStages = [...stages],
 }: {
-  columns: Record<Stage, PageResult<Business>>;
+  columns: Partial<Record<Stage, PageResult<Business>>>;
   url: string;
+  visibleStages?: Stage[];
 }) {
   return (
     <div className="owner-board">
-      {stages.map((stage) => {
+      {visibleStages.map((stage) => {
         const column = columns[stage];
+        if (!column) return null;
         return (
           <section className="owner-board-column" key={stage}>
             <h2>
@@ -39,12 +43,12 @@ export function BusinessBoard({
             ) : null}
             <div className="owner-board-pagination">
               {column.page > 1 ? (
-                <Link href={url + "&p_" + stage + "=" + (column.page - 1)}>
+                <Link href={boardPageHref(url, stage, column.page - 1)}>
                   ← Previous
                 </Link>
               ) : null}
               {column.page * 50 < column.total ? (
-                <Link href={url + "&p_" + stage + "=" + (column.page + 1)}>
+                <Link href={boardPageHref(url, stage, column.page + 1)}>
                   Next →
                 </Link>
               ) : null}

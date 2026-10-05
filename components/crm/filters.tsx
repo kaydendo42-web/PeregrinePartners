@@ -10,6 +10,7 @@ export function Filters({
   return (
     <form className="owner-filters" action="/owner/outreach">
       <input type="hidden" name="view" value={query.view} />
+      {query.stopped ? <input type="hidden" name="stopped" value="1" /> : null}
       <label className="owner-field owner-filter-search">
         Search businesses
         <input name="q" defaultValue={query.q} placeholder="Business name" />

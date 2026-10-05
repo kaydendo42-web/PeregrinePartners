@@ -155,6 +155,7 @@ export function parseQuery(value: unknown): BusinessQuery {
     batch: source.batch ? parseUuid(source.batch) : null,
     incomplete: source.incomplete === "1",
     due: source.due === "1",
+    stopped: source.stopped === "1",
     page,
     sort: sort as BusinessQuery["sort"],
     view: source.view === "board" ? "board" : "table",

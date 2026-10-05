@@ -67,104 +67,108 @@ export function ActivityForm({
         }
       }}
     >
-      <div className="owner-form-grid">
-        <label className="owner-field">
-          Activity
-          <select
-            value={kind}
-            onChange={(e) => {
-              setKind(e.target.value as ActivityInput["kind"]);
-              m.changed();
-            }}
-          >
-            <option value="note">Internal note</option>
-            <option value="outreach" disabled={doNotContact}>
-              Outreach sent
-            </option>
-            <option value="reply">Reply received</option>
-            <option value="meeting">Meeting</option>
-            <option value="proposal">Proposal</option>
-          </select>
-        </label>
-        {kind !== "note" ? (
+      <fieldset disabled={m.pending} className="owner-form">
+        <div className="owner-form-grid">
           <label className="owner-field">
-            Channel
+            Activity
             <select
-              value={channel}
+              value={kind}
               onChange={(e) => {
-                setChannel(e.target.value);
+                setKind(e.target.value as ActivityInput["kind"]);
                 m.changed();
               }}
             >
-              {["email", "phone", "sms", "social", "other"].map((c) => (
-                <option key={c} value={c}>
-                  {c === "sms" ? "SMS" : c.charAt(0).toUpperCase() + c.slice(1)}
+              <option value="note">Internal note</option>
+              <option value="outreach" disabled={doNotContact}>
+                Outreach sent
+              </option>
+              <option value="reply">Reply received</option>
+              <option value="meeting">Meeting</option>
+              <option value="proposal">Proposal</option>
+            </select>
+          </label>
+          {kind !== "note" ? (
+            <label className="owner-field">
+              Channel
+              <select
+                value={channel}
+                onChange={(e) => {
+                  setChannel(e.target.value);
+                  m.changed();
+                }}
+              >
+                {["email", "phone", "sms", "social", "other"].map((c) => (
+                  <option key={c} value={c}>
+                    {c === "sms"
+                      ? "SMS"
+                      : c.charAt(0).toUpperCase() + c.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+        </div>
+        <label className="owner-field">
+          When <small>{timezone} · leave empty for now</small>
+          <input
+            type="datetime-local"
+            value={localTime}
+            onChange={(e) => {
+              setLocalTime(e.target.value);
+              setChoice("");
+              setTimeError("");
+              m.changed();
+            }}
+          />
+        </label>
+        {options.length === 2 ? (
+          <label className="owner-field">
+            Clock change: choose occurrence
+            <select
+              required
+              value={choice}
+              onChange={(e) => {
+                setChoice(e.target.value);
+                m.changed();
+              }}
+            >
+              <option value="">Choose a time</option>
+              {options.map((v, i) => (
+                <option key={v} value={v}>
+                  {i === 0 ? "Earlier" : "Later"} — {displayTime(v, timezone)}
                 </option>
               ))}
             </select>
           </label>
         ) : null}
-      </div>
-      <label className="owner-field">
-        When <small>{timezone} · leave empty for now</small>
-        <input
-          type="datetime-local"
-          value={localTime}
-          onChange={(e) => {
-            setLocalTime(e.target.value);
-            setChoice("");
-            setTimeError("");
-            m.changed();
-          }}
-        />
-      </label>
-      {options.length === 2 ? (
         <label className="owner-field">
-          Clock change: choose occurrence
-          <select
+          Summary
+          <textarea
             required
-            value={choice}
+            maxLength={10000}
+            value={summary}
             onChange={(e) => {
-              setChoice(e.target.value);
+              setSummary(e.target.value);
+              setOccurred("");
               m.changed();
             }}
-          >
-            <option value="">Choose a time</option>
-            {options.map((v, i) => (
-              <option key={v} value={v}>
-                {i === 0 ? "Earlier" : "Later"} — {displayTime(v, timezone)}
-              </option>
-            ))}
-          </select>
-        </label>
-      ) : null}
-      <label className="owner-field">
-        Summary
-        <textarea
-          required
-          maxLength={10000}
-          value={summary}
-          onChange={(e) => {
-            setSummary(e.target.value);
-            setOccurred("");
-            m.changed();
-          }}
-          placeholder="What happened? What should the team know?"
-        />
-      </label>
-      {kind === "reply" ? (
-        <label className="owner-check">
-          <input
-            type="checkbox"
-            checked={markReplied}
-            onChange={(e) => {
-              setMarkReplied(e.target.checked);
-              m.changed();
-            }}
+            placeholder="What happened? What should the team know?"
           />
-          Move to Replied (Won and Lost stay as they are)
         </label>
-      ) : null}
+        {kind === "reply" ? (
+          <label className="owner-check">
+            <input
+              type="checkbox"
+              checked={markReplied}
+              onChange={(e) => {
+                setMarkReplied(e.target.checked);
+                m.changed();
+              }}
+            />
+            Move to Replied (Won and Lost stay as they are)
+          </label>
+        ) : null}
+      </fieldset>
       <p className="owner-privacy-note">
         Recorded manually. This saves history for the team; it does not send a
         message.

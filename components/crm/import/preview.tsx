@@ -68,8 +68,12 @@ export function Preview({
                     </p>
                   ))}
                   {row.candidates.map((c) => (
-                    <p className="owner-muted" key={c.id}>
+                    <p
+                      className="owner-muted"
+                      key={c.id ?? "row:" + c.rowNumber}
+                    >
                       {c.name} · {c.location || "No location"}
+                      {c.rowNumber ? ` · source row ${c.rowNumber}` : ""}
                       <br />
                       Possible match: {c.reasons.join(", ")}
                     </p>
@@ -87,7 +91,15 @@ export function Preview({
                           decision: e.target.value as ImportDecision,
                           targetBusinessId:
                             e.target.value === "link_contact"
-                              ? (row.candidates[0]?.id ?? null)
+                              ? (row.candidates.find(
+                                  (c) => c.linkable !== false,
+                                )?.id ?? null)
+                              : null,
+                          targetSourceRow:
+                            e.target.value === "link_contact"
+                              ? (row.candidates.find(
+                                  (c) => c.linkable !== false,
+                                )?.rowNumber ?? null)
                               : null,
                           targetContactId: null,
                         })
@@ -97,30 +109,52 @@ export function Preview({
                       <option value="skip">Skip this row</option>
                       <option
                         value="link_contact"
-                        disabled={!row.candidates.length}
+                        disabled={
+                          !row.candidates.some((c) => c.linkable !== false)
+                        }
                       >
-                        Add contact to an existing business
+                        Add contact to a reviewed business
                       </option>
                     </select>
                   </label>
                   {row.decision === "link_contact" ? (
                     <label className="owner-field">
-                      Existing business
+                      Business to attach this contact to
                       <select
                         disabled={pending}
-                        value={row.targetBusinessId ?? ""}
+                        value={
+                          row.targetSourceRow
+                            ? "row:" + row.targetSourceRow
+                            : row.targetBusinessId
+                              ? "business:" + row.targetBusinessId
+                              : ""
+                        }
                         onChange={(e) =>
                           onDecision({
                             rowNumber: row.rowNumber,
                             decision: "link_contact",
-                            targetBusinessId: e.target.value,
+                            targetBusinessId: e.target.value.startsWith(
+                              "business:",
+                            )
+                              ? e.target.value.slice(9)
+                              : null,
+                            targetSourceRow: e.target.value.startsWith("row:")
+                              ? Number(e.target.value.slice(4))
+                              : null,
                             targetContactId: null,
                           })
                         }
                       >
                         {row.candidates.map((c) => (
-                          <option key={c.id} value={c.id ?? ""}>
+                          <option
+                            key={c.id ?? "row:" + c.rowNumber}
+                            disabled={c.linkable === false}
+                            value={
+                              c.id ? "business:" + c.id : "row:" + c.rowNumber
+                            }
+                          >
                             {c.name} · {c.location}
+                            {c.rowNumber ? ` · source row ${c.rowNumber}` : ""}
                           </option>
                         ))}
                       </select>

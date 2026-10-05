@@ -20,7 +20,7 @@ try {
     create table public.venue_members(venue_id uuid,user_id uuid);
     create publication supabase_realtime;`);
   const migrations = (await readdir(new URL("../migrations/", import.meta.url)))
-    .filter((n) => n.startsWith("20261007"))
+    .filter((n) => n.startsWith("20261008"))
     .sort();
   if (!migrations.length) throw new Error("No CRM migrations exist yet.");
   for (const name of migrations) {
@@ -29,9 +29,13 @@ try {
     );
     console.log("Migration passed:", name);
   }
-  for (const name of (await readdir(new URL("./", import.meta.url)))
-    .filter((n) => n.endsWith(".sql"))
-    .sort()) {
+  const cases = (await readdir(new URL("./", import.meta.url)))
+    .filter(
+      (n) => n.endsWith(".sql") && (!process.argv[2] || n === process.argv[2]),
+    )
+    .sort();
+  if (!cases.length) throw new Error("Unknown SQL test file.");
+  for (const name of cases) {
     const results = await db.exec(
       await readFile(new URL(name, import.meta.url), "utf8"),
     );

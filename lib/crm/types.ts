@@ -74,6 +74,7 @@ export type BusinessQuery = {
   batch: UUID | null;
   incomplete: boolean;
   due: boolean;
+  stopped: boolean;
   page: number;
   sort: "name" | "updated_at" | "last_contact" | "next_follow_up";
   view: "table" | "board";

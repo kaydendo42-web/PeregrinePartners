@@ -24,6 +24,7 @@ export type DecisionInput = {
   decision: ImportDecision;
   targetBusinessId: string | null;
   targetContactId: string | null;
+  targetSourceRow?: number | null;
 };
 export type ImportState =
   | { kind: "select" | "mapping" }

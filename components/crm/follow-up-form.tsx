@@ -1,19 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { saveFollowUp } from "@/app/owner/outreach/actions";
 import type { FollowUp, Member } from "@/lib/crm/types";
-import { localInput, workspaceTimeCandidates } from "@/lib/crm/time";
+import {
+  localInput,
+  workspaceTimeCandidates,
+  displayTime,
+} from "@/lib/crm/time";
 import { useRecordDraft, useMutation, SaveFeedback } from "./draft-state";
 export function FollowUpForm({
   followUp,
   members,
   timezone,
   blocked,
+  onDirtyChange,
 }: {
   followUp: FollowUp;
   members: Member[];
   timezone: string;
   blocked: boolean;
+  onDirtyChange?: (id: string, dirty: boolean) => void;
 }) {
   const initial = {
     ...followUp,
@@ -24,6 +30,9 @@ export function FollowUpForm({
   const [choice, setChoice] = useState("");
   const [timeError, setTimeError] = useState("");
   const m = useMutation<FollowUp>();
+  useEffect(() => {
+    onDirtyChange?.(followUp.id, draft.dirty);
+  }, [followUp.id, draft.dirty, onDirtyChange]);
   const isNew = followUp.id === "new";
   async function save(
     state: FollowUp["state"] = draft.value.state,
@@ -92,70 +101,72 @@ export function FollowUpForm({
         void save(isNew ? "open" : draft.value.state);
       }}
     >
-      <div className="owner-form-grid">
+      <fieldset disabled={m.pending} className="owner-form">
+        <div className="owner-form-grid">
+          <label className="owner-field">
+            Due time <small>{timezone}</small>
+            <input
+              type="datetime-local"
+              required
+              value={draft.value.local_time}
+              onChange={(e) => {
+                setChoice("");
+                edit({ local_time: e.target.value });
+                m.changed();
+              }}
+            />
+          </label>
+          <label className="owner-field">
+            Assigned owner
+            <select
+              required
+              value={draft.value.assigned_to}
+              onChange={(e) => {
+                edit({ assigned_to: e.target.value });
+                m.changed();
+              }}
+            >
+              {members.map((owner) => (
+                <option key={owner.user_id} value={owner.user_id}>
+                  {owner.display_name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        {options.length === 2 ? (
+          <label className="owner-field">
+            Clock change: choose occurrence
+            <select
+              required
+              value={choice}
+              onChange={(e) => {
+                setChoice(e.target.value);
+                m.changed();
+              }}
+            >
+              <option value="">Choose a time</option>
+              {options.map((v, i) => (
+                <option value={v} key={v}>
+                  {i === 0 ? "Earlier" : "Later"} — {v}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
         <label className="owner-field">
-          Due time <small>{timezone}</small>
-          <input
-            type="datetime-local"
+          Next step
+          <textarea
             required
-            value={draft.value.local_time}
+            maxLength={10000}
+            value={draft.value.instruction}
             onChange={(e) => {
-              setChoice("");
-              edit({ local_time: e.target.value });
+              edit({ instruction: e.target.value });
               m.changed();
             }}
           />
         </label>
-        <label className="owner-field">
-          Assigned owner
-          <select
-            required
-            value={draft.value.assigned_to}
-            onChange={(e) => {
-              edit({ assigned_to: e.target.value });
-              m.changed();
-            }}
-          >
-            {members.map((owner) => (
-              <option key={owner.user_id} value={owner.user_id}>
-                {owner.display_name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      {options.length === 2 ? (
-        <label className="owner-field">
-          Clock change: choose occurrence
-          <select
-            required
-            value={choice}
-            onChange={(e) => {
-              setChoice(e.target.value);
-              m.changed();
-            }}
-          >
-            <option value="">Choose a time</option>
-            {options.map((v, i) => (
-              <option value={v} key={v}>
-                {i === 0 ? "Earlier" : "Later"} — {v}
-              </option>
-            ))}
-          </select>
-        </label>
-      ) : null}
-      <label className="owner-field">
-        Next step
-        <textarea
-          required
-          maxLength={10000}
-          value={draft.value.instruction}
-          onChange={(e) => {
-            edit({ instruction: e.target.value });
-            m.changed();
-          }}
-        />
-      </label>
+      </fieldset>
       {blocked ? (
         <p className="owner-error">
           Outreach and new follow-ups are stopped for this business.
@@ -169,12 +180,30 @@ export function FollowUpForm({
       {draft.incoming ? (
         <div className="owner-error">
           This follow-up changed. Your input is preserved.
+          <details>
+            <summary>View saved follow-up</summary>
+            <dl>
+              <dt>Next step</dt>
+              <dd>{draft.incoming.instruction}</dd>
+              <dt>Due</dt>
+              <dd>{displayTime(draft.incoming.due_at, timezone)}</dd>
+              <dt>Status</dt>
+              <dd>{draft.incoming.state}</dd>
+              <dt>Owner</dt>
+              <dd>
+                {members.find(
+                  (owner) => owner.user_id === draft.incoming!.assigned_to,
+                )?.display_name ?? "Owner"}
+              </dd>
+            </dl>
+          </details>
           <div className="owner-actions">
-            <button type="button" onClick={reload}>
+            <button type="button" disabled={m.pending} onClick={reload}>
               Use saved version
             </button>
             <button
               type="button"
+              disabled={m.pending}
               onClick={() => void save(draft.value.state, true)}
             >
               Reapply my changes

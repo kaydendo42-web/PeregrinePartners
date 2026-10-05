@@ -2,6 +2,7 @@ import "server-only";
 import { notFound } from "next/navigation";
 import { requireOwner } from "@/lib/owner/access";
 import { escapeLike, parseUuid, parseVersion } from "./validation";
+import { queueContactState } from "./queues";
 import type {
   OwnerContext,
   BusinessQuery,
@@ -39,6 +40,7 @@ export async function listBusinesses(
     .select("*", { count: "exact" })
     .eq("workspace_id", context.workspaceId)
     .eq("origin", "outreach")
+    .eq("do_not_contact", queueContactState(query))
     .eq("archived", false);
   if (query.q) request = request.ilike("name", "%" + escapeLike(query.q) + "%");
   if (query.stage) request = request.eq("stage", query.stage);

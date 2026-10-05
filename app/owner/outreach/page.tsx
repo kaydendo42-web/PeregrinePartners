@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/owner/access";
 import { listBusinesses, listMembers } from "@/lib/crm/query";
 import { parseQuery } from "@/lib/crm/validation";
-import { stages } from "@/lib/crm/types";
+import { boardStages } from "@/lib/crm/queues";
 import type { Stage, Business, PageResult } from "@/lib/crm/types";
 import { Filters } from "@/components/crm/filters";
 import { BusinessTable } from "@/components/crm/table";
@@ -34,11 +34,12 @@ export default async function Outreach({
   ]);
   const base = new URLSearchParams();
   for (const [key, value] of Object.entries(params))
-    if (typeof value === "string" && key !== "page" && !key.startsWith("p_"))
-      base.set(key, value);
+    if (typeof value === "string" && key !== "page") base.set(key, value);
   const url = "/owner/outreach?" + base.toString();
   const toggle = (view: string) => {
     const next = new URLSearchParams(base);
+    for (const key of [...next.keys()])
+      if (key.startsWith("p_")) next.delete(key);
     next.set("view", view);
     return "/owner/outreach?" + next;
   };
@@ -46,7 +47,7 @@ export default async function Outreach({
     query.view === "board"
       ? (Object.fromEntries(
           (await Promise.all(
-            stages.map(async (stage) => [
+            boardStages(query).map(async (stage) => [
               stage,
               await listBusinesses(context, {
                 ...query,
@@ -62,7 +63,7 @@ export default async function Outreach({
       <div className="owner-page-head">
         <div>
           <p className="owner-eyebrow">Grow together</p>
-          <h1>Outreach</h1>
+          <h1>{query.stopped ? "Stopped outreach" : "Outreach"}</h1>
           <p className="owner-muted">
             One shared pipeline. Every conversation in context.
           </p>
@@ -87,6 +88,7 @@ export default async function Outreach({
         <Link href="/owner/outreach?stage=replied">Replies</Link>
         <Link href="/owner/outreach?due=1">Follow-ups due</Link>
         <Link href="/owner/outreach?incomplete=1">Incomplete contact</Link>
+        <Link href="/owner/outreach?stopped=1">Stopped outreach</Link>
       </div>
       <section className="owner-panel">
         <Filters query={query} members={members} />
@@ -110,7 +112,11 @@ export default async function Outreach({
           </div>
         </div>
         {columns ? (
-          <BusinessBoard columns={columns} url={url} />
+          <BusinessBoard
+            columns={columns}
+            url={url}
+            visibleStages={boardStages(query)}
+          />
         ) : page.rows.length ? (
           <BusinessTable
             rows={page.rows}

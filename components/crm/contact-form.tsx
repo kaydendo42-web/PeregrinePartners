@@ -54,47 +54,66 @@ export function ContactForm({
         void save();
       }}
     >
-      <div className="owner-form-grid">
-        {(["name", "email", "phone"] as const).map((key) => (
-          <label className="owner-field" key={key}>
-            {key === "name"
-              ? "Contact name"
-              : key === "email"
-                ? "Email"
-                : "Phone"}
-            <input
-              type={
-                key === "email" ? "email" : key === "phone" ? "tel" : "text"
-              }
-              maxLength={key === "phone" ? 100 : 320}
-              value={draft.value[key] ?? ""}
-              onChange={(e) => {
-                edit({ [key]: e.target.value });
-                m.changed();
-              }}
-            />
-          </label>
-        ))}
-      </div>
-      <label className="owner-check">
-        <input
-          type="checkbox"
-          checked={draft.value.is_primary}
-          onChange={(e) => {
-            edit({ is_primary: e.target.checked });
-            m.changed();
-          }}
-        />
-        Primary contact
-      </label>
+      <fieldset disabled={m.pending} className="owner-form">
+        <div className="owner-form-grid">
+          {(["name", "email", "phone"] as const).map((key) => (
+            <label className="owner-field" key={key}>
+              {key === "name"
+                ? "Contact name"
+                : key === "email"
+                  ? "Email"
+                  : "Phone"}
+              <input
+                type={
+                  key === "email" ? "email" : key === "phone" ? "tel" : "text"
+                }
+                maxLength={key === "phone" ? 100 : 320}
+                value={draft.value[key] ?? ""}
+                onChange={(e) => {
+                  edit({ [key]: e.target.value });
+                  m.changed();
+                }}
+              />
+            </label>
+          ))}
+        </div>
+        <label className="owner-check">
+          <input
+            type="checkbox"
+            checked={draft.value.is_primary}
+            onChange={(e) => {
+              edit({ is_primary: e.target.checked });
+              m.changed();
+            }}
+          />
+          Primary contact
+        </label>
+      </fieldset>
+      {Object.keys(contact.source_fields).length ? (
+        <details>
+          <summary>Original contact import fields</summary>
+          <dl className="owner-source-fields">
+            {Object.entries(contact.source_fields).map(([label, value]) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value || "—"}</dd>
+              </div>
+            ))}
+          </dl>
+        </details>
+      ) : null}
       {draft.incoming ? (
         <div className="owner-error">
           This contact changed. Your input is preserved.
           <div className="owner-actions">
-            <button type="button" onClick={reload}>
+            <button type="button" disabled={m.pending} onClick={reload}>
               Use saved contact
             </button>
-            <button type="button" onClick={() => void save(true)}>
+            <button
+              type="button"
+              disabled={m.pending}
+              onClick={() => void save(true)}
+            >
               Reapply my changes
             </button>
           </div>

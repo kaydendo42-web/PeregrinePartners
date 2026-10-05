@@ -72,11 +72,11 @@ language plpgsql stable security definer set search_path=pg_catalog,public as $$
  select (now() at time zone timezone)::date into today from public.crm_workspaces where id=p_workspace;
  return jsonb_build_object(
  'clients',(select count(*) from public.crm_clients where workspace_id=p_workspace and status='active'),
- 'prospects',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived),
- 'unassigned',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and assigned_to is null and not do_not_contact),
- 'replies',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and stage='replied'),
+ 'prospects',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and not do_not_contact),
+ 'unassigned',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and not do_not_contact and assigned_to is null and not do_not_contact),
+ 'replies',(select count(*) from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and not do_not_contact and stage='replied'),
  'due',(select count(*) from public.crm_follow_ups f join public.crm_businesses b on b.workspace_id=f.workspace_id and b.id=f.business_id where f.workspace_id=p_workspace and f.state='open' and f.due_at<=now() and not b.archived and not b.do_not_contact),
- 'stages',(select coalesce(jsonb_object_agg(stage,n),'{}') from(select stage,count(*) n from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived group by stage)s),
+ 'stages',(select coalesce(jsonb_object_agg(stage,n),'{}') from(select stage,count(*) n from public.crm_businesses where workspace_id=p_workspace and origin='outreach' and not archived and not do_not_contact group by stage)s),
  'balances',(select coalesce(jsonb_object_agg(currency,n),'{}') from(select currency,sum(amount_minor-paid_minor)::text n from public.crm_billing_records where workspace_id=p_workspace group by currency)s),
  'overdue',(select coalesce(jsonb_object_agg(currency,n),'{}') from(select currency,sum(amount_minor-paid_minor)::text n from public.crm_billing_records where workspace_id=p_workspace and due_on<today and paid_minor<amount_minor group by currency)s),
  'tools',(select coalesce(jsonb_agg(s),'[]') from(select t.id,t.name,count(ct.id) clients from public.crm_tool_catalog t left join public.crm_client_tools ct on ct.workspace_id=t.workspace_id and ct.tool_id=t.id and ct.status='active' where t.workspace_id=p_workspace and not t.archived group by t.id,t.name order by t.name)s));

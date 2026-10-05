@@ -6,6 +6,8 @@ import type { Business, Member, BusinessPatch, Stage } from "@/lib/crm/types";
 import { stages, stageLabels } from "@/lib/crm/types";
 import { displayTime } from "@/lib/crm/time";
 import { useMutation, SaveFeedback } from "./draft-state";
+import { toggleSelection, selectionChanged } from "@/lib/crm/queues";
+import type { SelectedRecord } from "@/lib/crm/queues";
 export function BusinessTable({
   rows,
   members,
@@ -15,13 +17,15 @@ export function BusinessTable({
   members: Member[];
   timezone: string;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<SelectedRecord[]>([]);
   const [field, setField] = useState("assigned_to");
   const [value, setValue] = useState("");
   const [review, setReview] = useState(false);
   const m = useMutation<Business[]>();
-  const selectedRows = rows.filter((r) => selected.includes(r.id));
+  const selectedRows = rows.filter((r) => selected.some((s) => s.id === r.id));
+  const changed = selectionChanged(selected, rows);
   async function apply() {
+    if (changed) return;
     const patch: BusinessPatch =
       field === "assigned_to"
         ? { assigned_to: value || null }
@@ -33,13 +37,7 @@ export function BusinessTable({
                 .map((t) => t.trim())
                 .filter(Boolean),
             };
-    const result = await m.run((id) =>
-      bulkBusinesses(
-        selectedRows.map((r) => ({ id: r.id, version: r.version })),
-        patch,
-        id,
-      ),
-    );
+    const result = await m.run((id) => bulkBusinesses(selected, patch, id));
     if (result?.ok) {
       setSelected([]);
       setReview(false);
@@ -47,12 +45,32 @@ export function BusinessTable({
   }
   return (
     <>
-      {selectedRows.length ? (
+      {selected.length ? (
         <div className="owner-bulk">
-          <strong>{selectedRows.length} selected</strong>
+          <strong>{selected.length} selected</strong>
+          {changed ? (
+            <div className="owner-error" role="alert">
+              Selected records changed or left this view. Review the latest
+              records before applying a change.
+              <button
+                type="button"
+                disabled={m.pending}
+                onClick={() => {
+                  setSelected(
+                    selectedRows.map((r) => ({ id: r.id, version: r.version })),
+                  );
+                  setReview(false);
+                  m.changed();
+                }}
+              >
+                Review latest records
+              </button>
+            </div>
+          ) : null}
           <label className="owner-field">
             Change
             <select
+              disabled={m.pending}
               value={field}
               onChange={(e) => {
                 setField(e.target.value);
@@ -70,6 +88,7 @@ export function BusinessTable({
             New value
             {field === "tags" ? (
               <input
+                disabled={m.pending}
                 value={value}
                 onChange={(e) => {
                   setValue(e.target.value);
@@ -79,6 +98,7 @@ export function BusinessTable({
               />
             ) : (
               <select
+                disabled={m.pending}
                 value={value}
                 onChange={(e) => {
                   setValue(e.target.value);
@@ -110,7 +130,7 @@ export function BusinessTable({
           </label>
           <button
             className="owner-button"
-            disabled={field === "stage" && !value}
+            disabled={m.pending || changed || (field === "stage" && !value)}
             onClick={() => setReview(true)}
           >
             Review change
@@ -122,20 +142,21 @@ export function BusinessTable({
               className="owner-bulk-confirm"
             >
               <p>
-                Apply {field.replaceAll("_", " ")} to {selectedRows.length}{" "}
+                Apply {field.replaceAll("_", " ")} to {selected.length}{" "}
                 businesses?{" "}
                 {field === "tags" ? "This replaces their current tags." : null}
               </p>
               <div className="owner-actions">
                 <button
                   className="owner-button"
-                  disabled={m.pending}
+                  disabled={m.pending || changed}
                   onClick={() => void apply()}
                 >
                   {m.pending ? "Saving…" : "Apply to selected"}
                 </button>
                 <button
                   className="owner-button owner-button-secondary"
+                  disabled={m.pending}
                   onClick={() => setReview(false)}
                 >
                   Cancel
@@ -154,11 +175,16 @@ export function BusinessTable({
                 <input
                   type="checkbox"
                   aria-label="Select this page"
+                  disabled={m.pending}
                   checked={
                     rows.length > 0 && selectedRows.length === rows.length
                   }
                   onChange={(e) => {
-                    setSelected(e.target.checked ? rows.map((r) => r.id) : []);
+                    setSelected(
+                      e.target.checked
+                        ? rows.map((r) => ({ id: r.id, version: r.version }))
+                        : [],
+                    );
                     setReview(false);
                     m.changed();
                   }}
@@ -187,13 +213,10 @@ export function BusinessTable({
                   <input
                     type="checkbox"
                     aria-label={"Select " + b.name}
-                    checked={selected.includes(b.id)}
-                    onChange={(e) => {
-                      setSelected((v) =>
-                        e.target.checked
-                          ? [...v, b.id]
-                          : v.filter((id) => id !== b.id),
-                      );
+                    disabled={m.pending}
+                    checked={selected.some((s) => s.id === b.id)}
+                    onChange={() => {
+                      setSelected((v) => toggleSelection(v, b));
                       setReview(false);
                       m.changed();
                     }}
