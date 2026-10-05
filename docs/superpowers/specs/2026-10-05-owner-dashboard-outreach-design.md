@@ -1,7 +1,7 @@
 # Peregrine owner dashboard and shared outreach CRM
 
 Date: 2026-10-05
-Status: Written design for owner review; product implementation has not started.
+Status: Approved by the user on 2026-10-05; implementation-plan review is next.
 
 ## Outcome and agreed direction
 
