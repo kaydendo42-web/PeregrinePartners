@@ -50,7 +50,7 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
         className="flex flex-col items-start gap-[24px] transition-opacity duration-300"
         style={{ opacity: pending ? 0.55 : 1 }}
       >
-        <input type="hidden" name="next" value={next ?? "/console"} />
+        <input type="hidden" name="next" value={next ?? ""} />
 
         {linkExpired ? (
           <p className="t-body text-white/80" role="status">

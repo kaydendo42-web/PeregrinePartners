@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { myVenues } from "@/lib/console/data";
 import "./console.css";
+import { ownerSignedIn } from '@/lib/owner/access';
 
 /**
  * The console's front door. One venue goes straight in — the usual case, and
@@ -9,6 +10,7 @@ import "./console.css";
  * list. None means the account exists but nobody has added it to a venue yet.
  */
 export default async function ConsoleHome() {
+  if(await ownerSignedIn())redirect('/owner');
   const venues = await myVenues();
   if (venues.length === 1) redirect(`/console/${venues[0].slug}`);
 

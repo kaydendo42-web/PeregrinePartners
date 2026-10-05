@@ -3,15 +3,10 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import { safeDestination, defaultDestination } from "@/lib/auth/next";
 
 export type SignInState = { error?: string; sent?: boolean };
 export type VerifyState = { error?: string };
-
-/** Only ever send someone back inside the console, never to another site. */
-function safeNext(value: FormDataEntryValue | null): string {
-  const next = typeof value === "string" ? value : "";
-  return next.startsWith("/console") ? next : "/console";
-}
 
 /**
  * Email and password — how Resos signs Jenny in, so it is how Peregrine does
@@ -29,7 +24,7 @@ export async function signInWithPassword(_: SignInState, form: FormData): Promis
   if (error) return { error: "Those details did not match." };
   // A password is only the first step; the code from an authenticator app is
   // the second. The proxy would send them there anyway — this saves a hop.
-  redirect(`/sign-in/verify?next=${encodeURIComponent(safeNext(form.get("next")))}`);
+  redirect(`/sign-in/verify?next=${encodeURIComponent(safeDestination(form.get("next")) ?? '')}`);
 }
 
 /**
@@ -48,7 +43,11 @@ export async function verifyCode(_: VerifyState, form: FormData): Promise<Verify
   const client = await supabase();
   const { error } = await client.auth.mfa.challengeAndVerify({ factorId, code });
   if (error) return { error: "That code didn't work. Codes change every 30 seconds; try the one showing now." };
-  redirect(safeNext(form.get("next")));
+  const explicit = safeDestination(form.get("next"));
+  if (explicit) redirect(explicit);
+  const { data: owner, error: ownerError } = await client.rpc('crm_owner_status');
+  if (ownerError) return {error:'Could not open your workspace. Please try again.'};
+  redirect(defaultDestination(null, owner === true));
 }
 
 /**
@@ -68,7 +67,7 @@ export async function sendSignInLink(_: SignInState, form: FormData): Promise<Si
     email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeNext(form.get("next")))}`,
+      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeDestination(form.get("next")) ?? '')}`,
     },
   });
   return { sent: true };

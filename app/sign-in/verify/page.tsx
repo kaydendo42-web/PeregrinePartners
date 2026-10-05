@@ -4,6 +4,7 @@ import { AuthFrame } from "@/components/auth-frame";
 import { TwoStepView } from "@/components/two-step-view";
 import { signInVerify } from "@/lib/content";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import { safeDestination, defaultDestination } from '@/lib/auth/next';
 
 export const metadata: Metadata = {
   title: "Two-step sign-in",
@@ -18,8 +19,7 @@ export const metadata: Metadata = {
  */
 export default async function Verify({ searchParams }: PageProps<"/sign-in/verify">) {
   const { next: nextParam } = await searchParams;
-  const next =
-    typeof nextParam === "string" && nextParam.startsWith("/console") ? nextParam : "/console";
+  const next = safeDestination(nextParam) ?? '';
 
   if (!supabaseEnv()) redirect("/sign-in");
   const client = await supabase();
@@ -29,7 +29,12 @@ export default async function Verify({ searchParams }: PageProps<"/sign-in/verif
   if (!user) redirect(`/sign-in?next=${encodeURIComponent(next)}`);
 
   const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-  if (aal?.currentLevel === "aal2") redirect(next);
+  if (aal?.currentLevel === "aal2") {
+    if(next)redirect(next);
+    const {data:owner,error}=await client.rpc('crm_owner_status');
+    if(error)throw new Error('Could not open your workspace.');
+    redirect(defaultDestination(null,owner===true));
+  }
 
   const { data: factors } = await client.auth.mfa.listFactors();
   const verified = factors?.totp[0];

@@ -11,3 +11,7 @@ export function safeDestination(value: unknown): string | null {
 export function defaultDestination(requested: unknown, owner: boolean): string {
   return safeDestination(requested) ?? (owner ? '/owner' : '/console');
 }
+export function credentialDestination(authenticated:boolean,level:string|null):string|null {
+  if(!authenticated)return '/sign-in?next=%2Fowner';
+  return level==='aal2'?null:'/sign-in/verify?next=%2Fowner';
+}

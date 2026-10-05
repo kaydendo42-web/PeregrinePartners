@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseEnv } from "@/lib/supabase/server";
+import { safeDestination } from '@/lib/auth/next';
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -34,7 +35,7 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await client.auth.getUser();
 
-  if (request.nextUrl.pathname.startsWith("/console")) {
+  if (['/owner','/console'].some(root=>request.nextUrl.pathname===root||request.nextUrl.pathname.startsWith(root+'/'))) {
     if (!user) return redirectTo(request, "/sign-in", response);
 
     const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
@@ -48,12 +49,12 @@ export async function proxy(request: NextRequest) {
 function redirectTo(request: NextRequest, pathname: string, response: NextResponse) {
   const to = request.nextUrl.clone();
   to.pathname = pathname;
-  to.search = `?next=${encodeURIComponent(request.nextUrl.pathname)}`;
+  to.search = `?next=${encodeURIComponent(safeDestination(request.nextUrl.pathname+request.nextUrl.search)??'')}`;
   const out = NextResponse.redirect(to);
   for (const cookie of response.cookies.getAll()) out.cookies.set(cookie);
   return out;
 }
 
 export const config = {
-  matcher: ["/console/:path*", "/sign-in/:path*", "/auth/:path*"],
+  matcher: ["/owner/:path*", "/console/:path*", "/sign-in/:path*", "/auth/:path*"],
 };
