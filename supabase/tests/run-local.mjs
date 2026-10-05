@@ -14,6 +14,7 @@ try {
     create function auth.uid() returns uuid language sql stable as $$ select (auth.jwt()->>'sub')::uuid $$;
     grant usage on schema auth to anon, authenticated;
     create table public.venues(id uuid primary key);
+    create table public.venue_members(venue_id uuid,user_id uuid);
     create publication supabase_realtime;`);
   const migrations = (await readdir(new URL('../migrations/',import.meta.url))).filter(n=>n.startsWith('20261007')).sort();
   if (!migrations.length) throw new Error('No CRM migrations exist yet.');

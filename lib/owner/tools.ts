@@ -1,0 +1,2 @@
+import 'server-only';import {ownerClient} from '@/lib/crm/query';import type {OwnerContext,Tool} from '@/lib/crm/types';
+export async function listTools(context:OwnerContext):Promise<Tool[]>{const client=await ownerClient(context);const {data,error}=await client.from('crm_tool_catalog').select('*').eq('workspace_id',context.workspaceId).order('name').limit(200);if(error)throw new Error('Could not load the tool catalogue.');return data??[];}
