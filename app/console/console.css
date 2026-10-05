@@ -1059,3 +1059,38 @@
     margin-left: 0;
   }
 }
+
+/* --- list: the table cell is a picker --------------------------------------- */
+
+.console-tablepick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.console-tablepick select {
+  width: 168px;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.console-tablepick select[data-unassigned] {
+  border-color: var(--cere-deep);
+  background: #fbf6ea;
+  color: var(--cere-deep);
+  font-weight: 600;
+}
+
+.console-tablepick__error {
+  flex-basis: 100%;
+  color: var(--alert);
+  font-size: 12px;
+}

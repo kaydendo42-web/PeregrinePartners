@@ -116,3 +116,29 @@ export async function saveNotifications(slug: string, _: NotifyState, form: Form
   revalidatePath(`/console/${slug}/settings`);
   return { saved: true };
 }
+
+export type TableState = { error?: string };
+
+/**
+ * Put a booking on a table, move it, or take it off one. Imported and phone
+ * bookings often arrive without a table; until they have one the website
+ * treats that table as free. The database refuses a table someone else holds.
+ */
+export async function setTable(slug: string, id: string, _: TableState, form: FormData): Promise<TableState> {
+  if (demoOn()) return { error: "Demo mode: nothing is saved." };
+  const venue = await venueBySlug(slug);
+  const { client } = await requireUser();
+  const tableId = String(form.get("table") ?? "") || null;
+
+  const { data, error } = await client
+    .from("bookings")
+    .update({ table_id: tableId })
+    .eq("id", id)
+    .eq("venue_id", venue.id)
+    .select("id");
+  if (error?.code === "23P01") return { error: "That table is booked for part of this time." };
+  if (error || !data?.length) return { error: "That didn't save. Try again." };
+
+  revalidatePath(`/console/${slug}`, "layout");
+  return {};
+}
