@@ -65,3 +65,5 @@ export function parseQuery(value:unknown):BusinessQuery {
   const boardPages:BusinessQuery['boardPages']={};for(const stage of stages){if(source['p_'+stage])boardPages[stage]=parseVersion(source['p_'+stage]);}
   return {q:read('q'),stage:source.stage?parseStage(source.stage):null,owner:source.owner==='unassigned'?'unassigned':source.owner?parseUuid(source.owner):null,location:read('location'),industry:read('industry'),tag:read('tag',80),priority:priority as Priority|null,batch:source.batch?parseUuid(source.batch):null,incomplete:source.incomplete==='1',due:source.due==='1',page,sort:sort as BusinessQuery['sort'],view:source.view==='board'?'board':'table',boardPages};
 }
+export function escapeLike(value:string):string {return value.replace(/[\\%_]/g,'\\$&');}
+export function outreachAllowed(doNotContact:boolean,kind:string):boolean {return !doNotContact || !['outreach','follow_up'].includes(kind);}
