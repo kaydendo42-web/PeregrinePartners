@@ -8,8 +8,10 @@ import { supabaseEnv } from "@/lib/supabase/server";
  * Server Component cannot do for itself.
  *
  * It also turns a signed-out visitor away from /console before any of it
- * renders. That is the optimistic check only: every page re-checks the user,
- * and row-level security is what actually keeps one venue out of another.
+ * renders, and sends a member who has only done the first step (password or
+ * email link) on to the authenticator code. Those are the optimistic checks:
+ * every page re-checks the user, and row-level security — which requires an
+ * aal2 session — is what actually keeps the data shut.
  */
 export async function proxy(request: NextRequest) {
   const env = supabaseEnv();
@@ -32,16 +34,26 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await client.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith("/console")) {
-    const to = request.nextUrl.clone();
-    to.pathname = "/sign-in";
-    to.search = `?next=${encodeURIComponent(request.nextUrl.pathname)}`;
-    return NextResponse.redirect(to);
+  if (request.nextUrl.pathname.startsWith("/console")) {
+    if (!user) return redirectTo(request, "/sign-in", response);
+
+    const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal?.currentLevel !== "aal2") return redirectTo(request, "/sign-in/verify", response);
   }
 
   return response;
 }
 
+/** Send them elsewhere, keeping any session cookies the refresh just wrote. */
+function redirectTo(request: NextRequest, pathname: string, response: NextResponse) {
+  const to = request.nextUrl.clone();
+  to.pathname = pathname;
+  to.search = `?next=${encodeURIComponent(request.nextUrl.pathname)}`;
+  const out = NextResponse.redirect(to);
+  for (const cookie of response.cookies.getAll()) out.cookies.set(cookie);
+  return out;
+}
+
 export const config = {
-  matcher: ["/console/:path*", "/sign-in", "/auth/:path*"],
+  matcher: ["/console/:path*", "/sign-in/:path*", "/auth/:path*"],
 };

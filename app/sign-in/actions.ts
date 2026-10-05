@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
 
 export type SignInState = { error?: string; sent?: boolean };
+export type VerifyState = { error?: string };
 
 /** Only ever send someone back inside the console, never to another site. */
 function safeNext(value: FormDataEntryValue | null): string {
@@ -26,6 +27,27 @@ export async function signInWithPassword(_: SignInState, form: FormData): Promis
   const client = await supabase();
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) return { error: "Those details did not match." };
+  // A password is only the first step; the code from an authenticator app is
+  // the second. The proxy would send them there anyway — this saves a hop.
+  redirect(`/sign-in/verify?next=${encodeURIComponent(safeNext(form.get("next")))}`);
+}
+
+/**
+ * The second step: a six-digit code from the member's authenticator app. The
+ * same action finishes setting the app up the first time (the factor is still
+ * unverified) and signs in every time after. Success raises the session to
+ * aal2, which the database requires before it shows a single booking.
+ */
+export async function verifyCode(_: VerifyState, form: FormData): Promise<VerifyState> {
+  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+  const factorId = String(form.get("factor") ?? "");
+  const code = String(form.get("code") ?? "").replace(/\s/g, "");
+  if (!factorId) return { error: "Something went wrong. Reload the page and try again." };
+  if (!/^\d{6}$/.test(code)) return { error: "Enter the six-digit code from your app." };
+
+  const client = await supabase();
+  const { error } = await client.auth.mfa.challengeAndVerify({ factorId, code });
+  if (error) return { error: "That code didn't work. Codes change every 30 seconds; try the one showing now." };
   redirect(safeNext(form.get("next")));
 }
 

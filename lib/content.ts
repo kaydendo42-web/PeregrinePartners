@@ -701,6 +701,21 @@ export const signIn = {
   alt: { label: "See the platform instead", href: "/platform" },
 };
 
+export const signInVerify = {
+  eyebrow: "Two-step sign-in",
+  heading: "One more step.",
+  sub: "Enter the six-digit code from your authenticator app.",
+  setupHeading: "Protect your console.",
+  setupSub:
+    "Your console holds your guests' details, so it asks for a code from your phone as well as your password. Scan this with an authenticator app (Google Authenticator, Microsoft Authenticator or 1Password), then enter the code it shows. You only do this once.",
+  manual: "Can't scan? Enter this key in the app instead:",
+  label: "Six-digit code",
+  submit: "Continue",
+  checking: "Checking",
+  lost: "Lost your phone? Contact Peregrine and we'll reset it for you.",
+  signOut: "Sign out",
+};
+
 /* ------------------------------------------------------------------ *
  * Footer
  * ------------------------------------------------------------------ */
