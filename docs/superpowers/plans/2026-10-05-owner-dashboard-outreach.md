@@ -604,7 +604,7 @@ on conflict(workspace_id,user_id) do update set display_name=excluded.display_na
 
 - [ ] **Step 4: Deploy a branch preview using the existing Vercel project and verify it with authorised sessions.** Keep production on the existing release until the concrete implementation and migration checks pass. Write setup docs showing migrations, approved-owner bootstrap, CSV import, manual reply/billing limits, live checks, and later client-workspace boundaries. If any required live check cannot run, report its exact missing input and never label the dashboard ready for production.
 
-- [ ] **Step 5: Review the whole branch, then create and attach a draft PR if delivery is otherwise complete.** Description leads with owner workflow and resulting behavior, lists material validation and pending live inputs, and omits conversation history. Stage only feature files; preserve unrelated local edits. Attach every created PR using the Codex artifact tool. Give the user the preview, PR, and key verification result; request production approval only on that concrete result if deployment approval is needed.
+- [x] **Step 5: Review the whole branch, then create and attach a draft PR if delivery is otherwise complete.** Description leads with owner workflow and resulting behavior, lists material validation and pending live inputs, and omits conversation history. Stage only feature files; preserve unrelated local edits. Attach every created PR using the Codex artifact tool. Give the user the preview, PR, and key verification result; request production approval only on that concrete result if deployment approval is needed.
 
 ## Verification status — 2026-10-06
 
@@ -627,6 +627,9 @@ retry; a new function-specific 45-second timeout addresses the default eight-sec
 limit without changing other queries. One approved owner account is enabled;
 two account creations, MFA, independent sessions, authenticated HTTP import,
 realtime timing, real CSV and deployed booking acceptance remain pending.
+The committed branch preview built successfully on Vercel. Its private `/owner`
+route returns a sign-in redirect and the sign-in form loads; authenticated
+acceptance remains pending. Draft PR #4 is created and attached to this task.
 Task 8 and production readiness remain open.
 
 ## Coverage and execution handoff
