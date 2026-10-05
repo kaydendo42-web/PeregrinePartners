@@ -14,7 +14,7 @@ export function useMutation<T>(){
  function changed(){request.current=null;setResult(null);}
  async function run(action:(id:string)=>Promise<MutationResult<T>>){
   if(pending)return null;request.current??=crypto.randomUUID();setPending(true);
-  try{const value=await action(request.current);setResult(value);if(value.ok){request.current=null;router.refresh();}else if(value.kind==='forbidden'){window.location.assign('/sign-in?next=%2Fowner');}return value;}
+  try{const value=await action(request.current);setResult(value);if(value.ok){request.current=null;router.refresh();}else if(value.kind==='forbidden'){window.dispatchEvent(new Event('peregrine-access-lost'));router.replace('/sign-in?next=%2Fowner');router.refresh();}return value;}
   catch{const value:MutationResult<T>={ok:false,kind:'unavailable',message:'The change did not save. Your input is still here; try again.'};setResult(value);return value;}
   finally{setPending(false);}
  }

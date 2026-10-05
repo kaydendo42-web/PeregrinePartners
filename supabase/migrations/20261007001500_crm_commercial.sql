@@ -14,7 +14,7 @@ create function public.crm_save_client(p_workspace uuid,p_input jsonb,p_expected
 language plpgsql security definer set search_path=pg_catalog,public as $$ declare cached jsonb;payload jsonb;c public.crm_clients;bid uuid;vid uuid;begin
  payload:=jsonb_build_object('input',p_input,'version',p_expected_version);cached:=public.crm_request_start(p_workspace,'client',payload,p_request_id);if cached is not null then return cached;end if;
  perform public.crm_keys(p_input,array['id','name','venue_id','relationship_owner','status']);
- vid:=(p_input->>'venue_id')::uuid;if vid is not null and not exists(select 1 from public.venue_members where venue_id=vid and user_id=auth.uid()) then raise exception 'Venue access required' using errcode='42501';end if;
+ vid:=(p_input->>'venue_id')::uuid;if vid is not null and not exists(select 1 from public.venue_members where venue_id=vid and user_id=auth.uid()) then raise exception 'Venue access required' using errcode='23514';end if;
  if p_input->>'id' is null then
  insert into public.crm_businesses(workspace_id,origin,name,stage) values(p_workspace,'client',btrim(p_input->>'name'),'won') returning id into bid;
  insert into public.crm_clients(workspace_id,business_id,venue_id,relationship_owner,status) values(p_workspace,bid,vid,(p_input->>'relationship_owner')::uuid,p_input->>'status') returning * into c;
