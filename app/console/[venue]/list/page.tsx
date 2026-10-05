@@ -1,9 +1,9 @@
-import { bookingsBetween, floor, live, venueBySlug, type Booking } from "@/lib/console/data";
+import { bookingsBetween, floor, heldTables, live, venueBySlug, type Booking } from "@/lib/console/data";
 import { dayLabel, dayRange, isDateKey, timeLabel, todayKey } from "@/lib/console/time";
 import { setStatus } from "../actions";
 import { DayBar, StatusChip } from "../ui";
 import { StatusButton } from "../status-button";
-import { TablePicker } from "./table-picker";
+import { TablePicker, type Joined } from "./table-picker";
 
 const SOURCE: Record<string, string> = {
   website: "Website",
@@ -26,7 +26,10 @@ export default async function ListPage({
   const tz = venue.timezone;
   const date = isDateKey(asked) ? asked : todayKey(tz);
   const [from, to] = dayRange(date, tz);
-  const [bookings, { tables, sections }] = await Promise.all([bookingsBetween(venue.id, from, to), floor(venue.id)]);
+  const [bookings, { tables, sections, combinations }] = await Promise.all([
+    bookingsBetween(venue.id, from, to),
+    floor(venue.id),
+  ]);
 
   const table = (id: string | null) => tables.find((t) => t.id === id);
   const section = (id?: string) => sections.find((s) => s.id === id)?.name ?? "";
@@ -36,7 +39,14 @@ export default async function ListPage({
     name: s.name,
     tables: tables.filter((t) => t.section_id === s.id).map((t) => ({ id: t.id, label: t.label, seats: t.seats })),
   }));
-  const unassigned = held.filter((b) => !b.table_id).length;
+  const labelOf = (id: string) => tables.find((t) => t.id === id)?.label ?? id;
+  const joined: Joined[] = combinations.map((c) => ({
+    value: c.table_ids.join(","),
+    label: c.table_ids.map(labelOf).join(" + "),
+    min: c.seats_min,
+    max: c.seats_max,
+  }));
+  const unassigned = held.filter((b) => !heldTables(b).length).length;
 
   return (
     <div className="console-page">
@@ -68,7 +78,8 @@ export default async function ListPage({
           </thead>
           <tbody>
             {bookings.map((b) => {
-              const t = table(b.table_id);
+              const ids = heldTables(b);
+              const t = ids.length === 1 ? table(ids[0]) : undefined;
               return (
                 <tr key={b.id} id={b.id} className={live(b) ? "" : "is-released"}>
                   <td data-label="Time" className="console-strong">
@@ -83,7 +94,16 @@ export default async function ListPage({
                   <td data-label="Party">{b.party_size}</td>
                   <td data-label="Table">
                     {live(b) ? (
-                      <TablePicker slug={slug} bookingId={b.id} current={b.table_id} party={b.party_size} groups={groups} />
+                      <TablePicker
+                        slug={slug}
+                        bookingId={b.id}
+                        current={ids.length ? ids.join(",") : null}
+                        party={b.party_size}
+                        groups={groups}
+                        joined={joined}
+                      />
+                    ) : ids.length > 1 ? (
+                      ids.map(labelOf).join(" + ")
                     ) : t ? (
                       `${t.label} · ${section(t.section_id)}`
                     ) : (

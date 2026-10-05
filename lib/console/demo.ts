@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import type { Booking, Customer, Section, Venue, VenueTable } from "./data";
+import type { Booking, Combination, Customer, Section, Venue, VenueTable } from "./data";
 import { addDays, todayKey, zoned } from "./time";
 
 /**
@@ -27,14 +27,14 @@ export const demoVenue: Venue = {
   notify_email: null,
 };
 
-export function demoFloor(): { sections: Section[]; tables: VenueTable[] } {
+export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combinations: Combination[] } {
   const sql = seed();
   const sections = [...sql.matchAll(/into public\.sections .*? values \('[^']+', '([^']+)', '([^']+)', (\d+), (true|false)\)/g)].map(
     (m) => ({ id: m[1], name: m[2], sort: Number(m[3]), indoor: m[4] === "true" }),
   );
   const tables = [
     ...sql.matchAll(
-      /into public\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
+      /into public\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), (\d+), (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
     ),
   ]
     .map((m) => ({
@@ -42,15 +42,26 @@ export function demoFloor(): { sections: Section[]; tables: VenueTable[] } {
       label: m[2],
       section_id: m[3],
       seats: Number(m[4]),
-      shape: m[5] as VenueTable["shape"],
-      x: Number(m[6]),
-      y: Number(m[7]),
-      w: Number(m[8]),
-      d: Number(m[9]),
-      rot: Number(m[10]),
+      seats_min: Number(m[5]),
+      priority: Number(m[6]),
+      shape: m[7] as VenueTable["shape"],
+      x: Number(m[8]),
+      y: Number(m[9]),
+      w: Number(m[10]),
+      d: Number(m[11]),
+      rot: Number(m[12]),
     }))
     .sort((a, b) => a.label.localeCompare(b.label, "en", { numeric: true }));
-  return { sections, tables };
+  const combinations = [
+    ...sql.matchAll(/into public\.table_combinations .*? values \('[^']+', '([^']+)', array\[([^\]]+)\], (\d+), (\d+), (\d+)\)/g),
+  ].map((m) => ({
+    id: m[1],
+    table_ids: [...m[2].matchAll(/'([^']+)'/g)].map((x) => x[1]),
+    seats_min: Number(m[3]),
+    seats_max: Number(m[4]),
+    priority: Number(m[5]),
+  }));
+  return { sections, tables, combinations };
 }
 
 const NAMES = [
