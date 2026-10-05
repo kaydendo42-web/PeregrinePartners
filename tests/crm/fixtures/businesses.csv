@@ -1,0 +1,7 @@
+Business,Location,Category,Contact,Email,Phone,Website,Rating,Notes
+"Example, Cafe",Melbourne,Hospitality,Jamie,hello@example.test,0412345678,https://example.test,4.8,"First line
+Second line"
+Example Cafe,Geelong,Hospitality,Sam,sam@example.test,+61 400 000 000,https://example.test,4.2,Different branch
+Incomplete Business,Ballarat,Retail,,,,,3.9,No contact yet
+Invalid Optional,Bendigo,Retail,Taylor,invalid,03 0000 0000,javascript:alert(1),,Keep original values
+,Melbourne,Hospitality,Missing Name,,,,,Skip this row
