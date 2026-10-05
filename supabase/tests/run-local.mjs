@@ -23,7 +23,8 @@ try {
     console.log('Migration passed:', name);
   }
   for (const name of (await readdir(new URL('./',import.meta.url))).filter(n=>n.endsWith('.sql')).sort()) {
-    await db.exec(await readFile(new URL(name,import.meta.url),'utf8'));
+    const results=await db.exec(await readFile(new URL(name,import.meta.url),'utf8'));
+    for(const result of results)for(const row of result.rows??[])if(row.verification)console.log(JSON.stringify(row.verification));
     console.log('Rollback checks passed:', name);
   }
 } catch(error) {

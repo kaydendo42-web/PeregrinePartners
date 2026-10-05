@@ -1,5 +1,5 @@
 import {website,email} from '../validation.ts';import type {Column,ColumnMapping,CsvRow,NormalizedImportRow,ImportIssue} from './types.ts';
-export function sourceFields(values:string[],columns:Column[]):Record<string,string>{const counts=new Map<string,number>();for(const c of columns)counts.set(c.label,(counts.get(c.label)??0)+1);return Object.fromEntries(columns.map(c=>[(counts.get(c.label)??0)>1?`${c.label} [${c.index+1}]`:c.label,values[c.index]??'']));}
+export function sourceFields(values:string[],columns:Column[]):Record<string,string>{return Object.fromEntries(columns.map(c=>[`${c.label} [${c.index+1}]`,values[c.index]??'']));}
 export function normalizeRow(row:CsvRow,columns:Column[],mapping:ColumnMapping):NormalizedImportRow{
  const get=(field:keyof ColumnMapping)=>mapping[field]==null?'':(row.values[mapping[field]! ]??'').trim();const issues:ImportIssue[]=[];
  const error=(field:string,message:string)=>issues.push({field,message,severity:'error'});const warn=(field:string,message:string)=>issues.push({field,message,severity:'warning'});
