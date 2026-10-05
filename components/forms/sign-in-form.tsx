@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 import { motion } from "motion/react";
 import { Button } from "../ui/button";
+import { AuthProgress } from "./auth-progress";
 import { signIn } from "@/lib/content";
 import { sendSignInLink, signInWithPassword, type SignInState } from "@/app/sign-in/actions";
 
@@ -44,7 +45,11 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
 
   return (
     <form action={mode === "password" ? pwAction : linkAction}>
-      <fieldset disabled={pending} className="flex flex-col items-start gap-[24px]">
+      <fieldset
+        disabled={pending}
+        className="flex flex-col items-start gap-[24px] transition-opacity duration-300"
+        style={{ opacity: pending ? 0.55 : 1 }}
+      >
         <input type="hidden" name="next" value={next ?? "/console"} />
 
         {linkExpired ? (
@@ -105,10 +110,17 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
           </button>
         </div>
 
-        <Link href={signIn.alt.href} className={linkClass}>
-          {signIn.alt.label}
-        </Link>
+        {pending ? null : (
+          <Link href={signIn.alt.href} className={linkClass}>
+            {signIn.alt.label}
+          </Link>
+        )}
       </fieldset>
+      {pending ? (
+        <div className="mt-[28px]">
+          <AuthProgress text={mode === "password" ? signIn.checking : signIn.sending} />
+        </div>
+      ) : null}
     </form>
   );
 }

@@ -16,6 +16,10 @@ export type Venue = {
   website_url: string | null;
   booking_url: string | null;
   phone: string | null;
+  /** Email the venue when a guest books online. Guests' confirmations go regardless. */
+  notify_bookings?: boolean;
+  /** Where that email goes; null means the website's own inbox. */
+  notify_email?: string | null;
 };
 
 export type Section = { id: string; name: string; sort: number; indoor: boolean };
