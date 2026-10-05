@@ -89,3 +89,30 @@ export async function createBooking(slug: string, _: NewBookingState, form: Form
   revalidatePath(`/console/${slug}`, "layout");
   redirect(`/console/${slug}/list?date=${date}`);
 }
+
+export type NotifyState = { error?: string; saved?: boolean };
+
+/**
+ * Booking alerts on or off, and where they go. The website reads these each
+ * time a guest books. The database lets an owner or manager change only these
+ * two columns, so a staff login gets the error below rather than a change.
+ */
+export async function saveNotifications(slug: string, _: NotifyState, form: FormData): Promise<NotifyState> {
+  if (demoOn()) return { error: "Demo mode: nothing is saved until Supabase is connected." };
+  const venue = await venueBySlug(slug);
+  const { client } = await requireUser();
+
+  const on = form.get("notify") === "on";
+  const email = String(form.get("email") ?? "").trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "That email address doesn't look right." };
+
+  const { data, error } = await client
+    .from("venues")
+    .update({ notify_bookings: on, notify_email: email || null })
+    .eq("id", venue.id)
+    .select("id");
+  if (error || !data?.length) return { error: "Only the venue's owner or a manager can change this." };
+
+  revalidatePath(`/console/${slug}/settings`);
+  return { saved: true };
+}

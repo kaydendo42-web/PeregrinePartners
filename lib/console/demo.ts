@@ -23,6 +23,8 @@ export const demoVenue: Venue = {
   website_url: "http://localhost:3000",
   booking_url: "http://localhost:3000/book-a-table",
   phone: "03 8596 2342",
+  notify_bookings: false,
+  notify_email: null,
 };
 
 export function demoFloor(): { sections: Section[]; tables: VenueTable[] } {

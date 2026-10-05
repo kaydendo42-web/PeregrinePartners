@@ -1,6 +1,10 @@
 import { floor, requireUser, venueBySlug } from "@/lib/console/data";
+import { NotificationsForm } from "./notifications";
 
-/** What Peregrine knows about the venue. Read-only for now: Peregrine changes it on request. */
+/**
+ * What Peregrine knows about the venue. Notifications are the venue's to
+ * change; the rest Peregrine changes on request.
+ */
 export default async function SettingsPage({ params }: { params: Promise<{ venue: string }> }) {
   const { venue: slug } = await params;
   const venue = await venueBySlug(slug);
@@ -13,6 +17,10 @@ export default async function SettingsPage({ params }: { params: Promise<{ venue
 
   return (
     <div className="console-page console-settings">
+      <section>
+        <h2 className="console-h2">Notifications</h2>
+        <NotificationsForm slug={slug} on={venue.notify_bookings ?? true} email={venue.notify_email ?? null} />
+      </section>
       <section>
         <h2 className="console-h2">Venue</h2>
         <dl className="console-dl">
@@ -41,7 +49,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ venue
           You are signed in as {user.email}.
         </p>
       </section>
-      <p className="console-muted">To change any of this, get in touch with Peregrine.</p>
+      <p className="console-muted">To change your venue details, floor or who has access, get in touch with Peregrine.</p>
     </div>
   );
 }
