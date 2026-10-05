@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseEnv } from "@/lib/supabase/server";
-import { safeDestination } from '@/lib/auth/next';
+import { safeDestination } from "@/lib/auth/next";
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -26,7 +26,8 @@ export async function proxy(request: NextRequest) {
       setAll: (list) => {
         for (const { name, value } of list) request.cookies.set(name, value);
         response = NextResponse.next({ request });
-        for (const { name, value, options } of list) response.cookies.set(name, value, options);
+        for (const { name, value, options } of list)
+          response.cookies.set(name, value, options);
       },
     },
   });
@@ -35,26 +36,43 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await client.auth.getUser();
 
-  if (['/owner','/console'].some(root=>request.nextUrl.pathname===root||request.nextUrl.pathname.startsWith(root+'/'))) {
+  if (
+    ["/owner", "/console"].some(
+      (root) =>
+        request.nextUrl.pathname === root ||
+        request.nextUrl.pathname.startsWith(root + "/"),
+    )
+  ) {
     if (!user) return redirectTo(request, "/sign-in", response);
 
-    const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-    if (aal?.currentLevel !== "aal2") return redirectTo(request, "/sign-in/verify", response);
+    const { data: aal } =
+      await client.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal?.currentLevel !== "aal2")
+      return redirectTo(request, "/sign-in/verify", response);
   }
 
   return response;
 }
 
 /** Send them elsewhere, keeping any session cookies the refresh just wrote. */
-function redirectTo(request: NextRequest, pathname: string, response: NextResponse) {
+function redirectTo(
+  request: NextRequest,
+  pathname: string,
+  response: NextResponse,
+) {
   const to = request.nextUrl.clone();
   to.pathname = pathname;
-  to.search = `?next=${encodeURIComponent(safeDestination(request.nextUrl.pathname+request.nextUrl.search)??'')}`;
+  to.search = `?next=${encodeURIComponent(safeDestination(request.nextUrl.pathname + request.nextUrl.search) ?? "")}`;
   const out = NextResponse.redirect(to);
   for (const cookie of response.cookies.getAll()) out.cookies.set(cookie);
   return out;
 }
 
 export const config = {
-  matcher: ["/owner/:path*", "/console/:path*", "/sign-in/:path*", "/auth/:path*"],
+  matcher: [
+    "/owner/:path*",
+    "/console/:path*",
+    "/sign-in/:path*",
+    "/auth/:path*",
+  ],
 };

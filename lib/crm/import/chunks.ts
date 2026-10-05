@@ -1,2 +1,25 @@
-import type {NormalizedImportRow} from './types.ts';
-export function chunkImport(rows:NormalizedImportRow[]):NormalizedImportRow[][]{const result:NormalizedImportRow[][]=[];let chunk:NormalizedImportRow[]=[];let bytes=2;const encoder=new TextEncoder();for(const row of rows){const size=encoder.encode(JSON.stringify(row)).length;if(size+2>252*1024)throw new Error(`Row ${row.rowNumber} is too large to stage. Shorten its extra values.`);if(chunk.length===100||bytes+size+1>252*1024){result.push(chunk);chunk=[];bytes=2;}chunk.push(row);bytes+=size+1;}if(chunk.length)result.push(chunk);return result;}
+import type { NormalizedImportRow } from "./types.ts";
+export function chunkImport(
+  rows: NormalizedImportRow[],
+): NormalizedImportRow[][] {
+  const result: NormalizedImportRow[][] = [];
+  let chunk: NormalizedImportRow[] = [];
+  let bytes = 2;
+  const encoder = new TextEncoder();
+  for (const row of rows) {
+    const size = encoder.encode(JSON.stringify(row)).length;
+    if (size + 2 > 252 * 1024)
+      throw new Error(
+        `Row ${row.rowNumber} is too large to stage. Shorten its extra values.`,
+      );
+    if (chunk.length === 100 || bytes + size + 1 > 252 * 1024) {
+      result.push(chunk);
+      chunk = [];
+      bytes = 2;
+    }
+    chunk.push(row);
+    bytes += size + 1;
+  }
+  if (chunk.length) result.push(chunk);
+  return result;
+}

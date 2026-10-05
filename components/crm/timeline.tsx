@@ -1,2 +1,47 @@
-import type {Activity} from '@/lib/crm/types';
-export function Timeline({activities,timezone}:{activities:Activity[];timezone:string}){return activities.length?<ol className="owner-timeline">{activities.map(a=><li key={a.id}><span className="owner-timeline-dot"/><div><div className="owner-timeline-meta"><strong>{a.actor_name??'Owner'}</strong><span>{a.kind.replaceAll('_',' ')}{a.channel?' · '+a.channel:''}</span><time dateTime={a.occurred_at}>{new Intl.DateTimeFormat('en-AU',{timeZone:timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(a.occurred_at))}</time></div><p>{a.summary}</p>{Object.keys(a.changes).length?<details><summary>View details</summary><pre className="owner-diff">{JSON.stringify(a.changes,null,2)}</pre></details>:null}</div></li>)}</ol>:<p className="owner-muted owner-small">No activity yet. Log a note or your first conversation.</p>;}
+import type { Activity } from "@/lib/crm/types";
+export function Timeline({
+  activities,
+  timezone,
+}: {
+  activities: Activity[];
+  timezone: string;
+}) {
+  return activities.length ? (
+    <ol className="owner-timeline">
+      {activities.map((a) => (
+        <li key={a.id}>
+          <span className="owner-timeline-dot" />
+          <div>
+            <div className="owner-timeline-meta">
+              <strong>{a.actor_name ?? "Owner"}</strong>
+              <span>
+                {a.kind.replaceAll("_", " ")}
+                {a.channel ? " · " + a.channel : ""}
+              </span>
+              <time dateTime={a.occurred_at}>
+                {new Intl.DateTimeFormat("en-AU", {
+                  timeZone: timezone,
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                }).format(new Date(a.occurred_at))}
+              </time>
+            </div>
+            <p>{a.summary}</p>
+            {Object.keys(a.changes).length ? (
+              <details>
+                <summary>View details</summary>
+                <pre className="owner-diff">
+                  {JSON.stringify(a.changes, null, 2)}
+                </pre>
+              </details>
+            ) : null}
+          </div>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p className="owner-muted owner-small">
+      No activity yet. Log a note or your first conversation.
+    </p>
+  );
+}

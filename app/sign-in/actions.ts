@@ -13,8 +13,12 @@ export type VerifyState = { error?: string };
  * too. One message for every failure: a sign-in form that says "no such
  * account" is an account-enumeration oracle.
  */
-export async function signInWithPassword(_: SignInState, form: FormData): Promise<SignInState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function signInWithPassword(
+  _: SignInState,
+  form: FormData,
+): Promise<SignInState> {
+  if (!supabaseEnv())
+    return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password." };
@@ -24,7 +28,9 @@ export async function signInWithPassword(_: SignInState, form: FormData): Promis
   if (error) return { error: "Those details did not match." };
   // A password is only the first step; the code from an authenticator app is
   // the second. The proxy would send them there anyway — this saves a hop.
-  redirect(`/sign-in/verify?next=${encodeURIComponent(safeDestination(form.get("next")) ?? '')}`);
+  redirect(
+    `/sign-in/verify?next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
+  );
 }
 
 /**
@@ -33,20 +39,35 @@ export async function signInWithPassword(_: SignInState, form: FormData): Promis
  * unverified) and signs in every time after. Success raises the session to
  * aal2, which the database requires before it shows a single booking.
  */
-export async function verifyCode(_: VerifyState, form: FormData): Promise<VerifyState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function verifyCode(
+  _: VerifyState,
+  form: FormData,
+): Promise<VerifyState> {
+  if (!supabaseEnv())
+    return { error: "Sign-in isn't switched on for this site yet." };
   const factorId = String(form.get("factor") ?? "");
   const code = String(form.get("code") ?? "").replace(/\s/g, "");
-  if (!factorId) return { error: "Something went wrong. Reload the page and try again." };
-  if (!/^\d{6}$/.test(code)) return { error: "Enter the six-digit code from your app." };
+  if (!factorId)
+    return { error: "Something went wrong. Reload the page and try again." };
+  if (!/^\d{6}$/.test(code))
+    return { error: "Enter the six-digit code from your app." };
 
   const client = await supabase();
-  const { error } = await client.auth.mfa.challengeAndVerify({ factorId, code });
-  if (error) return { error: "That code didn't work. Codes change every 30 seconds; try the one showing now." };
+  const { error } = await client.auth.mfa.challengeAndVerify({
+    factorId,
+    code,
+  });
+  if (error)
+    return {
+      error:
+        "That code didn't work. Codes change every 30 seconds; try the one showing now.",
+    };
   const explicit = safeDestination(form.get("next"));
   if (explicit) redirect(explicit);
-  const { data: owner, error: ownerError } = await client.rpc('crm_owner_status');
-  if (ownerError) return {error:'Could not open your workspace. Please try again.'};
+  const { data: owner, error: ownerError } =
+    await client.rpc("crm_owner_status");
+  if (ownerError)
+    return { error: "Could not open your workspace. Please try again." };
   redirect(defaultDestination(null, owner === true));
 }
 
@@ -55,8 +76,12 @@ export async function verifyCode(_: VerifyState, form: FormData): Promise<Verify
  * added to a venue by Peregrine, not by signing themselves up. Everyone gets
  * the same answer whether or not the address is known.
  */
-export async function sendSignInLink(_: SignInState, form: FormData): Promise<SignInState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function sendSignInLink(
+  _: SignInState,
+  form: FormData,
+): Promise<SignInState> {
+  if (!supabaseEnv())
+    return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   if (!email) return { error: "Enter your email." };
 
@@ -67,7 +92,7 @@ export async function sendSignInLink(_: SignInState, form: FormData): Promise<Si
     email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeDestination(form.get("next")) ?? '')}`,
+      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
     },
   });
   return { sent: true };

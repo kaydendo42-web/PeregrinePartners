@@ -1,4 +1,57 @@
-import {targets} from './types.ts';import type {Column,ColumnMapping,Target} from './types.ts';
-const synonyms:Record<Target,string[]>={name:['business','businessname','company','companyname','name','organisation','organization'],location:['location','suburb','address','city','businessaddress'],industry:['industry','category','type'],contact_name:['contact','contactname','person','ownername','firstname'],email:['email','emailaddress','contactemail'],phone:['phone','mobile','telephone','phonenumber','contactphone'],website:['website','url','web','websiteurl'],tags:['tags','tag'],notes:['notes','note','comments','description']};
-export function suggestMapping(columns:Column[]):ColumnMapping{const result:ColumnMapping={};for(const field of targets){const found=columns.find(c=>synonyms[field].includes(c.label.toLowerCase().replace(/[^a-z]/g,'')));if(found)result[field]=found.index;}return result;}
-export function validateMapping(value:unknown,columns:Column[]):ColumnMapping{if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Review your column mapping.');const map=value as Record<string,unknown>;const selected:number[]=[];for(const [key,index] of Object.entries(map)){if(!targets.includes(key as Target)||!(index===null||(Number.isInteger(index)&&Number(index)>=0&&Number(index)<columns.length)))throw new Error('Choose a valid source column.');if(index!==null)selected.push(Number(index));}if(map.name==null)throw new Error('Map the business name column.');if(new Set(selected).size!==selected.length)throw new Error('Use each source column once.');return map as ColumnMapping;}
+import { targets } from "./types.ts";
+import type { Column, ColumnMapping, Target } from "./types.ts";
+const synonyms: Record<Target, string[]> = {
+  name: [
+    "business",
+    "businessname",
+    "company",
+    "companyname",
+    "name",
+    "organisation",
+    "organization",
+  ],
+  location: ["location", "suburb", "address", "city", "businessaddress"],
+  industry: ["industry", "category", "type"],
+  contact_name: ["contact", "contactname", "person", "ownername", "firstname"],
+  email: ["email", "emailaddress", "contactemail"],
+  phone: ["phone", "mobile", "telephone", "phonenumber", "contactphone"],
+  website: ["website", "url", "web", "websiteurl"],
+  tags: ["tags", "tag"],
+  notes: ["notes", "note", "comments", "description"],
+};
+export function suggestMapping(columns: Column[]): ColumnMapping {
+  const result: ColumnMapping = {};
+  for (const field of targets) {
+    const found = columns.find((c) =>
+      synonyms[field].includes(c.label.toLowerCase().replace(/[^a-z]/g, "")),
+    );
+    if (found) result[field] = found.index;
+  }
+  return result;
+}
+export function validateMapping(
+  value: unknown,
+  columns: Column[],
+): ColumnMapping {
+  if (!value || typeof value !== "object" || Array.isArray(value))
+    throw new Error("Review your column mapping.");
+  const map = value as Record<string, unknown>;
+  const selected: number[] = [];
+  for (const [key, index] of Object.entries(map)) {
+    if (
+      !targets.includes(key as Target) ||
+      !(
+        index === null ||
+        (Number.isInteger(index) &&
+          Number(index) >= 0 &&
+          Number(index) < columns.length)
+      )
+    )
+      throw new Error("Choose a valid source column.");
+    if (index !== null) selected.push(Number(index));
+  }
+  if (map.name == null) throw new Error("Map the business name column.");
+  if (new Set(selected).size !== selected.length)
+    throw new Error("Use each source column once.");
+  return map as ColumnMapping;
+}

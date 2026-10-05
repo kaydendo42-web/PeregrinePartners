@@ -1,17 +1,415 @@
-'use client';
-import Link from 'next/link';import {useState,useReducer,useRef,useMemo,useEffect} from 'react';import * as actions from '@/app/owner/outreach/import/actions';import {createImportController,reduceImportState} from '@/lib/crm/import/controller';import type {DecisionInput} from '@/lib/crm/import/controller';import type {ParsedCsv,ColumnMapping,ImportBatch,ImportPreview} from '@/lib/crm/import/types';import {suggestMapping,validateMapping} from '@/lib/crm/import/mapping';import {normalizeRow} from '@/lib/crm/import/normalize';import {Mapping} from './mapping';import {Preview} from './preview';import {ImportProgress} from './progress';
-export function ImportWizard({storageKey}:{storageKey:string}){
- const controller=useMemo(()=>createImportController(actions),[]);const [state,dispatch]=useReducer(reduceImportState,{kind:'select'});const [parsed,setParsed]=useState<ParsedCsv|null>(null);const [mapping,setMapping]=useState<ColumnMapping>({});const [fileInfo,setFileInfo]=useState<{name:string;bytes:number;digest:string}|null>(null);const [batch,setBatch]=useState<ImportBatch|null>(null);const [preview,setPreview]=useState<ImportPreview|null>(null);const [pending,setPending]=useState(false);const [count,setCount]=useState(0);const [error,setError]=useState('');const [resumeId,setResumeId]=useState<string|null>(null);const beginRequest=useRef<string|null>(null);
- useEffect(()=>{const handle=()=>setResumeId(sessionStorage.getItem(storageKey));queueMicrotask(handle);},[storageKey]);
- async function work(task:()=>Promise<void>){setPending(true);setError('');try{await task();}catch(error){const message=error instanceof Error?error.message:'This step did not finish. Try again.';setError(message);dispatch({type:'FAIL',message});}finally{setPending(false);}}
- async function select(file:File){await work(async()=>{if(batch&&['staging','ready'].includes(batch.state))throw new Error('Cancel the current import before selecting another file.');if(file.size>10485760)throw new Error('Choose a CSV smaller than 10 MiB.');const raw=await file.text();const {parseCsv}=await import('@/lib/crm/import/csv');const data=parseCsv(raw);const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw));const digest=Array.from(new Uint8Array(hash)).map(n=>n.toString(16).padStart(2,'0')).join('');setBatch(null);setParsed(data);setMapping(suggestMapping(data.columns));setFileInfo({name:file.name,bytes:file.size,digest});beginRequest.current=null;setPreview(null);dispatch({type:'SELECT'});});}
- async function stage(){await work(async()=>{if(!parsed||!fileInfo)throw new Error('Choose your CSV first.');const map=validateMapping(mapping,parsed.columns);let current=batch;
- if(!current&&resumeId){const saved=await controller.getImport(resumeId);if(saved.batch.state==='committed'||saved.batch.state==='reused'){setBatch(saved.batch);dispatch({type:'PREVIEW',batchId:resumeId,blockingErrors:0});dispatch({type:'PUBLISH',requestId:crypto.randomUUID()});dispatch({type:'COMMITTED',batchId:resumeId,counts:saved.batch.counts!});sessionStorage.removeItem(storageKey);return;}if(saved.batch.state==='cancelled'){sessionStorage.removeItem(storageKey);setResumeId(null);}else{if(saved.batch.source_digest!==fileInfo.digest||JSON.stringify(saved.batch.mapping)!==JSON.stringify(map)){/* jsonb key order is not JS insertion order; compare entries */const sameMap=Object.keys({...saved.batch.mapping,...map}).every(k=>saved.batch.mapping[k as keyof ColumnMapping]===map[k as keyof ColumnMapping]);if(saved.batch.source_digest!==fileInfo.digest||!sameMap)throw new Error('Reselect the original file with its saved mapping, or cancel this saved import.');}current=saved.batch;}}
- if(!current){beginRequest.current??=crypto.randomUUID();const started=await controller.beginImport({filename:fileInfo.name,byte_count:fileInfo.bytes,row_count:parsed.rows.length,source_digest:fileInfo.digest,columns:parsed.columns,mapping:map,requestId:beginRequest.current});if(!started.ok)throw new Error(started.message);current=started.value;sessionStorage.setItem(storageKey,current.id);setResumeId(current.id);}setBatch(current);
- const rows=parsed.rows.map(row=>normalizeRow(row,parsed.columns,current!.mapping));const progress=await controller.stageAll(current.id,rows,setCount);setBatch(progress.batch);const reviewed=await controller.previewImport(current.id);setPreview(reviewed);dispatch({type:'PREVIEW',batchId:current.id,blockingErrors:reviewed.blocked});});}
- async function decision(input:DecisionInput){await work(async()=>{if(!batch||!preview)return;const saved=await controller.setImportDecisions(batch.id,[input]);if(!saved.ok)throw new Error(saved.message);const next=await controller.previewImport(batch.id,preview.page);setPreview(next);dispatch({type:'PREVIEW',batchId:batch.id,blockingErrors:next.blocked});});}
- async function publish(){await work(async()=>{if(!batch||!preview||preview.blocked||!preview.ready)throw new Error('Resolve blocking rows before importing.');const checkpoint=state.kind==='failed'?state.checkpoint:state;const requestId=checkpoint.kind==='importing'?checkpoint.requestId:crypto.randomUUID();if(state.kind==='failed')dispatch({type:'RESUME'});dispatch({type:'PUBLISH',requestId});const result=await controller.commitImport(batch.id,requestId);if(!result.ok)throw new Error(result.message);const progress=await controller.getImport(batch.id);setBatch(progress.batch);dispatch({type:'COMMITTED',batchId:batch.id,counts:result.value});sessionStorage.removeItem(storageKey);setResumeId(null);});}
- async function cancel(){await work(async()=>{const id=batch?.id??resumeId;if(!id)return;const cancelled=await controller.cancelImport(id);if(!cancelled.ok)throw new Error(cancelled.message);dispatch({type:'PREVIEW',batchId:id,blockingErrors:0});dispatch({type:'CANCEL',batchId:id,confirmed:true});setBatch(cancelled.value);setParsed(null);setPreview(null);setFileInfo(null);sessionStorage.removeItem(storageKey);setResumeId(null);});}
- const complete=state.kind==='complete';
- return <section className="owner-panel"><ol className="owner-import-steps" aria-label="Import steps">{['Select CSV','Map columns','Review rows','Import'].map((label,i)=><li key={label} data-current={complete?i===3:preview?i===2:parsed?i===1:i===0}><span>{i+1}</span>{label}</li>)}</ol><div className="owner-panel-body">{error?<p className="owner-error" role="alert">{error} Your saved staging is retained.</p>:null}{resumeId&&!batch?<div className="owner-notice"><p>A saved import is available. Reselect its original CSV and mapping to resume.</p><button className="owner-button owner-button-secondary" disabled={pending} onClick={()=>void cancel()}>Cancel saved import</button></div>:null}{complete?<div className="owner-empty"><span className="owner-empty-icon">✓</span><h2>{batch?.state==='reused'?'This file was already imported.':'Your businesses are ready.'}</h2><p>{batch?.state==='reused'?'Showing the original import result. No new businesses were created.':'The shared outreach list is updated.'}</p><div className="owner-import-counts">{Object.entries(state.counts).map(([key,value])=><div key={key}><strong>{value}</strong><span>{key==='created'?'Businesses added':key==='linked'?'Contacts linked':key==='duplicates'?'Exact duplicates skipped':key==='skipped'?'Rows skipped':key==='total'?'Source rows':'Rejected'}</span></div>)}</div><Link className="owner-button" href={'/owner/outreach?batch='+ (batch?.duplicate_of??batch?.id)}>Open imported businesses →</Link></div>:<><label className="owner-upload owner-field">Choose your business CSV<input type="file" accept=".csv,text/csv" disabled={pending||Boolean(batch&&['staging','ready'].includes(batch.state))} onChange={e=>{const file=e.target.files?.[0];if(file)void select(file);}}/><small>Up to 10 MiB and 5,000 rows. Phone numbers remain text. Nothing is sent to your prospects.</small></label>{parsed&&!preview?<div className="owner-section"><h2>{fileInfo?.name}</h2><p className="owner-muted owner-small">{parsed.rows.length} rows · {parsed.columns.length} columns. Review the suggested mapping; unused columns remain as extra fields.</p><Mapping columns={parsed.columns} mapping={mapping} onChange={next=>{setMapping(next);beginRequest.current=null;}}/><div className="owner-actions owner-section"><button className="owner-button" disabled={pending} onClick={()=>void stage()}>{pending?'Preparing review…':batch?'Resume staging':'Prepare preview'}</button></div>{pending?<ImportProgress count={count} total={parsed.rows.length}/>:null}</div>:null}{preview?<><div className="owner-import-summary"><strong>{preview.total} source rows</strong><span>{preview.blocked} blocking rows</span><span>Existing assignments, stages and notes are preserved.</span></div><Preview preview={preview} pending={pending} onDecision={d=>void decision(d)} onPage={page=>void work(async()=>{if(batch)setPreview(await controller.previewImport(batch.id,page));})}/><p className="owner-privacy-note">Review the full list using the page controls. Possible matches remain separate unless you choose to link a contact. Confirming imports this list into the private workspace.</p><div className="owner-actions owner-section"><button className="owner-button" disabled={pending||preview.blocked>0||!preview.ready} onClick={()=>void publish()}>{pending?'Working…':state.kind==='failed'?'Retry confirmed import':'Confirm import'}</button><button className="owner-button owner-button-secondary" disabled={pending} onClick={()=>void cancel()}>Cancel import</button></div></>:null}{batch&&!preview?<button className="owner-link owner-section" disabled={pending} onClick={()=>void cancel()}>Cancel this import</button>:null}</>}</div></section>;
+"use client";
+import Link from "next/link";
+import { useState, useReducer, useRef, useMemo, useEffect } from "react";
+import * as actions from "@/app/owner/outreach/import/actions";
+import {
+  createImportController,
+  reduceImportState,
+} from "@/lib/crm/import/controller";
+import type { DecisionInput } from "@/lib/crm/import/controller";
+import type {
+  ParsedCsv,
+  ColumnMapping,
+  ImportBatch,
+  ImportPreview,
+} from "@/lib/crm/import/types";
+import { suggestMapping, validateMapping } from "@/lib/crm/import/mapping";
+import { normalizeRow } from "@/lib/crm/import/normalize";
+import { Mapping } from "./mapping";
+import { Preview } from "./preview";
+import { ImportProgress } from "./progress";
+export function ImportWizard({ storageKey }: { storageKey: string }) {
+  const controller = useMemo(() => createImportController(actions), []);
+  const [state, dispatch] = useReducer(reduceImportState, { kind: "select" });
+  const [parsed, setParsed] = useState<ParsedCsv | null>(null);
+  const [mapping, setMapping] = useState<ColumnMapping>({});
+  const [fileInfo, setFileInfo] = useState<{
+    name: string;
+    bytes: number;
+    digest: string;
+  } | null>(null);
+  const [batch, setBatch] = useState<ImportBatch | null>(null);
+  const [preview, setPreview] = useState<ImportPreview | null>(null);
+  const [pending, setPending] = useState(false);
+  const [count, setCount] = useState(0);
+  const [error, setError] = useState("");
+  const [resumeId, setResumeId] = useState<string | null>(null);
+  const beginRequest = useRef<string | null>(null);
+  useEffect(() => {
+    const handle = () => setResumeId(sessionStorage.getItem(storageKey));
+    queueMicrotask(handle);
+  }, [storageKey]);
+  async function work(task: () => Promise<void>) {
+    setPending(true);
+    setError("");
+    try {
+      await task();
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "This step did not finish. Try again.";
+      setError(message);
+      dispatch({ type: "FAIL", message });
+    } finally {
+      setPending(false);
+    }
+  }
+  async function select(file: File) {
+    await work(async () => {
+      if (batch && ["staging", "ready"].includes(batch.state))
+        throw new Error(
+          "Cancel the current import before selecting another file.",
+        );
+      if (file.size > 10485760)
+        throw new Error("Choose a CSV smaller than 10 MiB.");
+      const raw = await file.text();
+      const { parseCsv } = await import("@/lib/crm/import/csv");
+      const data = parseCsv(raw);
+      const hash = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(raw),
+      );
+      const digest = Array.from(new Uint8Array(hash))
+        .map((n) => n.toString(16).padStart(2, "0"))
+        .join("");
+      setBatch(null);
+      setParsed(data);
+      setMapping(suggestMapping(data.columns));
+      setFileInfo({ name: file.name, bytes: file.size, digest });
+      beginRequest.current = null;
+      setPreview(null);
+      dispatch({ type: "SELECT" });
+    });
+  }
+  async function stage() {
+    await work(async () => {
+      if (!parsed || !fileInfo) throw new Error("Choose your CSV first.");
+      const map = validateMapping(mapping, parsed.columns);
+      let current = batch;
+      if (!current && resumeId) {
+        const saved = await controller.getImport(resumeId);
+        if (
+          saved.batch.state === "committed" ||
+          saved.batch.state === "reused"
+        ) {
+          setBatch(saved.batch);
+          dispatch({ type: "PREVIEW", batchId: resumeId, blockingErrors: 0 });
+          dispatch({ type: "PUBLISH", requestId: crypto.randomUUID() });
+          dispatch({
+            type: "COMMITTED",
+            batchId: resumeId,
+            counts: saved.batch.counts!,
+          });
+          sessionStorage.removeItem(storageKey);
+          return;
+        }
+        if (saved.batch.state === "cancelled") {
+          sessionStorage.removeItem(storageKey);
+          setResumeId(null);
+        } else {
+          if (
+            saved.batch.source_digest !== fileInfo.digest ||
+            JSON.stringify(saved.batch.mapping) !== JSON.stringify(map)
+          ) {
+            /* jsonb key order is not JS insertion order; compare entries */ const sameMap =
+              Object.keys({ ...saved.batch.mapping, ...map }).every(
+                (k) =>
+                  saved.batch.mapping[k as keyof ColumnMapping] ===
+                  map[k as keyof ColumnMapping],
+              );
+            if (saved.batch.source_digest !== fileInfo.digest || !sameMap)
+              throw new Error(
+                "Reselect the original file with its saved mapping, or cancel this saved import.",
+              );
+          }
+          current = saved.batch;
+        }
+      }
+      if (!current) {
+        beginRequest.current ??= crypto.randomUUID();
+        const started = await controller.beginImport({
+          filename: fileInfo.name,
+          byte_count: fileInfo.bytes,
+          row_count: parsed.rows.length,
+          source_digest: fileInfo.digest,
+          columns: parsed.columns,
+          mapping: map,
+          requestId: beginRequest.current,
+        });
+        if (!started.ok) throw new Error(started.message);
+        current = started.value;
+        sessionStorage.setItem(storageKey, current.id);
+        setResumeId(current.id);
+      }
+      setBatch(current);
+      const rows = parsed.rows.map((row) =>
+        normalizeRow(row, parsed.columns, current!.mapping),
+      );
+      const progress = await controller.stageAll(current.id, rows, setCount);
+      setBatch(progress.batch);
+      const reviewed = await controller.previewImport(current.id);
+      setPreview(reviewed);
+      dispatch({
+        type: "PREVIEW",
+        batchId: current.id,
+        blockingErrors: reviewed.blocked,
+      });
+    });
+  }
+  async function decision(input: DecisionInput) {
+    await work(async () => {
+      if (!batch || !preview) return;
+      const saved = await controller.setImportDecisions(batch.id, [input]);
+      if (!saved.ok) throw new Error(saved.message);
+      const next = await controller.previewImport(batch.id, preview.page);
+      setPreview(next);
+      dispatch({
+        type: "PREVIEW",
+        batchId: batch.id,
+        blockingErrors: next.blocked,
+      });
+    });
+  }
+  async function publish() {
+    await work(async () => {
+      if (!batch || !preview || preview.blocked || !preview.ready)
+        throw new Error("Resolve blocking rows before importing.");
+      const checkpoint = state.kind === "failed" ? state.checkpoint : state;
+      const requestId =
+        checkpoint.kind === "importing"
+          ? checkpoint.requestId
+          : crypto.randomUUID();
+      if (state.kind === "failed") dispatch({ type: "RESUME" });
+      dispatch({ type: "PUBLISH", requestId });
+      const result = await controller.commitImport(batch.id, requestId);
+      if (!result.ok) throw new Error(result.message);
+      const progress = await controller.getImport(batch.id);
+      setBatch(progress.batch);
+      dispatch({ type: "COMMITTED", batchId: batch.id, counts: result.value });
+      sessionStorage.removeItem(storageKey);
+      setResumeId(null);
+    });
+  }
+  async function cancel() {
+    await work(async () => {
+      const id = batch?.id ?? resumeId;
+      if (!id) return;
+      const cancelled = await controller.cancelImport(id);
+      if (!cancelled.ok) throw new Error(cancelled.message);
+      dispatch({ type: "PREVIEW", batchId: id, blockingErrors: 0 });
+      dispatch({ type: "CANCEL", batchId: id, confirmed: true });
+      setBatch(cancelled.value);
+      setParsed(null);
+      setPreview(null);
+      setFileInfo(null);
+      sessionStorage.removeItem(storageKey);
+      setResumeId(null);
+    });
+  }
+  const complete = state.kind === "complete";
+  return (
+    <section className="owner-panel">
+      <ol className="owner-import-steps" aria-label="Import steps">
+        {["Select CSV", "Map columns", "Review rows", "Import"].map(
+          (label, i) => (
+            <li
+              key={label}
+              data-current={
+                complete
+                  ? i === 3
+                  : preview
+                    ? i === 2
+                    : parsed
+                      ? i === 1
+                      : i === 0
+              }
+            >
+              <span>{i + 1}</span>
+              {label}
+            </li>
+          ),
+        )}
+      </ol>
+      <div className="owner-panel-body">
+        {error ? (
+          <p className="owner-error" role="alert">
+            {error} Your saved staging is retained.
+          </p>
+        ) : null}
+        {resumeId && !batch ? (
+          <div className="owner-notice">
+            <p>
+              A saved import is available. Reselect its original CSV and mapping
+              to resume.
+            </p>
+            <button
+              className="owner-button owner-button-secondary"
+              disabled={pending}
+              onClick={() => void cancel()}
+            >
+              Cancel saved import
+            </button>
+          </div>
+        ) : null}
+        {complete ? (
+          <div className="owner-empty">
+            <span className="owner-empty-icon">✓</span>
+            <h2>
+              {batch?.state === "reused"
+                ? "This file was already imported."
+                : "Your businesses are ready."}
+            </h2>
+            <p>
+              {batch?.state === "reused"
+                ? "Showing the original import result. No new businesses were created."
+                : "The shared outreach list is updated."}
+            </p>
+            <div className="owner-import-counts">
+              {Object.entries(state.counts).map(([key, value]) => (
+                <div key={key}>
+                  <strong>{value}</strong>
+                  <span>
+                    {key === "created"
+                      ? "Businesses added"
+                      : key === "linked"
+                        ? "Contacts linked"
+                        : key === "duplicates"
+                          ? "Exact duplicates skipped"
+                          : key === "skipped"
+                            ? "Rows skipped"
+                            : key === "total"
+                              ? "Source rows"
+                              : "Rejected"}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <Link
+              className="owner-button"
+              href={
+                "/owner/outreach?batch=" + (batch?.duplicate_of ?? batch?.id)
+              }
+            >
+              Open imported businesses →
+            </Link>
+          </div>
+        ) : (
+          <>
+            <label className="owner-upload owner-field">
+              Choose your business CSV
+              <input
+                type="file"
+                accept=".csv,text/csv"
+                disabled={
+                  pending ||
+                  Boolean(batch && ["staging", "ready"].includes(batch.state))
+                }
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) void select(file);
+                }}
+              />
+              <small>
+                Up to 10 MiB and 5,000 rows. Phone numbers remain text. Nothing
+                is sent to your prospects.
+              </small>
+            </label>
+            {parsed && !preview ? (
+              <div className="owner-section">
+                <h2>{fileInfo?.name}</h2>
+                <p className="owner-muted owner-small">
+                  {parsed.rows.length} rows · {parsed.columns.length} columns.
+                  Review the suggested mapping; unused columns remain as extra
+                  fields.
+                </p>
+                <Mapping
+                  columns={parsed.columns}
+                  mapping={mapping}
+                  onChange={(next) => {
+                    setMapping(next);
+                    beginRequest.current = null;
+                  }}
+                />
+                <div className="owner-actions owner-section">
+                  <button
+                    className="owner-button"
+                    disabled={pending}
+                    onClick={() => void stage()}
+                  >
+                    {pending
+                      ? "Preparing review…"
+                      : batch
+                        ? "Resume staging"
+                        : "Prepare preview"}
+                  </button>
+                </div>
+                {pending ? (
+                  <ImportProgress count={count} total={parsed.rows.length} />
+                ) : null}
+              </div>
+            ) : null}
+            {preview ? (
+              <>
+                <div className="owner-import-summary">
+                  <strong>{preview.total} source rows</strong>
+                  <span>{preview.blocked} blocking rows</span>
+                  <span>
+                    Existing assignments, stages and notes are preserved.
+                  </span>
+                </div>
+                <Preview
+                  preview={preview}
+                  pending={pending}
+                  onDecision={(d) => void decision(d)}
+                  onPage={(page) =>
+                    void work(async () => {
+                      if (batch)
+                        setPreview(
+                          await controller.previewImport(batch.id, page),
+                        );
+                    })
+                  }
+                />
+                <p className="owner-privacy-note">
+                  Review the full list using the page controls. Possible matches
+                  remain separate unless you choose to link a contact.
+                  Confirming imports this list into the private workspace.
+                </p>
+                <div className="owner-actions owner-section">
+                  <button
+                    className="owner-button"
+                    disabled={pending || preview.blocked > 0 || !preview.ready}
+                    onClick={() => void publish()}
+                  >
+                    {pending
+                      ? "Working…"
+                      : state.kind === "failed"
+                        ? "Retry confirmed import"
+                        : "Confirm import"}
+                  </button>
+                  <button
+                    className="owner-button owner-button-secondary"
+                    disabled={pending}
+                    onClick={() => void cancel()}
+                  >
+                    Cancel import
+                  </button>
+                </div>
+              </>
+            ) : null}
+            {batch && !preview ? (
+              <button
+                className="owner-link owner-section"
+                disabled={pending}
+                onClick={() => void cancel()}
+              >
+                Cancel this import
+              </button>
+            ) : null}
+          </>
+        )}
+      </div>
+    </section>
+  );
 }

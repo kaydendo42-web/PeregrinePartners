@@ -1,1 +1,19 @@
-export function ImportProgress({count,total}:{count:number;total:number}){return <div className="owner-import-progress" role="status"><p>{count} of {total} rows staged for review.</p><progress value={count} max={total} aria-label="Rows staged"/><p className="owner-muted owner-small">Businesses become visible after you confirm the import.</p></div>;}
+export function ImportProgress({
+  count,
+  total,
+}: {
+  count: number;
+  total: number;
+}) {
+  return (
+    <div className="owner-import-progress" role="status">
+      <p>
+        {count} of {total} rows staged for review.
+      </p>
+      <progress value={count} max={total} aria-label="Rows staged" />
+      <p className="owner-muted owner-small">
+        Businesses become visible after you confirm the import.
+      </p>
+    </div>
+  );
+}

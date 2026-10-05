@@ -4,7 +4,7 @@ import { AuthFrame } from "@/components/auth-frame";
 import { TwoStepView } from "@/components/two-step-view";
 import { signInVerify } from "@/lib/content";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
-import { safeDestination, defaultDestination } from '@/lib/auth/next';
+import { safeDestination, defaultDestination } from "@/lib/auth/next";
 
 export const metadata: Metadata = {
   title: "Two-step sign-in",
@@ -17,9 +17,11 @@ export const metadata: Metadata = {
  * Nobody reaches the console without passing here: the proxy sends any session
  * below aal2 back, and the database refuses aal1 sessions outright.
  */
-export default async function Verify({ searchParams }: PageProps<"/sign-in/verify">) {
+export default async function Verify({
+  searchParams,
+}: PageProps<"/sign-in/verify">) {
   const { next: nextParam } = await searchParams;
-  const next = safeDestination(nextParam) ?? '';
+  const next = safeDestination(nextParam) ?? "";
 
   if (!supabaseEnv()) redirect("/sign-in");
   const client = await supabase();
@@ -30,10 +32,10 @@ export default async function Verify({ searchParams }: PageProps<"/sign-in/verif
 
   const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
   if (aal?.currentLevel === "aal2") {
-    if(next)redirect(next);
-    const {data:owner,error}=await client.rpc('crm_owner_status');
-    if(error)throw new Error('Could not open your workspace.');
-    redirect(defaultDestination(null,owner===true));
+    if (next) redirect(next);
+    const { data: owner, error } = await client.rpc("crm_owner_status");
+    if (error) throw new Error("Could not open your workspace.");
+    redirect(defaultDestination(null, owner === true));
   }
 
   const { data: factors } = await client.auth.mfa.listFactors();
@@ -53,7 +55,8 @@ export default async function Verify({ searchParams }: PageProps<"/sign-in/verif
       friendlyName: "Authenticator app",
       issuer: "Peregrine",
     });
-    if (error || !data) throw new Error(`Could not start two-step setup: ${error?.message}`);
+    if (error || !data)
+      throw new Error(`Could not start two-step setup: ${error?.message}`);
     const qr = data.totp.qr_code.startsWith("data:")
       ? data.totp.qr_code
       : `data:image/svg+xml;utf8,${encodeURIComponent(data.totp.qr_code)}`;

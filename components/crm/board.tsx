@@ -1,2 +1,57 @@
-import Link from 'next/link';import type {Business,PageResult,Stage} from '@/lib/crm/types';import {stages,stageLabels} from '@/lib/crm/types';
-export function BusinessBoard({columns,url}:{columns:Record<Stage,PageResult<Business>>;url:string}){return <div className="owner-board">{stages.map(stage=>{const column=columns[stage];return <section className="owner-board-column" key={stage}><h2>{stageLabels[stage]}<span>{column.total}</span></h2>{column.rows.map(b=><Link className="owner-board-card" key={b.id} href={'/owner/outreach/'+b.id}><strong>{b.name}</strong><span>{b.location||'Location not entered'}</span>{b.do_not_contact?<span className="owner-badge-danger">Do not contact</span>:null}<small>{b.priority} priority</small></Link>)}{!column.rows.length?<p className="owner-muted owner-small">No businesses in this stage.</p>:null}<div className="owner-board-pagination">{column.page>1?<Link href={url+'&p_'+stage+'='+(column.page-1)}>← Previous</Link>:null}{column.page*50<column.total?<Link href={url+'&p_'+stage+'='+(column.page+1)}>Next →</Link>:null}</div></section>;})}</div>;}
+import Link from "next/link";
+import type { Business, PageResult, Stage } from "@/lib/crm/types";
+import { stages, stageLabels } from "@/lib/crm/types";
+export function BusinessBoard({
+  columns,
+  url,
+}: {
+  columns: Record<Stage, PageResult<Business>>;
+  url: string;
+}) {
+  return (
+    <div className="owner-board">
+      {stages.map((stage) => {
+        const column = columns[stage];
+        return (
+          <section className="owner-board-column" key={stage}>
+            <h2>
+              {stageLabels[stage]}
+              <span>{column.total}</span>
+            </h2>
+            {column.rows.map((b) => (
+              <Link
+                className="owner-board-card"
+                key={b.id}
+                href={"/owner/outreach/" + b.id}
+              >
+                <strong>{b.name}</strong>
+                <span>{b.location || "Location not entered"}</span>
+                {b.do_not_contact ? (
+                  <span className="owner-badge-danger">Do not contact</span>
+                ) : null}
+                <small>{b.priority} priority</small>
+              </Link>
+            ))}
+            {!column.rows.length ? (
+              <p className="owner-muted owner-small">
+                No businesses in this stage.
+              </p>
+            ) : null}
+            <div className="owner-board-pagination">
+              {column.page > 1 ? (
+                <Link href={url + "&p_" + stage + "=" + (column.page - 1)}>
+                  ← Previous
+                </Link>
+              ) : null}
+              {column.page * 50 < column.total ? (
+                <Link href={url + "&p_" + stage + "=" + (column.page + 1)}>
+                  Next →
+                </Link>
+              ) : null}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  );
+}

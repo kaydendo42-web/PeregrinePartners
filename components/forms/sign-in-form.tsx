@@ -6,7 +6,11 @@ import { motion } from "motion/react";
 import { Button } from "../ui/button";
 import { AuthProgress } from "./auth-progress";
 import { signIn } from "@/lib/content";
-import { sendSignInLink, signInWithPassword, type SignInState } from "@/app/sign-in/actions";
+import {
+  sendSignInLink,
+  signInWithPassword,
+  type SignInState,
+} from "@/app/sign-in/actions";
 
 /**
  * Console sign-in. Email and password by default, because that is how the
@@ -17,10 +21,22 @@ import { sendSignInLink, signInWithPassword, type SignInState } from "@/app/sign
  * account" apart from "wrong password" would let anyone type a rival's email
  * address and learn whether that venue is a customer of ours.
  */
-export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?: boolean }) {
+export function SignInForm({
+  next,
+  linkExpired,
+}: {
+  next?: string;
+  linkExpired?: boolean;
+}) {
   const [mode, setMode] = useState<"password" | "link">("password");
-  const [pwState, pwAction, pwPending] = useActionState<SignInState, FormData>(signInWithPassword, {});
-  const [linkState, linkAction, linkPending] = useActionState<SignInState, FormData>(sendSignInLink, {});
+  const [pwState, pwAction, pwPending] = useActionState<SignInState, FormData>(
+    signInWithPassword,
+    {},
+  );
+  const [linkState, linkAction, linkPending] = useActionState<
+    SignInState,
+    FormData
+  >(sendSignInLink, {});
 
   const pending = mode === "password" ? pwPending : linkPending;
   const state = mode === "password" ? pwState : linkState;
@@ -36,7 +52,11 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
         <p className="t-body text-white" role="status">
           {signIn.done}
         </p>
-        <button type="button" className={linkClass} onClick={() => setMode("password")}>
+        <button
+          type="button"
+          className={linkClass}
+          onClick={() => setMode("password")}
+        >
           Use my password instead
         </button>
       </motion.div>
@@ -106,7 +126,9 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
             className={linkClass}
             onClick={() => setMode(mode === "password" ? "link" : "password")}
           >
-            {mode === "password" ? "Email me a link instead" : "Use my password"}
+            {mode === "password"
+              ? "Email me a link instead"
+              : "Use my password"}
           </button>
         </div>
 
@@ -118,7 +140,9 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
       </fieldset>
       {pending ? (
         <div className="mt-[28px]">
-          <AuthProgress text={mode === "password" ? signIn.checking : signIn.sending} />
+          <AuthProgress
+            text={mode === "password" ? signIn.checking : signIn.sending}
+          />
         </div>
       ) : null}
     </form>
@@ -128,14 +152,30 @@ export function SignInForm({ next, linkExpired }: { next?: string; linkExpired?:
 const linkClass =
   "t-label text-white/60 underline underline-offset-[4px] transition-colors duration-300 hover:text-white";
 
-const inputClass = "w-full bg-transparent pb-[12px] text-white outline-none placeholder:text-white/25";
+const inputClass =
+  "w-full bg-transparent pb-[12px] text-white outline-none placeholder:text-white/25";
 
-const inputStyle = { fontSize: 18, lineHeight: "26px", borderBottom: "1px solid var(--paper-20)" };
+const inputStyle = {
+  fontSize: 18,
+  lineHeight: "26px",
+  borderBottom: "1px solid var(--paper-20)",
+};
 
-function Field({ id, label, children }: { id: string; label: string; children: React.ReactNode }) {
+function Field({
+  id,
+  label,
+  children,
+}: {
+  id: string;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <label htmlFor={id} className="flex w-full flex-col gap-[10px]">
-      <span className="t-mono-xs font-mono uppercase" style={{ color: "var(--paper-40)" }}>
+      <span
+        className="t-mono-xs font-mono uppercase"
+        style={{ color: "var(--paper-40)" }}
+      >
         {label}
       </span>
       {children}
