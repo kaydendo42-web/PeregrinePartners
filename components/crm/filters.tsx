@@ -43,6 +43,7 @@ export function Filters({
         <select name="sort" defaultValue={query.sort}>
           <option value="updated_at">Recently updated</option>
           <option value="name">Business name</option>
+          <option value="source_row">Original import order</option>
           <option value="last_contact">Last contact</option>
           <option value="next_follow_up">Next follow-up</option>
         </select>

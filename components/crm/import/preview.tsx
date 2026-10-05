@@ -166,10 +166,37 @@ export function Preview({
           </tbody>
         </table>
       </div>
-      <div className="owner-pagination">
+      <div className="owner-pagination owner-import-pagination">
         <span>
           Page {preview.page} · {preview.total} source rows
         </span>
+        <form
+          className="owner-actions"
+          onSubmit={(event) => {
+            event.preventDefault();
+            onPage(Number(new FormData(event.currentTarget).get("page")));
+          }}
+        >
+          <label className="owner-field">
+            Go to page
+            <input
+              key={preview.page}
+              name="page"
+              type="number"
+              min={1}
+              max={Math.ceil(preview.total / 50)}
+              required
+              defaultValue={preview.page}
+              disabled={pending}
+            />
+          </label>
+          <button
+            className="owner-button owner-button-secondary"
+            disabled={pending}
+          >
+            Go
+          </button>
+        </form>
         <div className="owner-actions">
           <button
             type="button"

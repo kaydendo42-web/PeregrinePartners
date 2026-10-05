@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Business, PageResult, Stage } from "@/lib/crm/types";
 import { stages, stageLabels } from "@/lib/crm/types";
 import { boardPageHref } from "@/lib/crm/queues";
+import { leadResearch } from "@/lib/crm/lead-research";
 export function BusinessBoard({
   columns,
   url,
@@ -22,20 +23,24 @@ export function BusinessBoard({
               {stageLabels[stage]}
               <span>{column.total}</span>
             </h2>
-            {column.rows.map((b) => (
-              <Link
-                className="owner-board-card"
-                key={b.id}
-                href={"/owner/outreach/" + b.id}
-              >
-                <strong>{b.name}</strong>
-                <span>{b.location || "Location not entered"}</span>
-                {b.do_not_contact ? (
-                  <span className="owner-badge-danger">Do not contact</span>
-                ) : null}
-                <small>{b.priority} priority</small>
-              </Link>
-            ))}
+            {column.rows.map((b) => {
+              const research = leadResearch(b.source_fields);
+              return (
+                <Link
+                  className="owner-board-card"
+                  key={b.id}
+                  href={"/owner/outreach/" + b.id}
+                >
+                  <strong>{b.name}</strong>
+                  {research.rank ? <small>Rank {research.rank}</small> : null}
+                  <span>{b.location || "Location not entered"}</span>
+                  {b.do_not_contact ? (
+                    <span className="owner-badge-danger">Do not contact</span>
+                  ) : null}
+                  <small>{b.priority} priority</small>
+                </Link>
+              );
+            })}
             {!column.rows.length ? (
               <p className="owner-muted owner-small">
                 No businesses in this stage.

@@ -126,9 +126,13 @@ export function parseQuery(value: unknown): BusinessQuery {
   if (page > 100000) throw new Error("Page is out of range.");
   const sort = source.sort ?? "updated_at";
   if (
-    !["name", "updated_at", "last_contact", "next_follow_up"].includes(
-      String(sort),
-    )
+    ![
+      "name",
+      "updated_at",
+      "last_contact",
+      "next_follow_up",
+      "source_row",
+    ].includes(String(sort))
   )
     throw new Error("Choose a sort order.");
   const priority = source.priority ? String(source.priority) : null;

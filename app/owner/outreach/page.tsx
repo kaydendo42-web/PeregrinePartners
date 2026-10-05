@@ -81,6 +81,15 @@ export default async function Outreach({
         </div>
       </div>
       <div className="owner-shortcuts">
+        <Link href="/owner/outreach?tag=top-100&sort=source_row">
+          Top 100 leads
+        </Link>
+        <Link href="/owner/outreach?tag=top-500&sort=source_row">
+          Top 500 leads
+        </Link>
+        <Link href="/owner/outreach?tag=direct-contact&sort=source_row">
+          Email or phone available
+        </Link>
         <Link href={"/owner/outreach?owner=" + context.userId}>
           My prospects
         </Link>

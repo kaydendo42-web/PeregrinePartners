@@ -64,7 +64,7 @@ export async function listBusinesses(
   const page = parseVersion(query.page);
   const { data, error, count } = await request
     .order(query.sort, {
-      ascending: query.sort === "name" || query.sort === "next_follow_up",
+      ascending: ["name", "next_follow_up", "source_row"].includes(query.sort),
       nullsFirst: false,
     })
     .order("id")

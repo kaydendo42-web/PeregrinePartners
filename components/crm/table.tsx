@@ -8,6 +8,7 @@ import { displayTime } from "@/lib/crm/time";
 import { useMutation, SaveFeedback } from "./draft-state";
 import { toggleSelection, selectionChanged } from "@/lib/crm/queues";
 import type { SelectedRecord } from "@/lib/crm/queues";
+import { leadResearch } from "@/lib/crm/lead-research";
 export function BusinessTable({
   rows,
   members,
@@ -207,58 +208,73 @@ export function BusinessTable({
             </tr>
           </thead>
           <tbody>
-            {rows.map((b) => (
-              <tr key={b.id}>
-                <td>
-                  <input
-                    type="checkbox"
-                    aria-label={"Select " + b.name}
-                    disabled={m.pending}
-                    checked={selected.some((s) => s.id === b.id)}
-                    onChange={() => {
-                      setSelected((v) => toggleSelection(v, b));
-                      setReview(false);
-                      m.changed();
-                    }}
-                  />
-                </td>
-                <td>
-                  <Link href={"/owner/outreach/" + b.id}>{b.name}</Link>
-                  {b.tags.length ? <small>{b.tags.join(" · ")}</small> : null}
-                  {b.do_not_contact ? (
-                    <small className="owner-badge-danger">Do not contact</small>
-                  ) : null}
-                </td>
-                <td>{b.location || "—"}</td>
-                <td>{b.industry || "—"}</td>
-                <td>
-                  {b.contacts?.[0]?.name ||
-                    b.contacts?.[0]?.email ||
-                    b.contacts?.[0]?.phone ||
-                    "Incomplete"}
-                  <small>{b.contacts?.[0]?.email}</small>
-                </td>
-                <td>
-                  <span className="owner-badge" data-stage={b.stage}>
-                    {stageLabels[b.stage]}
-                  </span>
-                </td>
-                <td>
-                  {members.find((m) => m.user_id === b.assigned_to)
-                    ?.display_name ?? "Unassigned"}
-                </td>
-                <td>{b.priority}</td>
-                <td>
-                  {b.last_contact ? displayTime(b.last_contact, timezone) : "—"}
-                </td>
-                <td>
-                  {b.next_follow_up
-                    ? displayTime(b.next_follow_up, timezone)
-                    : "—"}
-                </td>
-                <td>{b.updated_by_name ?? "—"}</td>
-              </tr>
-            ))}
+            {rows.map((b) => {
+              const research = leadResearch(b.source_fields);
+              return (
+                <tr key={b.id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      aria-label={"Select " + b.name}
+                      disabled={m.pending}
+                      checked={selected.some((s) => s.id === b.id)}
+                      onChange={() => {
+                        setSelected((v) => toggleSelection(v, b));
+                        setReview(false);
+                        m.changed();
+                      }}
+                    />
+                  </td>
+                  <td>
+                    <Link href={"/owner/outreach/" + b.id}>{b.name}</Link>
+                    {research.rank ? (
+                      <small>
+                        Rank {research.rank}
+                        {research.score
+                          ? ` · Research score ${research.score}`
+                          : ""}
+                      </small>
+                    ) : null}
+                    {b.tags.length ? <small>{b.tags.join(" · ")}</small> : null}
+                    {b.do_not_contact ? (
+                      <small className="owner-badge-danger">
+                        Do not contact
+                      </small>
+                    ) : null}
+                  </td>
+                  <td>{b.location || "—"}</td>
+                  <td>{b.industry || "—"}</td>
+                  <td>
+                    {b.contacts?.[0]?.name ||
+                      b.contacts?.[0]?.email ||
+                      b.contacts?.[0]?.phone ||
+                      "Incomplete"}
+                    <small>{b.contacts?.[0]?.email}</small>
+                  </td>
+                  <td>
+                    <span className="owner-badge" data-stage={b.stage}>
+                      {stageLabels[b.stage]}
+                    </span>
+                  </td>
+                  <td>
+                    {members.find((m) => m.user_id === b.assigned_to)
+                      ?.display_name ?? "Unassigned"}
+                  </td>
+                  <td>{b.priority}</td>
+                  <td>
+                    {b.last_contact
+                      ? displayTime(b.last_contact, timezone)
+                      : "—"}
+                  </td>
+                  <td>
+                    {b.next_follow_up
+                      ? displayTime(b.next_follow_up, timezone)
+                      : "—"}
+                  </td>
+                  <td>{b.updated_by_name ?? "—"}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -477,6 +477,16 @@
   font-size: 11px;
   color: var(--o-muted);
 }
+.owner-import-pagination {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.owner-import-pagination .owner-field {
+  width: 84px;
+}
+.owner-import-pagination form {
+  align-items: end;
+}
 .owner-skip {
   position: fixed;
   top: -60px;

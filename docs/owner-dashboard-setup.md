@@ -105,6 +105,16 @@ after using the team's existing communication and payment channels.
    rows to the total. Repeating the same source and mapping reuses the completed
    receipt even if the filename changes.
 
+Ranked spreadsheets can be converted privately to CSV before import. Import the
+master list once when industry tabs repeat the same businesses. Preserve the
+original score and rank columns, keep excluded rows outside active outreach, and
+attach additional email/phone rows to their reviewed business. Research scores
+appear alongside business names when a `rank` column is present; the team's
+editable priority remains separate. **Original import order** sorts by source
+row. **Top 100 leads**, **Top 500 leads** and **Email or phone available** use the
+`top-100`, `top-500` and `direct-contact` tags mapped from the prepared source.
+Large previews support direct page selection.
+
 Interrupted staging can resume while its browser reference remains available.
 Mapping changes after staging require cancelling and starting again. Cancelling
 an uncommitted batch publishes nothing. If publication times out, retry the same

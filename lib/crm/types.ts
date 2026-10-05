@@ -76,7 +76,8 @@ export type BusinessQuery = {
   due: boolean;
   stopped: boolean;
   page: number;
-  sort: "name" | "updated_at" | "last_contact" | "next_follow_up";
+  sort:
+    "name" | "updated_at" | "last_contact" | "next_follow_up" | "source_row";
   view: "table" | "board";
   boardPages: Partial<Record<Stage, number>>;
 };
