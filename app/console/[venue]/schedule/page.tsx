@@ -35,7 +35,7 @@ export default async function SchedulePage({
 
   return (
     <div className="console-page">
-      <DayBar base={`/console/${slug}/schedule`} date={date} />
+      <DayBar base={`/console/${slug}/schedule`} date={date} view="schedule" />
       <div className="console-schedule" role="table" aria-label="Bookings by table">
         <div className="console-schedule__head" role="row">
           <span className="console-schedule__table" role="columnheader">

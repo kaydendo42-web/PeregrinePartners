@@ -50,7 +50,7 @@ export default async function ListPage({
 
   return (
     <div className="console-page">
-      <DayBar base={base} date={date} />
+      <DayBar base={base} date={date} view="list" />
       {problem ? <p className="console-problem">{problem}</p> : null}
       {unassigned ? (
         <p className="console-problem">

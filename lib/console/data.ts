@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
-import { demoBookings, demoCustomers, demoFloor, demoOn, demoVenue } from "./demo";
+import { demoBookings, demoCustomers, demoFloor, demoOn, demoPlan, demoVenue } from "./demo";
 
 /**
  * Everything the console reads, through the signed-in member's client. Row-level
@@ -20,6 +20,21 @@ export type Venue = {
   notify_bookings?: boolean;
   /** Where that email goes; null means the website's own inbox. */
   notify_email?: string | null;
+  /** The room around the tables; absent until the venue's plan is seeded. */
+  plan?: FloorPlan | null;
+};
+
+type Point = [number, number];
+
+/** A venue's room, in venue metres (x across, y up), as its seed writes it. */
+export type FloorPlan = {
+  width: number;
+  depth: number;
+  zones: { id: string; name: string; open: boolean; outline: Point[]; label: Point }[];
+  walls: { kind: "wall" | "parapet" | "glass"; from: Point; to: Point }[];
+  fixtures: { kind: "room" | "bathroom" | "counter" | "bench" | "planter"; label: string; x: number; y: number; w: number; d: number }[];
+  stairs?: { x0: number; x1: number; y0: number; y1: number; treads: number };
+  trees?: { x: number; y: number; r: number }[];
 };
 
 export type Section = { id: string; name: string; sort: number; indoor: boolean };
@@ -103,7 +118,7 @@ export async function myVenues(): Promise<Venue[]> {
 export async function venueBySlug(slug: string): Promise<Venue> {
   if (demoOn()) {
     if (slug !== demoVenue.slug) notFound();
-    return demoVenue;
+    return { ...demoVenue, plan: demoPlan() };
   }
   const { client } = await requireUser();
   const { data } = await client.from("venues").select("*").eq("slug", slug).maybeSingle();
