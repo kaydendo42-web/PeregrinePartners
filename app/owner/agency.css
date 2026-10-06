@@ -244,8 +244,6 @@
 }
 .owner-agency .agency-work-panel > .owner-panel-head {
   background: #fbfaff;
-  border-left: 4px solid #9d71f3;
-  padding-left: 16px;
 }
 .owner-agency .agency-group-heading {
   display: flex;
@@ -310,7 +308,6 @@
   min-width: 44px;
   padding: 12px 14px;
   background: #fff;
-  border-left: 3px solid #d8c5fd;
 }
 .owner-agency .agency-outreach-table th:nth-child(2),
 .owner-agency .agency-outreach-table td:nth-child(2) {
@@ -323,7 +320,7 @@
   box-shadow: 3px 0 5px #32333807;
 }
 .owner-agency .agency-outreach-table tbody td:first-child {
-  border-left-color: var(--stage-fill);
+  border-left: 3px solid var(--stage-fill);
 }
 .owner-agency .agency-outreach-table th:first-child,
 .owner-agency .agency-outreach-table th:nth-child(2) {
@@ -642,9 +639,6 @@
 }
 
 /* Clients, the shared task list and the service catalogue. */
-.owner-agency .agency-client-table td:first-child {
-  border-left: 4px solid #83aeff;
-}
 .owner-agency .agency-client-table td:first-child > a {
   color: #2558a8;
   font-weight: 600;
@@ -652,7 +646,6 @@
 }
 .owner-agency #add-client > .owner-panel-head {
   background: #edf3ff;
-  border-left: 4px solid #83aeff;
 }
 .owner-agency .agency-followup-filter {
   padding: 14px 18px;
