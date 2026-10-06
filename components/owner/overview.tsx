@@ -1,104 +1,296 @@
 import Link from "next/link";
 import type { Overview } from "@/lib/owner/overview";
 import { stages, stageLabels } from "@/lib/crm/types";
-import { displayTime, localDate } from "@/lib/crm/time";
+import { displayTime } from "@/lib/crm/time";
 import { formatMinor } from "@/lib/crm/money";
 import { Timeline } from "@/components/crm/timeline";
+import { BookingReportView } from "./booking-report";
+import { DashboardIcon } from "./icon";
 export function OverviewView({
   data,
   timezone,
+  days = 30,
 }: {
   data: Overview;
   timezone: string;
+  days?: number;
 }) {
+  const total = stages.reduce((sum, s) => sum + (data.stages[s] ?? 0), 0);
+  const account = data.accounts?.find((a) => a.report);
   return (
     <>
       <div className="owner-page-head">
         <div>
-          <p className="owner-eyebrow">Peregrine Partners</p>
-          <h1>Overview</h1>
+          <p className="owner-eyebrow">Peregrine · Agency</p>
+          <h1>Agency dashboard</h1>
           <p className="owner-muted">
-            Your clients, outreach and next steps, together.
+            Your clients, pipeline and priorities in one place.
           </p>
         </div>
         <div className="owner-actions">
-          <span className="owner-date">
-            {localDate(new Date().toISOString(), timezone)}
-          </span>
+          <Link
+            className="owner-button owner-button-secondary"
+            href="/owner/clients#add-client"
+          >
+            + Add client
+          </Link>
           <Link className="owner-button" href="/owner/outreach/import">
-            Import businesses ↗
+            Import businesses
           </Link>
         </div>
       </div>
-      <div className="owner-grid">
+      <div className="dash-tab-line">
+        <span className="dash-tab-active">Business overview</span>
+        <form className="dash-period">
+          <label htmlFor="agency-period">Booking period</label>
+          <select name="days" id="agency-period" defaultValue={days}>
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+          <button className="owner-button owner-button-secondary">Apply</button>
+        </form>
+      </div>
+      <div className="owner-grid dash-metrics">
         {[
           {
             label: "Active clients",
             value: data.clients,
             caption: "Client accounts",
             href: "/owner/clients",
+            icon: "clients",
           },
           {
             label: "Outreach businesses",
             value: data.prospects,
-            caption: "Across your pipeline",
+            caption: "Across your sales pipeline",
             href: "/owner/outreach",
+            icon: "pipeline",
           },
           {
             label: "Follow-ups due",
             value: data.due,
-            caption: "Ready for a next step",
+            caption: "Open tasks needing attention",
             href: "/owner/follow-ups?period=overdue",
+            icon: "tasks",
           },
           {
             label: "Replies received",
             value: data.replies,
             caption: "Businesses in Replied",
             href: "/owner/outreach?stage=replied",
+            icon: "replies",
           },
-        ].map((card) => (
-          <Link
-            key={card.label}
-            href={card.href}
-            className="owner-panel owner-stat"
-          >
-            <p className="owner-stat-label">{card.label}</p>
-            <p className="owner-stat-value">{card.value}</p>
+        ].map((c) => (
+          <Link className="owner-panel owner-stat" href={c.href} key={c.label}>
+            <span
+              className="dash-stat-icon"
+              data-icon={c.icon}
+              aria-hidden="true"
+            >
+              <DashboardIcon kind={c.icon} />
+            </span>
+            <p className="owner-stat-label">{c.label}</p>
+            <p className="owner-stat-value">
+              {c.value.toLocaleString("en-AU")}
+            </p>
             <p className="owner-stat-caption">
-              {card.caption} <span aria-hidden="true">↗</span>
+              {c.caption}
+              <span aria-hidden="true">→</span>
             </p>
           </Link>
         ))}
       </div>
+      <div className="dash-primary-grid">
+        <section className="owner-panel">
+          <div className="owner-panel-head">
+            <div>
+              <h2>Outreach pipeline</h2>
+              <p className="owner-muted owner-small">
+                {total.toLocaleString("en-AU")} businesses · current stages
+              </p>
+            </div>
+            <Link className="owner-link" href="/owner/outreach?view=board">
+              View board →
+            </Link>
+          </div>
+          <div className="dash-pipeline-bars">
+            {stages.map((s, i) => (
+              <Link href={"/owner/outreach?stage=" + s} key={s}>
+                <span
+                  className="dash-stage-dot"
+                  style={{ background: `var(--stage-${i})` }}
+                />{" "}
+                <span>{stageLabels[s]}</span>
+                <div>
+                  <i
+                    style={{
+                      width: `${((data.stages[s] ?? 0) / Math.max(total, 1)) * 100}%`,
+                      background: `var(--stage-${i})`,
+                    }}
+                  />
+                </div>
+                <strong>{data.stages[s] ?? 0}</strong>
+              </Link>
+            ))}
+          </div>
+          <div className="owner-panel-foot">
+            <span>{data.unassigned} unassigned</span>
+            <Link href="/owner/outreach?owner=unassigned">Assign owners →</Link>
+          </div>
+        </section>
+        <section className="owner-panel">
+          <div className="owner-panel-head">
+            <h2>Needs attention</h2>
+            <Link className="owner-link" href="/owner/follow-ups">
+              All tasks →
+            </Link>
+          </div>
+          <div className="dash-attention">
+            <Link href="/owner/follow-ups?period=overdue">
+              <span className="dash-attention-icon">
+                <DashboardIcon kind="tasks" />
+              </span>
+              <div>
+                <strong>Follow-ups due</strong>
+                <p>Keep your next conversations moving.</p>
+              </div>
+              <b>{data.due}</b>
+            </Link>
+            <Link href="/owner/outreach?stage=replied">
+              <span className="dash-attention-icon">
+                <DashboardIcon kind="replies" />
+              </span>
+              <div>
+                <strong>Replies to review</strong>
+                <p>Move a conversation to its next stage.</p>
+              </div>
+              <b>{data.replies}</b>
+            </Link>
+            <Link href="/owner/outreach?owner=unassigned">
+              <span className="dash-attention-icon">
+                <DashboardIcon kind="clients" />
+              </span>
+              <div>
+                <strong>Unassigned businesses</strong>
+                <p>Give each prospect a point of contact.</p>
+              </div>
+              <b>{data.unassigned}</b>
+            </Link>
+          </div>
+          <div className="dash-quick-start">
+            <strong>Grow your pipeline</strong>
+            <p>Import your ranked list, then work through Top 100.</p>
+            <Link
+              className="owner-button owner-button-secondary"
+              href="/owner/outreach/import"
+            >
+              Import businesses →
+            </Link>
+          </div>
+        </section>
+      </div>
       <section className="owner-panel owner-section">
         <div className="owner-panel-head">
-          <h2>Your outreach pipeline</h2>
-          <Link className="owner-link" href="/owner/outreach?view=board">
-            Open board →
+          <div>
+            <h2>Client accounts</h2>
+            <p className="owner-muted owner-small">
+              Recently updated accounts · bookings in the selected period
+            </p>
+          </div>
+          <Link className="owner-link" href="/owner/clients">
+            All clients →
           </Link>
         </div>
-        <div className="owner-pipeline">
-          {stages.map((stage, i) => (
-            <Link key={stage} href={"/owner/outreach?stage=" + stage}>
-              <span
-                className="owner-pipeline-step"
-                style={{ opacity: 0.4 + i * 0.08 }}
-              />
-              <strong>{data.stages[stage] ?? 0}</strong>
-              <span>{stageLabels[stage]}</span>
+        {data.accounts?.length ? (
+          <div className="owner-table-scroll">
+            <table className="owner-table dash-client-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Account</th>
+                  <th>Bookings</th>
+                  <th>Booked guests</th>
+                  <th>Reporting access</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {data.accounts.map((a) => (
+                  <tr key={a.id}>
+                    <td>
+                      <Link
+                        href={"/owner/clients/" + a.id}
+                        className="dash-client-name"
+                      >
+                        <span className="dash-client-avatar">
+                          {a.name.slice(0, 1)}
+                        </span>
+                        {a.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <span
+                        className="owner-badge"
+                        data-stage={a.status === "active" ? "won" : undefined}
+                      >
+                        {a.status}
+                      </span>
+                    </td>
+                    <td>{a.report?.bookings ?? "—"}</td>
+                    <td>{a.report?.guests ?? "—"}</td>
+                    <td>
+                      <span
+                        className="dash-connection"
+                        data-connected={Boolean(a.report)}
+                      >
+                        {a.report ? "Bookings available" : "No booking report"}
+                      </span>
+                    </td>
+                    <td>
+                      <Link
+                        className="owner-link"
+                        href={"/owner/clients/" + a.id}
+                      >
+                        Open dashboard →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="owner-empty owner-empty-compact">
+            <h3>Add your first client account</h3>
+            <p>
+              Client performance appears here once its booking venue is linked.
+            </p>
+            <Link
+              className="owner-button owner-button-secondary"
+              href="/owner/clients#add-client"
+            >
+              Add client
             </Link>
-          ))}
-        </div>
-        <div className="owner-panel-foot">
-          <span>{data.unassigned} businesses need an owner</span>
-          <Link href="/owner/outreach?owner=unassigned">Assign owners →</Link>
-        </div>
+          </div>
+        )}
       </section>
+      {account?.report ? (
+        <BookingReportView
+          report={account.report}
+          compact
+          actions={
+            <Link className="owner-link" href={"/owner/clients/" + account.id}>
+              {account.name} →
+            </Link>
+          }
+        />
+      ) : null}
       <div className="owner-columns">
         <div>
           <section className="owner-panel">
             <div className="owner-panel-head">
-              <h2>Next follow-ups</h2>
+              <h2>Upcoming follow-ups</h2>
               <Link className="owner-link" href="/owner/follow-ups?period=all">
                 View all →
               </Link>
@@ -122,8 +314,8 @@ export function OverviewView({
                 </ul>
               ) : (
                 <div className="owner-empty owner-empty-compact">
-                  <h3>No next steps yet.</h3>
-                  <p>Add a follow-up after your first conversation.</p>
+                  <h3>No follow-ups scheduled</h3>
+                  <p>Add a next step after a conversation.</p>
                   <Link className="owner-link" href="/owner/outreach">
                     Open outreach →
                   </Link>
@@ -133,7 +325,7 @@ export function OverviewView({
           </section>
           <section className="owner-panel owner-section">
             <div className="owner-panel-head">
-              <h2>Recent team activity</h2>
+              <h2>Team activity</h2>
             </div>
             <div className="owner-panel-body">
               <Timeline activities={data.activity} timezone={timezone} />
@@ -143,9 +335,9 @@ export function OverviewView({
         <div>
           <section className="owner-panel">
             <div className="owner-panel-head">
-              <h2>Client tools</h2>
+              <h2>Client services</h2>
               <Link className="owner-link" href="/owner/tools">
-                Catalogue →
+                Manage →
               </Link>
             </div>
             <div className="owner-panel-body">
@@ -154,28 +346,21 @@ export function OverviewView({
                   <li key={t.id}>
                     <span>{t.name}</span>
                     <strong>{t.clients}</strong>
-                    <span className="owner-muted">active records</span>
+                    <span className="owner-muted">active subscriptions</span>
                   </li>
                 ))}
               </ul>
-              {!data.tools.length ? (
-                <p className="owner-muted owner-small">
-                  Add a tool to your catalogue to start tracking subscriptions.
-                </p>
-              ) : null}
             </div>
           </section>
           <section className="owner-panel owner-section">
             <div className="owner-panel-head">
-              <h2>Manual billing</h2>
+              <h2>Outstanding billing</h2>
+              <span className="owner-badge">Manual records</span>
             </div>
             <div className="owner-panel-body">
-              <p className="owner-privacy-note">
-                Balances from records entered by the team.
-              </p>
               {Object.entries(data.balances).map(([currency, minor]) => (
                 <div className="owner-balance" key={currency}>
-                  <span>Outstanding · {currency}</span>
+                  <span>{currency} · Outstanding</span>
                   <strong>{formatMinor(minor, currency)}</strong>
                   <small>
                     {data.overdue[currency] && data.overdue[currency] !== "0"
@@ -187,26 +372,12 @@ export function OverviewView({
               ))}
               {!Object.keys(data.balances).length ? (
                 <p className="owner-muted owner-small">
-                  No billing records yet.
+                  Add agreed invoices in a client’s billing tab to track
+                  balances.
                 </p>
               ) : null}
             </div>
           </section>
-          {data.clients === 0 && data.prospects === 0 ? (
-            <section className="owner-panel owner-section owner-panel-body">
-              <h2>Your workspace starts here.</h2>
-              <p className="owner-muted owner-small">
-                Import your business list for shared outreach, or add a client
-                you already work with.
-              </p>
-              <Link
-                className="owner-button owner-button-secondary"
-                href="/owner/clients"
-              >
-                Add your first client
-              </Link>
-            </section>
-          ) : null}
         </div>
       </div>
     </>

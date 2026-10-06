@@ -252,3 +252,30 @@ the CRM to clients requires a separate authorization/UI release with client
 membership policies and cross-workspace tests. Do not copy the internal founder
 policies or grant platform-owner membership to clients. Bookings, payments and
 other tools can attach to a client account without weakening this boundary.
+
+## Client booking reports and customer CRM
+
+The founder dashboard now opens client accounts on a booking report, with
+Account & contacts, Services, Billing and Activity tabs. A linked venue must also
+be accessible to the signed-in founder. The 7/30/90-day report uses the venue's
+calendar and counts bookings by sitting date. Booked guests exclude cancelled
+and no-show reservations; upcoming bookings cover all future confirmed/seated
+records. These are booking figures, not attendance or revenue.
+
+The first client CRM is available at `/console/<venue>/crm`. It shares customer
+profiles, booking history, notes and dated follow-up tasks with existing venue
+members. Profiles group by email, then phone; records without either stay
+separate. Customer notes do not send messages. Task completion/cancellation uses
+record versions and returns a conflict when another team member saved first.
+
+Migration `20261005160508_client_crm_reporting.sql` is additive. It uses signed-in
+security-invoker functions, existing venue RLS and two-step authentication. Entry
+attribution is database-owned, note retries preserve identity, and venue CRM
+entries are published to Realtime. No new users or venue memberships are granted.
+The file matches the provider's actual applied timestamp and depends only on
+the earlier booking baseline. Do not rewrite applied migration history.
+
+Customer detail currently shows the latest 100 booking records and 100 entries.
+List screens paginate at 50. The module is a booking-based client CRM first
+release; general client sales pipelines, inboxes, automated campaigns, loyalty,
+analytics-provider reporting and payment processing remain future work.

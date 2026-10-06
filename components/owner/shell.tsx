@@ -5,12 +5,14 @@ export function OwnerShell({
   navigation,
   status,
   signOutControl,
+  workspaceControl,
   children,
 }: {
   displayName: string;
   navigation: ReactNode;
   status: ReactNode;
   signOutControl: ReactNode;
+  workspaceControl?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -27,15 +29,17 @@ export function OwnerShell({
             Peregrine<span className="owner-brand-sub">Partners</span>
           </span>
         </div>
-        <div className="owner-workspace">
-          <span className="owner-workspace-icon" aria-hidden="true">
-            P
-          </span>
-          <span>
-            Founder workspace<small>Peregrine Partners</small>
-          </span>
-          <span aria-hidden="true">⌄</span>
-        </div>
+        {workspaceControl ?? (
+          <div className="owner-workspace">
+            <span className="owner-workspace-icon" aria-hidden="true">
+              P
+            </span>
+            <span>
+              Founder workspace<small>Peregrine Partners</small>
+            </span>
+            <span aria-hidden="true">⌄</span>
+          </div>
+        )}
         {navigation}
         <div className="owner-sidebar-bottom">
           <div className="owner-person">
@@ -53,9 +57,20 @@ export function OwnerShell({
       <main id="owner-content" className="owner-main">
         <header className="owner-header">
           <span>
-            Workspace <span className="owner-muted">/</span> Peregrine Partners
+            <strong>Peregrine Partners</strong>{" "}
+            <span className="owner-muted">/</span> Agency workspace
           </span>
-          {status}
+          <div className="dash-header-actions">
+            <form action="/owner/clients" className="dash-header-search">
+              <input
+                name="q"
+                placeholder="Find a client…"
+                aria-label="Find a client"
+              />
+              <button aria-label="Search clients">⌕</button>
+            </form>
+            {status}
+          </div>
         </header>
         <div className="owner-content">{children}</div>
       </main>

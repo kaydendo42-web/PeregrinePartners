@@ -9,7 +9,7 @@ import {
 } from "@/lib/crm/live-state";
 import { parseUuid } from "@/lib/crm/validation";
 const StatusContext = createContext(liveState);
-export function LiveStatus() {
+export function LiveStatus({ label }: { label?: string }) {
   const state = useContext(StatusContext);
   const text = {
     connecting: "Connecting",
@@ -20,6 +20,7 @@ export function LiveStatus() {
   return (
     <span className="owner-live" data-status={state.connection} role="status">
       <span aria-hidden="true" />
+      {label ? label + " · " : ""}
       {text}
       {state.connection === "disconnected" ? (
         <span className="owner-live-detail">Updates may be delayed</span>
@@ -33,15 +34,22 @@ export function WorkspaceLiveRefresh({
   userId,
   url,
   anonKey,
+  scope = "owner",
+  destination = "/owner",
+  venueIds = [],
 }: {
   children: React.ReactNode;
   workspaceId: string;
   userId: string;
   url: string;
   anonKey: string;
+  scope?: "owner" | "venue";
+  destination?: string;
+  venueIds?: string[];
 }) {
   const router = useRouter();
   const [state, dispatch] = useReducer(reduceLiveState, liveState);
+  const venueKey = [...venueIds].sort().join(",");
   useEffect(() => {
     parseUuid(workspaceId);
     const client = browserSupabase(url, anonKey);
@@ -53,7 +61,7 @@ export function WorkspaceLiveRefresh({
     const refresh = createRefreshScheduler(() => {
       if (active && !revoked) router.refresh();
     });
-    const channel = client.channel("owner:" + workspaceId);
+    const channel = client.channel(scope + ":" + workspaceId);
     function revoke() {
       if (!active || revoked) return;
       revoked = true;
@@ -64,7 +72,7 @@ export function WorkspaceLiveRefresh({
         "peregrine-import:" + workspaceId + ":" + userId,
       );
       dispatch({ type: "SESSION_LOST" });
-      router.replace("/sign-in?next=%2Fowner");
+      router.replace("/sign-in?next=" + encodeURIComponent(destination));
       router.refresh();
     }
     async function validate() {
@@ -89,9 +97,16 @@ export function WorkspaceLiveRefresh({
           revoke();
           return false;
         }
-        const { data: allowed, error } = await client.rpc("crm_can_access", {
-          p_workspace: workspaceId,
-        });
+        const check =
+          scope === "owner"
+            ? await client.rpc("crm_can_access", { p_workspace: workspaceId })
+            : await client
+                .from("venues")
+                .select("id")
+                .eq("id", workspaceId)
+                .maybeSingle();
+        const allowed = Boolean(check.data);
+        const error = check.error;
         if (!active || revoked) return false;
         if (error) {
           dispatch({ type: navigator.onLine ? "CHANNEL_ERROR" : "OFFLINE" });
@@ -130,16 +145,19 @@ export function WorkspaceLiveRefresh({
         validating = false;
       }
     }
-    const tables = [
-      "crm_businesses",
-      "crm_contacts",
-      "crm_activities",
-      "crm_follow_ups",
-      "crm_clients",
-      "crm_client_tools",
-      "crm_billing_records",
-      "crm_tool_catalog",
-    ];
+    const tables =
+      scope === "venue"
+        ? ["bookings", "client_crm_entries"]
+        : [
+            "crm_businesses",
+            "crm_contacts",
+            "crm_activities",
+            "crm_follow_ups",
+            "crm_clients",
+            "crm_client_tools",
+            "crm_billing_records",
+            "crm_tool_catalog",
+          ];
     for (const table of tables)
       for (const event of ["INSERT", "UPDATE"] as const)
         channel.on(
@@ -148,10 +166,29 @@ export function WorkspaceLiveRefresh({
             event,
             schema: "public",
             table,
-            filter: "workspace_id=eq." + workspaceId,
+            filter:
+              (scope === "venue" ? "venue_id" : "workspace_id") +
+              "=eq." +
+              workspaceId,
           },
           () => refresh.schedule(),
         );
+    if (scope === "owner" && venueKey) {
+      for (const venueId of venueKey.split(",")) {
+        parseUuid(venueId);
+        for (const event of ["INSERT", "UPDATE"] as const)
+          channel.on(
+            "postgres_changes",
+            {
+              event,
+              schema: "public",
+              table: "bookings",
+              filter: "venue_id=eq." + venueId,
+            },
+            () => refresh.schedule(),
+          );
+      }
+    }
     void validate();
     const {
       data: { subscription },
@@ -211,7 +248,7 @@ export function WorkspaceLiveRefresh({
       window.removeEventListener("online", online);
       document.removeEventListener("visibilitychange", visibility);
     };
-  }, [workspaceId, userId, url, anonKey, router]);
+  }, [workspaceId, userId, url, anonKey, router, scope, destination, venueKey]);
   if (!state.authorized)
     return (
       <main className="owner-session-ended" role="alert">
@@ -220,7 +257,9 @@ export function WorkspaceLiveRefresh({
           Your workspace session ended. Private records have been cleared from
           this page.
         </p>
-        <a href="/sign-in?next=%2Fowner">Continue to sign-in</a>
+        <a href={"/sign-in?next=" + encodeURIComponent(destination)}>
+          Continue to sign-in
+        </a>
       </main>
     );
   return (

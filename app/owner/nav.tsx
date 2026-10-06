@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 const entries = [
   [
-    "Overview",
+    "Dashboard",
     "/owner",
     "M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
   ],
@@ -43,7 +43,7 @@ export function OwnerNav() {
         className={"owner-nav" + (open ? " owner-nav-open" : "")}
         aria-label="Owner workspace"
       >
-        <p className="owner-nav-label">Manage</p>
+        <p className="owner-nav-label">Agency</p>
         {entries.map(([label, href, icon]) => {
           const active =
             href === "/owner" ? path === href : path.startsWith(href);

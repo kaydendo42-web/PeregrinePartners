@@ -11,6 +11,7 @@ const ITEMS = [
   ["/list", "List"],
   ["/floor", "Floor plan"],
   ["/customers", "Customers"],
+  ["/crm", "Customer CRM"],
   ["/settings", "Settings"],
 ] as const;
 
