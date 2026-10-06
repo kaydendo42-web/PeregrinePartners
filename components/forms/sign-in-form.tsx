@@ -23,9 +23,11 @@ import {
  */
 export function SignInForm({
   next,
+  project = "booking",
   linkExpired,
 }: {
   next?: string;
+  project?: "booking" | "internal";
   linkExpired?: boolean;
 }) {
   const [mode, setMode] = useState<"password" | "link">("password");
@@ -70,6 +72,7 @@ export function SignInForm({
         className="flex flex-col items-start gap-[24px] transition-opacity duration-300"
         style={{ opacity: pending ? 0.55 : 1 }}
       >
+        <input type="hidden" name="project" value={project} />
         <input type="hidden" name="next" value={next ?? ""} />
 
         {linkExpired ? (

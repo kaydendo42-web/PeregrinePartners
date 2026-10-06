@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BRAND_NAME } from "@/lib/brand";
 import { requireOwner } from "@/lib/owner/access";
-import { signOut } from "@/app/sign-in/actions";
+import { signOutOwner } from "@/app/sign-in/actions";
 import { OwnerNav } from "./nav";
 import { supabaseEnv } from "@/lib/supabase/server";
 import {
@@ -10,6 +10,8 @@ import {
 } from "@/components/crm/live-refresh";
 import { OwnerShell } from "@/components/owner/shell";
 import { listClients, visibleVenues } from "@/lib/owner/clients";
+import { ownerBookingSession } from "@/lib/owner/bookings";
+import { BookingUpdates } from "@/components/owner/booking-updates";
 import { WorkspaceSwitcher } from "@/components/owner/workspace-switcher";
 import "./owner.css";
 import "./agency.css";
@@ -27,20 +29,19 @@ export default async function OwnerLayout({
   children: React.ReactNode;
 }) {
   const { context } = await requireOwner();
-  const env = supabaseEnv()!;
-  const [accounts, venues] = await Promise.all([
+  const env = supabaseEnv("internal")!;
+  const [accounts, venues, booking] = await Promise.all([
     listClients(context, { q: "", page: 1 }),
     visibleVenues(context),
+    ownerBookingSession(),
   ]);
+  const bookingEnv = supabaseEnv("booking");
   return (
     <WorkspaceLiveRefresh
       workspaceId={context.workspaceId}
       userId={context.userId}
       url={env.url}
       anonKey={env.key}
-      venueIds={venues
-        .filter((v) => accounts.rows.some((a) => a.venue_id === v.id))
-        .map((v) => v.id)}
     >
       <OwnerShell
         displayName={context.displayName}
@@ -55,7 +56,7 @@ export default async function OwnerLayout({
           />
         }
         signOutControl={
-          <form action={signOut}>
+          <form action={signOutOwner}>
             <button className="owner-signout">
               Sign out <span aria-hidden="true">↗</span>
             </button>
@@ -63,6 +64,16 @@ export default async function OwnerLayout({
         }
       >
         {children}
+        {booking && bookingEnv && venues.length ? (
+          <BookingUpdates
+            url={bookingEnv.url}
+            anonKey={bookingEnv.key}
+            userId={booking.user.id}
+            venueIds={venues
+              .filter((v) => accounts.rows.some((a) => a.venue_id === v.id))
+              .map((v) => v.id)}
+          />
+        ) : null}
       </OwnerShell>
     </WorkspaceLiveRefresh>
   );

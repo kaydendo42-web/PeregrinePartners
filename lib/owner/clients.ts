@@ -10,6 +10,7 @@ import type {
   BillingRecord,
   Tool,
 } from "@/lib/crm/types";
+import { ownerBookingSession } from "./bookings";
 export async function listClients(
   context: OwnerContext,
   query: { q: string; page: number },
@@ -74,9 +75,20 @@ export async function getClient(context: OwnerContext, id: string) {
 }
 export async function visibleVenues(context: OwnerContext) {
   const client = await ownerClient(context);
-  const { data, error } = await client
+  const { data: links, error: linkError } = await client
+    .from("crm_booking_links")
+    .select("venue_id")
+    .eq("workspace_id", context.workspaceId);
+  if (linkError) throw new Error("Could not load booking connections.");
+  const booking = await ownerBookingSession();
+  if (!booking || !links?.length) return [];
+  const { data, error } = await booking.client
     .from("venues")
     .select("id,name,slug")
+    .in(
+      "id",
+      links.map((l) => l.venue_id),
+    )
     .order("name")
     .limit(100);
   if (error) throw new Error("Could not load venue links.");

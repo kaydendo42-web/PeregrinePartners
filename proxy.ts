@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseEnv } from "@/lib/supabase/server";
-import { safeDestination } from "@/lib/auth/next";
+import { safeDestination, authProject } from "@/lib/auth/next";
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -15,7 +15,17 @@ import { safeDestination } from "@/lib/auth/next";
  * aal2 session — is what actually keeps the data shut.
  */
 export async function proxy(request: NextRequest) {
-  const env = supabaseEnv();
+  const path = request.nextUrl.pathname;
+  const project =
+    path === "/owner" || path.startsWith("/owner/")
+      ? "internal"
+      : path === "/console" || path.startsWith("/console/")
+        ? "booking"
+        : authProject(
+            request.nextUrl.searchParams.get("next"),
+            request.nextUrl.searchParams.get("project"),
+          );
+  const env = supabaseEnv(project);
   if (!env) return NextResponse.next();
   const { url, key } = env;
 
@@ -24,8 +34,10 @@ export async function proxy(request: NextRequest) {
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll: (list) => {
+        const previous = response.cookies.getAll();
         for (const { name, value } of list) request.cookies.set(name, value);
         response = NextResponse.next({ request });
+        for (const cookie of previous) response.cookies.set(cookie);
         for (const { name, value, options } of list)
           response.cookies.set(name, value, options);
       },
@@ -35,6 +47,28 @@ export async function proxy(request: NextRequest) {
   const {
     data: { user },
   } = await client.auth.getUser();
+
+  // Optional booking session is independent; its absence never blocks the CRM.
+  const bookingEnv =
+    project === "internal" && path.startsWith("/owner")
+      ? supabaseEnv("booking")
+      : null;
+  if (bookingEnv) {
+    const booking = createServerClient(bookingEnv.url, bookingEnv.key, {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (list) => {
+          const previous = response.cookies.getAll();
+          for (const { name, value } of list) request.cookies.set(name, value);
+          response = NextResponse.next({ request });
+          for (const cookie of previous) response.cookies.set(cookie);
+          for (const { name, value, options } of list)
+            response.cookies.set(name, value, options);
+        },
+      },
+    });
+    await booking.auth.getUser();
+  }
 
   if (
     ["/owner", "/console"].some(

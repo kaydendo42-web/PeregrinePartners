@@ -29,6 +29,17 @@ export function safeDestination(value: unknown): string | null {
 export function defaultDestination(requested: unknown, owner: boolean): string {
   return safeDestination(requested) ?? (owner ? "/owner" : "/console");
 }
+/** The selected project changes sign-in only, never authorization. */
+export function authProject(
+  next: unknown,
+  project?: unknown,
+): "booking" | "internal" {
+  if (project === "booking" || project === "internal") return project;
+  const path = safeDestination(next)?.split("?")[0];
+  return path === "/owner" || path?.startsWith("/owner/")
+    ? "internal"
+    : "booking";
+}
 export function credentialDestination(
   authenticated: boolean,
   level: string | null,

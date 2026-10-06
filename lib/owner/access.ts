@@ -7,8 +7,8 @@ import type { OwnerContext } from "@/lib/crm/types";
 
 export async function ownerSignedIn(): Promise<boolean> {
   await connection();
-  if (!supabaseEnv()) return false;
-  const client = await supabase();
+  if (!supabaseEnv("internal")) return false;
+  const client = await supabase("internal");
   const {
     data: { user },
     error,
@@ -22,8 +22,8 @@ export async function ownerSignedIn(): Promise<boolean> {
 /** Each data read and action uses this guard; the layout alone is insufficient. */
 export async function requireOwner() {
   await connection();
-  if (!supabaseEnv()) redirect("/sign-in?next=%2Fowner");
-  const client = await supabase();
+  if (!supabaseEnv("internal")) redirect("/sign-in?next=%2Fowner");
+  const client = await supabase("internal");
   const {
     data: { user },
     error: userError,

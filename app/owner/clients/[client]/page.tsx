@@ -5,7 +5,7 @@ import { listTools } from "@/lib/owner/tools";
 import { listMembers } from "@/lib/crm/query";
 import { localDate } from "@/lib/crm/time";
 import { invoiceState, formatMinor } from "@/lib/crm/money";
-import { bookingReport } from "@/lib/client-crm/data";
+import { ownerBookingReport, ownerBookingSession } from "@/lib/owner/bookings";
 import { reportPeriod } from "@/lib/booking/report";
 import { supabaseEnv } from "@/lib/supabase/server";
 import type { Contact } from "@/lib/crm/types";
@@ -45,8 +45,11 @@ export default async function ClientDetail({
   const days = reportPeriod(p.days);
   const venue = venues.find((v) => v.id === data.client.venue_id);
   const report =
-    tab === "dashboard" && venue ? await bookingReport(venue.id, days) : null;
-  const env = supabaseEnv()!;
+    tab === "dashboard" && venue
+      ? await ownerBookingReport(venue.id, days)
+      : null;
+  const env = supabaseEnv("booking")!;
+  const bookingSession = await ownerBookingSession();
   const newContact = {
     ...data.business,
     id: "new",
@@ -120,7 +123,7 @@ export default async function ClientDetail({
         venue && report ? (
           <WorkspaceLiveRefresh
             workspaceId={venue.id}
-            userId={context.userId}
+            userId={bookingSession!.user.id}
             url={env.url}
             anonKey={env.key}
             scope="venue"
@@ -193,8 +196,18 @@ export default async function ClientDetail({
                 ? "Your login needs access to the linked booking venue before its reports can appear."
                 : "Choose an existing booking venue in the account tab to see its live data here."}
             </p>
-            <Link className="owner-button" href="?tab=account">
-              Open account settings
+            <Link
+              className="owner-button"
+              href={
+                data.client.venue_id
+                  ? "/sign-in?project=booking&next=" +
+                    encodeURIComponent("/owner/clients/" + id)
+                  : "?tab=account"
+              }
+            >
+              {data.client.venue_id
+                ? "Sign in to client bookings"
+                : "Open account settings"}
             </Link>
           </section>
         )

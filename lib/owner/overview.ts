@@ -2,7 +2,7 @@ import "server-only";
 import { ownerClient, listMembers } from "@/lib/crm/query";
 import type { OwnerContext, Activity, FollowUp, Stage } from "@/lib/crm/types";
 import { listClients, visibleVenues } from "@/lib/owner/clients";
-import { bookingReport } from "@/lib/client-crm/data";
+import { ownerBookingReport } from "./bookings";
 import type { BookingReport } from "@/lib/booking/report";
 export type Overview = {
   clients: number;
@@ -65,7 +65,7 @@ export async function ownerOverview(
           name: a.business?.name ?? "Client",
           status: a.status,
           slug: venue?.slug ?? null,
-          report: venue ? await bookingReport(venue.id, days) : null,
+          report: venue ? await ownerBookingReport(venue.id, days) : null,
         };
       }),
     ),

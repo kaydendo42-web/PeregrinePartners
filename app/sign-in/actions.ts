@@ -3,7 +3,11 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
-import { safeDestination, defaultDestination } from "@/lib/auth/next";
+import {
+  safeDestination,
+  defaultDestination,
+  authProject,
+} from "@/lib/auth/next";
 
 export type SignInState = { error?: string; sent?: boolean };
 export type VerifyState = { error?: string };
@@ -17,19 +21,20 @@ export async function signInWithPassword(
   _: SignInState,
   form: FormData,
 ): Promise<SignInState> {
-  if (!supabaseEnv())
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
     return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password." };
 
-  const client = await supabase();
+  const client = await supabase(project);
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) return { error: "Those details did not match." };
   // A password is only the first step; the code from an authenticator app is
   // the second. The proxy would send them there anyway — this saves a hop.
   redirect(
-    `/sign-in/verify?next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
+    `/sign-in/verify?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
   );
 }
 
@@ -43,7 +48,8 @@ export async function verifyCode(
   _: VerifyState,
   form: FormData,
 ): Promise<VerifyState> {
-  if (!supabaseEnv())
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
     return { error: "Sign-in isn't switched on for this site yet." };
   const factorId = String(form.get("factor") ?? "");
   const code = String(form.get("code") ?? "").replace(/\s/g, "");
@@ -52,7 +58,7 @@ export async function verifyCode(
   if (!/^\d{6}$/.test(code))
     return { error: "Enter the six-digit code from your app." };
 
-  const client = await supabase();
+  const client = await supabase(project);
   const { error } = await client.auth.mfa.challengeAndVerify({
     factorId,
     code,
@@ -64,6 +70,7 @@ export async function verifyCode(
     };
   const explicit = safeDestination(form.get("next"));
   if (explicit) redirect(explicit);
+  if (project === "booking") redirect("/console");
   const { data: owner, error: ownerError } =
     await client.rpc("crm_owner_status");
   if (ownerError)
@@ -80,19 +87,20 @@ export async function sendSignInLink(
   _: SignInState,
   form: FormData,
 ): Promise<SignInState> {
-  if (!supabaseEnv())
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
     return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   if (!email) return { error: "Enter your email." };
 
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
-  const client = await supabase();
+  const client = await supabase(project);
   await client.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
+      emailRedirectTo: `${origin}/auth/confirm?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
     },
   });
   return { sent: true };
@@ -102,4 +110,16 @@ export async function signOut() {
   const client = await supabase();
   await client.auth.signOut();
   redirect("/sign-in");
+}
+
+export async function signOutOwner() {
+  const client = await supabase("internal");
+  await client.auth.signOut();
+  redirect("/sign-in?next=%2Fowner");
+}
+
+export async function signOutForProject(form: FormData) {
+  if (authProject(form.get("next"), form.get("project")) === "internal")
+    return signOutOwner();
+  return signOut();
 }

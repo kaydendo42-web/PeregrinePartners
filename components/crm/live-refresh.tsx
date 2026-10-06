@@ -72,7 +72,12 @@ export function WorkspaceLiveRefresh({
         "peregrine-import:" + workspaceId + ":" + userId,
       );
       dispatch({ type: "SESSION_LOST" });
-      router.replace("/sign-in?next=" + encodeURIComponent(destination));
+      router.replace(
+        "/sign-in?project=" +
+          (scope === "owner" ? "internal" : "booking") +
+          "&next=" +
+          encodeURIComponent(destination),
+      );
       router.refresh();
     }
     async function validate() {
@@ -257,7 +262,14 @@ export function WorkspaceLiveRefresh({
           Your workspace session ended. Private records have been cleared from
           this page.
         </p>
-        <a href={"/sign-in?next=" + encodeURIComponent(destination)}>
+        <a
+          href={
+            "/sign-in?project=" +
+            (scope === "owner" ? "internal" : "booking") +
+            "&next=" +
+            encodeURIComponent(destination)
+          }
+        >
           Continue to sign-in
         </a>
       </main>

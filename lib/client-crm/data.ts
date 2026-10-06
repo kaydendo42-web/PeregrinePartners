@@ -6,6 +6,7 @@ import { parseUuid } from "@/lib/crm/validation";
 import { reportRange } from "@/lib/booking/report";
 import type { BookingReport } from "@/lib/booking/report";
 import type { Venue, Booking } from "@/lib/console/data";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 async function signedIn() {
   await connection();
@@ -37,6 +38,15 @@ export async function bookingReport(
   days: number,
 ): Promise<BookingReport | null> {
   const { client } = await signedIn();
+  return readBookingReport(client, venueId, days);
+}
+
+/** The caller must supply a verified booking-project member session. */
+export async function readBookingReport(
+  client: SupabaseClient,
+  venueId: string,
+  days: number,
+): Promise<BookingReport | null> {
   const { data: venue, error } = await client
     .from("venues")
     .select("timezone")

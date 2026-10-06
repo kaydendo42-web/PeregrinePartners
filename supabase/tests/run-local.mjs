@@ -26,13 +26,18 @@ try {
     create policy booking_read on public.bookings for select to authenticated using(public.is_member(venue_id) and auth.jwt()->>'aal'='aal2');
     grant select on public.venues,public.bookings to authenticated;
     create publication supabase_realtime;`);
-  const migrations = (await readdir(new URL("../migrations/", import.meta.url)))
-    .filter((n) => n.startsWith("20261008") || n.endsWith("_client_crm_reporting.sql"))
-    .sort();
+  const migrations = [
+    ...(await readdir(new URL("../migrations/", import.meta.url)))
+      .filter((n) => n.endsWith("_client_crm_reporting.sql"))
+      .map((n) => ({ name: n, path: "../migrations/" })),
+    ...(await readdir(new URL("../legacy-owner/migrations/", import.meta.url)))
+      .filter((n) => n.endsWith(".sql"))
+      .map((n) => ({ name: n, path: "../legacy-owner/migrations/" })),
+  ].sort((a, b) => a.name.localeCompare(b.name));
   if (!migrations.length) throw new Error("No CRM migrations exist yet.");
-  for (const name of migrations) {
+  for (const { name, path } of migrations) {
     await db.exec(
-      await readFile(new URL("../migrations/" + name, import.meta.url), "utf8"),
+      await readFile(new URL(path + name, import.meta.url), "utf8"),
     );
     console.log("Migration passed:", name);
   }
@@ -50,6 +55,21 @@ try {
       for (const row of result.rows ?? [])
         if (row.verification) console.log(JSON.stringify(row.verification));
     console.log("Rollback checks passed:", name);
+  }
+  if (!process.argv[2]) {
+    await db.exec(
+      await readFile(
+        new URL("../operations/retire-internal-crm.sql", import.meta.url),
+        "utf8",
+      ),
+    );
+    await db.exec(`do $$ begin
+      if to_regclass('public.crm_businesses') is not null or to_regclass('public.crm_workspaces') is not null then raise exception 'Internal retirement incomplete'; end if;
+      if to_regclass('public.bookings') is null or to_regclass('public.client_crm_entries') is null or to_regclass('public.venue_members') is null then raise exception 'Client tables changed'; end if;
+      if to_regprocedure('public.booking_dashboard(uuid,date,date)') is null or to_regprocedure('public.client_crm_customers(uuid,text,integer)') is null then raise exception 'Client reporting changed'; end if;
+      if public.crm_owner_status() then raise exception 'Legacy owner routing remained active'; end if;
+    end $$;`);
+    console.log("Source retirement preserves client tables and reporting.");
   }
 } catch (error) {
   console.error(error.message, error.detail ?? "", error.where ?? "");

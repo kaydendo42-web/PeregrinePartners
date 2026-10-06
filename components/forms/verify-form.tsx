@@ -11,10 +11,24 @@ import { CodeCells } from "./code-cells";
  * after. There is no submit button to find: the sixth digit sends it. A wrong
  * code clears the boxes so the next try starts clean.
  */
-export function VerifyForm({ factorId, next }: { factorId: string; next: string }) {
+export function VerifyForm({
+  factorId,
+  next,
+  project = "booking",
+}: {
+  factorId: string;
+  next: string;
+  project?: "booking" | "internal";
+}) {
   // Counting tries here, not on the server: each failed try remounts the boxes empty.
-  const [state, action, pending] = useActionState<VerifyState & { tries: number }, FormData>(
-    async (prev, data) => ({ ...(await verifyCode(prev, data)), tries: prev.tries + 1 }),
+  const [state, action, pending] = useActionState<
+    VerifyState & { tries: number },
+    FormData
+  >(
+    async (prev, data) => ({
+      ...(await verifyCode(prev, data)),
+      tries: prev.tries + 1,
+    }),
     { tries: 0 },
   );
   const form = useRef<HTMLFormElement>(null);
@@ -22,13 +36,27 @@ export function VerifyForm({ factorId, next }: { factorId: string; next: string 
   const submit = useCallback(() => form.current?.requestSubmit(), []);
 
   return (
-    <form ref={form} action={action} className="flex flex-col items-start gap-[20px]">
+    <form
+      ref={form}
+      action={action}
+      className="flex flex-col items-start gap-[20px]"
+    >
       <input type="hidden" name="factor" value={factorId} />
+      <input type="hidden" name="project" value={project} />
       <input type="hidden" name="next" value={next} />
 
-      <fieldset disabled={pending} className="w-full transition-opacity duration-300" style={{ opacity: pending ? 0.5 : 1 }}>
+      <fieldset
+        disabled={pending}
+        className="w-full transition-opacity duration-300"
+        style={{ opacity: pending ? 0.5 : 1 }}
+      >
         <legend className="sr-only">{signInVerify.label}</legend>
-        <CodeCells key={state.tries} name="code" invalid={Boolean(state.error)} onComplete={submit} />
+        <CodeCells
+          key={state.tries}
+          name="code"
+          invalid={Boolean(state.error)}
+          onComplete={submit}
+        />
       </fieldset>
 
       {pending ? (

@@ -14,6 +14,8 @@ export function ClientForm({
   members: Member[];
   venues: { id: string; name: string }[];
 }) {
+  const linkedVenue =
+    typeof record.venue_id === "string" ? record.venue_id : null;
   const fields: Field[] = [
     ...(!record.id || record.id === "new"
       ? [{ name: "name", label: "Business name", required: true }]
@@ -31,6 +33,14 @@ export function ClientForm({
       label: "Booking venue",
       options: [
         { value: "", label: "No linked venue" },
+        ...(linkedVenue && !venues.some((v) => v.id === linkedVenue)
+          ? [
+              {
+                value: linkedVenue,
+                label: "Linked venue · sign in to view bookings",
+              },
+            ]
+          : []),
         ...venues.map((v) => ({ value: v.id, label: v.name })),
       ],
       hint: "Only venues you already have access to are available.",

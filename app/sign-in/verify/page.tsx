@@ -5,7 +5,11 @@ import { AuthFrame } from "@/components/auth-frame";
 import { TwoStepView } from "@/components/two-step-view";
 import { signInVerify } from "@/lib/content";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
-import { safeDestination, defaultDestination } from "@/lib/auth/next";
+import {
+  safeDestination,
+  defaultDestination,
+  authProject,
+} from "@/lib/auth/next";
 
 export const metadata: Metadata = {
   title: { absolute: `Two-step sign-in · ${BRAND_NAME}` },
@@ -21,15 +25,20 @@ export const metadata: Metadata = {
 export default async function Verify({
   searchParams,
 }: PageProps<"/sign-in/verify">) {
-  const { next: nextParam } = await searchParams;
-  const next = safeDestination(nextParam) ?? "";
+  const { next: nextParam, project: projectParam } = await searchParams;
+  const project = authProject(nextParam, projectParam);
+  const next =
+    safeDestination(nextParam) ??
+    (project === "internal" ? "/owner" : "/console");
 
-  if (!supabaseEnv()) redirect("/sign-in");
-  const client = await supabase();
+  if (!supabaseEnv(project))
+    redirect(`/sign-in?project=${project}&next=${encodeURIComponent(next)}`);
+  const client = await supabase(project);
   const {
     data: { user },
   } = await client.auth.getUser();
-  if (!user) redirect(`/sign-in?next=${encodeURIComponent(next)}`);
+  if (!user)
+    redirect(`/sign-in?project=${project}&next=${encodeURIComponent(next)}`);
 
   const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
   if (aal?.currentLevel === "aal2") {
@@ -69,6 +78,7 @@ export default async function Verify({
       <TwoStepView
         factorId={verified?.id ?? setup!.factorId}
         next={next}
+        project={project}
         setup={setup ? { qr: setup.qr, secret: setup.secret } : null}
       />
     </AuthFrame>
