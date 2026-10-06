@@ -16,7 +16,7 @@ export function OwnerShell({
   children: ReactNode;
 }) {
   return (
-    <div className="owner-shell">
+    <div className="owner-shell owner-agency">
       <a className="owner-skip" href="#owner-content">
         Skip to content
       </a>

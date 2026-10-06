@@ -7,6 +7,7 @@ import type { Stage, Business, PageResult } from "@/lib/crm/types";
 import { Filters } from "@/components/crm/filters";
 import { BusinessTable } from "@/components/crm/table";
 import { BusinessBoard } from "@/components/crm/board";
+import { AgencyHeading } from "@/components/owner/agency-presentation";
 export default async function Outreach({
   searchParams,
 }: {
@@ -60,34 +61,41 @@ export default async function Outreach({
       : null;
   return (
     <>
-      <div className="owner-page-head">
-        <div>
-          <p className="owner-eyebrow">Grow together</p>
-          <h1>{query.stopped ? "Stopped outreach" : "Outreach"}</h1>
-          <p className="owner-muted">
-            One shared pipeline. Every conversation in context.
-          </p>
-        </div>
-        <div className="owner-actions">
-          <Link
-            className="owner-button owner-button-secondary"
-            href="/owner/outreach/new"
-          >
-            Add business
-          </Link>
-          <Link className="owner-button" href="/owner/outreach/import">
-            Import CSV ↗
-          </Link>
-        </div>
-      </div>
+      <AgencyHeading
+        section="outreach"
+        title={query.stopped ? "Stopped outreach" : "Outreach"}
+        description="One shared pipeline. Every conversation in context."
+      >
+        <Link
+          className="owner-button owner-button-secondary"
+          href="/owner/outreach/new"
+        >
+          Add business
+        </Link>
+        <Link className="owner-button" href="/owner/outreach/import">
+          Import CSV ↗
+        </Link>
+      </AgencyHeading>
       <div className="owner-shortcuts">
-        <Link href="/owner/outreach?tag=top-100&sort=source_row">
+        <Link
+          data-queue="top-100"
+          aria-current={query.tag === "top-100" ? "page" : undefined}
+          href="/owner/outreach?tag=top-100&sort=source_row"
+        >
           Top 100 leads
         </Link>
-        <Link href="/owner/outreach?tag=top-500&sort=source_row">
+        <Link
+          data-queue="top-500"
+          aria-current={query.tag === "top-500" ? "page" : undefined}
+          href="/owner/outreach?tag=top-500&sort=source_row"
+        >
           Top 500 leads
         </Link>
-        <Link href="/owner/outreach?tag=direct-contact&sort=source_row">
+        <Link
+          data-queue="direct-contact"
+          aria-current={query.tag === "direct-contact" ? "page" : undefined}
+          href="/owner/outreach?tag=direct-contact&sort=source_row"
+        >
           Email or phone available
         </Link>
         <Link href={"/owner/outreach?owner=" + context.userId}>
@@ -99,12 +107,24 @@ export default async function Outreach({
         <Link href="/owner/outreach?incomplete=1">Incomplete contact</Link>
         <Link href="/owner/outreach?stopped=1">Stopped outreach</Link>
       </div>
-      <section className="owner-panel">
+      <section className="owner-panel agency-work-panel">
         <Filters query={query} members={members} />
         <div className="owner-panel-head">
-          <span className="owner-small owner-muted">
-            {page.total} businesses
-          </span>
+          <div className="agency-group-heading">
+            <span className="agency-group-dot" aria-hidden="true" />
+            <h2>
+              {query.tag === "top-100"
+                ? "Top 100 leads"
+                : query.tag === "top-500"
+                  ? "Top 500 leads"
+                  : query.stopped
+                    ? "Stopped outreach"
+                    : "Business pipeline"}
+            </h2>
+            <span className="agency-count">
+              {page.total.toLocaleString()} businesses
+            </span>
+          </div>
           <div className="owner-view-toggle">
             <Link
               aria-current={query.view === "table" ? "page" : undefined}
@@ -125,6 +145,7 @@ export default async function Outreach({
             columns={columns}
             url={url}
             visibleStages={boardStages(query)}
+            members={members}
           />
         ) : page.rows.length ? (
           <BusinessTable

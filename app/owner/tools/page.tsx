@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/owner/access";
 import { listTools } from "@/lib/owner/tools";
 import { ToolForm } from "./tool-form";
+import { AgencyHeading } from "@/components/owner/agency-presentation";
 const descriptions: Record<string, string> = {
   bookings: "Booking diaries, floor plans and reports from linked venues.",
   crm: "Customer profiles, booking history, notes and follow-up tasks.",
@@ -22,24 +23,25 @@ export default async function Tools() {
   const usage = summary.data.tools as { id: string; clients: number }[];
   return (
     <>
-      <div className="owner-page-head">
-        <div>
-          <p className="owner-eyebrow">Peregrine toolkit</p>
-          <h1>Services & tools</h1>
-          <p className="owner-muted">
-            What you offer, who subscribes and what each tool does.
-          </p>
-        </div>
+      <AgencyHeading
+        section="tools"
+        title="Services & tools"
+        description="What you offer, who subscribes and what each tool does."
+      >
         <Link
           className="owner-button owner-button-secondary"
           href="/owner/clients"
         >
           Manage client services →
         </Link>
-      </div>
+      </AgencyHeading>
       <div className="dash-tool-cards">
         {tools.map((t) => (
-          <section className="owner-panel dash-tool-card" key={t.id}>
+          <section
+            className="owner-panel dash-tool-card"
+            data-tool={t.slug}
+            key={t.id}
+          >
             <div className="owner-panel-body">
               <span className="dash-service-symbol" aria-hidden="true">
                 {t.slug === "bookings" ? "▦" : t.slug === "crm" ? "◫" : "↗"}

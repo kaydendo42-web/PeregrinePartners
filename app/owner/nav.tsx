@@ -51,6 +51,7 @@ export function OwnerNav() {
             <Link
               key={href}
               href={href}
+              data-section={href.split("/")[2] ?? "dashboard"}
               aria-current={active ? "page" : undefined}
               onClick={() => setOpen(false)}
             >

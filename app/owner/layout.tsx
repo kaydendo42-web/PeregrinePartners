@@ -11,6 +11,7 @@ import { OwnerShell } from "@/components/owner/shell";
 import { listClients, visibleVenues } from "@/lib/owner/clients";
 import { WorkspaceSwitcher } from "@/components/owner/workspace-switcher";
 import "./owner.css";
+import "./agency.css";
 
 export const metadata: Metadata = {
   title: "Owner workspace",

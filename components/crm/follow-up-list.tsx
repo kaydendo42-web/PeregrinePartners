@@ -4,6 +4,8 @@ import { useState, useCallback } from "react";
 import type { FollowUp, Member } from "@/lib/crm/types";
 import { retainDirtyRows } from "@/lib/crm/queues";
 import { FollowUpForm } from "./follow-up-form";
+import { displayTime } from "@/lib/crm/time";
+import { PersonBadge } from "@/components/owner/agency-presentation";
 
 export function FollowUpList({
   rows,
@@ -36,12 +38,27 @@ export function FollowUpList({
         const outside = !rows.some((row) => row.id === f.id);
         return (
           <details
-            className="owner-contact"
+            className="owner-contact agency-followup"
+            data-state={f.state}
             key={f.id}
             open={outside ? true : undefined}
           >
             <summary>
-              {f.business?.name} · {f.instruction}
+              <span className="agency-task-mark" aria-hidden="true">
+                {f.state === "done" ? "✓" : f.state === "cancelled" ? "–" : "○"}
+              </span>
+              <span className="agency-task-copy">
+                <strong>{f.business?.name}</strong>
+                <span>{f.instruction}</span>
+              </span>
+              <span className="agency-task-date">
+                {displayTime(f.due_at, timezone)}
+              </span>
+              <PersonBadge
+                name={
+                  members.find((m) => m.user_id === f.assigned_to)?.display_name
+                }
+              />
             </summary>
             {outside ? (
               <p className="owner-notice">

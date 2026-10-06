@@ -5,6 +5,7 @@ import type { FollowUpFilter } from "@/lib/crm/query";
 import { dayBounds } from "@/lib/crm/time";
 import { parseVersion } from "@/lib/crm/validation";
 import { FollowUpList } from "@/components/crm/follow-up-list";
+import { AgencyHeading } from "@/components/owner/agency-presentation";
 export default async function FollowUps({
   searchParams,
 }: {
@@ -40,28 +41,31 @@ export default async function FollowUps({
   ]);
   return (
     <>
-      <div className="owner-page-head">
-        <div>
-          <p className="owner-eyebrow">Keep things moving</p>
-          <h1>Follow-ups</h1>
-          <p className="owner-muted">
-            The next step for every conversation. Times in {context.timezone}.
-          </p>
-        </div>
-      </div>
+      <AgencyHeading
+        section="follow-ups"
+        title="Follow-ups"
+        description={`The next step for every conversation. Times in ${context.timezone}.`}
+      />
       <div className="owner-shortcuts">
         {["overdue", "today", "upcoming", "all"].map((v) => (
           <Link
             key={v}
-            aria-current={period === v ? "page" : undefined}
+            data-queue={v}
+            aria-current={state === "open" && period === v ? "page" : undefined}
             href={"/owner/follow-ups?period=" + v}
           >
             {v.charAt(0).toUpperCase() + v.slice(1)}
           </Link>
         ))}
-        <Link href="/owner/follow-ups?state=done&period=all">Completed</Link>
+        <Link
+          data-queue="completed"
+          aria-current={state === "done" ? "page" : undefined}
+          href="/owner/follow-ups?state=done&period=all"
+        >
+          Completed
+        </Link>
       </div>
-      <form className="owner-actions">
+      <form className="owner-actions agency-followup-filter">
         <input type="hidden" name="period" value={period} />
         <input type="hidden" name="state" value={state} />
         <label className="owner-field">
@@ -79,7 +83,25 @@ export default async function FollowUps({
       </form>
       <section className="owner-panel owner-section">
         <div className="owner-panel-head">
-          <h2>{result.total} follow-ups</h2>
+          <div className="agency-group-heading" data-section="follow-ups">
+            <span className="agency-group-dot" aria-hidden="true" />
+            <h2>
+              {state === "done"
+                ? "Completed follow-ups"
+                : state === "cancelled"
+                  ? "Cancelled follow-ups"
+                  : period === "overdue"
+                    ? "Overdue follow-ups"
+                    : period === "today"
+                      ? "Today's follow-ups"
+                      : period === "upcoming"
+                        ? "Upcoming follow-ups"
+                        : "All follow-ups"}
+            </h2>
+            <span className="agency-count">
+              {result.total.toLocaleString()}
+            </span>
+          </div>
         </div>
         <div className="owner-panel-body">
           <FollowUpList

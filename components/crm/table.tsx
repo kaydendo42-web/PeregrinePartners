@@ -9,6 +9,10 @@ import { useMutation, SaveFeedback } from "./draft-state";
 import { toggleSelection, selectionChanged } from "@/lib/crm/queues";
 import type { SelectedRecord } from "@/lib/crm/queues";
 import { leadResearch } from "@/lib/crm/lead-research";
+import {
+  PersonBadge,
+  ResearchTags,
+} from "@/components/owner/agency-presentation";
 export function BusinessTable({
   rows,
   members,
@@ -169,7 +173,7 @@ export function BusinessTable({
         </div>
       ) : null}
       <div className="owner-table-scroll">
-        <table className="owner-table">
+        <table className="owner-table agency-outreach-table">
           <thead>
             <tr>
               <th>
@@ -210,8 +214,13 @@ export function BusinessTable({
           <tbody>
             {rows.map((b) => {
               const research = leadResearch(b.source_fields);
+              const contact = b.contacts?.[0];
               return (
-                <tr key={b.id}>
+                <tr
+                  key={b.id}
+                  data-stage={b.stage}
+                  data-selected={selected.some((s) => s.id === b.id)}
+                >
                   <td>
                     <input
                       type="checkbox"
@@ -228,14 +237,16 @@ export function BusinessTable({
                   <td>
                     <Link href={"/owner/outreach/" + b.id}>{b.name}</Link>
                     {research.rank ? (
-                      <small>
-                        Rank {research.rank}
-                        {research.score
-                          ? ` · Research score ${research.score}`
-                          : ""}
+                      <small className="agency-research">
+                        <span className="agency-rank">
+                          Rank {research.rank}
+                        </span>
+                        {research.score ? (
+                          <span>Score {research.score}</span>
+                        ) : null}
                       </small>
                     ) : null}
-                    {b.tags.length ? <small>{b.tags.join(" · ")}</small> : null}
+                    {b.tags.length ? <ResearchTags tags={b.tags} /> : null}
                     {b.do_not_contact ? (
                       <small className="owner-badge-danger">
                         Do not contact
@@ -243,24 +254,46 @@ export function BusinessTable({
                     ) : null}
                   </td>
                   <td>{b.location || "—"}</td>
-                  <td>{b.industry || "—"}</td>
                   <td>
-                    {b.contacts?.[0]?.name ||
-                      b.contacts?.[0]?.email ||
-                      b.contacts?.[0]?.phone ||
-                      "Incomplete"}
-                    <small>{b.contacts?.[0]?.email}</small>
+                    <span className="agency-industry">
+                      {b.industry?.replaceAll("_", " ") || "—"}
+                    </span>
                   </td>
                   <td>
-                    <span className="owner-badge" data-stage={b.stage}>
+                    {contact?.name ||
+                      contact?.email ||
+                      contact?.phone ||
+                      "Incomplete"}
+                    {contact?.name && contact.email ? (
+                      <small>{contact.email}</small>
+                    ) : contact?.email && contact.phone ? (
+                      <small>{contact.phone}</small>
+                    ) : null}
+                  </td>
+                  <td>
+                    <span
+                      className="owner-badge agency-status"
+                      data-stage={b.stage}
+                    >
                       {stageLabels[b.stage]}
                     </span>
                   </td>
                   <td>
-                    {members.find((m) => m.user_id === b.assigned_to)
-                      ?.display_name ?? "Unassigned"}
+                    <PersonBadge
+                      name={
+                        members.find((m) => m.user_id === b.assigned_to)
+                          ?.display_name
+                      }
+                    />
                   </td>
-                  <td>{b.priority}</td>
+                  <td>
+                    <span
+                      className="agency-priority"
+                      data-priority={b.priority}
+                    >
+                      {b.priority}
+                    </span>
+                  </td>
                   <td>
                     {b.last_contact
                       ? displayTime(b.last_contact, timezone)

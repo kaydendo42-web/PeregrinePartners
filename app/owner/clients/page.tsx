@@ -4,6 +4,10 @@ import { listClients, visibleVenues } from "@/lib/owner/clients";
 import { listMembers } from "@/lib/crm/query";
 import { parseVersion, text } from "@/lib/crm/validation";
 import { ClientForm } from "./client-form";
+import {
+  AgencyHeading,
+  PersonBadge,
+} from "@/components/owner/agency-presentation";
 export default async function Clients({
   searchParams,
 }: {
@@ -23,18 +27,15 @@ export default async function Clients({
   ]);
   return (
     <>
-      <div className="owner-page-head">
-        <div>
-          <p className="owner-eyebrow">Relationships that last</p>
-          <h1>Clients</h1>
-          <p className="owner-muted">
-            Every client, their tools and the people looking after them.
-          </p>
-        </div>
+      <AgencyHeading
+        section="clients"
+        title="Clients"
+        description="Every client, their tools and the people looking after them."
+      >
         <Link className="owner-button" href="#add-client">
           Add client ↗
         </Link>
-      </div>
+      </AgencyHeading>
       <section className="owner-panel">
         <form className="owner-filters">
           <label className="owner-field owner-filter-search">
@@ -47,7 +48,7 @@ export default async function Clients({
         </form>
         {result.rows.length ? (
           <div className="owner-table-scroll">
-            <table className="owner-table">
+            <table className="owner-table agency-client-table">
               <thead>
                 <tr>
                   <th>Client</th>
@@ -69,11 +70,18 @@ export default async function Clients({
                       </small>
                     </td>
                     <td>
-                      <span className="owner-badge">{c.status}</span>
+                      <span className="owner-badge" data-status={c.status}>
+                        {c.status}
+                      </span>
                     </td>
                     <td>
-                      {members.find((m) => m.user_id === c.relationship_owner)
-                        ?.display_name ?? "Unassigned"}
+                      <PersonBadge
+                        name={
+                          members.find(
+                            (m) => m.user_id === c.relationship_owner,
+                          )?.display_name
+                        }
+                      />
                     </td>
                     <td>
                       {venues.find((v) => v.id === c.venue_id)?.name ??
