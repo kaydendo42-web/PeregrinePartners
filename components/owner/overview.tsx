@@ -179,13 +179,23 @@ export function OverviewView({
             </Link>
           </div>
           <div className="dash-quick-start">
-            <strong>Grow your pipeline</strong>
-            <p>Import your ranked list, then work through Top 100.</p>
+            <strong>
+              {data.prospects > 0 ? "Start your outreach" : "Grow your pipeline"}
+            </strong>
+            <p>
+              {data.prospects > 0
+                ? "Work through your Top 100, assign an owner and record each conversation."
+                : "Import your ranked list, then work through Top 100."}
+            </p>
             <Link
               className="owner-button owner-button-secondary"
-              href="/owner/outreach/import"
+              href={
+                data.prospects > 0
+                  ? "/owner/outreach?tag=top-100&sort=source_row"
+                  : "/owner/outreach/import"
+              }
             >
-              Import businesses →
+              {data.prospects > 0 ? "Open Top 100 →" : "Import businesses →"}
             </Link>
           </div>
         </section>
