@@ -705,7 +705,7 @@ export const signIn = {
 export const signInVerify = {
   eyebrow: "Two-step sign-in",
   heading: "One more step.",
-  sub: "Open your authenticator app and enter the code it shows for Peregrine.",
+  sub: "Open your authenticator app and enter the code for your workspace.",
   setupHeading: "Lock your console with your phone.",
   setupSub:
     "Your console holds your guests' names, numbers and notes. From now on, signing in takes your password and a code from your phone, so a password on its own is never enough. You set this up once.",
@@ -715,18 +715,18 @@ export const signInVerify = {
       body: "Google Authenticator, Microsoft Authenticator or 1Password. Free, on your phone.",
     },
     {
-      title: "Add Peregrine",
+      title: "Add Peregrine Office",
       body: "In the app, tap + and scan the code. Setting up on this phone? Copy the key instead.",
     },
     { title: "Enter the six digits it shows", body: "" },
   ],
-  qrAlt: "QR code that adds Peregrine to your authenticator app",
+  qrAlt: "QR code that adds Peregrine Office to your authenticator app",
   label: "Six-digit code",
   hint: "The code changes every 30 seconds. Any current one works.",
   checking: "Checking the code",
   preparing: "Preparing two-step sign-in",
   opening: "Opening your console",
-  lost: "Lost your phone? Contact Peregrine and we'll reset it for you.",
+  lost: "Lost your phone? Contact Peregrine Office and we'll reset it for you.",
   signOut: "Sign out",
 };
 

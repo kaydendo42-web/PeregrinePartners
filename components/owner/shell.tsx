@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BRAND_NAME } from "@/lib/brand";
 
 export function OwnerShell({
   displayName,
@@ -26,7 +27,7 @@ export function OwnerShell({
             P↗
           </span>
           <span>
-            Peregrine<span className="owner-brand-sub">Partners</span>
+            Peregrine<span className="owner-brand-sub">Office</span>
           </span>
         </div>
         {workspaceControl ?? (
@@ -35,7 +36,7 @@ export function OwnerShell({
               P
             </span>
             <span>
-              Founder workspace<small>Peregrine Partners</small>
+              Founder workspace<small>{BRAND_NAME}</small>
             </span>
             <span aria-hidden="true">⌄</span>
           </div>
@@ -57,7 +58,7 @@ export function OwnerShell({
       <main id="owner-content" className="owner-main">
         <header className="owner-header">
           <span>
-            <strong>Peregrine Partners</strong>{" "}
+            <strong>{BRAND_NAME}</strong>{" "}
             <span className="owner-muted">/</span> Agency workspace
           </span>
           <div className="dash-header-actions">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BRAND_NAME } from "@/lib/brand";
 import { requireOwner } from "@/lib/owner/access";
 import { signOut } from "@/app/sign-in/actions";
 import { OwnerNav } from "./nav";
@@ -14,7 +15,10 @@ import "./owner.css";
 import "./agency.css";
 
 export const metadata: Metadata = {
-  title: "Owner workspace",
+  title: {
+    absolute: `Founder workspace · ${BRAND_NAME}`,
+    template: `%s · ${BRAND_NAME}`,
+  },
   robots: { index: false, follow: false },
 };
 export default async function OwnerLayout({

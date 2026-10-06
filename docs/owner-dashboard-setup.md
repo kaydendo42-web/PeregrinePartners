@@ -1,6 +1,6 @@
 # Founder workspace setup
 
-The founder workspace lives at `/owner` in the existing Peregrine application.
+The Peregrine Office founder workspace lives at `/owner` in the existing Peregrine Office application.
 It uses the existing Supabase project and Vercel project. Do not create another
 database for this release. Ordinary client accounts continue to use their venue
 console; a venue `owner` role does not grant founder access.
@@ -148,11 +148,17 @@ the server filter. Only the server responses use synthetic test fixtures; the
 actual form components run in Chrome.
 
 The existing Supabase resource was verified through Peregrine's Vercel integration.
-All eight founder migrations are applied and their history versions match these
+The eight founder migrations preceding the brand rename are applied and their history versions match these
 files. The older booking schema was already present with no recorded migration
 history; do not run a blanket `db push` against it without first reconciling that
 baseline. Its current tables include provider-side adjustments, so older migration
 files must not be blindly rerun or marked as identical to the live baseline.
+
+The internal workspace is now named **Peregrine Office**. The rename was applied
+through Supabase's migration mechanism, which recorded it as `20261006051307`.
+The repository's `20261008005002_rename_peregrine_office.sql` follows its existing
+CRM dependencies. Aligning only this new history record requires approval before
+using automated schema deployment; the earlier records have not been changed.
 
 Live rollback checks passed for anonymous/non-owner denial, MFA, workspace
 isolation, revoked membership, direct-write denial, actor attribution, stale

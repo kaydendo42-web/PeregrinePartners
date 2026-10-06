@@ -1,4 +1,5 @@
 "use client";
+import { BRAND_NAME } from "@/lib/brand";
 import { useRouter, usePathname } from "next/navigation";
 export function WorkspaceSwitcher({
   clients,
@@ -30,7 +31,7 @@ export function WorkspaceSwitcher({
             )
           }
         >
-          <option value="agency">Peregrine · Agency</option>
+          <option value="agency">{BRAND_NAME} · Agency</option>
           {clients.map((c) => (
             <option value={c.id} key={c.id}>
               {c.name}

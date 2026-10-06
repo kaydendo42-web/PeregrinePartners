@@ -1,4 +1,4 @@
-# Onboard a new venue onto Peregrine bookings — copy-paste prompt
+# Onboard a new venue onto Peregrine Office bookings — copy-paste prompt
 
 Fill in the **Venue brief** block, attach the floor plan (and venue photos if
 you have them), and paste everything below the line into Claude Code, opened

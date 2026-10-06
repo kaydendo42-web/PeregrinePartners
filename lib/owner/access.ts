@@ -41,7 +41,7 @@ export async function requireOwner() {
     await client.rpc("crm_owner_status");
   if (ownerError)
     throw new Error(
-      "The owner workspace needs setup. Please contact Peregrine.",
+      "The owner workspace needs setup. Please contact Peregrine Office.",
     );
   if (isOwner !== true) notFound();
   const { data: workspace, error: workspaceError } = await client

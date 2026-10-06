@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BRAND_NAME } from "@/lib/brand";
 import { redirect } from "next/navigation";
 import { AuthFrame } from "@/components/auth-frame";
 import { TwoStepView } from "@/components/two-step-view";
@@ -7,7 +8,7 @@ import { supabase, supabaseEnv } from "@/lib/supabase/server";
 import { safeDestination, defaultDestination } from "@/lib/auth/next";
 
 export const metadata: Metadata = {
-  title: "Two-step sign-in",
+  title: { absolute: `Two-step sign-in · ${BRAND_NAME}` },
   robots: { index: false, follow: false },
 };
 
@@ -53,7 +54,7 @@ export default async function Verify({
     const { data, error } = await client.auth.mfa.enroll({
       factorType: "totp",
       friendlyName: "Authenticator app",
-      issuer: "Peregrine",
+      issuer: BRAND_NAME,
     });
     if (error || !data)
       throw new Error(`Could not start two-step setup: ${error?.message}`);

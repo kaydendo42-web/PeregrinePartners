@@ -49,7 +49,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ venue
           You are signed in as {user.email}.
         </p>
       </section>
-      <p className="console-muted">To change your venue details, floor or who has access, get in touch with Peregrine.</p>
+      <p className="console-muted">To change your venue details, floor or who has access, get in touch with Peregrine Office.</p>
     </div>
   );
 }

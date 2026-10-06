@@ -1,4 +1,4 @@
-# Peregrine console: setup
+# Peregrine Office console: setup
 
 The console lives at `www.peregrinepartners.space/console`, in this repo
 (`kaydendo42-web/PeregrinePartners`, Vercel project `peregrine-partners`).

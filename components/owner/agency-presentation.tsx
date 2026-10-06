@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BRAND_NAME } from "@/lib/brand";
 
 type AgencySection = "clients" | "outreach" | "follow-ups" | "tools";
 const icons: Record<AgencySection, string> = {
@@ -39,7 +40,7 @@ export function AgencyHeading({
           </svg>
         </span>
         <div>
-          <p className="owner-eyebrow">Peregrine agency</p>
+          <p className="owner-eyebrow">{BRAND_NAME} agency</p>
           <h1>{title}</h1>
           <p className="owner-muted">{description}</p>
         </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND_NAME } from "@/lib/brand";
 import type { Overview } from "@/lib/owner/overview";
 import { stages, stageLabels } from "@/lib/crm/types";
 import { displayTime } from "@/lib/crm/time";
@@ -21,7 +22,7 @@ export function OverviewView({
     <>
       <div className="owner-page-head">
         <div>
-          <p className="owner-eyebrow">Peregrine · Agency</p>
+          <p className="owner-eyebrow">{BRAND_NAME} · Agency</p>
           <h1>Agency dashboard</h1>
           <p className="owner-muted">
             Your clients, pipeline and priorities in one place.
