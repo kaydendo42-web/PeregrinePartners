@@ -154,3 +154,66 @@ export async function setTable(slug: string, id: string, _: TableState, form: Fo
   revalidatePath(`/console/${slug}`, "layout");
   return {};
 }
+
+export type EditState = { error?: string };
+
+/**
+ * Change a booking's day, time, party size or table, and the venue's own
+ * notes on it. The sitting is worked out again only when the party size
+ * changes, so an imported booking keeps the length it came with. The
+ * database refuses a table someone else holds at the new time.
+ */
+export async function updateBooking(slug: string, id: string, _: EditState, form: FormData): Promise<EditState> {
+  if (demoOn()) return { error: "Demo mode: nothing is saved until Supabase is connected." };
+  const venue = await venueBySlug(slug);
+  const { client } = await requireUser();
+
+  const { data: was } = await client
+    .from("bookings")
+    .select("starts_at,ends_at,party_size")
+    .eq("venue_id", venue.id)
+    .eq("id", id)
+    .maybeSingle();
+  if (!was) return { error: "That booking isn't here any more." };
+
+  const date = String(form.get("date") ?? "");
+  const time = String(form.get("time") ?? "");
+  const party = Number(form.get("party"));
+  const tableIds = parseTables(form.get("table"));
+
+  if (!isDateKey(date) || !/^\d{2}:\d{2}$/.test(time)) return { error: "Choose a date and a time." };
+  if (!Number.isInteger(party) || party < 1 || party > 60) return { error: "Party size must be between 1 and 60." };
+
+  if (tableIds.length === 1) {
+    const { data: table } = await client
+      .from("venue_tables")
+      .select("label,seats")
+      .eq("venue_id", venue.id)
+      .eq("id", tableIds[0])
+      .maybeSingle();
+    if (!table) return { error: "That table isn't on the floor plan." };
+    if (table.seats < party) return { error: `Table ${table.label} seats ${table.seats}. Choose a bigger table or none.` };
+  }
+
+  const start = zoned(date, time, venue.timezone);
+  const span =
+    party === was.party_size
+      ? new Date(was.ends_at).getTime() - new Date(was.starts_at).getTime()
+      : (sittingFor(party) + TURNAROUND) * 60_000;
+  const change: Record<string, unknown> = {
+    starts_at: start.toISOString(),
+    ends_at: new Date(start.getTime() + span).toISOString(),
+    party_size: party,
+    table_ids: tableIds,
+    notes: String(form.get("notes") ?? "").trim() || null,
+    staff_notes: String(form.get("staff_notes") ?? "").trim() || null,
+  };
+  if (party !== was.party_size) change.duration_min = sittingFor(party);
+
+  const { data, error } = await client.from("bookings").update(change).eq("id", id).eq("venue_id", venue.id).select("id");
+  if (error?.code === "23P01") return { error: "That table is booked for part of the new time. Choose another table, or none." };
+  if (error || !data?.length) return { error: "That didn't save. Try again." };
+
+  revalidatePath(`/console/${slug}`, "layout");
+  redirect(`/console/${slug}/list?date=${date}#${id}`);
+}

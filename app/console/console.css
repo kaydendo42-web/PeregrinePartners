@@ -512,6 +512,17 @@
   color: var(--muted);
 }
 
+.console-staffnote {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.console-staffnote::before {
+  content: "Venue: ";
+  font-weight: 500;
+}
+
 .console-actions {
   display: flex;
   gap: 6px;

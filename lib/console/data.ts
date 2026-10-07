@@ -73,7 +73,10 @@ export type Booking = {
   guest_name: string;
   phone: string;
   email: string;
+  /** What the guest wrote when booking. */
   notes: string | null;
+  /** The venue's own notes; never shown to the guest. */
+  staff_notes?: string | null;
   status: BookingStatus;
   source: string;
 };
@@ -155,6 +158,17 @@ export async function floor(venueId: string) {
   };
 }
 
+const BOOKING_COLUMNS =
+  "id,table_id,table_ids,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,staff_notes,status,source";
+
+/** One booking at the venue, or null. */
+export async function bookingById(venueId: string, id: string): Promise<Booking | null> {
+  if (demoOn()) return demoBookings().find((b) => b.id === id) ?? null;
+  const client = await supabase();
+  const { data } = await client.from("bookings").select(BOOKING_COLUMNS).eq("venue_id", venueId).eq("id", id).maybeSingle();
+  return (data as Booking | null) ?? null;
+}
+
 export async function bookingsBetween(venueId: string, from: Date, to: Date): Promise<Booking[]> {
   if (demoOn()) {
     return demoBookings().filter((b) => b.starts_at >= from.toISOString() && b.starts_at < to.toISOString());
@@ -162,7 +176,7 @@ export async function bookingsBetween(venueId: string, from: Date, to: Date): Pr
   const client = await supabase();
   const { data } = await client
     .from("bookings")
-    .select("id,table_id,table_ids,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,status,source")
+    .select(BOOKING_COLUMNS)
     .eq("venue_id", venueId)
     .gte("starts_at", from.toISOString())
     .lt("starts_at", to.toISOString())
