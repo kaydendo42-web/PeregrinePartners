@@ -3,33 +3,39 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import {
+  safeDestination,
+  defaultDestination,
+  authProject,
+} from "@/lib/auth/next";
 
 export type SignInState = { error?: string; sent?: boolean };
 export type VerifyState = { error?: string };
-
-/** Only ever send someone back inside the console, never to another site. */
-function safeNext(value: FormDataEntryValue | null): string {
-  const next = typeof value === "string" ? value : "";
-  return next.startsWith("/console") ? next : "/console";
-}
 
 /**
  * Email and password — how Resos signs Jenny in, so it is how Peregrine does
  * too. One message for every failure: a sign-in form that says "no such
  * account" is an account-enumeration oracle.
  */
-export async function signInWithPassword(_: SignInState, form: FormData): Promise<SignInState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function signInWithPassword(
+  _: SignInState,
+  form: FormData,
+): Promise<SignInState> {
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
+    return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password." };
 
-  const client = await supabase();
+  const client = await supabase(project);
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) return { error: "Those details did not match." };
   // A password is only the first step; the code from an authenticator app is
   // the second. The proxy would send them there anyway — this saves a hop.
-  redirect(`/sign-in/verify?next=${encodeURIComponent(safeNext(form.get("next")))}`);
+  redirect(
+    `/sign-in/verify?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
+  );
 }
 
 /**
@@ -38,17 +44,38 @@ export async function signInWithPassword(_: SignInState, form: FormData): Promis
  * unverified) and signs in every time after. Success raises the session to
  * aal2, which the database requires before it shows a single booking.
  */
-export async function verifyCode(_: VerifyState, form: FormData): Promise<VerifyState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function verifyCode(
+  _: VerifyState,
+  form: FormData,
+): Promise<VerifyState> {
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
+    return { error: "Sign-in isn't switched on for this site yet." };
   const factorId = String(form.get("factor") ?? "");
   const code = String(form.get("code") ?? "").replace(/\s/g, "");
-  if (!factorId) return { error: "Something went wrong. Reload the page and try again." };
-  if (!/^\d{6}$/.test(code)) return { error: "Enter the six-digit code from your app." };
+  if (!factorId)
+    return { error: "Something went wrong. Reload the page and try again." };
+  if (!/^\d{6}$/.test(code))
+    return { error: "Enter the six-digit code from your app." };
 
-  const client = await supabase();
-  const { error } = await client.auth.mfa.challengeAndVerify({ factorId, code });
-  if (error) return { error: "That code didn't work. Codes change every 30 seconds; try the one showing now." };
-  redirect(safeNext(form.get("next")));
+  const client = await supabase(project);
+  const { error } = await client.auth.mfa.challengeAndVerify({
+    factorId,
+    code,
+  });
+  if (error)
+    return {
+      error:
+        "That code didn't work. Codes change every 30 seconds; try the one showing now.",
+    };
+  const explicit = safeDestination(form.get("next"));
+  if (explicit) redirect(explicit);
+  if (project === "booking") redirect("/console");
+  const { data: owner, error: ownerError } =
+    await client.rpc("crm_owner_status");
+  if (ownerError)
+    return { error: "Could not open your workspace. Please try again." };
+  redirect(defaultDestination(null, owner === true));
 }
 
 /**
@@ -56,19 +83,24 @@ export async function verifyCode(_: VerifyState, form: FormData): Promise<Verify
  * added to a venue by Peregrine, not by signing themselves up. Everyone gets
  * the same answer whether or not the address is known.
  */
-export async function sendSignInLink(_: SignInState, form: FormData): Promise<SignInState> {
-  if (!supabaseEnv()) return { error: "Sign-in isn't switched on for this site yet." };
+export async function sendSignInLink(
+  _: SignInState,
+  form: FormData,
+): Promise<SignInState> {
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
+    return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   if (!email) return { error: "Enter your email." };
 
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
-  const client = await supabase();
+  const client = await supabase(project);
   await client.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(safeNext(form.get("next")))}`,
+      emailRedirectTo: `${origin}/auth/confirm?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
     },
   });
   return { sent: true };
@@ -78,4 +110,16 @@ export async function signOut() {
   const client = await supabase();
   await client.auth.signOut();
   redirect("/sign-in");
+}
+
+export async function signOutOwner() {
+  const client = await supabase("internal");
+  await client.auth.signOut();
+  redirect("/sign-in?next=%2Fowner");
+}
+
+export async function signOutForProject(form: FormData) {
+  if (authProject(form.get("next"), form.get("project")) === "internal")
+    return signOutOwner();
+  return signOut();
 }

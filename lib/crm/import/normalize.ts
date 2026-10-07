@@ -1,0 +1,102 @@
+import { website, email } from "../validation.ts";
+import type {
+  Column,
+  ColumnMapping,
+  CsvRow,
+  NormalizedImportRow,
+  ImportIssue,
+} from "./types.ts";
+export function sourceFields(
+  values: string[],
+  columns: Column[],
+): Record<string, string> {
+  return Object.fromEntries(
+    columns.map((c) => [`${c.label} [${c.index + 1}]`, values[c.index] ?? ""]),
+  );
+}
+export function normalizeRow(
+  row: CsvRow,
+  columns: Column[],
+  mapping: ColumnMapping,
+): NormalizedImportRow {
+  const get = (field: keyof ColumnMapping) =>
+    mapping[field] == null ? "" : (row.values[mapping[field]!] ?? "").trim();
+  const issues: ImportIssue[] = [];
+  const error = (field: string, message: string) =>
+    issues.push({ field, message, severity: "error" });
+  const warn = (field: string, message: string) =>
+    issues.push({ field, message, severity: "warning" });
+  const name = get("name"),
+    location = get("location"),
+    industry = get("industry"),
+    contactName = get("contact_name"),
+    notes = get("notes");
+  if (!name)
+    error(
+      "name",
+      "Business name is required. Skip this row or correct the source file.",
+    );
+  for (const [key, value] of Object.entries({
+    name,
+    location,
+    industry,
+    contact_name: contactName,
+  }))
+    if (value.length > 300)
+      error(
+        key,
+        "Use at most 300 characters. The original value is preserved.",
+      );
+  if (notes.length > 10000) error("notes", "Notes exceed 10,000 characters.");
+  let normalizedWebsite: string | null = null,
+    normalizedEmail: string | null = null,
+    phone: string | null = null;
+  try {
+    normalizedWebsite = website(get("website"));
+  } catch {
+    warn("website", "Website is invalid. Its source value is preserved.");
+  }
+  try {
+    normalizedEmail = email(get("email"));
+  } catch {
+    warn("email", "Email is invalid. Its source value is preserved.");
+  }
+  const rawPhone = get("phone");
+  if (rawPhone) {
+    if (rawPhone.length <= 100 && /^[+\d(][\d\s().-]*$/.test(rawPhone))
+      phone = rawPhone;
+    else warn("phone", "Phone is invalid. Its source value is preserved.");
+  }
+  const tags = [
+    ...new Set(
+      get("tags")
+        .split(/[,;]/)
+        .map((v) => v.trim())
+        .filter(Boolean),
+    ),
+  ];
+  if (tags.length > 20 || tags.some((t) => t.length > 80))
+    error("tags", "Use at most 20 tags of 80 characters.");
+  const full = sourceFields(row.values, columns);
+  const used = new Set(Object.values(mapping).filter((v) => v !== null));
+  const extra = Object.fromEntries(
+    columns
+      .filter((c) => !used.has(c.index))
+      .map((c) => {
+        const label = Object.keys(full)[c.index];
+        return [label, row.values[c.index]];
+      }),
+  );
+  return {
+    rowNumber: row.rowNumber,
+    source: row.values,
+    business: { name, location, industry, website: normalizedWebsite, tags },
+    contact: { name: contactName, email: normalizedEmail, phone },
+    notes,
+    extra,
+    issues,
+    decision: "import",
+    targetBusinessId: null,
+    targetContactId: null,
+  };
+}

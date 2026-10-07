@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BRAND_NAME } from "@/lib/brand";
 import { venueBySlug } from "@/lib/console/data";
 import { supabaseEnv } from "@/lib/supabase/server";
 import { signOut } from "@/app/sign-in/actions";
@@ -8,7 +9,10 @@ import { demoOn } from "@/lib/console/demo";
 import "../console.css";
 
 export const metadata: Metadata = {
-  title: "Console | Peregrine",
+  title: {
+    absolute: `Client workspace · ${BRAND_NAME}`,
+    template: `%s · ${BRAND_NAME}`,
+  },
   robots: { index: false, follow: false },
 };
 
@@ -31,7 +35,7 @@ export default async function VenueLayout({
   return (
     <div className="console-shell">
       <aside className="console-side">
-        <p className="console-side__brand">Peregrine</p>
+        <p className="console-side__brand">{BRAND_NAME}</p>
         <ConsoleNav slug={slug} />
         <form action={signOut} className="console-side__out">
           <button type="submit">Sign out</button>

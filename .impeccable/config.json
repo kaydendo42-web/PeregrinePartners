@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "app/owner/agency.css"
+        ],
+        "createdAt": "2026-10-06T04:25:48.653Z",
+        "reason": "Agent decision: the remaining two borders encode saved outreach stage and follow-up completion state in the Monday-inspired CRM, alongside visible labels; decorative heading, client-row and form borders were removed. Scope this exception to the agency stylesheet."
+      }
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+import Link from "next/link";
+import { requireOwner } from "@/lib/owner/access";
+import { listClients, visibleVenues } from "@/lib/owner/clients";
+import { listMembers } from "@/lib/crm/query";
+import { parseVersion, text } from "@/lib/crm/validation";
+import { ClientForm } from "./client-form";
+import {
+  AgencyHeading,
+  PersonBadge,
+} from "@/components/owner/agency-presentation";
+export default async function Clients({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const p = await searchParams;
+  const { context } = await requireOwner();
+  let page = 1;
+  try {
+    page = parseVersion(p.page ?? 1);
+  } catch {}
+  const q = text(p.q ?? "", 300);
+  const [result, members, venues] = await Promise.all([
+    listClients(context, { q, page }),
+    listMembers(context),
+    visibleVenues(context),
+  ]);
+  return (
+    <>
+      <AgencyHeading
+        section="clients"
+        title="Clients"
+        description="Every client, their tools and the people looking after them."
+      >
+        <Link className="owner-button" href="#add-client">
+          Add client ↗
+        </Link>
+      </AgencyHeading>
+      <section className="owner-panel">
+        <form className="owner-filters">
+          <label className="owner-field owner-filter-search">
+            Search clients
+            <input name="q" defaultValue={q} placeholder="Business name" />
+          </label>
+          <button className="owner-button owner-button-secondary">
+            Search
+          </button>
+        </form>
+        {result.rows.length ? (
+          <div className="owner-table-scroll">
+            <table className="owner-table agency-client-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Status</th>
+                  <th>Relationship owner</th>
+                  <th>Booking venue</th>
+                  <th>Client record</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.rows.map((c) => (
+                  <tr key={c.id}>
+                    <td>
+                      <Link href={"/owner/clients/" + c.id}>
+                        {c.business?.name}
+                      </Link>
+                      <small>
+                        {c.business?.location || "Location not entered"}
+                      </small>
+                    </td>
+                    <td>
+                      <span className="owner-badge" data-status={c.status}>
+                        {c.status}
+                      </span>
+                    </td>
+                    <td>
+                      <PersonBadge
+                        name={
+                          members.find(
+                            (m) => m.user_id === c.relationship_owner,
+                          )?.display_name
+                        }
+                      />
+                    </td>
+                    <td>
+                      {venues.find((v) => v.id === c.venue_id)?.name ??
+                        (c.venue_id ? "Linked venue" : "Not linked")}
+                    </td>
+                    <td>
+                      <Link
+                        className="owner-link"
+                        href={"/owner/clients/" + c.id}
+                      >
+                        Contacts, tools & billing →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="owner-empty">
+            <h2>Make your first client feel at home.</h2>
+            <p>Add a client account, or convert a business from outreach.</p>
+          </div>
+        )}
+        <div className="owner-pagination">
+          <span>
+            {result.total} clients · Page {page}
+          </span>
+          <div className="owner-actions">
+            {page > 1 ? (
+              <Link
+                href={"?" + new URLSearchParams({ q, page: String(page - 1) })}
+              >
+                ← Previous
+              </Link>
+            ) : null}
+            {page * 50 < result.total ? (
+              <Link
+                href={"?" + new URLSearchParams({ q, page: String(page + 1) })}
+              >
+                Next →
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </section>
+      <section id="add-client" className="owner-panel owner-section">
+        <div className="owner-panel-head">
+          <h2>Add a client</h2>
+        </div>
+        <div className="owner-panel-body">
+          <ClientForm
+            record={{
+              id: "new",
+              version: 1,
+              name: "",
+              relationship_owner: "",
+              venue_id: "",
+              status: "active",
+            }}
+            members={members}
+            venues={venues}
+          />
+        </div>
+      </section>
+    </>
+  );
+}

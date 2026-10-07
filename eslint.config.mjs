@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated dashboard screenshots and bundled browser-test harness.
+    "docs/owner-dashboard-captures/**",
   ]),
 ]);
 

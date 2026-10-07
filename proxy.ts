@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseEnv } from "@/lib/supabase/server";
+import { safeDestination, authProject } from "@/lib/auth/next";
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -14,7 +15,17 @@ import { supabaseEnv } from "@/lib/supabase/server";
  * aal2 session — is what actually keeps the data shut.
  */
 export async function proxy(request: NextRequest) {
-  const env = supabaseEnv();
+  const path = request.nextUrl.pathname;
+  const project =
+    path === "/owner" || path.startsWith("/owner/")
+      ? "internal"
+      : path === "/console" || path.startsWith("/console/")
+        ? "booking"
+        : authProject(
+            request.nextUrl.searchParams.get("next"),
+            request.nextUrl.searchParams.get("project"),
+          );
+  const env = supabaseEnv(project);
   if (!env) return NextResponse.next();
   const { url, key } = env;
 
@@ -23,9 +34,12 @@ export async function proxy(request: NextRequest) {
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll: (list) => {
+        const previous = response.cookies.getAll();
         for (const { name, value } of list) request.cookies.set(name, value);
         response = NextResponse.next({ request });
-        for (const { name, value, options } of list) response.cookies.set(name, value, options);
+        for (const cookie of previous) response.cookies.set(cookie);
+        for (const { name, value, options } of list)
+          response.cookies.set(name, value, options);
       },
     },
   });
@@ -34,26 +48,65 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await client.auth.getUser();
 
-  if (request.nextUrl.pathname.startsWith("/console")) {
+  // Optional booking session is independent; its absence never blocks the CRM.
+  const bookingEnv =
+    project === "internal" && path.startsWith("/owner")
+      ? supabaseEnv("booking")
+      : null;
+  if (bookingEnv) {
+    const booking = createServerClient(bookingEnv.url, bookingEnv.key, {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (list) => {
+          const previous = response.cookies.getAll();
+          for (const { name, value } of list) request.cookies.set(name, value);
+          response = NextResponse.next({ request });
+          for (const cookie of previous) response.cookies.set(cookie);
+          for (const { name, value, options } of list)
+            response.cookies.set(name, value, options);
+        },
+      },
+    });
+    await booking.auth.getUser();
+  }
+
+  if (
+    ["/owner", "/console"].some(
+      (root) =>
+        request.nextUrl.pathname === root ||
+        request.nextUrl.pathname.startsWith(root + "/"),
+    )
+  ) {
     if (!user) return redirectTo(request, "/sign-in", response);
 
-    const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-    if (aal?.currentLevel !== "aal2") return redirectTo(request, "/sign-in/verify", response);
+    const { data: aal } =
+      await client.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal?.currentLevel !== "aal2")
+      return redirectTo(request, "/sign-in/verify", response);
   }
 
   return response;
 }
 
 /** Send them elsewhere, keeping any session cookies the refresh just wrote. */
-function redirectTo(request: NextRequest, pathname: string, response: NextResponse) {
+function redirectTo(
+  request: NextRequest,
+  pathname: string,
+  response: NextResponse,
+) {
   const to = request.nextUrl.clone();
   to.pathname = pathname;
-  to.search = `?next=${encodeURIComponent(request.nextUrl.pathname)}`;
+  to.search = `?next=${encodeURIComponent(safeDestination(request.nextUrl.pathname + request.nextUrl.search) ?? "")}`;
   const out = NextResponse.redirect(to);
   for (const cookie of response.cookies.getAll()) out.cookies.set(cookie);
   return out;
 }
 
 export const config = {
-  matcher: ["/console/:path*", "/sign-in/:path*", "/auth/:path*"],
+  matcher: [
+    "/owner/:path*",
+    "/console/:path*",
+    "/sign-in/:path*",
+    "/auth/:path*",
+  ],
 };

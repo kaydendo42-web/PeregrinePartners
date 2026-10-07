@@ -1,0 +1,26 @@
+begin;
+insert into auth.users(id) values ('00000000-0000-4000-8000-000000000311');insert into public.platform_owners(user_id) values ('00000000-0000-4000-8000-000000000311');
+insert into public.crm_workspaces(id,slug,name,kind) values ('00000000-0000-4000-8000-000000000321','import-test','Test','internal');
+insert into public.crm_workspace_members(workspace_id,user_id,display_name) values ('00000000-0000-4000-8000-000000000321','00000000-0000-4000-8000-000000000311','Founder');
+set local role authenticated;select set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-000000000311","role":"authenticated","aal":"aal2"}',true);
+do $$ declare w uuid:='00000000-0000-4000-8000-000000000321';batch uuid;second uuid;input jsonb;result jsonb;begin
+ input:='{"filename":"test.csv","byte_count":100,"row_count":3,"source_digest":"advisory","columns":[{"index":0,"label":"Business","key":"business:0"},{"index":1,"label":"Phone","key":"phone:1"}],"mapping":{"name":0,"phone":1}}';
+ result:=public.crm_begin_import(w,input,'00000000-0000-4000-8000-000000000341');batch:=(result->'value'->>'id')::uuid;
+ result:=public.crm_stage_import(w,batch,'[{"rowNumber":1,"source":["Cafe","0412"]},{"rowNumber":2,"source":["Cafe","0412"]},{"rowNumber":3,"source":["","0413"]}]');
+ if exists(select 1 from public.crm_businesses) then raise exception 'Staging leaked live records';end if;
+ perform public.crm_stage_import(w,batch,'[{"rowNumber":1,"source":["Cafe","0412"]}]');
+ begin perform public.crm_stage_import(w,batch,'[{"rowNumber":1,"source":["Changed","0412"]}]');raise exception 'Changed source retry accepted';exception when check_violation then null;end;
+ result:=public.crm_preview_import(w,batch,1);if result->>'blocked'<>'1' then raise exception 'Missing-name row not blocking';end if;
+ begin perform public.crm_commit_import(w,batch,'00000000-0000-4000-8000-000000000342');raise exception 'Blocking import published';exception when check_violation then null;end;
+ perform public.crm_decide_import(w,batch,'[{"rowNumber":3,"decision":"skip","targetBusinessId":null,"targetContactId":null}]');
+ result:=public.crm_commit_import(w,batch,'00000000-0000-4000-8000-000000000342');
+ if result->'value'->>'created'<>'1' or result->'value'->>'duplicates'<>'1' or result->'value'->>'skipped'<>'1' then raise exception 'Import counts mismatch: %',result;end if;
+ if (select count(*) from public.crm_businesses)<>1 or (select phone from public.crm_contacts)<>'0412' then raise exception 'Import lost phone or duplicated business';end if;
+ perform public.crm_commit_import(w,batch,'00000000-0000-4000-8000-000000000342');
+ result:=public.crm_begin_import(w,jsonb_set(input,'{filename}','"renamed.csv"'),'00000000-0000-4000-8000-000000000343');second:=(result->'value'->>'id')::uuid;
+ perform public.crm_stage_import(w,second,'[{"rowNumber":1,"source":["Cafe","0412"]},{"rowNumber":2,"source":["Cafe","0412"]},{"rowNumber":3,"source":["","0413"]}]');
+ perform public.crm_decide_import(w,second,'[{"rowNumber":3,"decision":"skip","targetBusinessId":null,"targetContactId":null}]');
+ perform public.crm_commit_import(w,second,'00000000-0000-4000-8000-000000000344');
+ if (select count(*) from public.crm_businesses)<>1 or (select state from public.crm_import_batches where id=second)<>'reused' then raise exception 'Renamed CSV imported twice';end if;
+end $$;
+reset role;rollback;

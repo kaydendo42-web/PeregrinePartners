@@ -1,4 +1,4 @@
-# Peregrine console: setup
+# Peregrine Office console: setup
 
 The console lives at `www.peregrinepartners.space/console`, in this repo
 (`kaydendo42-web/PeregrinePartners`, Vercel project `peregrine-partners`).
@@ -6,6 +6,13 @@ The bare `peregrinepartners.space` redirects to `www`, so every URL Supabase
 is given uses `www`. A client signs in at
 `/sign-in` and lands on their own venue's diary. One Supabase project holds
 every client; row-level security keeps each venue's rows to its own members.
+
+Approved founders now have a separate `/owner` workspace. After its additive
+database setup, their default sign-in lands there; an explicit venue-console
+destination remains available. Client accounts keep their venue destination.
+A venue `owner` role does not grant founder access. See
+[Founder workspace setup](owner-dashboard-setup.md) for the migration order,
+private owner bootstrap, two-step verification and launch checks.
 
 ```
 guest ─▶ thepeacock.com.au/book-a-table ─▶ /api/booking (server, service key) ─┐

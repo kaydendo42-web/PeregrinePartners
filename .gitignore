@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/private-data/
+/docs/owner-dashboard-captures/
 
 # next.js
 /.next/
@@ -35,6 +37,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Supabase CLI runtime state
+/supabase/.temp/
+/supabase/.branches/
+/internal-db/supabase/.temp/
+/internal-db/supabase/.branches/
 
 # typescript
 *.tsbuildinfo

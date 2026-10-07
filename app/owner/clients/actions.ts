@@ -1,0 +1,133 @@
+"use server";
+import { rpcMutation } from "@/lib/crm/mutations";
+import {
+  object,
+  onlyKeys,
+  parseUuid,
+  parseVersion,
+  text,
+} from "@/lib/crm/validation";
+import { parseMinor } from "@/lib/crm/money";
+import type { ClientAccount, ClientTool, BillingRecord } from "@/lib/crm/types";
+function optionalId(value: unknown) {
+  return value === null || value === "" ? null : parseUuid(value);
+}
+function date(value: unknown) {
+  const d = text(value, 10, true);
+  if (
+    !/^\d{4}-\d{2}-\d{2}$/.test(d) ||
+    !Number.isFinite(Date.parse(d + "T00:00:00Z")) ||
+    new Date(d + "T00:00:00Z").toISOString().slice(0, 10) !== d
+  )
+    throw new Error("Enter a valid date.");
+  return d;
+}
+export async function convertClient(
+  business: string,
+  version: number,
+  requestId: string,
+) {
+  return rpcMutation<ClientAccount>("crm_convert_client", requestId, () => ({
+    p_business: parseUuid(business),
+    p_expected_version: parseVersion(version),
+  }));
+}
+export async function saveClient(
+  input: unknown,
+  version: number | null,
+  requestId: string,
+) {
+  return rpcMutation<ClientAccount>("crm_save_client", requestId, () => {
+    const v = object(input);
+    onlyKeys(v, ["id", "name", "venue_id", "relationship_owner", "status"]);
+    if (v.id) parseUuid(v.id);
+    if (!["active", "paused", "closed"].includes(String(v.status)))
+      throw new Error("Choose a client status.");
+    return {
+      p_input: {
+        ...v,
+        ...(!v.id ? { name: text(v.name, 300, true) } : {}),
+        venue_id: optionalId(v.venue_id),
+        relationship_owner: optionalId(v.relationship_owner),
+      },
+      p_expected_version: version === null ? null : parseVersion(version),
+    };
+  });
+}
+export async function saveClientTool(
+  input: unknown,
+  version: number | null,
+  requestId: string,
+) {
+  return rpcMutation<ClientTool>("crm_save_client_tool", requestId, () => {
+    const v = object(input);
+    onlyKeys(v, [
+      "id",
+      "client_id",
+      "tool_id",
+      "status",
+      "amount",
+      "currency",
+      "cadence",
+      "starts_on",
+      "ends_on",
+    ]);
+    if (v.id) parseUuid(v.id);
+    if (
+      !["active", "paused", "cancelled"].includes(String(v.status)) ||
+      !["monthly", "annual", "one_off"].includes(String(v.cadence))
+    )
+      throw new Error("Choose valid tool terms.");
+    const currency = text(v.currency, 3, true).toUpperCase();
+    const { amount, ...rest } = v;
+    return {
+      p_input: {
+        ...rest,
+        client_id: parseUuid(v.client_id),
+        tool_id: parseUuid(v.tool_id),
+        amount_minor:
+          amount === "" ? null : parseMinor(text(amount, 30, true), currency),
+        currency,
+        starts_on: date(v.starts_on),
+        ends_on: v.ends_on ? date(v.ends_on) : null,
+      },
+      p_expected_version: version === null ? null : parseVersion(version),
+    };
+  });
+}
+export async function saveBilling(
+  input: unknown,
+  version: number | null,
+  requestId: string,
+) {
+  return rpcMutation<BillingRecord>("crm_save_billing", requestId, () => {
+    const v = object(input);
+    onlyKeys(v, [
+      "id",
+      "client_id",
+      "reference",
+      "amount",
+      "paid",
+      "currency",
+      "due_on",
+    ]);
+    if (v.id) parseUuid(v.id);
+    const currency = text(v.currency, 3, true).toUpperCase();
+    const amount = parseMinor(text(v.amount, 30, true), currency);
+    const paid = parseMinor(text(v.paid, 30, true), currency);
+    if (paid > amount)
+      throw new Error("The paid amount cannot exceed the invoice amount.");
+    return {
+      p_input: {
+        ...(v.id ? { id: v.id } : {}),
+        client_id: parseUuid(v.client_id),
+        reference: text(v.reference, 300, true),
+        amount_minor: amount,
+        paid_minor: paid,
+        currency,
+        due_on: date(v.due_on),
+      },
+      p_expected_version: version === null ? null : parseVersion(version),
+    };
+  });
+}

@@ -1,0 +1,151 @@
+import Link from "next/link";
+import { requireOwner } from "@/lib/owner/access";
+import { listFollowUps, listMembers } from "@/lib/crm/query";
+import type { FollowUpFilter } from "@/lib/crm/query";
+import { dayBounds } from "@/lib/crm/time";
+import { parseVersion } from "@/lib/crm/validation";
+import { FollowUpList } from "@/components/crm/follow-up-list";
+import { AgencyHeading } from "@/components/owner/agency-presentation";
+export default async function FollowUps({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const p = await searchParams;
+  const { context } = await requireOwner();
+  const now = new Date().toISOString();
+  const bounds = dayBounds(now, context.timezone);
+  const period = ["overdue", "today", "upcoming", "all"].includes(
+    p.period ?? "",
+  )
+    ? (p.period as FollowUpFilter["period"])
+    : "today";
+  const state = ["done", "cancelled"].includes(p.state ?? "")
+    ? (p.state as "done" | "cancelled")
+    : "open";
+  let page = 1;
+  try {
+    page = parseVersion(p.page ?? 1);
+  } catch {}
+  const [members, result] = await Promise.all([
+    listMembers(context),
+    listFollowUps(context, {
+      owner: p.owner ?? null,
+      state,
+      period,
+      page,
+      now,
+      todayStart: bounds.start,
+      tomorrowStart: bounds.end,
+    }),
+  ]);
+  return (
+    <>
+      <AgencyHeading
+        section="follow-ups"
+        title="Follow-ups"
+        description={`The next step for every conversation. Times in ${context.timezone}.`}
+      />
+      <div className="owner-shortcuts">
+        {["overdue", "today", "upcoming", "all"].map((v) => (
+          <Link
+            key={v}
+            data-queue={v}
+            aria-current={state === "open" && period === v ? "page" : undefined}
+            href={"/owner/follow-ups?period=" + v}
+          >
+            {v.charAt(0).toUpperCase() + v.slice(1)}
+          </Link>
+        ))}
+        <Link
+          data-queue="completed"
+          aria-current={state === "done" ? "page" : undefined}
+          href="/owner/follow-ups?state=done&period=all"
+        >
+          Completed
+        </Link>
+      </div>
+      <form className="owner-actions agency-followup-filter">
+        <input type="hidden" name="period" value={period} />
+        <input type="hidden" name="state" value={state} />
+        <label className="owner-field">
+          Owner
+          <select name="owner" defaultValue={p.owner ?? ""}>
+            <option value="">All owners</option>
+            {members.map((m) => (
+              <option key={m.user_id} value={m.user_id}>
+                {m.display_name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button className="owner-button owner-button-secondary">Apply</button>
+      </form>
+      <section className="owner-panel owner-section">
+        <div className="owner-panel-head">
+          <div className="agency-group-heading" data-section="follow-ups">
+            <span className="agency-group-dot" aria-hidden="true" />
+            <h2>
+              {state === "done"
+                ? "Completed follow-ups"
+                : state === "cancelled"
+                  ? "Cancelled follow-ups"
+                  : period === "overdue"
+                    ? "Overdue follow-ups"
+                    : period === "today"
+                      ? "Today's follow-ups"
+                      : period === "upcoming"
+                        ? "Upcoming follow-ups"
+                        : "All follow-ups"}
+            </h2>
+            <span className="agency-count">
+              {result.total.toLocaleString()}
+            </span>
+          </div>
+        </div>
+        <div className="owner-panel-body">
+          <FollowUpList
+            rows={result.rows}
+            members={members}
+            timezone={context.timezone}
+          />
+          {!result.rows.length ? (
+            <div className="owner-empty">
+              <h2>No matching follow-ups.</h2>
+              <p>No follow-ups match these filters.</p>
+              <Link
+                className="owner-button owner-button-secondary"
+                href="/owner/outreach"
+              >
+                Open outreach
+              </Link>
+            </div>
+          ) : null}
+        </div>
+        <div className="owner-pagination">
+          <span>Page {result.page}</span>
+          <div className="owner-actions">
+            {page > 1 ? (
+              <Link
+                href={
+                  "?" + new URLSearchParams({ ...p, page: String(page - 1) })
+                }
+              >
+                ← Previous
+              </Link>
+            ) : null}
+            {page * 50 < result.total ? (
+              <Link
+                href={
+                  "?" + new URLSearchParams({ ...p, page: String(page + 1) })
+                }
+              >
+                Next →
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

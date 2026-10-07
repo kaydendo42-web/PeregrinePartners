@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
+import { BRAND_NAME } from "@/lib/brand";
 import { redirect } from "next/navigation";
 import { AuthFrame } from "@/components/auth-frame";
 import { TwoStepView } from "@/components/two-step-view";
 import { signInVerify } from "@/lib/content";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import {
+  safeDestination,
+  defaultDestination,
+  authProject,
+} from "@/lib/auth/next";
 
 export const metadata: Metadata = {
-  title: "Two-step sign-in",
+  title: { absolute: `Two-step sign-in · ${BRAND_NAME}` },
   robots: { index: false, follow: false },
 };
 
@@ -16,20 +22,31 @@ export const metadata: Metadata = {
  * Nobody reaches the console without passing here: the proxy sends any session
  * below aal2 back, and the database refuses aal1 sessions outright.
  */
-export default async function Verify({ searchParams }: PageProps<"/sign-in/verify">) {
-  const { next: nextParam } = await searchParams;
+export default async function Verify({
+  searchParams,
+}: PageProps<"/sign-in/verify">) {
+  const { next: nextParam, project: projectParam } = await searchParams;
+  const project = authProject(nextParam, projectParam);
   const next =
-    typeof nextParam === "string" && nextParam.startsWith("/console") ? nextParam : "/console";
+    safeDestination(nextParam) ??
+    (project === "internal" ? "/owner" : "/console");
 
-  if (!supabaseEnv()) redirect("/sign-in");
-  const client = await supabase();
+  if (!supabaseEnv(project))
+    redirect(`/sign-in?project=${project}&next=${encodeURIComponent(next)}`);
+  const client = await supabase(project);
   const {
     data: { user },
   } = await client.auth.getUser();
-  if (!user) redirect(`/sign-in?next=${encodeURIComponent(next)}`);
+  if (!user)
+    redirect(`/sign-in?project=${project}&next=${encodeURIComponent(next)}`);
 
   const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-  if (aal?.currentLevel === "aal2") redirect(next);
+  if (aal?.currentLevel === "aal2") {
+    if (next) redirect(next);
+    const { data: owner, error } = await client.rpc("crm_owner_status");
+    if (error) throw new Error("Could not open your workspace.");
+    redirect(defaultDestination(null, owner === true));
+  }
 
   const { data: factors } = await client.auth.mfa.listFactors();
   const verified = factors?.totp[0];
@@ -46,9 +63,10 @@ export default async function Verify({ searchParams }: PageProps<"/sign-in/verif
     const { data, error } = await client.auth.mfa.enroll({
       factorType: "totp",
       friendlyName: "Authenticator app",
-      issuer: "Peregrine",
+      issuer: BRAND_NAME,
     });
-    if (error || !data) throw new Error(`Could not start two-step setup: ${error?.message}`);
+    if (error || !data)
+      throw new Error(`Could not start two-step setup: ${error?.message}`);
     const qr = data.totp.qr_code.startsWith("data:")
       ? data.totp.qr_code
       : `data:image/svg+xml;utf8,${encodeURIComponent(data.totp.qr_code)}`;
@@ -60,6 +78,7 @@ export default async function Verify({ searchParams }: PageProps<"/sign-in/verif
       <TwoStepView
         factorId={verified?.id ?? setup!.factorId}
         next={next}
+        project={project}
         setup={setup ? { qr: setup.qr, secret: setup.secret } : null}
       />
     </AuthFrame>

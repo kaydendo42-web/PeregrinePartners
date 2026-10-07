@@ -1,0 +1,182 @@
+export type UUID = string;
+export const stages = [
+  "new",
+  "contacted",
+  "replied",
+  "meeting_booked",
+  "proposal_sent",
+  "won",
+  "lost",
+] as const;
+export type Stage = (typeof stages)[number];
+export const stageLabels: Record<Stage, string> = {
+  new: "New",
+  contacted: "Contacted",
+  replied: "Replied",
+  meeting_booked: "Meeting booked",
+  proposal_sent: "Proposal sent",
+  won: "Won",
+  lost: "Lost",
+};
+export type Priority = "low" | "normal" | "high";
+export type Audit = {
+  id: UUID;
+  workspace_id: UUID;
+  version: number;
+  created_at: string;
+  updated_at: string;
+  created_by: UUID | null;
+  updated_by: UUID | null;
+};
+export type Business = Audit & {
+  origin: "outreach" | "client";
+  name: string;
+  location: string;
+  industry: string;
+  website: string | null;
+  stage: Stage;
+  assigned_to: UUID | null;
+  priority: Priority;
+  tags: string[];
+  do_not_contact: boolean;
+  archived: boolean;
+  source_fields: Record<string, string>;
+  import_batch_id: UUID | null;
+  source_row: number | null;
+  last_contact: string | null;
+  next_follow_up: string | null;
+  updated_by_name?: string | null;
+  contacts?: Contact[];
+};
+export type BusinessPatch = Partial<
+  Pick<
+    Business,
+    | "name"
+    | "location"
+    | "industry"
+    | "website"
+    | "stage"
+    | "assigned_to"
+    | "priority"
+    | "tags"
+    | "do_not_contact"
+    | "archived"
+  >
+>;
+export type BusinessQuery = {
+  q: string;
+  stage: Stage | null;
+  owner: UUID | "unassigned" | null;
+  location: string;
+  industry: string;
+  tag: string;
+  priority: Priority | null;
+  batch: UUID | null;
+  incomplete: boolean;
+  due: boolean;
+  stopped: boolean;
+  page: number;
+  sort:
+    "name" | "updated_at" | "last_contact" | "next_follow_up" | "source_row";
+  view: "table" | "board";
+  boardPages: Partial<Record<Stage, number>>;
+};
+export type Contact = Audit & {
+  business_id: UUID;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  is_primary: boolean;
+  source_fields: Record<string, string>;
+};
+export type Activity = {
+  id: UUID;
+  workspace_id: UUID;
+  business_id: UUID | null;
+  kind: string;
+  channel: string | null;
+  occurred_at: string;
+  summary: string;
+  changes: Record<string, unknown>;
+  actor_id: UUID;
+  request_id: UUID;
+  created_at: string;
+  actor_name?: string;
+};
+export type FollowUp = Audit & {
+  business_id: UUID;
+  assigned_to: UUID;
+  due_at: string;
+  instruction: string;
+  state: "open" | "done" | "cancelled";
+  business?: Pick<Business, "id" | "name" | "do_not_contact">;
+};
+export type ClientAccount = Audit & {
+  business_id: UUID;
+  venue_id: UUID | null;
+  relationship_owner: UUID | null;
+  status: "active" | "paused" | "closed";
+  business?: Business;
+};
+export type Tool = Audit & {
+  slug: string;
+  name: string;
+  availability: "available" | "planned";
+  archived: boolean;
+};
+export type ClientTool = Audit & {
+  client_id: UUID;
+  tool_id: UUID;
+  status: "active" | "paused" | "cancelled";
+  amount_minor: number | null;
+  currency: string;
+  cadence: "monthly" | "annual" | "one_off";
+  starts_on: string;
+  ends_on: string | null;
+  tool?: Tool;
+};
+export type BillingRecord = Audit & {
+  client_id: UUID;
+  reference: string;
+  amount_minor: number;
+  paid_minor: number;
+  currency: string;
+  due_on: string;
+  settled_at: string | null;
+};
+export type Member = { user_id: UUID; display_name: string; active: boolean };
+export type OwnerContext = {
+  userId: UUID;
+  workspaceId: UUID;
+  timezone: string;
+  displayName: string;
+};
+export type PageResult<T> = {
+  rows: T[];
+  total: number;
+  page: number;
+  pageSize: 50;
+};
+export type MutationResult<T> =
+  | { ok: true; value: T }
+  | {
+      ok: false;
+      kind: "validation" | "conflict" | "forbidden" | "unavailable";
+      message: string;
+      current?: T;
+    };
+export type ActivityInput = {
+  kind: "note" | "outreach" | "reply" | "meeting" | "proposal";
+  channel: "email" | "phone" | "sms" | "social" | "other" | null;
+  occurred_at: string;
+  summary: string;
+  mark_replied: boolean;
+};
+export type FollowUpInput = {
+  id?: UUID;
+  business_id: UUID;
+  assigned_to: UUID;
+  due_at: string;
+  instruction: string;
+  state: "open" | "done" | "cancelled";
+};

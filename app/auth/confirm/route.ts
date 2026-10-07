@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/server";
+import { safeDestination, authProject } from "@/lib/auth/next";
 
 /**
  * Where a sign-in link lands. Supabase sends either a code (PKCE) or a token
@@ -9,9 +10,9 @@ import { supabase } from "@/lib/supabase/server";
  */
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
-  const nextParam = params.get("next") ?? "/console";
-  const next = nextParam.startsWith("/console") ? nextParam : "/console";
-  const client = await supabase();
+  const next = safeDestination(params.get("next")) ?? "";
+  const project = authProject(next, params.get("project"));
+  const client = await supabase(project);
 
   const code = params.get("code");
   const tokenHash = params.get("token_hash");
@@ -25,7 +26,9 @@ export async function GET(request: NextRequest) {
 
   const to = request.nextUrl.clone();
   to.search = "";
-  to.pathname = error ? "/sign-in" : next;
+  to.searchParams.set("project", project);
+  to.pathname = error ? "/sign-in" : "/sign-in/verify";
   if (error) to.searchParams.set("link", "expired");
+  else if (next) to.searchParams.set("next", next);
   return NextResponse.redirect(to);
 }

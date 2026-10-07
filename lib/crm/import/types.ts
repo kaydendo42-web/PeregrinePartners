@@ -1,0 +1,84 @@
+export type Column = { index: number; label: string; key: string };
+export type CsvRow = { rowNumber: number; values: string[] };
+export type ParsedCsv = { columns: Column[]; rows: CsvRow[] };
+export const targets = [
+  "name",
+  "location",
+  "industry",
+  "contact_name",
+  "email",
+  "phone",
+  "website",
+  "tags",
+  "notes",
+] as const;
+export type Target = (typeof targets)[number];
+export type ColumnMapping = Partial<Record<Target, number | null>>;
+export type ImportIssue = {
+  field: string;
+  message: string;
+  severity: "warning" | "error";
+};
+export type ImportDecision = "import" | "skip" | "link_contact";
+export type NormalizedImportRow = {
+  rowNumber: number;
+  source: string[];
+  business: {
+    name: string;
+    location: string;
+    industry: string;
+    website: string | null;
+    tags: string[];
+  };
+  contact: { name: string; email: string | null; phone: string | null };
+  notes: string;
+  extra: Record<string, string>;
+  issues: ImportIssue[];
+  decision: ImportDecision;
+  targetBusinessId: string | null;
+  targetContactId: string | null;
+  targetSourceRow?: number | null;
+};
+export type DuplicateCandidate = {
+  id: string | null;
+  rowNumber: number | null;
+  name: string;
+  location: string;
+  reasons: string[];
+  exact: boolean;
+  linkable?: boolean;
+};
+export type ImportCounts = {
+  created: number;
+  linked: number;
+  duplicates: number;
+  skipped: number;
+  rejected: number;
+  total: number;
+};
+export type ImportBatch = {
+  id: string;
+  version: number;
+  workspace_id: string;
+  filename: string;
+  byte_count: number;
+  row_count: number;
+  source_digest: string;
+  columns: Column[];
+  mapping: ColumnMapping;
+  state: "staging" | "ready" | "committed" | "reused" | "cancelled";
+  counts: ImportCounts | null;
+  duplicate_of: string | null;
+};
+export type PreviewRow = NormalizedImportRow & {
+  candidates: DuplicateCandidate[];
+  exactDuplicate: boolean;
+};
+export type ImportPreview = {
+  rows: PreviewRow[];
+  total: number;
+  blocked: number;
+  page: number;
+  ready: boolean;
+};
+export type ImportProgress = { batch: ImportBatch; staged: number };
