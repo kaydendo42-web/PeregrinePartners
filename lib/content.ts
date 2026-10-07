@@ -699,7 +699,28 @@ export const signIn = {
   sending: "Sending",
   /** Deliberately identical for every address. Never confirm who is a client. */
   done: "If that address is on an account, a sign-in link is on its way. Check your inbox.",
+  forgot: "Forgot password?",
+  submitReset: "Email me a reset link",
+  /** Same rule as `done`: never confirm who is a client. */
+  resetDone:
+    "If that address is on an account, a link to choose a new password is on its way. Check your inbox.",
   alt: { label: "See the platform instead", href: "/platform" },
+};
+
+export const signInPassword = {
+  eyebrow: "Password",
+  heading: "Choose a password.",
+  sub: "From now on you sign in with your email, this password and a code from your phone.",
+  label: "New password",
+  again: "Type it again",
+  submit: "Save password",
+  saving: "Saving",
+  tooShort: "Use at least 8 characters.",
+  mismatch: "Those two don't match. Type them again.",
+  same: "That is already your password. Choose a new one.",
+  weak: "That password is too easy to guess. Try a longer one.",
+  failed: "Could not save that password. Please try again.",
+  skip: "Not now",
 };
 
 export const signInVerify = {

@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { AuthProgress } from "./auth-progress";
 import { signIn } from "@/lib/content";
 import {
+  sendPasswordReset,
   sendSignInLink,
   signInWithPassword,
   type SignInState,
@@ -15,7 +16,7 @@ import {
 /**
  * Console sign-in. Email and password by default, because that is how the
  * booking system a venue is leaving signs them in; a one-time link for anyone
- * who would rather not keep a password.
+ * who would rather not keep a password, and a reset link for anyone who forgot it.
  *
  * Neither path says whether an address is known. A form that tells "no such
  * account" apart from "wrong password" would let anyone type a rival's email
@@ -30,7 +31,7 @@ export function SignInForm({
   project?: "booking" | "internal";
   linkExpired?: boolean;
 }) {
-  const [mode, setMode] = useState<"password" | "link">("password");
+  const [mode, setMode] = useState<"password" | "link" | "reset">("password");
   const [pwState, pwAction, pwPending] = useActionState<SignInState, FormData>(
     signInWithPassword,
     {},
@@ -39,11 +40,19 @@ export function SignInForm({
     SignInState,
     FormData
   >(sendSignInLink, {});
+  const [resetState, resetAction, resetPending] = useActionState<
+    SignInState,
+    FormData
+  >(sendPasswordReset, {});
 
-  const pending = mode === "password" ? pwPending : linkPending;
-  const state = mode === "password" ? pwState : linkState;
+  const [state, action, pending] =
+    mode === "password"
+      ? [pwState, pwAction, pwPending]
+      : mode === "link"
+        ? [linkState, linkAction, linkPending]
+        : [resetState, resetAction, resetPending];
 
-  if (mode === "link" && linkState.sent) {
+  if (mode !== "password" && state.sent) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -52,7 +61,7 @@ export function SignInForm({
         className="flex flex-col items-start gap-[24px]"
       >
         <p className="t-body text-white" role="status">
-          {signIn.done}
+          {mode === "reset" ? signIn.resetDone : signIn.done}
         </p>
         <button
           type="button"
@@ -66,7 +75,7 @@ export function SignInForm({
   }
 
   return (
-    <form action={mode === "password" ? pwAction : linkAction}>
+    <form action={action}>
       <fieldset
         disabled={pending}
         className="flex flex-col items-start gap-[24px] transition-opacity duration-300"
@@ -122,7 +131,9 @@ export function SignInForm({
                 : signIn.sending
               : mode === "password"
                 ? signIn.submit
-                : signIn.submitLink}
+                : mode === "link"
+                  ? signIn.submitLink
+                  : signIn.submitReset}
           </Button>
           <button
             type="button"
@@ -134,6 +145,16 @@ export function SignInForm({
               : "Use my password"}
           </button>
         </div>
+
+        {pending || mode !== "password" ? null : (
+          <button
+            type="button"
+            className={linkClass}
+            onClick={() => setMode("reset")}
+          >
+            {signIn.forgot}
+          </button>
+        )}
 
         {pending ? null : (
           <Link href={signIn.alt.href} className={linkClass}>
