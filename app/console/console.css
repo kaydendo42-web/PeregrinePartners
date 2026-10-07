@@ -94,7 +94,17 @@
   margin-top: auto;
 }
 
+.console-side__out {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.console-side__out a,
 .console-side__out button {
+  display: block;
+  box-sizing: border-box;
+  text-decoration: none;
   width: 100%;
   padding: 10px 12px;
   background: none;
@@ -1041,9 +1051,11 @@
   }
 
   .console-side__out {
+    flex-direction: row;
     margin: 0 0 0 auto;
   }
 
+  .console-side__out a,
   .console-side__out button {
     white-space: nowrap;
   }

@@ -1,7 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { safeDestination, defaultDestination } from "../../lib/auth/next.ts";
-import { credentialDestination } from "../../lib/auth/next.ts";
+import {
+  credentialDestination,
+  authProject,
+  workspaceDestination,
+} from "../../lib/auth/next.ts";
 
 test("redirects remain within owner or console paths", () => {
   for (const bad of [
@@ -41,4 +45,24 @@ test("private workspace requires an authenticated two-step session", () => {
     "/sign-in/verify?next=%2Fowner",
   );
   assert.equal(credentialDestination(true, "aal2"), null);
+});
+test("the set-password page is a destination, and finishes in a workspace", () => {
+  assert.equal(
+    safeDestination("/sign-in/password?next=%2Fowner"),
+    "/sign-in/password?next=%2Fowner",
+  );
+  for (const bad of ["/sign-in", "/sign-in/verify", "/sign-in/password/x"]) {
+    assert.equal(safeDestination(bad), null, bad);
+  }
+  assert.equal(authProject("/sign-in/password?next=%2Fowner"), "internal");
+  assert.equal(authProject("/sign-in/password?next=/owner/outreach"), "internal");
+  assert.equal(authProject("/sign-in/password?next=%2Fconsole"), "booking");
+  assert.equal(authProject("/sign-in/password"), "booking");
+  assert.equal(workspaceDestination("/owner/clients", "internal"), "/owner/clients");
+  assert.equal(workspaceDestination(null, "internal"), "/owner");
+  assert.equal(workspaceDestination(null, "booking"), "/console");
+  assert.equal(
+    workspaceDestination("/sign-in/password?next=%2Fowner", "internal"),
+    "/owner",
+  );
 });

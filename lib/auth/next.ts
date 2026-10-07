@@ -1,3 +1,6 @@
+/** Where a member chooses a password: after an invite, a reset, or by choice. */
+export const PASSWORD_PATH = "/sign-in/password";
+
 /** A destination is navigation only; permission is checked at the data boundary. */
 export function safeDestination(value: unknown): string | null {
   if (
@@ -17,9 +20,10 @@ export function safeDestination(value: unknown): string | null {
       /%[0-9a-f]{2}/iu.test(path)
     )
       return null;
-    return ["/owner", "/console"].some(
-      (root) => path === root || path.startsWith(root + "/"),
-    )
+    return path === PASSWORD_PATH ||
+      ["/owner", "/console"].some(
+        (root) => path === root || path.startsWith(root + "/"),
+      )
       ? url.pathname + url.search
       : null;
   } catch {
@@ -35,10 +39,24 @@ export function authProject(
   project?: unknown,
 ): "booking" | "internal" {
   if (project === "booking" || project === "internal") return project;
-  const path = safeDestination(next)?.split("?")[0];
-  return path === "/owner" || path?.startsWith("/owner/")
+  const destination = safeDestination(next);
+  if (!destination) return "booking";
+  const url = new URL(destination, "https://peregrine.invalid");
+  // The password page belongs to whichever workspace it goes on to.
+  if (url.pathname === PASSWORD_PATH)
+    return authProject(url.searchParams.get("next"));
+  return url.pathname === "/owner" || url.pathname.startsWith("/owner/")
     ? "internal"
     : "booking";
+}
+/** Where the password page goes once it is done: a workspace, never itself. */
+export function workspaceDestination(
+  value: unknown,
+  project: "booking" | "internal",
+): string {
+  const to = safeDestination(value);
+  if (to && !to.startsWith(PASSWORD_PATH)) return to;
+  return project === "internal" ? "/owner" : "/console";
 }
 export function credentialDestination(
   authenticated: boolean,

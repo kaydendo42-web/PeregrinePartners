@@ -37,9 +37,14 @@ export default async function VenueLayout({
       <aside className="console-side">
         <p className="console-side__brand">{BRAND_NAME}</p>
         <ConsoleNav slug={slug} />
-        <form action={signOut} className="console-side__out">
-          <button type="submit">Sign out</button>
-        </form>
+        <div className="console-side__out">
+          <a href={`/sign-in/password?next=${encodeURIComponent(`/console/${slug}`)}`}>
+            Password
+          </a>
+          <form action={signOut}>
+            <button type="submit">Sign out</button>
+          </form>
+        </div>
       </aside>
       <div className="console-main">
         <header className="console-top">

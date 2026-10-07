@@ -68,6 +68,29 @@ founders remain uninvited pending email-sender and invitation setup. Each founde
 chooses their own password and authenticator. Never commit identities, workbook
 data or credentials.
 
+## Passwords and invitations
+
+`/sign-in/password` sets or changes a password. It needs an `aal2` session, so a
+reset email alone cannot change one. "Forgot password?" on sign-in sends a reset
+link through `/auth/confirm`, then the authenticator code, then this page. Both
+dashboards link to it beside Sign out.
+
+Peregrine Internal's email templates should use token links, which work on any
+device. The **Invite user** template:
+
+```html
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&project=internal&next=/sign-in/password?next=/owner">Open Peregrine Office</a>
+```
+
+The **Reset password** template (`RedirectTo` already carries project and next):
+
+```html
+<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=recovery">Choose a new password</a>
+```
+
+Site URL is `https://www.peregrinepartners.space` with
+`https://www.peregrinepartners.space/**` allowed as a redirect.
+
 ## Validation and launch gates
 
 33 native tests, scoped types and feature lint pass. The internal disposable SQL

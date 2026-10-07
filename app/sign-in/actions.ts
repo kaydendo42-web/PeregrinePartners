@@ -7,10 +7,14 @@ import {
   safeDestination,
   defaultDestination,
   authProject,
+  workspaceDestination,
+  PASSWORD_PATH,
 } from "@/lib/auth/next";
+import { signInPassword as passwordCopy } from "@/lib/content";
 
 export type SignInState = { error?: string; sent?: boolean };
 export type VerifyState = { error?: string };
+export type PasswordState = { error?: string };
 
 /**
  * Email and password — how Resos signs Jenny in, so it is how Peregrine does
@@ -104,6 +108,72 @@ export async function sendSignInLink(
     },
   });
   return { sent: true };
+}
+
+/**
+ * A link that lands on the set-password page, through the authenticator code
+ * like every other sign-in. Same answer for every address, as above.
+ */
+export async function sendPasswordReset(
+  _: SignInState,
+  form: FormData,
+): Promise<SignInState> {
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
+    return { error: "Sign-in isn't switched on for this site yet." };
+  const email = String(form.get("email") ?? "").trim();
+  if (!email) return { error: "Enter your email." };
+
+  const h = await headers();
+  const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
+  const then = `${PASSWORD_PATH}?next=${encodeURIComponent(workspaceDestination(form.get("next"), project))}`;
+  const client = await supabase(project);
+  await client.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/confirm?project=${project}&next=${encodeURIComponent(then)}`,
+  });
+  return { sent: true };
+}
+
+/**
+ * Saves a new password. Only an aal2 session may: a reset email on its own
+ * must not be enough to take over an account, any more than it is to read one.
+ */
+export async function setPassword(
+  _: PasswordState,
+  form: FormData,
+): Promise<PasswordState> {
+  const project = authProject(form.get("next"), form.get("project"));
+  if (!supabaseEnv(project))
+    return { error: "Sign-in isn't switched on for this site yet." };
+  const next = workspaceDestination(form.get("next"), project);
+  const password = String(form.get("password") ?? "");
+  const again = String(form.get("again") ?? "");
+  if (password.length < 8) return { error: passwordCopy.tooShort };
+  if (password !== again) return { error: passwordCopy.mismatch };
+
+  const self = encodeURIComponent(
+    `${PASSWORD_PATH}?next=${encodeURIComponent(next)}`,
+  );
+  const client = await supabase(project);
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) redirect(`/sign-in?project=${project}&next=${self}`);
+  const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (aal?.currentLevel !== "aal2")
+    redirect(`/sign-in/verify?project=${project}&next=${self}`);
+
+  const { error } = await client.auth.updateUser({ password });
+  if (error)
+    return {
+      error:
+        error.code === "same_password"
+          ? passwordCopy.same
+          : error.code === "weak_password"
+            ? passwordCopy.weak
+            : passwordCopy.failed,
+    };
+  redirect(next);
 }
 
 export async function signOut() {

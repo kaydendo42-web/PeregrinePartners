@@ -56,11 +56,19 @@ export default async function OwnerLayout({
           />
         }
         signOutControl={
-          <form action={signOutOwner}>
-            <button className="owner-signout">
-              Sign out <span aria-hidden="true">↗</span>
-            </button>
-          </form>
+          <>
+            <a
+              className="owner-signout"
+              href="/sign-in/password?next=%2Fowner"
+            >
+              Password <span aria-hidden="true">↗</span>
+            </a>
+            <form action={signOutOwner}>
+              <button className="owner-signout">
+                Sign out <span aria-hidden="true">↗</span>
+              </button>
+            </form>
+          </>
         }
       >
         {children}

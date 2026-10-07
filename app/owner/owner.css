@@ -136,6 +136,11 @@
   color: #fff;
   font-size: 12px;
 }
+a.owner-signout {
+  box-sizing: border-box;
+  font: inherit;
+  text-decoration: none;
+}
 .owner-signout {
   display: flex;
   justify-content: space-between;
