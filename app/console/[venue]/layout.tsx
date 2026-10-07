@@ -6,6 +6,8 @@ import { signOut } from "@/app/sign-in/actions";
 import { ConsoleNav } from "./nav";
 import { LiveRefresh } from "./live-refresh";
 import { demoOn } from "@/lib/console/demo";
+import { WorkspaceMenu } from "@/components/workspace-menu";
+import { myWorkspaces } from "@/lib/workspaces";
 import "../console.css";
 
 export const metadata: Metadata = {
@@ -29,13 +31,19 @@ export default async function VenueLayout({
   params: Promise<{ venue: string }>;
 }) {
   const { venue: slug } = await params;
-  const venue = await venueBySlug(slug);
+  const [venue, mine] = await Promise.all([venueBySlug(slug), myWorkspaces()]);
   const env = supabaseEnv();
 
   return (
     <div className="console-shell">
       <aside className="console-side">
-        <p className="console-side__brand">{BRAND_NAME}</p>
+        <div className="console-side__me">
+          <WorkspaceMenu
+            me={mine.me}
+            workspaces={mine.workspaces}
+            current={`venue:${slug}`}
+          />
+        </div>
         <ConsoleNav slug={slug} />
         <div className="console-side__out">
           <a href={`/sign-in/password?next=${encodeURIComponent(`/console/${slug}`)}`}>

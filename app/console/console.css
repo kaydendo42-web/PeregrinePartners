@@ -94,6 +94,10 @@
   margin-top: auto;
 }
 
+.console-side__me {
+  margin: -4px -4px 16px;
+}
+
 .console-side__out {
   display: flex;
   flex-direction: column;
@@ -1038,6 +1042,24 @@
 
   .console-side__brand {
     display: none;
+  }
+
+  /* The row scrolls sideways, which would clip the dropdown; pin it instead. */
+  .console-side__me {
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .console-side__me .wsm-label,
+  .console-side__me .wsm-caret {
+    display: none;
+  }
+
+  .console-side__me .wsm-panel {
+    position: fixed;
+    top: 64px;
+    left: 12px;
+    width: min(300px, calc(100vw - 24px));
   }
 
   .console-nav {

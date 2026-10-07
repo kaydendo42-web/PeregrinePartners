@@ -41,6 +41,9 @@
   padding: 0 12px 28px;
   letter-spacing: -0.6px;
 }
+.owner-account {
+  margin: -8px -4px 20px;
+}
 .owner-brand-mark {
   font-size: 25px;
   letter-spacing: -4px;
@@ -582,6 +585,9 @@ a.owner-signout {
   .owner-brand {
     padding: 0;
     font-size: 19px;
+  }
+  .owner-account {
+    margin: 0 0 8px;
   }
   .owner-brand-sub {
     font-size: 9px;
