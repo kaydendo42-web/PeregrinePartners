@@ -7,6 +7,7 @@ export function OwnerShell({
   status,
   signOutControl,
   workspaceControl,
+  accountControl,
   children,
 }: {
   displayName: string;
@@ -14,6 +15,8 @@ export function OwnerShell({
   status: ReactNode;
   signOutControl: ReactNode;
   workspaceControl?: ReactNode;
+  /** The avatar switcher; replaces the wordmark when present. */
+  accountControl?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -22,14 +25,18 @@ export function OwnerShell({
         Skip to content
       </a>
       <aside className="owner-sidebar">
-        <div className="owner-brand">
-          <span className="owner-brand-mark" aria-hidden="true">
-            P↗
-          </span>
-          <span>
-            Peregrine<span className="owner-brand-sub">Office</span>
-          </span>
-        </div>
+        {accountControl ? (
+          <div className="owner-account">{accountControl}</div>
+        ) : (
+          <div className="owner-brand">
+            <span className="owner-brand-mark" aria-hidden="true">
+              P↗
+            </span>
+            <span>
+              Peregrine<span className="owner-brand-sub">Office</span>
+            </span>
+          </div>
+        )}
         {workspaceControl ?? (
           <div className="owner-workspace">
             <span className="owner-workspace-icon" aria-hidden="true">

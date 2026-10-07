@@ -13,6 +13,8 @@ import { listClients, visibleVenues } from "@/lib/owner/clients";
 import { ownerBookingSession } from "@/lib/owner/bookings";
 import { BookingUpdates } from "@/components/owner/booking-updates";
 import { WorkspaceSwitcher } from "@/components/owner/workspace-switcher";
+import { WorkspaceMenu } from "@/components/workspace-menu";
+import { myWorkspaces } from "@/lib/workspaces";
 import "./owner.css";
 import "./agency.css";
 
@@ -30,10 +32,11 @@ export default async function OwnerLayout({
 }) {
   const { context } = await requireOwner();
   const env = supabaseEnv("internal")!;
-  const [accounts, venues, booking] = await Promise.all([
+  const [accounts, venues, booking, mine] = await Promise.all([
     listClients(context, { q: "", page: 1 }),
     visibleVenues(context),
     ownerBookingSession(),
+    myWorkspaces(context.displayName),
   ]);
   const bookingEnv = supabaseEnv("booking");
   return (
@@ -47,6 +50,13 @@ export default async function OwnerLayout({
         displayName={context.displayName}
         navigation={<OwnerNav />}
         status={<LiveStatus label="CRM" />}
+        accountControl={
+          <WorkspaceMenu
+            me={mine.me}
+            workspaces={mine.workspaces}
+            current="office"
+          />
+        }
         workspaceControl={
           <WorkspaceSwitcher
             clients={accounts.rows.map((c) => ({
