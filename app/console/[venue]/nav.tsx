@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-/** Resos's order and names, so Jenny's hands already know them. */
+/**
+ * Four places, and the customer CRM. Bookings is one day, seen as the floor, the list or the
+ * timeline (tabs on the day bar); Calendar is the month that leads into it.
+ */
 const ITEMS = [
-  ["", "Dashboard"],
-  ["/calendar", "Calendar"],
-  ["/schedule", "Schedule"],
-  ["/list", "List"],
-  ["/floor", "Floor plan"],
-  ["/customers", "Customers"],
-  ["/crm", "Customer CRM"],
-  ["/settings", "Settings"],
+  ["/list", "Bookings", ["/list", "/floor", "/schedule"]],
+  ["/calendar", "Calendar", ["/calendar"]],
+  ["/customers", "Customers", ["/customers"]],
+  ["/crm", "Customer CRM", ["/crm"]],
+  ["/settings", "Settings", ["/settings"]],
 ] as const;
 
 export function ConsoleNav({ slug }: { slug: string }) {
@@ -20,9 +20,9 @@ export function ConsoleNav({ slug }: { slug: string }) {
   const base = `/console/${slug}`;
   return (
     <nav className="console-nav" aria-label="Console">
-      {ITEMS.map(([href, label]) => {
+      {ITEMS.map(([href, label, owns]) => {
         const to = base + href;
-        const current = href === "" ? path === base : path.startsWith(to);
+        const current = owns.some((o) => path.startsWith(base + o));
         return (
           <Link key={label} href={to} aria-current={current ? "page" : undefined}>
             {label}

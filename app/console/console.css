@@ -446,7 +446,6 @@
 }
 
 .console-daybar__pick,
-.console-timepick,
 .console-search {
   display: flex;
   align-items: center;
@@ -511,6 +510,17 @@
 .console-notes {
   max-width: 240px;
   color: var(--muted);
+}
+
+.console-staffnote {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.console-staffnote::before {
+  content: "Venue: ";
+  font-weight: 500;
 }
 
 .console-actions {
@@ -686,70 +696,245 @@
 
 /* --- floor ---------------------------------------------------------------- */
 
-.console-floor {
-  width: 100%;
-  height: auto;
-  max-height: 70dvh;
+.console-views {
+  order: 1;
+  display: inline-flex;
+  margin-left: auto;
+  padding: 3px;
+  gap: 2px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+
+.console-views a {
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.console-views a[aria-current="page"] {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 2px #141e281f;
+}
+
+.console-daybar .console-daybar__pick {
+  order: 2;
+}
+
+.console-daybar:has(.console-views) .console-daybar__pick {
+  margin-left: 0;
+}
+
+.console-floorbar {
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+}
+
+.console-scrub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 420px;
+  max-width: 640px;
+}
+
+.console-scrub__time {
+  min-width: 74px;
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.console-scrub input[type="range"] {
+  flex: 1;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  accent-color: var(--fill);
+}
+
+.console-scrub[data-pending] .console-scrub__time {
+  color: var(--muted);
+}
+
+.console-floorwrap {
+  overflow-x: auto;
   background: #fff;
   border: 1px solid var(--rule);
   border-radius: 10px;
 }
 
-.console-floor__table {
+.console-floor {
+  display: block;
+  width: 100%;
+  min-width: 900px;
+  height: auto;
+  max-height: 74dvh;
+}
+
+.console-floor__zone {
+  fill: #fbfaf6;
+}
+
+.console-floor__zone.is-open {
+  fill: #eef3ec;
+}
+
+.console-floor__tree {
+  fill: #cfe2c6;
+  opacity: 0.7;
+}
+
+.console-floor__fixture {
+  fill: #e6eae8;
+  stroke: #c3ccc8;
+  stroke-width: 0.02;
+}
+
+.console-floor__fixture.is-room,
+.console-floor__fixture.is-bathroom {
+  fill: #dfe4e2;
+  stroke: none;
+}
+
+.console-floor__fixture.is-bench {
+  fill: #ece6dc;
+  stroke: #d6cdbf;
+}
+
+.console-floor__fixture.is-planter {
+  fill: #d7e6cf;
+  stroke: none;
+}
+
+.console-floor__fixlabel {
+  font-size: 0.26px;
+  font-weight: 600;
+  letter-spacing: 0.04px;
+  text-transform: uppercase;
+  fill: var(--faint);
+}
+
+.console-floor__stairs rect,
+.console-floor__stairs line {
+  fill: #e6eae8;
+  stroke: #b3bfbb;
+  stroke-width: 0.03;
+}
+
+.console-floor__wall {
+  stroke: var(--ink);
+  stroke-width: 0.14;
+  stroke-linecap: square;
+}
+
+.console-floor__wall.is-parapet {
+  stroke: #a9b6b1;
+  stroke-width: 0.06;
+}
+
+.console-floor__wall.is-glass {
+  stroke: #8dbcc0;
+  stroke-width: 0.09;
+}
+
+.console-floor__zonelabel {
+  font-size: 0.46px;
+  font-weight: 700;
+  letter-spacing: 0.06px;
+  text-transform: uppercase;
+  fill: var(--accent);
+  opacity: 0.55;
+}
+
+.console-floor a {
+  cursor: pointer;
+}
+
+.console-floor__top {
+  fill: #fff;
   stroke: var(--ink);
   stroke-width: 0.03;
 }
 
-.console-floor__table.is-free {
-  fill: var(--paper);
+.console-floor__chair {
+  fill: #fff;
+  stroke: #8d9dab;
+  stroke-width: 0.02;
 }
 
-.console-floor__table.is-booked {
+.console-floor__t.is-booked .console-floor__top {
   fill: #efb8c4;
 }
 
-.console-floor__table.is-seated {
+.console-floor__t.is-booked .console-floor__chair {
+  fill: #f7dbe1;
+}
+
+.console-floor__t.is-seated .console-floor__top {
   fill: var(--sage-lift);
 }
 
+.console-floor__t.is-seated .console-floor__chair {
+  fill: #c9ecdf;
+}
+
+.console-floor a:hover .console-floor__top,
+.console-floor a:focus-visible .console-floor__top {
+  stroke-width: 0.06;
+}
+
 .console-floor__label {
-  font-size: 0.26px;
-  font-weight: 600;
+  font-weight: 700;
   fill: var(--ink);
+  paint-order: stroke;
+  stroke: #ffffffd9;
+  stroke-width: 0.05px;
+  stroke-linejoin: round;
+  pointer-events: none;
 }
 
 .console-floor__who {
   font-size: 0.2px;
-  fill: var(--muted);
-}
-
-.console-floor__section {
-  font-size: 0.3px;
   font-weight: 600;
-  fill: var(--accent);
-  letter-spacing: 0.02px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 0.06px;
+  stroke-linejoin: round;
 }
 
 .console-legend {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-left: 12px;
   color: var(--muted);
   font-size: 13px;
+  font-variant-numeric: tabular-nums;
 }
 
 .console-legend i {
   display: inline-block;
   width: 12px;
   height: 12px;
-  margin-left: 8px;
+  margin-left: 10px;
   border: 1px solid var(--ink);
   border-radius: 2px;
 }
 
+.console-legend__guests {
+  margin-left: 14px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .console-legend .is-free {
-  background: var(--paper);
+  background: #fff;
 }
 
 .console-legend .is-booked {

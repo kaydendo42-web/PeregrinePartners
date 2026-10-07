@@ -61,6 +61,12 @@ export function timeLabel(at: Date | string, tz: string): string {
     .toLowerCase();
 }
 
+/** Venue-local "HH:MM", for a time input. */
+export function clockOf(at: Date | string, tz: string): string {
+  const m = minutesOfDay(at, tz);
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+}
+
 /** Minutes since venue-local midnight. */
 export function minutesOfDay(at: Date | string, tz: string): number {
   const parts = new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", hour: "2-digit", minute: "2-digit" }).formatToParts(new Date(at));

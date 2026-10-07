@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
-import { demoBookings, demoCustomers, demoFloor, demoOn, demoVenue } from "./demo";
+import { demoBookings, demoCustomers, demoFloor, demoOn, demoPlan, demoVenue } from "./demo";
 
 /**
  * Everything the console reads, through the signed-in member's client. Row-level
@@ -20,6 +20,21 @@ export type Venue = {
   notify_bookings?: boolean;
   /** Where that email goes; null means the website's own inbox. */
   notify_email?: string | null;
+  /** The room around the tables; absent until the venue's plan is seeded. */
+  plan?: FloorPlan | null;
+};
+
+type Point = [number, number];
+
+/** A venue's room, in venue metres (x across, y up), as its seed writes it. */
+export type FloorPlan = {
+  width: number;
+  depth: number;
+  zones: { id: string; name: string; open: boolean; outline: Point[]; label: Point }[];
+  walls: { kind: "wall" | "parapet" | "glass"; from: Point; to: Point }[];
+  fixtures: { kind: "room" | "bathroom" | "counter" | "bench" | "planter"; label: string; x: number; y: number; w: number; d: number }[];
+  stairs?: { x0: number; x1: number; y0: number; y1: number; treads: number };
+  trees?: { x: number; y: number; r: number }[];
 };
 
 export type Section = { id: string; name: string; sort: number; indoor: boolean };
@@ -58,7 +73,10 @@ export type Booking = {
   guest_name: string;
   phone: string;
   email: string;
+  /** What the guest wrote when booking. */
   notes: string | null;
+  /** The venue's own notes; never shown to the guest. */
+  staff_notes?: string | null;
   status: BookingStatus;
   source: string;
 };
@@ -103,7 +121,7 @@ export async function myVenues(): Promise<Venue[]> {
 export async function venueBySlug(slug: string): Promise<Venue> {
   if (demoOn()) {
     if (slug !== demoVenue.slug) notFound();
-    return demoVenue;
+    return { ...demoVenue, plan: demoPlan() };
   }
   const { client } = await requireUser();
   const { data } = await client.from("venues").select("*").eq("slug", slug).maybeSingle();
@@ -140,6 +158,17 @@ export async function floor(venueId: string) {
   };
 }
 
+const BOOKING_COLUMNS =
+  "id,table_id,table_ids,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,staff_notes,status,source";
+
+/** One booking at the venue, or null. */
+export async function bookingById(venueId: string, id: string): Promise<Booking | null> {
+  if (demoOn()) return demoBookings().find((b) => b.id === id) ?? null;
+  const client = await supabase();
+  const { data } = await client.from("bookings").select(BOOKING_COLUMNS).eq("venue_id", venueId).eq("id", id).maybeSingle();
+  return (data as Booking | null) ?? null;
+}
+
 export async function bookingsBetween(venueId: string, from: Date, to: Date): Promise<Booking[]> {
   if (demoOn()) {
     return demoBookings().filter((b) => b.starts_at >= from.toISOString() && b.starts_at < to.toISOString());
@@ -147,7 +176,7 @@ export async function bookingsBetween(venueId: string, from: Date, to: Date): Pr
   const client = await supabase();
   const { data } = await client
     .from("bookings")
-    .select("id,table_id,table_ids,starts_at,ends_at,duration_min,party_size,guest_name,phone,email,notes,status,source")
+    .select(BOOKING_COLUMNS)
     .eq("venue_id", venueId)
     .gte("starts_at", from.toISOString())
     .lt("starts_at", to.toISOString())

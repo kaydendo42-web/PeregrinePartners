@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { bookingsBetween, floor, heldTables, live, venueBySlug, type Booking } from "@/lib/console/data";
 import { dayLabel, dayRange, isDateKey, timeLabel, todayKey } from "@/lib/console/time";
 import { setStatus } from "../actions";
@@ -50,7 +51,7 @@ export default async function ListPage({
 
   return (
     <div className="console-page">
-      <DayBar base={base} date={date} />
+      <DayBar base={base} date={date} view="list" />
       {problem ? <p className="console-problem">{problem}</p> : null}
       {unassigned ? (
         <p className="console-problem">
@@ -115,6 +116,7 @@ export default async function ListPage({
                     {b.email ? <span className="console-ref">{b.email}</span> : null}
                   </td>
                   <td data-label="Notes" className="console-notes">
+                    {b.staff_notes ? <span className="console-staffnote">{b.staff_notes}</span> : null}
                     {b.notes}
                   </td>
                   <td data-label="Status">
@@ -137,9 +139,15 @@ export default async function ListPage({
 
 function Actions({ slug, booking: b }: { slug: string; booking: Booking }) {
   const act = (status: Booking["status"]) => setStatus.bind(null, slug, b.id, status);
+  const edit = (
+    <Link className="console-btn console-btn--sm" href={`/console/${slug}/list/${encodeURIComponent(b.id)}`}>
+      Edit
+    </Link>
+  );
   if (b.status === "confirmed") {
     return (
       <>
+        {edit}
         <form action={act("seated")}>
           <StatusButton label="Seat" primary />
         </form>
@@ -154,14 +162,20 @@ function Actions({ slug, booking: b }: { slug: string; booking: Booking }) {
   }
   if (b.status === "seated") {
     return (
-      <form action={act("confirmed")}>
-        <StatusButton label="Unseat" />
-      </form>
+      <>
+        {edit}
+        <form action={act("confirmed")}>
+          <StatusButton label="Unseat" />
+        </form>
+      </>
     );
   }
   return (
-    <form action={act("confirmed")}>
-      <StatusButton label="Reinstate" />
-    </form>
+    <>
+      {edit}
+      <form action={act("confirmed")}>
+        <StatusButton label="Reinstate" />
+      </form>
+    </>
   );
 }

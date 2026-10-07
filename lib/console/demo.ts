@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import type { Booking, Combination, Customer, Section, Venue, VenueTable } from "./data";
+import type { Booking, Combination, Customer, FloorPlan, Section, Venue, VenueTable } from "./data";
 import { addDays, todayKey, zoned } from "./time";
 
 /**
@@ -26,6 +26,12 @@ export const demoVenue: Venue = {
   notify_bookings: false,
   notify_email: null,
 };
+
+/** The room around the tables, from the seed's plan line. */
+export function demoPlan(): FloorPlan | null {
+  const m = seed().match(/update public\.venues set plan = '(.*)'::jsonb/);
+  return m ? (JSON.parse(m[1].replace(/''/g, "'")) as FloorPlan) : null;
+}
 
 export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combinations: Combination[] } {
   const sql = seed();
