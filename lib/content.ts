@@ -730,6 +730,12 @@ export const signInVerify = {
   setupHeading: "Lock your console with your phone.",
   setupSub:
     "Your console holds your guests' names, numbers and notes. From now on, signing in takes your password and a code from your phone, so a password on its own is never enough. You set this up once.",
+  /** The same screen for founders signing in to Peregrine Office. */
+  founder: {
+    setupHeading: "Lock Peregrine Office with your phone.",
+    setupSub:
+      "Peregrine Office holds every lead, client and note we keep. From now on, signing in takes your password and a code from your phone, so a password on its own is never enough. You set this up once.",
+  },
   steps: [
     {
       title: "Get an authenticator app",
