@@ -51,16 +51,18 @@ export function TwoStepView({
   }
 
   const [get, add, enter] = copy.steps;
+  const { setupHeading, setupSub } =
+    project === "internal" ? copy.founder : copy;
   return (
     <>
       <h1
         className="t-display mt-[40px] max-w-[640px] text-white"
         style={{ textWrap: "balance" }}
       >
-        {copy.setupHeading}
+        {setupHeading}
       </h1>
       <p className="t-body mt-[22px] max-w-[600px] text-white/80">
-        {copy.setupSub}
+        {setupSub}
       </p>
 
       <div className="mt-[48px] grid items-start gap-[48px] md:grid-cols-[minmax(0,1fr)_auto] md:gap-[64px]">
