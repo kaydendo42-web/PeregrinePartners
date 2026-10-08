@@ -34,12 +34,32 @@ export async function signInWithPassword(
 
   const client = await supabase(project);
   const { error } = await client.auth.signInWithPassword({ email, password });
-  if (error) return { error: "Those details did not match." };
+  if (error) {
+    if (project === "booking" && (await founderSignIn(email, password)))
+      redirect(`/sign-in/verify?project=internal&next=${encodeURIComponent("/owner")}`);
+    return { error: "Those details did not match." };
+  }
   // A password is only the first step; the code from an authenticator app is
   // the second. The proxy would send them there anyway — this saves a hop.
   redirect(
     `/sign-in/verify?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
   );
+}
+
+/**
+ * One door for everyone: a login that is not a venue account is tried as a
+ * Peregrine Office founder. Anything short of an approved founder signs
+ * straight back out, and the form gives the same answer either way.
+ */
+async function founderSignIn(email: string, password: string) {
+  if (!supabaseEnv("internal")) return false;
+  const client = await supabase("internal");
+  const { error } = await client.auth.signInWithPassword({ email, password });
+  if (error) return false;
+  const { data: owner } = await client.rpc("crm_owner_status");
+  if (owner === true) return true;
+  await client.auth.signOut();
+  return false;
 }
 
 /**
