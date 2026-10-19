@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <title>Offline · PeregrineOffice</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #1a1a1a;
+        color: #ffffff;
+        font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+        text-align: center;
+      }
+      img { width: 64px; height: 64px; border-radius: 16px; }
+      h1 { margin: 24px 0 8px; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+      p { margin: 0 0 24px; color: rgba(255, 255, 255, 0.7); max-width: 22em; }
+      button {
+        min-height: 44px;
+        padding: 0 22px;
+        border: 0;
+        border-radius: 16px;
+        background: #ffffff;
+        color: #1a1a1a;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/app/icon-192.png" alt="" />
+      <h1>You're offline</h1>
+      <p>PeregrineOffice needs a connection to show your bookings. It'll pick up where you left off once you're back online.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+    </main>
+  </body>
+</html>
