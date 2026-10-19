@@ -3,6 +3,7 @@ import { authProject } from "@/lib/auth/next";
 import { BRAND_NAME } from "@/lib/brand";
 import { AuthFrame } from "@/components/auth-frame";
 import { SignInForm } from "@/components/forms/sign-in-form";
+import { InstallHint } from "@/components/app/install-hint";
 import { signIn } from "@/lib/content";
 
 const clientMetadata: Metadata = {
@@ -55,6 +56,7 @@ export default async function SignIn({ searchParams }: PageProps<"/sign-in">) {
           linkExpired={link === "expired"}
         />
       </div>
+      {project !== "internal" && <InstallHint />}
     </AuthFrame>
   );
 }

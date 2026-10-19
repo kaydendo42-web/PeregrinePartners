@@ -62,6 +62,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: ["/og.png"],
   },
+  // Added to an iPhone or iPad home screen, the console opens full screen as
+  // PeregrineOffice. app/manifest.ts does the same for Android and desktop.
+  appleWebApp: {
+    capable: true,
+    title: "PeregrineOffice",
+    statusBarStyle: "black",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
