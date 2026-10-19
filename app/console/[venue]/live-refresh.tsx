@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { browserSupabase } from "@/lib/supabase/browser";
+import { BOOKING_SCHEMA } from "@/lib/supabase/environment";
 
 /**
  * When a guest books on the venue's website, the open console shows it without
@@ -18,7 +19,7 @@ export function LiveRefresh({ url, anonKey, venueId }: { url: string; anonKey: s
       .channel(`bookings:${venueId}`)
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "bookings", filter: `venue_id=eq.${venueId}` },
+        { event: "*", schema: BOOKING_SCHEMA, table: "bookings", filter: `venue_id=eq.${venueId}` },
         () => router.refresh(),
       )
       .subscribe();

@@ -43,7 +43,9 @@ export async function bookingReport(
 
 /** The caller must supply a verified booking-project member session. */
 export async function readBookingReport(
-  client: SupabaseClient,
+  // Any schema: the booking project's client is bound to thepeacock.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  client: SupabaseClient<any, any, any>,
   venueId: string,
   days: number,
 ): Promise<BookingReport | null> {
