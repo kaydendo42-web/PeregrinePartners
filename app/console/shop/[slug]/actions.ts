@@ -6,6 +6,7 @@ import { shopBySlug, shopDay, shopServices, shopSession } from "@/lib/shop/data"
 import { normalisePhone, planBlock, planBooking } from "@/lib/shop/booking";
 import { dayBounds } from "@/lib/shop/day";
 import { parseHoursForm } from "@/lib/shop/hours";
+import { parseTimeOff } from "@/lib/shop/timeoff";
 import type { ShopBookingStatus } from "@/lib/shop/types";
 
 const OWNER_STATUSES: ShopBookingStatus[] = ["confirmed", "cancelled", "completed", "no_show"];
@@ -31,7 +32,7 @@ export async function setStatus(slug: string, id: string, status: ShopBookingSta
 
 // --- new appointment / block time ------------------------------------------------
 
-export type FormState = { error?: string; saved?: boolean };
+export type FormState = { error?: string; saved?: boolean; warning?: string };
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const field = (form: FormData, key: string) => String(form.get(key) ?? "").trim();
@@ -133,4 +134,54 @@ export async function saveHours(slug: string, _: FormState, form: FormData): Pro
   if (error) return { error: "Couldn't save your hours. Try again." };
   revalidatePath(`/console/shop/${slug}`, "layout");
   return { saved: true };
+}
+
+// --- time off -------------------------------------------------------------------
+
+/**
+ * Close days or set different hours. Existing appointments in those days stay
+ * booked (cancelling is the barber's call, client by client); the reply says
+ * how many there are.
+ */
+export async function addTimeOff(slug: string, _: FormState, form: FormData): Promise<FormState> {
+  const parsed = parseTimeOff(form);
+  if (!parsed.ok) return { error: parsed.error };
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+
+  const rows = parsed.dates.map((date) => ({
+    tenant_id: shop.id,
+    date,
+    closed: parsed.closed,
+    open_local: parsed.open,
+    close_local: parsed.close,
+    note: parsed.note,
+  }));
+  const { error } = await db.from("date_overrides").upsert(rows, { onConflict: "tenant_id,date" });
+  if (error) return { error: "Couldn't save that. Try again." };
+
+  const { from } = dayBounds(parsed.dates[0], shop.timezone);
+  const { to } = dayBounds(parsed.dates[parsed.dates.length - 1], shop.timezone);
+  const day = await shopDay(shop.id, from, to);
+  const booked = day.bookings.filter((b) => b.status === "confirmed").length;
+
+  revalidatePath(`/console/shop/${slug}`, "layout");
+  return {
+    saved: true,
+    ...(booked
+      ? {
+          warning: `${booked} ${booked === 1 ? "appointment is" : "appointments are"} already booked in ${
+            parsed.dates.length === 1 ? "that day" : "those days"
+          } and still stand. Contact ${booked === 1 ? "that client" : "those clients"} if you need to move them.`,
+        }
+      : {}),
+  };
+}
+
+export async function removeTimeOff(slug: string, id: string) {
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+  const { error } = await db.from("date_overrides").delete().eq("tenant_id", shop.id).eq("id", id);
+  if (error) throw new Error(`Could not remove that: ${error.message}`);
+  revalidatePath(`/console/shop/${slug}`, "layout");
 }
