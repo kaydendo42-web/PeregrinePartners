@@ -7,6 +7,7 @@ import { normalisePhone, planBlock, planBooking } from "@/lib/shop/booking";
 import { dayBounds } from "@/lib/shop/day";
 import { parseHoursForm } from "@/lib/shop/hours";
 import { parseTimeOff } from "@/lib/shop/timeoff";
+import { parseService, parseSettings } from "@/lib/shop/settings";
 import type { ShopBookingStatus } from "@/lib/shop/types";
 
 const OWNER_STATUSES: ShopBookingStatus[] = ["confirmed", "cancelled", "completed", "no_show"];
@@ -184,4 +185,52 @@ export async function removeTimeOff(slug: string, id: string) {
   const { error } = await db.from("date_overrides").delete().eq("tenant_id", shop.id).eq("id", id);
   if (error) throw new Error(`Could not remove that: ${error.message}`);
   revalidatePath(`/console/shop/${slug}`, "layout");
+}
+
+// --- services ----------------------------------------------------------------------
+
+export async function saveService(slug: string, id: string | null, _: FormState, form: FormData): Promise<FormState> {
+  const parsed = parseService(form);
+  if (!parsed.ok) return { error: parsed.error };
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+  const row = { name: parsed.value.name, duration_min: parsed.value.durationMin, price_cents: parsed.value.priceCents };
+  const { error } = id
+    ? await db.from("services").update(row).eq("tenant_id", shop.id).eq("id", id)
+    : await db.from("services").insert({ ...row, tenant_id: shop.id, active: true, sort: Date.now() % 1_000_000 });
+  if (error) return { error: "Couldn't save the service. Try again." };
+  revalidatePath(`/console/shop/${slug}`, "layout");
+  return { saved: true };
+}
+
+/** Off means clients can't book it; past bookings keep their service. */
+export async function setServiceActive(slug: string, id: string, active: boolean) {
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+  const { error } = await db.from("services").update({ active }).eq("tenant_id", shop.id).eq("id", id);
+  if (error) throw new Error(`Could not update the service: ${error.message}`);
+  revalidatePath(`/console/shop/${slug}`, "layout");
+}
+
+// --- booking rules -------------------------------------------------------------------
+
+export async function saveSettings(slug: string, _: FormState, form: FormData): Promise<FormState> {
+  const parsed = parseSettings(form);
+  if (!parsed.ok) return { error: parsed.error };
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+  const v = parsed.value;
+  const { error } = await db
+    .from("tenants")
+    .update({
+      max_advance_days: v.maxAdvanceDays,
+      min_notice_minutes: v.minNoticeMinutes,
+      slot_minutes: v.slotMinutes,
+      guest_change_cutoff_hours: v.guestChangeCutoffHours,
+      buffer_minutes: v.bufferMinutes,
+    })
+    .eq("id", shop.id);
+  if (error) return { error: "Couldn't save your settings. Try again." };
+  revalidatePath(`/console/shop/${slug}`, "layout");
+  return { saved: true };
 }
