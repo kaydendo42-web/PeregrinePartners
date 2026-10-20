@@ -47,15 +47,18 @@ export function shopEmail(kind: "booked" | "cancelled", a: ShopAppointmentEmail)
   return { subject, text: lines.join("\n\n"), html };
 }
 
+/** Sent from the one shared Peregrine address (SHOP_FROM_ADDRESS), under the shop's own name. */
 export async function sendShopEmail(
   to: string | null,
   msg: Email,
   env: Record<string, string | undefined> = process.env,
   fetcher: typeof fetch = fetch,
+  shopName = "Peregrine Office",
 ): Promise<"sent" | "skipped" | "failed"> {
   const key = env.RESEND_API_KEY;
-  const from = env.SHOP_FROM_EMAIL;
-  if (!key || !from || !to) return "skipped";
+  const address = env.SHOP_FROM_ADDRESS;
+  if (!key || !address || !to) return "skipped";
+  const from = `${shopName.replace(/[<>"]/g, "")} <${address}>`;
   try {
     const res = await fetcher("https://api.resend.com/emails", {
       method: "POST",

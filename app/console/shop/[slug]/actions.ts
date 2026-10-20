@@ -27,6 +27,9 @@ async function tellClient(kind: "booked" | "cancelled", shop: Shop, b: Pick<Shop
       tz: shop.timezone,
       ...brand,
     }),
+    process.env,
+    fetch,
+    shop.name,
   );
 }
 
