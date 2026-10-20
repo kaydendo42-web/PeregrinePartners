@@ -2,13 +2,32 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { shopBySlug, shopDay, shopServices, shopSession } from "@/lib/shop/data";
+import { shopBooking, shopBySlug, shopDay, shopServices, shopSession } from "@/lib/shop/data";
 import { normalisePhone, planBlock, planBooking } from "@/lib/shop/booking";
 import { dayBounds } from "@/lib/shop/day";
 import { parseHoursForm } from "@/lib/shop/hours";
 import { parseTimeOff } from "@/lib/shop/timeoff";
 import { parseService, parseSettings } from "@/lib/shop/settings";
+import { sendShopEmail, shopEmail } from "@/lib/shop/email";
+import { brandFor } from "@/lib/shop/brand";
+import type { Shop, ShopBooking } from "@/lib/shop/types";
 import type { ShopBookingStatus } from "@/lib/shop/types";
+
+/** Email the client about this appointment, if they gave an address. Never blocks the change itself. */
+async function tellClient(kind: "booked" | "cancelled", shop: Shop, b: Pick<ShopBooking, "serviceName" | "startsAt" | "customer">) {
+  const brand = brandFor(shop.slug);
+  return sendShopEmail(
+    b.customer.email,
+    shopEmail(kind, {
+      shopName: shop.name,
+      clientName: b.customer.name,
+      serviceName: b.serviceName,
+      startsAt: b.startsAt,
+      tz: shop.timezone,
+      ...brand,
+    }),
+  );
+}
 
 const OWNER_STATUSES: ShopBookingStatus[] = ["confirmed", "cancelled", "completed", "no_show"];
 
@@ -28,6 +47,12 @@ export async function setStatus(slug: string, id: string, status: ShopBookingSta
   }
   if (error) throw new Error(`Could not update the appointment: ${error.message}`);
   revalidatePath(`/console/shop/${slug}`, "layout");
+  if (status === "cancelled") {
+    const b = await shopBooking(shop.id, id);
+    if (b && (await tellClient("cancelled", shop, b)) === "failed") {
+      redirect(`${back}?problem=${encodeURIComponent("Cancelled. The email to the client didn't send.")}`);
+    }
+  }
   redirect(back);
 }
 
@@ -90,6 +115,14 @@ export async function createAppointment(slug: string, _: FormState, form: FormDa
   if (error || !created) return { error: "Couldn't save the appointment. Try again." };
 
   revalidatePath(`/console/shop/${slug}`, "layout");
+  const sent = await tellClient("booked", shop, {
+    serviceName: service.name,
+    startsAt: plan.startsAt,
+    customer: { id: customer.data.id, name, phone, email },
+  });
+  if (sent === "failed") {
+    redirect(`/console/shop/${slug}/booking/${created.id}?problem=${encodeURIComponent("Booked. The confirmation email didn't send.")}`);
+  }
   redirect(`/console/shop/${slug}?date=${date}`);
 }
 
