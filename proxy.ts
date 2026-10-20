@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseEnv } from "@/lib/supabase/server";
 import { safeDestination, authProject } from "@/lib/auth/next";
+import { isShopPath, needsTwoStep } from "@/lib/auth/two-step";
+import { SHOP_SCHEMA } from "@/lib/supabase/environment";
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -10,9 +12,11 @@ import { safeDestination, authProject } from "@/lib/auth/next";
  *
  * It also turns a signed-out visitor away from /console before any of it
  * renders, and sends a member who has only done the first step (password or
- * email link) on to the authenticator code. Those are the optimistic checks:
- * every page re-checks the user, and row-level security — which requires an
- * aal2 session — is what actually keeps the data shut.
+ * email link) on to the authenticator code, where two-step applies (see
+ * lib/auth/two-step.ts: always for venues and /owner, for a barber shop only
+ * if they've turned it on). Those are the optimistic checks: every page
+ * re-checks the user, and row-level security is what actually keeps the data
+ * shut.
  */
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
@@ -81,11 +85,22 @@ export async function proxy(request: NextRequest) {
 
     const { data: aal } =
       await client.auth.mfa.getAuthenticatorAssuranceLevel();
-    if (aal?.currentLevel !== "aal2")
+    const level = { currentLevel: aal?.currentLevel ?? null, nextLevel: aal?.nextLevel ?? null };
+    // Only ask the database about shop membership when the answer matters.
+    const shopMember =
+      project === "booking" && level.currentLevel !== "aal2" && level.nextLevel !== "aal2" && isShopPath(path)
+        ? await isShopMember(client, user.id)
+        : false;
+    if (needsTwoStep(path, level, shopMember))
       return redirectTo(request, "/sign-in/verify", response);
   }
 
   return response;
+}
+
+async function isShopMember(client: ReturnType<typeof createServerClient>, userId: string) {
+  const { data } = await client.schema(SHOP_SCHEMA).from("members").select("tenant_id").eq("user_id", userId).limit(1);
+  return (data?.length ?? 0) > 0;
 }
 
 /** Send them elsewhere, keeping any session cookies the refresh just wrote. */

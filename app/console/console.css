@@ -1009,6 +1009,12 @@
   margin: 0;
 }
 
+.console-picker__kind {
+  margin-left: 8px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
 .console-picker {
   display: flex;
   flex-direction: column;

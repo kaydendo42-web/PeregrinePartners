@@ -27,6 +27,10 @@ export async function GET(request: NextRequest) {
   const to = request.nextUrl.clone();
   to.search = "";
   to.searchParams.set("project", project);
+  // A venue or founder goes on to their authenticator code; a booking-project
+  // member goes to where they were headed and the proxy asks for a code only
+  // if two-step applies to them.
+  if (!error && project === "booking") return NextResponse.redirect(new URL(next || "/console", request.url));
   to.pathname = error ? "/sign-in" : "/sign-in/verify";
   if (error) to.searchParams.set("link", "expired");
   else if (next) to.searchParams.set("next", next);
