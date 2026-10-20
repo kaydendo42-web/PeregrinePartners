@@ -2,7 +2,12 @@
    A top bar, the page, and a tab bar under the thumb; on a wide screen the
    tabs move to a sidebar. Colours are the console's own variables. */
 
-.shop-shell {
+/* console.css gives .shop-shell the palette along with the venue console's
+   grid; the extra class weight here keeps the shop's own layout on top
+   whichever stylesheet loads last. */
+.shop-shell.shop-shell {
+  display: block;
+  font-size: 15px;
   min-height: 100dvh;
   background: var(--paper);
   color: var(--ink);
@@ -82,7 +87,7 @@
 }
 
 @media (min-width: 900px) {
-  .shop-shell {
+  .shop-shell.shop-shell {
     display: grid;
     grid-template-columns: 200px 1fr;
     grid-template-rows: auto 1fr;
@@ -138,7 +143,7 @@
   display: contents;
 }
 
-.shop-btn--danger {
+.shop-btn--danger.shop-btn--danger {
   color: var(--alert);
 }
 
@@ -162,6 +167,7 @@
 
 .shop-chip {
   display: inline-block;
+  justify-self: start;
   margin: 6px 0 0;
   padding: 3px 10px;
   border-radius: 999px;

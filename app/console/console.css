@@ -6,7 +6,9 @@
    of which share these names with other values) never reach it.
 --------------------------------------------------------------------------- */
 
-.console-shell {
+/* The shop console (app/console/shop) shares the palette; shop.css sets its own layout. */
+.console-shell,
+.shop-shell {
   --ink: #141e28;
   --muted: #55677a;
   --faint: #8d9dab;

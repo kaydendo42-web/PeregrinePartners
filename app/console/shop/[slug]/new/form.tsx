@@ -14,12 +14,14 @@ type Action = (state: FormState, form: FormData) => Promise<FormState>;
 
 export function AppointmentForm({ action, services, date }: { action: Action; services: ShopService[]; date: string }) {
   const [state, submit, pending] = useActionState(action, {});
+  const v = state.values ?? {};
+  // A new key after each reply re-mounts the fields with what was typed, since React resets a form after its action.
   return (
-    <form action={submit} className="shop-form">
+    <form action={submit} className="shop-form" key={JSON.stringify(v)}>
       {state.error ? <p className="shop-problem">{state.error}</p> : null}
       <label>
         Service
-        <select name="service" required defaultValue={services[0]?.id}>
+        <select name="service" required defaultValue={v.service || services[0]?.id}>
           {services.map((s) => (
             <option key={s.id} value={s.id}>
               {s.name} · {s.durationMin} min · {money(s.priceCents)}
@@ -30,11 +32,11 @@ export function AppointmentForm({ action, services, date }: { action: Action; se
       <div className="shop-pair">
         <label>
           Date
-          <input type="date" name="date" required defaultValue={date} />
+          <input type="date" name="date" required defaultValue={v.date || date} />
         </label>
         <label>
           Time
-          <select name="time" required defaultValue="10:00">
+          <select name="time" required defaultValue={v.time || "10:00"}>
             {QUARTERS.map((t) => (
               <option key={t}>{t}</option>
             ))}
@@ -43,19 +45,19 @@ export function AppointmentForm({ action, services, date }: { action: Action; se
       </div>
       <label>
         Client name
-        <input name="name" required maxLength={80} autoComplete="off" />
+        <input name="name" required maxLength={80} autoComplete="off" defaultValue={v.name} />
       </label>
       <label>
         Mobile
-        <input name="phone" type="tel" required inputMode="tel" placeholder="0412 345 678" />
+        <input name="phone" type="tel" required inputMode="tel" placeholder="0412 345 678" defaultValue={v.phone} />
       </label>
       <label>
         Email (optional, for their confirmation)
-        <input name="email" type="email" autoComplete="off" />
+        <input name="email" type="email" autoComplete="off" defaultValue={v.email} />
       </label>
       <label>
         Notes
-        <textarea name="notes" maxLength={500} />
+        <textarea name="notes" maxLength={500} defaultValue={v.notes} />
       </label>
       <button className="console-btn console-btn--primary" type="submit" disabled={pending}>
         {pending ? "Booking…" : "Book appointment"}

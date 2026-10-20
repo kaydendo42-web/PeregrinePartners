@@ -58,13 +58,25 @@ export async function setStatus(slug: string, id: string, status: ShopBookingSta
 
 // --- new appointment / block time ------------------------------------------------
 
-export type FormState = { error?: string; saved?: boolean; warning?: string };
+export type FormState = {
+  error?: string;
+  saved?: boolean;
+  warning?: string;
+  /** What was typed, handed back with an error so the form doesn't make them retype it. */
+  values?: Record<string, string>;
+};
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const field = (form: FormData, key: string) => String(form.get(key) ?? "").trim();
 
 /** The owner books a client in. Checked here, then held by the database's no-overlap rule. */
-export async function createAppointment(slug: string, _: FormState, form: FormData): Promise<FormState> {
+export async function createAppointment(slug: string, state: FormState, form: FormData): Promise<FormState> {
+  const values = Object.fromEntries(["service", "date", "time", "name", "phone", "email", "notes"].map((k) => [k, field(form, k)]));
+  const out = await bookIn(slug, form);
+  return out.error ? { ...out, values } : out;
+}
+
+async function bookIn(slug: string, form: FormData): Promise<FormState> {
   const shop = await shopBySlug(slug);
   const { db } = await shopSession();
 
