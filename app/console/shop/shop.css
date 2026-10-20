@@ -355,6 +355,22 @@
   box-shadow: none;
 }
 
+.shop-item--block {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+
+.shop-item__remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .shop-fab {
   position: fixed;
   right: 18px;

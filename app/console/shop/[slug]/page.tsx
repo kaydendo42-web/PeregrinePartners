@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { shopBySlug, shopDay, shopHours, shopOverrides } from "@/lib/shop/data";
 import { clock, dayBounds, layoutDay, zonedDate } from "@/lib/shop/day";
+import { removeBlock } from "./actions";
 
 export const metadata: Metadata = { title: "Calendar" };
 
@@ -124,6 +125,11 @@ export default async function ShopCalendar({
               <strong>
                 {clock(item.startMin)}–{clock(item.endMin)} {item.label}
               </strong>
+              <form action={removeBlock.bind(null, slug, item.id, date)}>
+                <button type="submit" className="shop-item__remove">
+                  Remove
+                </button>
+              </form>
             </div>
           ),
         )}
