@@ -16,15 +16,15 @@ try {
     create function auth.jwt() returns jsonb language sql stable as $$ select coalesce(nullif(current_setting('request.jwt.claims',true),''),'{}')::jsonb $$;
     create function auth.uid() returns uuid language sql stable as $$ select (auth.jwt()->>'sub')::uuid $$;
     grant usage on schema auth to anon, authenticated;
-    create table public.venues(id uuid primary key,name text default 'Test venue',slug text,timezone text default 'Australia/Melbourne');
-    create table public.venue_members(venue_id uuid,user_id uuid);
-    create table public.bookings(id text primary key,venue_id uuid references public.venues(id),guest_name text,email text default '',phone text default '',starts_at timestamptz,party_size integer,status text,source text,created_at timestamptz default now(),updated_at timestamptz default now());
-    create function public.is_member(v uuid) returns boolean language sql stable security definer set search_path=pg_catalog,public as $$ select exists(select 1 from public.venue_members where venue_id=v and user_id=auth.uid()); $$;
-    alter table public.venues enable row level security;
-    alter table public.bookings enable row level security;
-    create policy venue_read on public.venues for select to authenticated using(public.is_member(id) and auth.jwt()->>'aal'='aal2');
-    create policy booking_read on public.bookings for select to authenticated using(public.is_member(venue_id) and auth.jwt()->>'aal'='aal2');
-    grant select on public.venues,public.bookings to authenticated;
+    create table thepeacock.venues(id uuid primary key,name text default 'Test venue',slug text,timezone text default 'Australia/Melbourne');
+    create table thepeacock.venue_members(venue_id uuid,user_id uuid);
+    create table thepeacock.bookings(id text primary key,venue_id uuid references thepeacock.venues(id),guest_name text,email text default '',phone text default '',starts_at timestamptz,party_size integer,status text,source text,created_at timestamptz default now(),updated_at timestamptz default now());
+    create function thepeacock.is_member(v uuid) returns boolean language sql stable security definer set search_path=pg_catalog,public as $$ select exists(select 1 from thepeacock.venue_members where venue_id=v and user_id=auth.uid()); $$;
+    alter table thepeacock.venues enable row level security;
+    alter table thepeacock.bookings enable row level security;
+    create policy venue_read on thepeacock.venues for select to authenticated using(thepeacock.is_member(id) and auth.jwt()->>'aal'='aal2');
+    create policy booking_read on thepeacock.bookings for select to authenticated using(thepeacock.is_member(venue_id) and auth.jwt()->>'aal'='aal2');
+    grant select on thepeacock.venues,thepeacock.bookings to authenticated;
     create publication supabase_realtime;`);
   const migrations = [
     ...(await readdir(new URL("../migrations/", import.meta.url)))
@@ -65,8 +65,8 @@ try {
     );
     await db.exec(`do $$ begin
       if to_regclass('public.crm_businesses') is not null or to_regclass('public.crm_workspaces') is not null then raise exception 'Internal retirement incomplete'; end if;
-      if to_regclass('public.bookings') is null or to_regclass('public.client_crm_entries') is null or to_regclass('public.venue_members') is null then raise exception 'Client tables changed'; end if;
-      if to_regprocedure('public.booking_dashboard(uuid,date,date)') is null or to_regprocedure('public.client_crm_customers(uuid,text,integer)') is null then raise exception 'Client reporting changed'; end if;
+      if to_regclass('thepeacock.bookings') is null or to_regclass('thepeacock.client_crm_entries') is null or to_regclass('thepeacock.venue_members') is null then raise exception 'Client tables changed'; end if;
+      if to_regprocedure('thepeacock.booking_dashboard(uuid,date,date)') is null or to_regprocedure('thepeacock.client_crm_customers(uuid,text,integer)') is null then raise exception 'Client reporting changed'; end if;
       if public.crm_owner_status() then raise exception 'Legacy owner routing remained active'; end if;
     end $$;`);
     console.log("Source retirement preserves client tables and reporting.");

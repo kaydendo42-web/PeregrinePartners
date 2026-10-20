@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { browserSupabase } from "@/lib/supabase/browser";
+import { BOOKING_SCHEMA } from "@/lib/supabase/environment";
 import { createRefreshScheduler } from "@/lib/crm/live-state";
 
 /** Read-only client updates do not control the independent founder session. */
@@ -33,7 +34,7 @@ export function BookingUpdates({
           "postgres_changes",
           {
             event,
-            schema: "public",
+            schema: BOOKING_SCHEMA,
             table: "bookings",
             filter: "venue_id=eq." + venue,
           },

@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { projectEnvironment, type SupabaseProject } from "./environment";
+import { projectEnvironment, schemaFor, type SupabaseProject } from "./environment";
 
 /**
  * Where Peregrine's database is, and the key a browser may hold. The Vercel
@@ -22,6 +22,7 @@ export async function supabase(project: SupabaseProject = "booking") {
   const env = supabaseEnv(project);
   if (!env) throw new Error("Supabase is not configured for this deployment.");
   return createServerClient(env.url, env.key, {
+    db: { schema: schemaFor(project) },
     cookies: {
       getAll: () => store.getAll(),
       setAll: (list) => {
