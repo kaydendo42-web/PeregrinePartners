@@ -10,6 +10,7 @@ import { parseTimeOff } from "@/lib/shop/timeoff";
 import { parseService, parseSettings } from "@/lib/shop/settings";
 import { sendShopEmail, shopEmail } from "@/lib/shop/email";
 import { brandFor } from "@/lib/shop/brand";
+import { safeShopPath } from "@/lib/shop/back";
 import type { Shop, ShopBooking } from "@/lib/shop/types";
 import type { ShopBookingStatus } from "@/lib/shop/types";
 
@@ -32,8 +33,9 @@ async function tellClient(kind: "booked" | "cancelled", shop: Shop, b: Pick<Shop
 const OWNER_STATUSES: ShopBookingStatus[] = ["confirmed", "cancelled", "completed", "no_show"];
 
 /** Mark an appointment done, a no-show, cancelled, or back to booked. */
-export async function setStatus(slug: string, id: string, status: ShopBookingStatus, back: string) {
+export async function setStatus(slug: string, id: string, status: ShopBookingStatus, backTo: string) {
   if (!OWNER_STATUSES.includes(status)) return;
+  const back = safeShopPath(slug, backTo);
   const shop = await shopBySlug(slug);
   const { db } = await shopSession();
   const now = new Date().toISOString();
@@ -160,12 +162,13 @@ export async function createBlock(slug: string, _: FormState, form: FormData): P
 }
 
 export async function removeBlock(slug: string, id: string, date: string) {
+  if (!DATE.test(date)) date = "";
   const shop = await shopBySlug(slug);
   const { db } = await shopSession();
   const { error } = await db.from("blocks").delete().eq("tenant_id", shop.id).eq("id", id);
   if (error) throw new Error(`Could not remove the block: ${error.message}`);
   revalidatePath(`/console/shop/${slug}`, "layout");
-  redirect(`/console/shop/${slug}?date=${date}`);
+  redirect(safeShopPath(slug, date ? `/console/shop/${slug}?date=${date}` : `/console/shop/${slug}`));
 }
 
 // --- working hours ---------------------------------------------------------------
