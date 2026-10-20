@@ -12,7 +12,9 @@
 - Vance's daily use, in his words: "logs in and checks who's coming, sets his availability for the future". Guests can book 3 weeks ahead (already live in V Barbers).
 - The dashboard every client sees should work like Booksy's at the skeleton (same screens, same flow, things where a Booksy user expects them) so moving over is seamless. Peregrine's own look and the client's personal branding on the booking page are the difference. Workflows only: no copied Booksy code, assets or visual design, and no reverse engineering of Booksy's app.
 - Booksy's management basics, from its public material: a calendar of appointments, working hours, days off and blocked time, closures and special hours for specific dates, and a "booking for future" window.
-- It lives in the existing PeregrineOffice console (installable PWA, Supabase Auth with two-step), not in V Barbers' own `/owner` page.
+- It lives in the existing PeregrineOffice console (installable PWA, Supabase Auth), not in V Barbers' own `/owner` page.
+- Two-step is **optional** for shop owners (Kayden: "I don't think they will like it"). Password or email link is enough. Anyone who has turned two-step on must still pass it. Venues (The Peacock) keep requiring two-step.
+- Email via Resend (free plan): V Barbers already sends guest confirmations, Vance's booking alerts, and cancel/reschedule notices once `RESEND_API_KEY` is set. The console also emails the client when Vance books or cancels for them.
 
 **Repos:**
 - `PV` = `/Users/kaydendo/Documents/Projects/Peregrine Clients/Vbarbers` (GitHub jye230606-bot/peregrinebooking-barbers). Work on branch `schedule-from-db`, created from `vbarbers-schema-and-hero`.
@@ -21,7 +23,7 @@
 ## Global Constraints
 
 - Database: project Clients - Booking `pzljcmcnthzklaurzxpa`, schema `vbarbers` only. Additive changes only: no `drop`, `rename` or `alter column`. Never touch `thepeacock` or `public`.
-- Every member-facing `vbarbers` table gets a restrictive policy `"two-step sign-in required"`, `using ((select auth.jwt() ->> 'aal') = 'aal2')`, the same as `PP/supabase/migrations/20261005000000_require_two_step.sql`.
+- `vbarbers` member policies need membership only, not aal2. The console's proxy and `/console` index decide when to send someone to `/sign-in/verify`: always for venue paths and `/owner`; for shop paths only when the user has a verified TOTP factor and the session is still aal1.
 - V Barbers' public API keeps using the service role. The browser never talks to Supabase from V Barbers (`tests/content.test.mjs` "no secret is exposed" must still pass).
 - Times are Australia/Melbourne wall clock. Date keys are `YYYY-MM-DD`, times `HH:MM`, weekday 0 = Sunday.
 - Rule values seeded for V Barbers: slot 45 min, buffer 0, notice 120 min, advance 21 days, guest change cutoff 12 h.
@@ -34,7 +36,7 @@
 2. **Owner books over an existing appointment or a block.** The console must show "That time is taken" (Postgres 23P01 from `bookings_no_overlap`), or "That's in blocked time" from the console's own pre-check, and never a raw error. Test in Task 7.
 3. **Closing a day that already has bookings.** Saving a closure must not cancel or hide existing bookings. The calendar still lists them, and the Time off form warns "N bookings that day stay booked". Test in Task 9.
 4. **Weekly hours saved half-way.** A network drop between delete and insert must not leave Vance with no hours. `vbarbers.set_weekly_hours` replaces all seven days in one transaction. Test in Task 1 (SQL) and Task 8.
-5. **An aal1 session (password only) hitting the API directly.** RLS returns nothing. Test in Task 1 via `store:check`'s new member section.
+5. **A signed-in user who isn't Vance's member hits the API directly.** RLS returns nothing from `vbarbers`. Test in Task 1 via `store:check`'s new member section.
 
 ---
 
@@ -53,16 +55,16 @@
   - `is_member(t uuid) returns boolean`: `security definer`, `stable`, `set search_path = pg_catalog, vbarbers`, true when a `members` row matches `auth.uid()`.
   - `set_weekly_hours(t uuid, days jsonb) returns void`: `security invoker`. `days` is an array of `{weekday, open, close}`. It deletes then inserts the tenant's `weekly_hours` in one call, and raises `'not a member'` unless `is_member(t)`.
   - Grants to `authenticated`: usage on the schema; `select, update` on `tenants`; `select, insert, update, delete` on `services, weekly_hours, date_overrides, blocks`; `select, insert, update` on `customers, bookings`; `select` on `reviews, members`; execute on both functions.
-  - Policies for `authenticated`: permissive `is_member(tenant_id)` (or `is_member(id)` on `tenants`, `user_id = auth.uid()` on `members`) for each granted command, plus the restrictive aal2 policy on all nine tables.
+  - Policies for `authenticated`: permissive `is_member(tenant_id)` (or `is_member(id)` on `tenants`, `user_id = auth.uid()` on `members`) for each granted command. No aal2 policy.
   - `alter publication supabase_realtime add table vbarbers.bookings, vbarbers.blocks`.
 
-- [ ] **Step 1: Write the failing test.** In `tests/content.test.mjs`, add `test("every vbarbers table is member-only and needs two-step", …)`. Read all migration files, concatenated. For each of `tenants services weekly_hours date_overrides blocks customers bookings reviews members`, assert a match for `create policy "two-step sign-in required" on vbarbers\.${t}\s+as restrictive`. Assert `/create function vbarbers\.set_weekly_hours/`, and assert no `\bpublic\.` or `\bthepeacock\.`. Change the existing migration test to loop over every file instead of `const [file]`.
+- [ ] **Step 1: Write the failing test.** In `tests/content.test.mjs`, add `test("every vbarbers table is member-only", …)`. Read all migration files, concatenated. For each of `tenants services weekly_hours date_overrides blocks customers bookings reviews members`, assert `create policy [^;]* on vbarbers\.${t}\b[^;]*to authenticated` exists and `enable row level security` is set. Assert `/create function vbarbers\.set_weekly_hours/`, and assert no `\bpublic\.` or `\bthepeacock\.`. Change the existing migration test to loop over every file instead of `const [file]`.
 - [ ] **Step 2: Run it to make sure it fails.** `npm test`. Expected: FAIL on the new test.
 - [ ] **Step 3: Write the migration** with exactly the interfaces above. In `seed.sql`, add `update vbarbers.tenants set slot_minutes=45, buffer_minutes=0, min_notice_minutes=120, max_advance_days=21, guest_change_cutoff_hours=12 where slug='vbarbers';`.
 - [ ] **Step 4: Run tests.** `npm test`. Expected: all pass.
 - [ ] **Step 5: Dry-run on live** inside `begin; … rollback;` with `supabase db query --linked --project-ref pzljcmcnthzklaurzxpa -f <file>`. End it with a select that returns the policy count on `vbarbers` (expected ≥ 18) and `vbarbers.is_member('00000000-0000-0000-0000-000000000000')` = false. Expected: no error, and the schema is unchanged afterwards.
 - [ ] **Step 6: Apply.** Wrap the file in `begin; … commit;` and save it to `Peregrine Office/ops/2026-10-20-vbarbers-members/1-apply.sql` for Kayden to run if auto mode refuses. Then run the seed `update`.
-- [ ] **Step 7: Extend `check-store.mjs`.** It creates a throwaway auth user with the service role (`POST /auth/v1/admin/users`), adds it to `members` of the `vbarbers-selftest` tenant, signs in with password (aal1), and asserts `GET /rest/v1/bookings` returns `[]` with profile `vbarbers`. It deletes the user in `finally`. Run `npm run store:check`. Expected: the new line `✔ a password-only session reads nothing`.
+- [ ] **Step 7: Extend `check-store.mjs`.** It creates two throwaway auth users with the service role (`POST /auth/v1/admin/users`) and adds one to `members` of the `vbarbers-selftest` tenant. It signs both in with password and asserts that the member sees the self-test booking while the non-member's `GET /rest/v1/bookings` returns `[]` with profile `vbarbers`. It deletes both users in `finally`. Run `npm run store:check`. Expected: the new lines `✔ a member reads their shop` and `✔ a non-member reads nothing`.
 - [ ] **Step 8: Commit** `Add shop members, booking rules and member-only RLS to vbarbers`.
 
 ### Task 2: Store loads the shop's schedule
@@ -142,6 +144,10 @@
 - [ ] **Step 1: Failing test.** `pickDestination` returns the href for exactly one client and null for zero or two. Sorting puts "The Peacock South Yarra" before "V Barbers".
 - [ ] **Step 2: Run** `npm test`. Expected: FAIL (module missing).
 - [ ] **Step 3: Implement.** `/console` uses `myClients()` and `pickDestination()`. The picker lists both kinds with a small "Venue" or "Barber" label.
+  - Two-step routing: `export function needsTwoStep(path: string, aal: { currentLevel: string|null; nextLevel: string|null }, isShopPath: boolean): boolean` in `lib/auth/two-step.ts`. It returns true when `nextLevel === 'aal2' && currentLevel !== 'aal2'` (a factor is enrolled), or when the path isn't a shop path and `currentLevel !== 'aal2'`. `proxy.ts` uses it, with `isShopPath = path.startsWith('/console/shop/')`.
+  - The `/console` index at aal1 with no shops redirects to `/sign-in/verify`.
+  - After password or link sign-in, `app/sign-in/actions.ts` redirects to `next ?? '/console'` instead of always `/sign-in/verify`, and lets the proxy decide.
+  - Tests in `tests/shop/two-step.test.ts`: shop path + no factor + aal1 → false; venue path + aal1 → true; shop path + enrolled factor + aal1 → true.
 - [ ] **Step 4: Run** `npm test`, `npx tsc --noEmit` (ignore generated `PageProps`/`LayoutProps` noise before a build), `npx eslint lib app/console`. Expected: clean.
 - [ ] **Step 5: Commit** `Let a console member belong to a barber shop as well as a venue`.
 
@@ -252,9 +258,39 @@
 
 ---
 
+### Task 11: Email clients from the console, and switch V Barbers' emails on
+
+**Files:**
+- Create: `PP/lib/shop/email.ts`
+- Modify: `PP/app/console/shop/[slug]/actions.ts` (after a successful create or cancel)
+- Test: `PP/tests/shop/email.test.ts`
+
+**Interfaces:**
+- Produces:
+  - `shopEmail(kind: 'booked'|'cancelled', b: { shopName: string; clientName: string; serviceName: string; startsAt: string; tz: string; manageNote: string }): { subject: string; text: string; html: string }`.
+  - `sendShopEmail(to: string, msg, env = process.env, fetcher = fetch): Promise<'sent'|'skipped'|'failed'>`: `POST https://api.resend.com/emails` with `from: env.SHOP_FROM_EMAIL`. It returns `'skipped'` when `RESEND_API_KEY` or `SHOP_FROM_EMAIL` is unset or the client has no email. Failure never blocks the booking; the action shows "Booked. The confirmation email didn't send."
+- Copy: subject `Your <service> at <shop> is booked for <Tue 21 Oct, 10:45 am>` / `Your <service> at <shop> on <…> is cancelled`. The body names the shop, time, address (from the shop's public page config: for V Barbers "41 Flowerdale Road, Hampton East VIC 3188") and "Questions? Message @vbarbersz on Instagram."
+- [ ] **Step 1: Failing tests.**
+  - `shopEmail('booked', …)` subject is `Your Haircut at V Barbers is booked for Tue 20 Oct, 10:00 am` for `2026-10-19T23:00:00Z`, tz Australia/Melbourne;
+  - `sendShopEmail` with no key returns `'skipped'` and calls no fetch;
+  - with a key it posts once, with header `Authorization: Bearer <key>`.
+- [ ] **Step 2: Run.** Expected: FAIL.
+- [ ] **Step 3: Implement**, and call it from `createAppointment` and `setStatus(…,'cancelled')`.
+- [ ] **Step 4: Switch on (Kayden + Claude).** Kayden:
+  1. Creates the Resend account.
+  2. Adds the domain `peregrinepartners.space` and puts its DNS records in at the registrar (the domain's DNS isn't on Vercel).
+  3. Creates a sending API key.
+  4. Runs `vercel env add RESEND_API_KEY production` in both the V Barbers and Partners folders, pasting the key.
+
+  Claude then sets the non-secret envs:
+  - V Barbers: `BOOKING_FROM_EMAIL="V Barbers <bookings@peregrinepartners.space>"`, `OWNER_EMAIL=<Vance's email>`, `SITE_URL=https://vbarbers.vercel.app`.
+  - Partners: `SHOP_FROM_EMAIL="V Barbers <bookings@peregrinepartners.space>"`.
+
+  Then redeploy both and make one real test booking to Kayden's email. Expected: guest confirmation and owner alert both arrive. Then cancel it and check the cancel notice arrives.
+- [ ] **Step 5: Commit** `Email the client when the shop books or cancels for them`.
+
 ## Non-goals (this plan)
 
-- Emails from console actions (cancel notices to clients). V Barbers has no Resend key yet. Track separately.
 - Client list/CRM, reports, payments, staff calendars, deposits, waitlists, reviews management.
 - Changing The Peacock's console.
 - Retiring V Barbers' `/owner` page (it keeps working until Vance is on the console).
