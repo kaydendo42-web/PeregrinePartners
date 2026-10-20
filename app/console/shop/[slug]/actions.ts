@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { shopBySlug, shopDay, shopServices, shopSession } from "@/lib/shop/data";
 import { normalisePhone, planBlock, planBooking } from "@/lib/shop/booking";
 import { dayBounds } from "@/lib/shop/day";
+import { parseHoursForm } from "@/lib/shop/hours";
 import type { ShopBookingStatus } from "@/lib/shop/types";
 
 const OWNER_STATUSES: ShopBookingStatus[] = ["confirmed", "cancelled", "completed", "no_show"];
@@ -30,7 +31,7 @@ export async function setStatus(slug: string, id: string, status: ShopBookingSta
 
 // --- new appointment / block time ------------------------------------------------
 
-export type FormState = { error?: string };
+export type FormState = { error?: string; saved?: boolean };
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const field = (form: FormData, key: string) => String(form.get(key) ?? "").trim();
@@ -118,4 +119,18 @@ export async function removeBlock(slug: string, id: string, date: string) {
   if (error) throw new Error(`Could not remove the block: ${error.message}`);
   revalidatePath(`/console/shop/${slug}`, "layout");
   redirect(`/console/shop/${slug}?date=${date}`);
+}
+
+// --- working hours ---------------------------------------------------------------
+
+/** All seven days replaced in one database call, so a dropped connection can't leave no hours. */
+export async function saveHours(slug: string, _: FormState, form: FormData): Promise<FormState> {
+  const parsed = parseHoursForm(form);
+  if (!parsed.ok) return { error: parsed.error };
+  const shop = await shopBySlug(slug);
+  const { db } = await shopSession();
+  const { error } = await db.rpc("set_weekly_hours", { t: shop.id, days: parsed.days });
+  if (error) return { error: "Couldn't save your hours. Try again." };
+  revalidatePath(`/console/shop/${slug}`, "layout");
+  return { saved: true };
 }
