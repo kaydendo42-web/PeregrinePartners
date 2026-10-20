@@ -1,0 +1,569 @@
+/* The shop console: phone-first, the way a barber uses it between cuts.
+   A top bar, the page, and a tab bar under the thumb; on a wide screen the
+   tabs move to a sidebar. Colours are the console's own variables. */
+
+/* console.css gives .shop-shell the palette along with the venue console's
+   grid; the extra class weight here keeps the shop's own layout on top
+   whichever stylesheet loads last. */
+.shop-shell.shop-shell {
+  display: block;
+  font-size: 15px;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+}
+
+.shop-top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  background: var(--fill-deep);
+  color: #fff;
+}
+
+.shop-top__name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.shop-top__out {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+}
+
+.shop-top__out a,
+.shop-top__out button {
+  color: #ffffffb3;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.shop-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #fff;
+  border-top: 1px solid var(--rule);
+}
+
+.shop-nav a {
+  display: grid;
+  place-items: center;
+  min-height: 56px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.shop-nav a[aria-current="page"] {
+  color: var(--accent);
+  box-shadow: inset 0 3px 0 var(--accent);
+}
+
+.shop-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+@media (min-width: 900px) {
+  .shop-shell.shop-shell {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr;
+    padding-bottom: 0;
+  }
+  .shop-top {
+    grid-column: 1 / -1;
+  }
+  .shop-nav {
+    position: sticky;
+    top: 56px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 10px;
+    background: none;
+    border: 0;
+  }
+  .shop-nav a {
+    place-items: start;
+    align-content: center;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  .shop-nav a[aria-current="page"] {
+    background: var(--surface);
+    box-shadow: none;
+  }
+  .shop-main {
+    padding: 24px;
+  }
+}
+
+/* --- shared bits ------------------------------------------------------------- */
+
+.shop-link {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.shop-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.shop-row form {
+  display: contents;
+}
+
+.shop-btn--danger.shop-btn--danger {
+  color: var(--alert);
+}
+
+.shop-problem {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #a3392b14;
+  color: var(--alert-deep);
+  font-size: 14px;
+}
+
+.shop-ok {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--blush);
+  color: var(--fill-deep);
+  font-size: 14px;
+}
+
+.shop-chip {
+  display: inline-block;
+  justify-self: start;
+  margin: 6px 0 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--blush);
+  color: var(--fill-deep);
+}
+
+.shop-chip[data-status="cancelled"],
+.shop-chip[data-status="no_show"] {
+  background: #a3392b1f;
+  color: var(--alert-deep);
+}
+
+.shop-chip[data-status="completed"] {
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.shop-page-head h1,
+.shop-sheet h1,
+.shop-day-head h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.shop-page-head p {
+  margin: 6px 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* --- calendar ------------------------------------------------------------------ */
+
+.shop-week {
+  display: grid;
+  grid-template-columns: 32px 1fr 32px;
+  align-items: center;
+  margin: -4px -8px 14px;
+}
+
+.shop-week__arrow {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  color: var(--muted);
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.shop-week ol {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shop-week li a {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.shop-week li a span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.shop-week li a strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.shop-week li a[data-today] strong {
+  color: var(--accent);
+}
+
+.shop-week li a[aria-current="date"] {
+  background: var(--fill);
+  color: #fff;
+}
+
+.shop-week li a[aria-current="date"] span,
+.shop-week li a[aria-current="date"] strong {
+  color: #fff;
+}
+
+.shop-day-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2px 12px;
+  margin-bottom: 14px;
+}
+
+.shop-day-head p {
+  grid-column: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.shop-day-head .shop-link {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.shop-timeline {
+  position: relative;
+  margin-left: 48px;
+  border-left: 1px solid var(--rule);
+}
+
+.shop-hour {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.shop-hour span {
+  position: absolute;
+  left: -48px;
+  top: -8px;
+  width: 42px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.shop-closed {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: repeating-linear-gradient(-45deg, transparent 0 6px, #8d9dab1f 6px 8px);
+}
+
+.shop-item {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  padding: 6px 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  border-left: 4px solid var(--accent);
+  background: #fff;
+  box-shadow: 0 1px 2px #141e2814, 0 4px 12px -6px #141e2829;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.shop-item strong {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shop-item span {
+  color: var(--muted);
+}
+
+.shop-item[data-status="completed"] {
+  border-left-color: var(--sage);
+  opacity: 0.75;
+}
+
+.shop-item[data-status="no_show"] {
+  border-left-color: var(--alert);
+  opacity: 0.75;
+}
+
+.shop-item--block {
+  border-left-color: var(--faint);
+  background: repeating-linear-gradient(-45deg, var(--surface) 0 6px, #fff 6px 12px);
+  box-shadow: none;
+}
+
+.shop-item--block {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+
+.shop-item__remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.shop-fab {
+  position: fixed;
+  right: 18px;
+  bottom: calc(76px + env(safe-area-inset-bottom));
+  z-index: 25;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--fill);
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 8px 24px -8px #0b2f3499;
+}
+
+@media (min-width: 900px) {
+  .shop-fab {
+    bottom: 28px;
+    right: 28px;
+  }
+}
+
+/* --- appointment sheet ---------------------------------------------------------- */
+
+.shop-sheet {
+  display: grid;
+  gap: 14px;
+}
+
+.shop-facts {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.shop-facts div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.shop-facts dt {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.shop-facts dd {
+  margin: 0;
+  font-size: 15px;
+}
+
+.shop-confirm {
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--rule);
+}
+
+.shop-confirm p {
+  margin: 0 0 12px;
+}
+
+/* --- forms ------------------------------------------------------------------------ */
+
+.shop-form {
+  display: grid;
+  gap: 14px;
+}
+
+.shop-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.shop-form input,
+.shop-form select,
+.shop-form textarea {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming into the field */
+}
+
+.shop-form textarea {
+  min-height: 80px;
+  padding: 10px 12px;
+}
+
+.shop-form .shop-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.shop-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 16px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.shop-tabs a {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.shop-tabs a[aria-current="page"] {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 3px #141e281f;
+}
+
+.shop-list {
+  display: grid;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.shop-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.shop-list small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.shop-day-row {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.shop-day-row .shop-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.shop-switch {
+  display: flex !important;
+  align-items: center;
+  gap: 10px !important;
+  font-size: 15px !important;
+  color: var(--ink) !important;
+}
+
+.shop-switch input {
+  min-height: 0 !important;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--fill);
+}
+
+.shop-hint {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}

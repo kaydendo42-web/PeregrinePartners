@@ -6,7 +6,9 @@
    of which share these names with other values) never reach it.
 --------------------------------------------------------------------------- */
 
-.console-shell {
+/* The shop console (app/console/shop) shares the palette; shop.css sets its own layout. */
+.console-shell,
+.shop-shell {
   --ink: #141e28;
   --muted: #55677a;
   --faint: #8d9dab;
@@ -1007,6 +1009,12 @@
 
 .console-dl dd {
   margin: 0;
+}
+
+.console-picker__kind {
+  margin-left: 8px;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
 .console-picker {

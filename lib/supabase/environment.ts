@@ -6,6 +6,9 @@ export type SupabaseProject = "booking" | "internal";
  * The internal project still uses public.
  */
 export const BOOKING_SCHEMA = "thepeacock";
+
+/** Barber shops: V Barbers today. Reached with `client.schema(SHOP_SCHEMA)`. */
+export const SHOP_SCHEMA = "vbarbers";
 export const schemaFor = (project: SupabaseProject) =>
   project === "booking" ? BOOKING_SCHEMA : "public";
 export type PublicEnvironment = Record<string, string | undefined>;

@@ -1,5 +1,7 @@
 "use server";
 
+import { needsTwoStep } from "@/lib/auth/two-step";
+import { SHOP_SCHEMA } from "@/lib/supabase/environment";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase, supabaseEnv } from "@/lib/supabase/server";
@@ -39,11 +41,11 @@ export async function signInWithPassword(
       redirect(`/sign-in/verify?project=internal&next=${encodeURIComponent("/owner")}`);
     return { error: "Those details did not match." };
   }
-  // A password is only the first step; the code from an authenticator app is
-  // the second. The proxy would send them there anyway — this saves a hop.
-  redirect(
-    `/sign-in/verify?project=${project}&next=${encodeURIComponent(safeDestination(form.get("next")) ?? "")}`,
-  );
+  // Venues and the founder office need the authenticator code next; a barber
+  // shop owner without two-step goes straight in. The proxy makes that call.
+  const next = safeDestination(form.get("next"));
+  if (project === "booking") redirect(next ?? "/console");
+  redirect(`/sign-in/verify?project=${project}&next=${encodeURIComponent(next ?? "")}`);
 }
 
 /**
@@ -180,7 +182,11 @@ export async function setPassword(
   } = await client.auth.getUser();
   if (!user) redirect(`/sign-in?project=${project}&next=${self}`);
   const { data: aal } = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-  if (aal?.currentLevel !== "aal2")
+  const level = { currentLevel: aal?.currentLevel ?? null, nextLevel: aal?.nextLevel ?? null };
+  const shopMember =
+    project === "booking" &&
+    ((await client.schema(SHOP_SCHEMA).from("members").select("tenant_id").eq("user_id", user.id).limit(1)).data?.length ?? 0) > 0;
+  if (needsTwoStep(PASSWORD_PATH, level, shopMember))
     redirect(`/sign-in/verify?project=${project}&next=${self}`);
 
   const { error } = await client.auth.updateUser({ password });
