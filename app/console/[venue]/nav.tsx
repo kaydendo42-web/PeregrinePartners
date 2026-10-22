@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 /**
- * Four places, and the customer CRM. Bookings is one day, seen as the floor, the list or the
+ * Four places, the $5 dinners pickup list, and the customer CRM. Bookings is one day, seen as the floor, the list or the
  * timeline (tabs on the day bar); Calendar is the month that leads into it.
  */
 const ITEMS = [
   ["/list", "Bookings", ["/list", "/floor", "/schedule"]],
   ["/calendar", "Calendar", ["/calendar"]],
+  ["/dinners", "Dinners", ["/dinners"]],
   ["/customers", "Customers", ["/customers"]],
   ["/crm", "Customer CRM", ["/crm"]],
   ["/settings", "Settings", ["/settings"]],
