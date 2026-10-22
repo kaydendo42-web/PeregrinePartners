@@ -2,9 +2,8 @@
 
 # Peregrine Partners
 
-Next.js 16 App Router, React 19, Tailwind v4, `motion`. This file is the
-handoff; the `handoff/` notes it used to point at are gone, and only
-`handoff/art-reference/` survives. Every word on the site lives in
+This file is the handoff; the `handoff/` notes it used to point at are gone,
+and only `handoff/art-reference/` survives. Every word on the site lives in
 `lib/content.ts`.
 
 ## The positioning, in one line
@@ -118,9 +117,9 @@ override never lands.
 ## The Floor
 
 `/platform` opens on the Floor, an isometric SVG model of a morning. The scene
-lives in `components/platform/scene/` (`geometry`, `data`, `props`, `island`,
-`glyphs`, `venue`) and `components/platform/agent-floor.tsx` orchestrates it:
-state, the panel, and the animation loop. `app/platform.css` holds every style.
+lives in `components/platform/scene/` and `components/platform/agent-floor.tsx`
+orchestrates it: state, the panel, and the animation loop. `app/platform.css`
+holds every style.
 Departments as islands you click into, the venue as the hub in the middle that you
 step inside, and the morning brief down the right.
 
@@ -183,8 +182,6 @@ without a copy review against the budgets.
 ## Run
 
 ```bash
-npm run dev     # localhost:3000
-npm run build   # production
 node docs/research/shoot-tiles.mjs [path] [width]   # screenshot a page per screen
 ```
 
