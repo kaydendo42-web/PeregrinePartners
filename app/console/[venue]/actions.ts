@@ -217,3 +217,20 @@ export async function updateBooking(slug: string, id: string, _: EditState, form
   revalidatePath(`/console/${slug}`, "layout");
   redirect(`/console/${slug}/list?date=${date}#${id}`);
 }
+
+/**
+ * Hand a dinner order over, or take that back. Only between paid and
+ * collected: refunds and cancellations happen in Square first.
+ */
+export async function setDinnerStatus(slug: string, id: string, status: "paid" | "collected") {
+  if ((status !== "paid" && status !== "collected") || demoOn()) return;
+  const venue = await venueBySlug(slug);
+  const { client } = await requireUser();
+  await client
+    .from("dinner_orders")
+    .update({ status })
+    .eq("id", id)
+    .eq("venue_id", venue.id)
+    .in("status", ["paid", "collected"]);
+  revalidatePath(`/console/${slug}/dinners`);
+}
