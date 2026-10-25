@@ -18,6 +18,15 @@ export function supabaseEnv(project: SupabaseProject = "booking") {
  * the database refuses, whatever this code asks for.
  */
 export async function supabase(project: SupabaseProject = "booking", remember?: boolean) {
+  return sessionClient(project, remember);
+}
+
+/** Raw expired credentials are visible only for revoking this session. */
+export async function supabaseForSignOut(project: SupabaseProject = "booking") {
+  return sessionClient(project, undefined, true);
+}
+
+async function sessionClient(project: SupabaseProject, remember?: boolean, forSignOut = false) {
   // Cookies first: reading them is what marks the route as per-request.
   const store = await cookies();
   const env = supabaseEnv(project);
@@ -26,7 +35,7 @@ export async function supabase(project: SupabaseProject = "booking", remember?: 
   return createServerClient(env.url, env.key, {
     db: { schema: schemaFor(project) },
     cookies: {
-      getAll: () => remember === undefined ? visibleCookies(store.getAll(), env.url) : store.getAll(),
+      getAll: () => remember === undefined && !forSignOut ? visibleCookies(store.getAll(), env.url) : store.getAll(),
       setAll: (list) => {
         // A Server Component cannot set cookies; the proxy refreshes them
         // instead, so a failure here is expected and harmless.

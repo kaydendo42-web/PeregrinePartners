@@ -13,7 +13,9 @@ export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
   const next = safeDestination(params.get("next")) ?? "";
   const project = authProject(next, params.get("project"));
-  const remember = await pendingChoice(project);
+  // Recovery and links opened in another browser have no pending choice.
+  // A new authentication must not inherit an expired or legacy cookie policy.
+  const remember = (await pendingChoice(project)) ?? false;
   const client = await supabase(project, remember);
 
   const code = params.get("code");
@@ -26,7 +28,7 @@ export async function GET(request: NextRequest) {
       ? await client.auth.verifyOtp({ token_hash: tokenHash, type })
       : { error: new Error("missing token") };
 
-  if (!error && remember !== undefined) await saveSessionPreference(project, remember);
+  if (!error) await saveSessionPreference(project, remember);
   const to = request.nextUrl.clone();
   to.search = "";
   to.searchParams.set("project", project);

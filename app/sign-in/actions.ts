@@ -4,7 +4,7 @@ import { needsTwoStep } from "@/lib/auth/two-step";
 import { SHOP_SCHEMA } from "@/lib/supabase/environment";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import { supabase, supabaseEnv, supabaseForSignOut } from "@/lib/supabase/server";
 import {
   safeDestination,
   defaultDestination,
@@ -211,14 +211,14 @@ export async function setPassword(
 }
 
 export async function signOut() {
-  const client = await supabase();
+  const client = await supabaseForSignOut();
   await client.auth.signOut({ scope: "local" });
   await clearSessionPreference("booking");
   redirect("/sign-in");
 }
 
 export async function signOutOwner() {
-  const client = await supabase("internal");
+  const client = await supabaseForSignOut("internal");
   await client.auth.signOut({ scope: "local" });
   await clearSessionPreference("internal");
   redirect("/sign-in?next=%2Fowner");

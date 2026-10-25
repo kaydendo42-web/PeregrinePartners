@@ -1333,12 +1333,14 @@
 .console-navigation-panel { gap: 24px; }
 .console-menu-toggle { display: none; }
 .console-table { overflow-wrap: anywhere; }
+.console-table th, .console-table .console-chip { overflow-wrap: normal; white-space: nowrap; }
 .console-actions { flex-wrap: wrap; }
 .console-tablepick { min-width: 0; }
 .console-tablepick select { max-width: 100%; }
 .console-form__row > *, .console-cal > * { min-width: 0; }
 .console-shell :is(input, select, textarea) { max-width: 100%; }
-.console-shell :is(.console-btn, .console-tablepick select, .console-daybar input, .console-form input, .console-form select) { min-height: 44px; }
+.console-shell :is(.console-btn, input, select, textarea) { min-height: 44px; }
+.console-switch { min-height: 44px; }
 .console-shell .console-btn { min-width: 44px; }
 .console-nav a { min-height: 44px; display: flex; align-items: center; }
 .console-schedule, .console-floorwrap { max-width: 100%; overscroll-behavior-x: contain; }
@@ -1346,7 +1348,7 @@
 .console-schedule__block { min-height: 44px; }
 
 @media (max-width: 1280px) {
-  .console-shell { grid-template-columns: minmax(0, 1fr); }
+  .console-shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
   .console-side {
     position: sticky;
     z-index: 30;
@@ -1359,7 +1361,7 @@
     overflow: visible;
   }
   .console-side__me { margin: 0; flex: 1; min-width: 0; }
-  .console-side__me .wsm-label { display: flex; }
+  .console-side__me .wsm-label { display: flex; flex-direction: column; }
   .console-side__me .wsm-caret { display: block; }
   .console-side__me .wsm-trigger { max-width: 340px; min-height: 44px; }
   .console-side__me .wsm-panel { position: absolute; top: calc(100% + 8px); left: 0; width: min(320px, calc(100vw - 32px)); }

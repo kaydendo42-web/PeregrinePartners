@@ -15,7 +15,7 @@ export async function saveSessionPreference(project: SupabaseProject, remember: 
   // an open tab cannot mistake expiry for a legacy session during refresh.
   store.set(policyName(env.url), value, remember ? { ...base(), maxAge: REMEMBER_SECONDS + 86400 } : base());
   // Reissue any chunks already written by sign-in with the same fixed policy.
-  for (const c of store.getAll()) if (isAuthCookie(c.name, env.url)) store.set(c.name, c.value, cookieOptions(base(), value));
+  for (const c of store.getAll()) if (c.value && isAuthCookie(c.name, env.url)) store.set(c.name, c.value, cookieOptions(base(), value));
   store.set(choiceName(env.url), "", { ...base(), maxAge: 0 });
 }
 
@@ -34,5 +34,9 @@ export async function clearSessionPreference(project: SupabaseProject) {
   const env = supabaseEnv(project);
   if (!env) return;
   const store = await cookies();
+  // Purge raw chunks even when an expired marker hid them from normal reads.
+  // Do this before deleting that marker, which would otherwise expose them
+  // as legacy cookies if the SDK could not clear its local session.
+  for (const c of store.getAll()) if (isAuthCookie(c.name, env.url)) store.set(c.name, "", { ...base(), maxAge: 0 });
   for (const name of [policyName(env.url), choiceName(env.url)]) store.set(name, "", { ...base(), maxAge: 0 });
 }

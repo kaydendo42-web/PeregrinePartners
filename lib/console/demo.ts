@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { Booking, Combination, Customer, FloorPlan, Section, Venue, VenueTable } from "./data";
+import type { DinnerOrder } from "./dinners";
 import { addDays, todayKey, zoned } from "./time.ts";
 
 /**
@@ -26,6 +27,20 @@ export const demoVenue: Venue = {
   notify_bookings: false,
   notify_email: null,
 };
+
+/** Fictional pickup records for checking collection controls without writes. */
+export function demoDinnerOrders(date: string): DinnerOrder[] {
+  return [
+    { name: "Alexandra Montgomery-Williams", email: "alexandra.montgomery.williams@example.com", status: "paid", quantity: 3 },
+    { name: "Chris Taylor", email: "chris@example.com", status: "collected", quantity: 1 },
+    { name: "Sam Nguyen", email: "sam@example.com", status: "cancelled", quantity: 2 },
+  ].map((guest, index) => ({
+    id: `DEMO-DINNER-${index + 1}`, pickup_date: date, guest_name: guest.name,
+    phone: "0400 000 000", email: guest.email, status: guest.status as DinnerOrder["status"],
+    total_cents: guest.quantity * 500, paid_at: `${date}T00:00:00Z`, created_at: `${date}T00:00:00Z`,
+    dinner_order_lines: [{ dish_id: "demo-stew", dish_name: "Slow-cooked beef stew with vegetables", price_cents: 500, quantity: guest.quantity }],
+  }));
+}
 
 /** The room around the tables, from the seed's plan line. */
 export function demoPlan(): FloorPlan | null {

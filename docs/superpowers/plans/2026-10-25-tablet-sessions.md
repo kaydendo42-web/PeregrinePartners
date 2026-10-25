@@ -1,6 +1,6 @@
 # Tablet dashboard and remembered sessions implementation plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Ship the approved tablet adaptation and explicit 30-day session persistence.
 **Architecture:** A shared pure cookie-policy module keeps server, proxy and browser refreshes consistent. Existing Supabase identity, MFA and RLS remain authoritative; provider session lifetime is documented separately for rollout. Responsive console styles and a disclosure navigation adapt the existing screens.
@@ -28,23 +28,23 @@
 **Files:** Create `lib/auth/session-policy.ts`, `lib/auth/session-preference.ts`, `tests/crm/session-policy.test.ts`; modify `lib/supabase/{server,browser}.ts`, `proxy.ts`, `app/sign-in/{actions,page}.tsx` (actions is `.ts`), `app/auth/confirm/route.ts`, `components/forms/sign-in-form.tsx`, `lib/content.ts`, `lib/auth/next.ts`.
 **Interfaces:** Pure helpers name policy cookies by Supabase project URL, parse preferences, create a fixed expiry, adapt auth cookie options and filter expired session cookies. Server helpers persist/clear preferences; sign-in routing uses safeDestination and existing authProject.
 
-- [ ] Write tests for fixed expiry, unchecked session cookies, deletion preservation, project separation, legacy sessions, malformed/expired policy and returning-session routing; run and observe failure.
-- [ ] Implement the shared policy and integrate every cookie writer, sign-in path and local sign-out. Add the unchecked checkbox and trusted-device copy. Do not change provider settings in preview.
-- [ ] Run targeted tests, existing MFA/project tests and TypeScript; commit.
+- [x] Write tests for fixed expiry, unchecked session cookies, deletion preservation, project separation, legacy sessions, malformed/expired policy and returning-session routing; run and observe failure.
+- [x] Implement the shared policy and integrate every cookie writer, sign-in path and local sign-out. Add the unchecked checkbox and trusted-device copy. Do not change provider settings in preview.
+- [x] Run targeted tests, existing MFA/project tests and TypeScript; commit.
 
 ### Task 2: Tablet navigation and working layouts
 
 **Files:** Modify `app/console/[venue]/{layout,nav}.tsx`, `app/console/console.css`, booking and dinner list classes as needed. Add responsive fixture verification under `tests/console/` if needed.
 **Interfaces:** Existing console routes/actions/data unchanged; semantic navigation disclosure and console-table variants preserve keyboard/touch use.
 
-- [ ] Use the recorded 1024px overflow and 768px density failures as visual regression cases.
-- [ ] Implement tablet navigation, compact grouped booking/dinner rows, wrapping date controls, two-column forms and 44px touch controls; contain timeline/floor scrolling.
-- [ ] Run demo locally without production credentials; batch-check both tablet orientations, phone and desktop. Fix material findings once, confirm and commit.
+- [x] Use the recorded 1024px overflow and 768px density failures as visual regression cases.
+- [x] Implement tablet navigation, compact grouped booking/dinner rows, wrapping date controls, two-column forms and 44px touch controls; contain timeline/floor scrolling.
+- [x] Run demo locally without production credentials; batch-check both tablet orientations, phone and desktop. Fix material findings once, confirm and commit.
 
 ### Task 3: Verify and deliver
 
 **Files:** Add rollout/check results to `docs/console-setup.md` and update spec status.
 
-- [ ] Run test suite, lint, Next type generation, TypeScript, build and Impeccable detector on modified UI.
-- [ ] Obtain an independent whole-branch review, fix material findings with regression tests.
+- [x] Run test suite, lint, Next type generation, TypeScript, build and Impeccable detector on modified UI.
+- [x] Obtain an independent whole-branch review, fix material findings with regression tests.
 - [ ] Push feature branch, create a PR and Vercel preview, verify preview access and report provider setting requirements accurately. Kayden merges.

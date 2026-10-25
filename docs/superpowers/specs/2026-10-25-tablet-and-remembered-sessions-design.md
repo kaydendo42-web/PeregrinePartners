@@ -1,6 +1,8 @@
 # Peacock tablet dashboard and remembered sessions
 
-Status: approved by Kayden in chat on 25 October 2026.
+Status: approved by Kayden in chat on 25 October 2026; implemented for preview.
+Provider-enforced 30-day cutoff is blocked by both current Free plans.
+See `docs/console-setup.md` for inspected values and verification limits.
 
 ## Intent
 
@@ -109,7 +111,8 @@ after a user explicitly signs out, loses cookies or starts a fresh login.
   confirmation pass after fixing material findings. Distinguish viewport
   emulation from a physical-device touch test.
 - A preview and reviewable PR in PeregrinePartners. Kayden merges. Keep the
-  public site's Square credential blocker separate and on hold pending Jenny.
+  public site's payment verification separate. Its replacement Square token now
+  opens hosted checkout; a paid transaction and webhook remain unverified.
 
 No PWA, push notifications, booking workflow redesign or marketing-site redesign
 is included in this change.
