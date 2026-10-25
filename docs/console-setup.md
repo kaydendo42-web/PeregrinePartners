@@ -161,3 +161,10 @@ No real booking or payment was changed. These are viewport checks, not a
 physical-tablet test. Authenticated password/MFA/email/recovery smoke tests
 against a hosted preview remain a release check; adapter regression tests
 cover recovery callbacks, expiry, local sign-out and deleted cookie chunks.
+
+
+Preview delivery: [draft PR #15](https://github.com/kaydendo42-web/PeregrinePartners/pull/15).
+[Vercel preview](https://peregrine-partners-git-feat-tab-7bfcc5-kaydendo42-webs-projects.vercel.app/sign-in)
+built successfully through the Git integration. The hosted sign-in page loads
+and displays the new unchecked option. Sign in with a test account to complete
+the authenticated release checks; production was not deployed by this branch.

@@ -47,4 +47,4 @@
 
 - [x] Run test suite, lint, Next type generation, TypeScript, build and Impeccable detector on modified UI.
 - [x] Obtain an independent whole-branch review, fix material findings with regression tests.
-- [ ] Push feature branch, create a PR and Vercel preview, verify preview access and report provider setting requirements accurately. Kayden merges.
+- [x] Push feature branch, create a PR and Vercel preview, verify preview access and report provider setting requirements accurately. Kayden merges.
