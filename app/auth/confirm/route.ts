@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/server";
 import { safeDestination, authProject } from "@/lib/auth/next";
+import { pendingChoice, saveSessionPreference } from "@/lib/auth/session-preference";
 
 /**
  * Where a sign-in link lands. Supabase sends either a code (PKCE) or a token
@@ -12,7 +13,8 @@ export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
   const next = safeDestination(params.get("next")) ?? "";
   const project = authProject(next, params.get("project"));
-  const client = await supabase(project);
+  const remember = await pendingChoice(project);
+  const client = await supabase(project, remember);
 
   const code = params.get("code");
   const tokenHash = params.get("token_hash");
@@ -24,6 +26,7 @@ export async function GET(request: NextRequest) {
       ? await client.auth.verifyOtp({ token_hash: tokenHash, type })
       : { error: new Error("missing token") };
 
+  if (!error && remember !== undefined) await saveSessionPreference(project, remember);
   const to = request.nextUrl.clone();
   to.search = "";
   to.searchParams.set("project", project);

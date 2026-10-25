@@ -1,6 +1,6 @@
 # Peacock tablet dashboard and remembered sessions
 
-Status: proposed; awaiting Kayden's scope approval.
+Status: approved by Kayden in chat on 25 October 2026.
 
 ## Intent
 

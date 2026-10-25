@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { authProject } from "@/lib/auth/next";
+import { authProject, returningDestination } from "@/lib/auth/next";
+import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { BRAND_NAME } from "@/lib/brand";
 import { AuthFrame } from "@/components/auth-frame";
 import { SignInForm } from "@/components/forms/sign-in-form";
@@ -32,6 +34,12 @@ export async function generateMetadata({
 export default async function SignIn({ searchParams }: PageProps<"/sign-in">) {
   const { next, link, project: requestedProject } = await searchParams;
   const project = authProject(next, requestedProject);
+  if (supabaseEnv(project)) {
+    const client = await supabase(project);
+    const { data: { user } } = await client.auth.getUser();
+    const destination = returningDestination(Boolean(user), project, next);
+    if (destination) redirect(destination);
+  }
   return (
     <AuthFrame label={signIn.eyebrow}>
       <h1 className="t-display mt-[40px] text-white">
