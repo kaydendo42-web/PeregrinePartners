@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { Booking, Combination, Customer, FloorPlan, Section, Venue, VenueTable } from "./data";
-import { addDays, todayKey, zoned } from "./time";
+import { addDays, todayKey, zoned } from "./time.ts";
 
 /**
  * Development-only stand-in for Supabase, so the console can be looked at
@@ -29,18 +29,18 @@ export const demoVenue: Venue = {
 
 /** The room around the tables, from the seed's plan line. */
 export function demoPlan(): FloorPlan | null {
-  const m = seed().match(/update public\.venues set plan = '(.*)'::jsonb/);
+  const m = seed().match(/update (?:public|thepeacock)\.venues set plan = '(.*)'::jsonb/);
   return m ? (JSON.parse(m[1].replace(/''/g, "'")) as FloorPlan) : null;
 }
 
 export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combinations: Combination[] } {
   const sql = seed();
-  const sections = [...sql.matchAll(/into public\.sections .*? values \('[^']+', '([^']+)', '([^']+)', (\d+), (true|false)\)/g)].map(
+  const sections = [...sql.matchAll(/into (?:public|thepeacock)\.sections .*? values \('[^']+', '([^']+)', '([^']+)', (\d+), (true|false)\)/g)].map(
     (m) => ({ id: m[1], name: m[2], sort: Number(m[3]), indoor: m[4] === "true" }),
   );
   const tables = [
     ...sql.matchAll(
-      /into public\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), (\d+), (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
+      /into (?:public|thepeacock)\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), (\d+), (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
     ),
   ]
     .map((m) => ({
@@ -59,7 +59,7 @@ export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combin
     }))
     .sort((a, b) => a.label.localeCompare(b.label, "en", { numeric: true }));
   const combinations = [
-    ...sql.matchAll(/into public\.table_combinations .*? values \('[^']+', '([^']+)', array\[([^\]]+)\], (\d+), (\d+), (\d+)\)/g),
+    ...sql.matchAll(/into (?:public|thepeacock)\.table_combinations .*? values \('[^']+', '([^']+)', array\[([^\]]+)\], (\d+), (\d+), (\d+)\)/g),
   ].map((m) => ({
     id: m[1],
     table_ids: [...m[2].matchAll(/'([^']+)'/g)].map((x) => x[1]),

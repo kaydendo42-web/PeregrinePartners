@@ -64,7 +64,7 @@ export default async function ListPage({
       </p>
 
       {bookings.length ? (
-        <table className="console-table">
+        <table className="console-table console-table--bookings">
           <thead>
             <tr>
               <th>Time</th>
