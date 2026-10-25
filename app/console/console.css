@@ -1321,3 +1321,184 @@
   color: var(--alert);
   font-size: 12px;
 }
+
+/* --- working layouts: tablet and touch ------------------------------------ */
+.console-navigation,
+.console-navigation-panel {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+.console-navigation-panel { gap: 24px; }
+.console-menu-toggle { display: none; }
+.console-table { overflow-wrap: anywhere; }
+.console-table th, .console-table .console-chip { overflow-wrap: normal; white-space: nowrap; }
+.console-actions { flex-wrap: wrap; }
+.console-tablepick { min-width: 0; }
+.console-tablepick select { max-width: 100%; }
+.console-form__row > *, .console-cal > * { min-width: 0; }
+.console-shell :is(input, select, textarea) { max-width: 100%; }
+.console-shell :is(.console-btn, input, select, textarea) { min-height: 44px; }
+.console-switch { min-height: 44px; }
+.console-shell .console-btn { min-width: 44px; }
+.console-nav a { min-height: 44px; display: flex; align-items: center; }
+.console-schedule, .console-floorwrap { max-width: 100%; overscroll-behavior-x: contain; }
+.console-schedule__row .console-schedule__track { height: 54px; }
+.console-schedule__block { min-height: 44px; }
+
+@media (max-width: 1280px) {
+  .console-shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .console-side {
+    position: sticky;
+    z-index: 30;
+    top: 0;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 24px;
+    overflow: visible;
+  }
+  .console-side__me { margin: 0; flex: 1; min-width: 0; }
+  .console-side__me .wsm-label { display: flex; flex-direction: column; }
+  .console-side__me .wsm-caret { display: block; }
+  .console-side__me .wsm-trigger { max-width: 340px; min-height: 44px; }
+  .console-side__me .wsm-panel { position: absolute; top: calc(100% + 8px); left: 0; width: min(320px, calc(100vw - 32px)); }
+  .console-navigation { flex: 0 0 auto; }
+  .console-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    color: #fff;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+  }
+  .console-menu-toggle[aria-expanded="true"] { background: #ffffff1f; }
+  .console-navigation-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 16px 24px 20px;
+    background: var(--night);
+    border-top: 1px solid var(--hairline);
+    max-height: calc(100dvh - 70px);
+    overflow-y: auto;
+  }
+  .console-navigation[data-open="true"] .console-navigation-panel { display: flex; gap: 16px; }
+  .console-navigation-panel .console-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .console-nav a { padding: 10px 12px; white-space: normal; font-size: 14px; }
+  .console-navigation-panel .console-side__out { margin: 0; flex-direction: row; gap: 10px; border-top: 1px solid var(--hairline); padding-top: 16px; }
+  .console-side__out > * { flex: 1; }
+  .console-side__out :is(a, button) { min-height: 44px; }
+  .console-top { padding: 16px 24px; }
+  .console-body { padding: 24px 24px 48px; }
+  .console-top__venue { min-width: 0; text-wrap: balance; }
+  .console-top .console-btn--primary { flex-shrink: 0; }
+  .console-daybar { gap: 10px; }
+  .console-daybar__label { min-width: 0; }
+  .console-daybar__pick { margin-left: auto; }
+  .console-views a { min-height: 44px; display: flex; align-items: center; padding: 0 16px; }
+  .console-form__row, .console-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .console-split { grid-template-columns: minmax(0, 1fr); }
+  .console-form :is(input, select, textarea) { width: 100%; font-size: 16px; }
+
+  /* Group the same table data into compact working rows. No fields disappear. */
+  .console-table, .console-table tbody { display: block; }
+  .console-table thead { display: none; }
+  .console-table tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+    padding: 20px;
+    border-top: 1px solid var(--rule);
+  }
+  .console-table tr:first-child { border-top: 0; }
+  .console-table td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+    max-width: none;
+    padding: 0;
+    border: 0;
+    overflow-wrap: anywhere;
+  }
+  .console-table td[data-label]::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .console-table .console-ref { margin: 0; }
+  .console-table .console-actions {
+    flex-direction: row;
+    align-items: flex-end;
+    align-content: flex-end;
+    gap: 8px;
+    justify-content: flex-start;
+    grid-column: 1 / -1;
+    padding-top: 0 !important;
+  }
+  .console-table--bookings tr {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.15fr);
+    grid-template-areas: "guest time status" "table party contact" "notes notes actions";
+  }
+  .console-table--bookings td[data-label="Guest"] { grid-area: guest; font-weight: 600; }
+  .console-table--bookings td[data-label="Time"] { grid-area: time; }
+  .console-table--bookings td[data-label="Status"] { grid-area: status; }
+  .console-table--bookings td[data-label="Table"] { grid-area: table; }
+  .console-table--bookings td[data-label="Party"] { grid-area: party; }
+  .console-table--bookings td[data-label="Contact"] { grid-area: contact; }
+  .console-table--bookings td[data-label="Notes"] { grid-area: notes; }
+  .console-table--bookings .console-actions { grid-area: actions; }
+  .console-table--dinners tr {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, .65fr);
+    grid-template-areas: "name dinners status" "contact dinners paid" "actions actions actions";
+  }
+  .console-table--dinners td[data-label="Name"] { grid-area: name; }
+  .console-table--dinners td[data-label="Dinners"] { grid-area: dinners; }
+  .console-table--dinners td[data-label="Status"] { grid-area: status; }
+  .console-table--dinners td[data-label="Contact"] { grid-area: contact; }
+  .console-table--dinners td[data-label="Paid"] { grid-area: paid; }
+  .console-table--dinners .console-actions { grid-area: actions; justify-content: flex-end; }
+}
+
+@media (max-width: 640px) {
+  .console-side { padding: 8px 16px; }
+  .console-side__me .wsm-trigger { max-width: calc(100vw - 140px); }
+  .console-side__me .wsm-label strong { max-width: 38vw; }
+  .console-navigation-panel { padding-inline: 16px; }
+  .console-navigation-panel .console-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .console-top { padding: 14px 16px; gap: 12px; }
+  .console-top__venue { font-size: 16px; }
+  .console-top .console-btn { padding-inline: 10px; font-size: 13px; }
+  .console-body { padding: 20px 16px 40px; }
+  .console-daybar { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; }
+  .console-daybar__label { font-size: 16px; }
+  .console-daybar .console-daybar__pick { grid-column: 1 / -1; margin: 0; order: 0; }
+  .console-daybar__pick input { flex: 1; min-width: 0; }
+  .console-daybar .console-views { grid-column: 1 / -1; order: 0; display: flex; }
+  .console-views a { flex: 1; justify-content: center; }
+  .console-form__row, .console-stats { grid-template-columns: minmax(0, 1fr); }
+  .console-table tr { padding: 16px; gap: 14px 16px; }
+  .console-table--bookings tr {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "guest status" "time party" "table table" "contact contact" "notes notes" "actions actions";
+  }
+  .console-table--dinners tr {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "name status" "dinners dinners" "contact paid" "actions actions";
+  }
+  .console-table--dinners .console-actions { justify-content: flex-start; }
+  .console-cal__day, .console-cal__pad { padding: 5px; min-height: 72px; }
+}

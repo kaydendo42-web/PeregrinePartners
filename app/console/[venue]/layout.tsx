@@ -44,7 +44,7 @@ export default async function VenueLayout({
             current={`venue:${slug}`}
           />
         </div>
-        <ConsoleNav slug={slug} />
+        <ConsoleNav slug={slug}>
         <div className="console-side__out">
           <a href={`/sign-in/password?next=${encodeURIComponent(`/console/${slug}`)}`}>
             Password
@@ -53,6 +53,7 @@ export default async function VenueLayout({
             <button type="submit">Sign out</button>
           </form>
         </div>
+        </ConsoleNav>
       </aside>
       <div className="console-main">
         <header className="console-top">

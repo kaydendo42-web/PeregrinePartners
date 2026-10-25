@@ -4,7 +4,7 @@ import { needsTwoStep } from "@/lib/auth/two-step";
 import { SHOP_SCHEMA } from "@/lib/supabase/environment";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { supabase, supabaseEnv } from "@/lib/supabase/server";
+import { supabase, supabaseEnv, supabaseForSignOut } from "@/lib/supabase/server";
 import {
   safeDestination,
   defaultDestination,
@@ -13,6 +13,8 @@ import {
   PASSWORD_PATH,
 } from "@/lib/auth/next";
 import { signInPassword as passwordCopy } from "@/lib/content";
+import { rememberSelected } from "@/lib/auth/session-policy";
+import { saveSessionPreference, savePendingChoice, clearSessionPreference } from "@/lib/auth/session-preference";
 
 export type SignInState = { error?: string; sent?: boolean };
 export type VerifyState = { error?: string };
@@ -34,13 +36,15 @@ export async function signInWithPassword(
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password." };
 
-  const client = await supabase(project);
+  const remember = rememberSelected(form.get("remember"));
+  const client = await supabase(project, remember);
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) {
-    if (project === "booking" && (await founderSignIn(email, password)))
+    if (project === "booking" && (await founderSignIn(email, password, remember)))
       redirect(`/sign-in/verify?project=internal&next=${encodeURIComponent("/owner")}`);
     return { error: "Those details did not match." };
   }
+  await saveSessionPreference(project, remember);
   // Venues and the founder office need the authenticator code next; a barber
   // shop owner without two-step goes straight in. The proxy makes that call.
   const next = safeDestination(form.get("next"));
@@ -53,14 +57,17 @@ export async function signInWithPassword(
  * Peregrine Office founder. Anything short of an approved founder signs
  * straight back out, and the form gives the same answer either way.
  */
-async function founderSignIn(email: string, password: string) {
+async function founderSignIn(email: string, password: string, remember: boolean) {
   if (!supabaseEnv("internal")) return false;
-  const client = await supabase("internal");
+  const client = await supabase("internal", remember);
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) return false;
   const { data: owner } = await client.rpc("crm_owner_status");
-  if (owner === true) return true;
-  await client.auth.signOut();
+  if (owner === true) {
+    await saveSessionPreference("internal", remember);
+    return true;
+  }
+  await client.auth.signOut({ scope: "local" });
   return false;
 }
 
@@ -118,6 +125,7 @@ export async function sendSignInLink(
     return { error: "Sign-in isn't switched on for this site yet." };
   const email = String(form.get("email") ?? "").trim();
   if (!email) return { error: "Enter your email." };
+  await savePendingChoice(project, rememberSelected(form.get("remember")));
 
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
@@ -203,14 +211,16 @@ export async function setPassword(
 }
 
 export async function signOut() {
-  const client = await supabase();
-  await client.auth.signOut();
+  const client = await supabaseForSignOut();
+  await client.auth.signOut({ scope: "local" });
+  await clearSessionPreference("booking");
   redirect("/sign-in");
 }
 
 export async function signOutOwner() {
-  const client = await supabase("internal");
-  await client.auth.signOut();
+  const client = await supabaseForSignOut("internal");
+  await client.auth.signOut({ scope: "local" });
+  await clearSessionPreference("internal");
   redirect("/sign-in?next=%2Fowner");
 }
 

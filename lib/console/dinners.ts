@@ -1,5 +1,5 @@
 import { requireUser } from "./data";
-import { demoOn } from "./demo";
+import { demoOn, demoDinnerOrders } from "./demo";
 
 /**
  * The Peacock's $5 dinner orders, which the website writes once Square has the
@@ -26,7 +26,7 @@ export type DinnerOrder = {
 
 /** Orders to hand over on a pickup day. Unpaid holds and lapsed checkouts are not orders. */
 export async function dinnerOrdersOn(venueId: string, date: string): Promise<DinnerOrder[]> {
-  if (demoOn()) return [];
+  if (demoOn()) return demoDinnerOrders(date);
   const { client } = await requireUser();
   const { data, error } = await client
     .from("dinner_orders")

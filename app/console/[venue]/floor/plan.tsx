@@ -51,7 +51,7 @@ export function FloorPlanSvg({
   const seen = new Set<string>();
 
   return (
-    <div className="console-floorwrap">
+    <div className="console-floorwrap" role="region" aria-label="Floor plan, scroll horizontally to explore" tabIndex={0}>
       <svg className="console-floor" viewBox={box.join(" ")} role="img" aria-label={label}>
         {plan ? (
           <g aria-hidden="true">

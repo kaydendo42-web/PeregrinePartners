@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { Booking, Combination, Customer, FloorPlan, Section, Venue, VenueTable } from "./data";
-import { addDays, todayKey, zoned } from "./time";
+import type { DinnerOrder } from "./dinners";
+import { addDays, todayKey, zoned } from "./time.ts";
 
 /**
  * Development-only stand-in for Supabase, so the console can be looked at
@@ -27,20 +28,34 @@ export const demoVenue: Venue = {
   notify_email: null,
 };
 
+/** Fictional pickup records for checking collection controls without writes. */
+export function demoDinnerOrders(date: string): DinnerOrder[] {
+  return [
+    { name: "Alexandra Montgomery-Williams", email: "alexandra.montgomery.williams@example.com", status: "paid", quantity: 3 },
+    { name: "Chris Taylor", email: "chris@example.com", status: "collected", quantity: 1 },
+    { name: "Sam Nguyen", email: "sam@example.com", status: "cancelled", quantity: 2 },
+  ].map((guest, index) => ({
+    id: `DEMO-DINNER-${index + 1}`, pickup_date: date, guest_name: guest.name,
+    phone: "0400 000 000", email: guest.email, status: guest.status as DinnerOrder["status"],
+    total_cents: guest.quantity * 500, paid_at: `${date}T00:00:00Z`, created_at: `${date}T00:00:00Z`,
+    dinner_order_lines: [{ dish_id: "demo-stew", dish_name: "Slow-cooked beef stew with vegetables", price_cents: 500, quantity: guest.quantity }],
+  }));
+}
+
 /** The room around the tables, from the seed's plan line. */
 export function demoPlan(): FloorPlan | null {
-  const m = seed().match(/update public\.venues set plan = '(.*)'::jsonb/);
+  const m = seed().match(/update (?:public|thepeacock)\.venues set plan = '(.*)'::jsonb/);
   return m ? (JSON.parse(m[1].replace(/''/g, "'")) as FloorPlan) : null;
 }
 
 export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combinations: Combination[] } {
   const sql = seed();
-  const sections = [...sql.matchAll(/into public\.sections .*? values \('[^']+', '([^']+)', '([^']+)', (\d+), (true|false)\)/g)].map(
+  const sections = [...sql.matchAll(/into (?:public|thepeacock)\.sections .*? values \('[^']+', '([^']+)', '([^']+)', (\d+), (true|false)\)/g)].map(
     (m) => ({ id: m[1], name: m[2], sort: Number(m[3]), indoor: m[4] === "true" }),
   );
   const tables = [
     ...sql.matchAll(
-      /into public\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), (\d+), (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
+      /into (?:public|thepeacock)\.venue_tables .*? values \('[^']+', '([^']+)', '([^']+)', '([^']+)', (\d+), (\d+), (\d+), '([^']+)', ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), (\d+)\)/g,
     ),
   ]
     .map((m) => ({
@@ -59,7 +74,7 @@ export function demoFloor(): { sections: Section[]; tables: VenueTable[]; combin
     }))
     .sort((a, b) => a.label.localeCompare(b.label, "en", { numeric: true }));
   const combinations = [
-    ...sql.matchAll(/into public\.table_combinations .*? values \('[^']+', '([^']+)', array\[([^\]]+)\], (\d+), (\d+), (\d+)\)/g),
+    ...sql.matchAll(/into (?:public|thepeacock)\.table_combinations .*? values \('[^']+', '([^']+)', array\[([^\]]+)\], (\d+), (\d+), (\d+)\)/g),
   ].map((m) => ({
     id: m[1],
     table_ids: [...m[2].matchAll(/'([^']+)'/g)].map((x) => x[1]),

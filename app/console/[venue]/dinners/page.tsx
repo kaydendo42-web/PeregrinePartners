@@ -60,7 +60,7 @@ export default async function DinnersPage({
       ) : null}
 
       {orders.length ? (
-        <table className="console-table">
+        <table className="console-table console-table--dinners">
           <thead>
             <tr>
               <th>Name</th>

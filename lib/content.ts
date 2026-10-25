@@ -689,6 +689,8 @@ export const waitlist = {
 };
 
 export const signIn = {
+  remember: "Keep me signed in for 30 days",
+  rememberHint: "Use this on a device you trust. Signing out ends this session.",
   eyebrow: "Sign in",
   heading: "Your venue's console.",
   sub: "Sign in with the email your venue was set up under. Your bookings, floor plan and guests are waiting. Not on the system yet? The platform tour needs no account.",

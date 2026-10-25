@@ -4,6 +4,7 @@ import { supabaseEnv } from "@/lib/supabase/server";
 import { safeDestination, authProject } from "@/lib/auth/next";
 import { isShopPath, needsTwoStep } from "@/lib/auth/two-step";
 import { SHOP_SCHEMA } from "@/lib/supabase/environment";
+import { cookieOptions, isAuthCookie, policyName, visibleCookies } from "@/lib/auth/session-policy";
 
 /**
  * Keeps a console session alive. Supabase's access token is short-lived; this
@@ -36,14 +37,14 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const client = createServerClient(url, key, {
     cookies: {
-      getAll: () => request.cookies.getAll(),
+      getAll: () => visibleCookies(request.cookies.getAll(), url),
       setAll: (list) => {
         const previous = response.cookies.getAll();
         for (const { name, value } of list) request.cookies.set(name, value);
         response = NextResponse.next({ request });
         for (const cookie of previous) response.cookies.set(cookie);
         for (const { name, value, options } of list)
-          response.cookies.set(name, value, options);
+          response.cookies.set(name, value, isAuthCookie(name, url) ? cookieOptions(options, request.cookies.get(policyName(url))?.value) : options);
       },
     },
   });
@@ -60,14 +61,14 @@ export async function proxy(request: NextRequest) {
   if (bookingEnv) {
     const booking = createServerClient(bookingEnv.url, bookingEnv.key, {
       cookies: {
-        getAll: () => request.cookies.getAll(),
+        getAll: () => visibleCookies(request.cookies.getAll(), bookingEnv.url),
         setAll: (list) => {
           const previous = response.cookies.getAll();
           for (const { name, value } of list) request.cookies.set(name, value);
           response = NextResponse.next({ request });
           for (const cookie of previous) response.cookies.set(cookie);
           for (const { name, value, options } of list)
-            response.cookies.set(name, value, options);
+            response.cookies.set(name, value, isAuthCookie(name, bookingEnv.url) ? cookieOptions(options, request.cookies.get(policyName(bookingEnv.url))?.value) : options);
         },
       },
     });

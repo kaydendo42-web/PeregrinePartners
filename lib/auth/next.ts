@@ -65,3 +65,8 @@ export function credentialDestination(
   if (!authenticated) return "/sign-in?next=%2Fowner";
   return level === "aal2" ? null : "/sign-in/verify?next=%2Fowner";
 }
+
+/** Authentication is checked by the caller; the destination still enforces MFA and membership. */
+export function returningDestination(authenticated: boolean, project: "booking" | "internal", requested: unknown): string | null {
+  return authenticated ? safeDestination(requested) ?? (project === "internal" ? "/owner" : "/console") : null;
+}

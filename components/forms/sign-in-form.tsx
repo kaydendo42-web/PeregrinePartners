@@ -32,6 +32,7 @@ export function SignInForm({
   linkExpired?: boolean;
 }) {
   const [mode, setMode] = useState<"password" | "link" | "reset">("password");
+  const [remember, setRemember] = useState(false);
   const [pwState, pwAction, pwPending] = useActionState<SignInState, FormData>(
     signInWithPassword,
     {},
@@ -115,6 +116,17 @@ export function SignInForm({
               style={inputStyle}
             />
           </Field>
+        ) : null}
+
+        {mode !== "reset" ? (
+          <label className="flex min-h-[44px] cursor-pointer items-start gap-[12px] text-white">
+            <input type="checkbox" name="remember" checked={remember} onChange={e => setRemember(e.target.checked)}
+              className="mt-[3px] h-[20px] w-[20px] shrink-0 accent-white" />
+            <span className="text-[15px] leading-[1.5]">
+              {signIn.remember}
+              <span className="block text-[13px] text-white/70">{signIn.rememberHint}</span>
+            </span>
+          </label>
         ) : null}
 
         {state.error ? (
