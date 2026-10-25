@@ -1,5 +1,13 @@
 # Peregrine Partners
 
+> **Historical source — updated 26 October 2026.** Current client consoles
+> and founder office are maintained in `peregrine-office/PeregrineOffice-Live`,
+> branch `master`, hosted on Cloudflare Worker `peregrine-office`. This repo
+> does not deploy the live `www.peregrineoffice.space` console. Tablet/session
+> PR #15 merged here at `73afd37`, then was ported and merged in the current
+> repository as PR #7 (`bd45660`). Its Cloudflare upload remains unconfirmed.
+> Read that repository's README and `docs/PICKUP.md` before further live work.
+
 Next.js 16 (App Router) + Tailwind v4 + `motion`. Built on a measured design
 system rather than eyeballed: every size, spacing and radius below came out of
 `getComputedStyle` on the reference at a 1440px viewport.

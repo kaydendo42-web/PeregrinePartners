@@ -163,8 +163,21 @@ against a hosted preview remain a release check; adapter regression tests
 cover recovery callbacks, expiry, local sign-out and deleted cookie chunks.
 
 
-Preview delivery: [draft PR #15](https://github.com/kaydendo42-web/PeregrinePartners/pull/15).
+Historical preview delivery: [PR #15 (now merged)](https://github.com/kaydendo42-web/PeregrinePartners/pull/15).
 [Vercel preview](https://peregrine-partners-git-feat-tab-7bfcc5-kaydendo42-webs-projects.vercel.app/sign-in)
 built successfully through the Git integration. The hosted sign-in page loads
 and displays the new unchecked option. Sign in with a test account to complete
 the authenticated release checks; production was not deployed by this branch.
+
+
+## Production source correction — 26 October 2026
+
+The current Office source is `peregrine-office/PeregrineOffice-Live`, branch
+`master`, Cloudflare Worker `peregrine-office`. This repository's PR #15
+merged at `73afd37`; its Vercel success updated the older app only. The same
+approved feature was ported into the current source and merged as PR #7 at
+`bd45660`. That port passed 89 tests/types/lint/Worker build/dry-run. A
+successful Cloudflare upload has not been confirmed; the last agent attempt
+was blocked by network and external log-directory restrictions. See the
+current repository's README, `docs/PICKUP.md` and tablet/session rollout notes.
+GitHub-to-Cloudflare auto-deploy was discussed, not configured in this session.
